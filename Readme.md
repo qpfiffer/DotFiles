@@ -1,6 +1,6 @@
 Packages to Install
 -------------------
-`git subversion build-essential vim htop chromium-browser imwheel gconf-editor wine tmux`
+install: `git subversion fonts-inconsolata build-essential vim htop chromium-browser imwheel gconf-editor wine tmux`
 
 Plugins to install
 ------------------
