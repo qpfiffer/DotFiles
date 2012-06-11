@@ -101,13 +101,6 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
-
-alias irssi='irssi -n qpfiffer'
-
-export WORKON_HOME=~/.Envs
-
-#alias emacs='emacs -nw'
-export PATH=$PATH:/home/quinlan/src/go/bin
 export LD_LIBRARY_PATH=/usr/local/lib
 
 alias tmux="TERM=xterm-256color tmux"
