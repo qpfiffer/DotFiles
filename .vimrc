@@ -3,6 +3,11 @@ filetype indent plugin on
 set number
 set background=dark
 
+set tabstop=4
+set expandtab
+set shiftwidth=4
+set softtabstop=4
+
 set t_Co=16
 let g:solarized_termcolors=16
 colorscheme solarized
