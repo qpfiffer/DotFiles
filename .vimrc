@@ -3,6 +3,8 @@ filetype indent plugin on
 set number
 set background=dark
 
+set pastetoggle=<F2>
+
 set tabstop=4
 set expandtab
 set shiftwidth=4

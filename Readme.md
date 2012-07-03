@@ -5,6 +5,7 @@ install: `git subversion fonts-inconsolata build-essential vim htop chromium-bro
 Plugins to install
 ------------------
 `Duck Duck Go, Disconnect, HTTPSEverywhere`
+`Firefox, Ghostery, Pentadactyl`
 
 Tasks
 -----
