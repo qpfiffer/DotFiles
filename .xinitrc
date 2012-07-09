@@ -1,14 +1,16 @@
 #!/bin/bash
 eval $(cat ~/.fehbg) &
 #google-musicmanager &
-imwheel & # Because chromium scrolls like a fucking dead person
-wine ~/.wine/drive_c/Program\ Files/Steam/steam.exe &
-pidgin &
-/usr/bin/dropbox start &
-chromium-browser &
+xrdb ~/.Xresources &
+#imwheel & # Because chromium scrolls like a fucking dead person
+#wine ~/.wine/drive_c/Program\ Files/Steam/steam.exe &
+#pidgin &
+#/usr/bin/dropbox start &
+#chromium-browser &
+firefox &
 while true
 do
-	LOCALTIME=$(date)
+    LOCALTIME=$(~/src/DotFiles/hex_time_bash.sh)
 
 	xsetroot -name "$LOCALTIME"
 	sleep 5s
