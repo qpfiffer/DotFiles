@@ -49,12 +49,6 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -101,9 +95,14 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
+
 export LD_LIBRARY_PATH=/usr/local/lib
 
+export PATH=$PATH:/usr/lib/postgresql/9.1/bin/
 alias tmux="TERM=xterm-256color tmux"
+
+export WORKON_HOME=~/.envs
+source /usr/local/bin/virtualenvwrapper.sh
 
 settitle() {
   printf "\033k$*\033\\"
@@ -114,3 +113,10 @@ ssh() {
   command ssh "$@"
   tmux set-window-option automatic-rename on > /dev/null
 }
+
+function parse_git_branch {
+    ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+    echo "("${ref#refs/heads/}")"
+}
+
+PS1='\[\033[0;31m\]$(parse_git_branch)\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
