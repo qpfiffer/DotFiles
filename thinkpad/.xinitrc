@@ -1,6 +1,8 @@
 #!/bin/bash
+urxvtd -q -f -o &
 eval $(cat ~/.fehbg) &
 xrdb ~/.Xresources &
+eval `ssh-agent -t 21600`
 firefox &
 # To get the trackpoint scroll stuff going:
 ~/src/DotFiles/thinkpad/xinput_trackpoint.sh  > /dev/null &
