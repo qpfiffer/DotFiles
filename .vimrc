@@ -18,4 +18,5 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete tabstop=4 expa
 autocmd FileType c set tabstop=4 expandtab shiftwidth=4 softtabstop=4 omnifunc=ccomplete#Complete
 set completeopt=menu,longest,preview
 set pumheight=8
+highlight PmenuSel ctermfg=black ctermbg=white gui=bold
 let g:acp_completeoptPreview=1
