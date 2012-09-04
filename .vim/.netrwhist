@@ -1,3 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
-let g:netrw_dirhist_1='/etc/apt/preferences.d'
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/home/quinlan/src/beehive/env/bh_staging'
+let g:netrw_dirhist_2='/home/quinlan/src/beehive/env/staging_common'
+let g:netrw_dirhist_3='/home/quinlan/src/db/db/query_editor/templates/query_editor'
+let g:netrw_dirhist_4='/home/quinlan/src/beehive/apps/dashboards/views'
+let g:netrw_dirhist_5='/home/quinlan/src/beehive/apps/web_home_page/urls'
