@@ -1,47 +1,40 @@
-*background:        #252627
-*foreground:        #D8D8D8
-*cursorColor:       #999999
-*colorBD:           #ffffff
-*colorUL:           #99cc66
-*internalBorder:    3
+urxvt*termName:         rxvt
+urxvt*background:       #111313
+urxvt*foreground:       #b8baba
+urxvt*scrollBar:        false
+urxvt*cursorBlink:      false 
+!urxvt*cursorColor:      #c1c8c9
+!urxvt*colorBD:          #9a7b88  
 
-*scrollBar: False
-*scrollTtyOutput: False
-*scrollTtyKeypress: True
-*secondaryScroll: True
-*saveLines: 8000
-
-URxvt.urlLauncher     : firefox 
+URxvt.scrollBar: false
 URxvt.boldFont:
+URxvt.italicFont:
+URxvt.boldItalicFont:
+URxvt.intensityStyles: on
 
-!BLACK
-*color0:      #3E3E3E
-*color8:    #525252
 
-!RED
-*color1:         #CF516E
-*color9:         #E87B94
+!black
+URxvt*color0:           #111313
+URxvt*color8:           #424446
+!red
+URxvt*color1:           #9e6b71
+URxvt*color9:           #b69094
+!green
+URxvt*color2:           #719e6b
+URxvt*color10:          #94b690
+!yellow
+URxvt*color3:           #9e986c
+URxvt*color11:          #b5b18f
+!blue
+URxvt*color4:           #6c8b9e
+URxvt*color12:          #90a7b6
+!magenta
+URxvt*color5:           #986b9e
+URxvt*color13:          #b290b6
+!cyan
+URxvt*color6:           #6b9e98
+URxvt*color14:          #90b6b3
+!white
+URxvt*color7:           #b8baba
+URxvt*color15:          #cdcfce
 
-!GREEN
-*color2:         #799351
-*color10:        #8fa966
-
-!YELLOW
-*color3:         #ccc855
-*color11:        #d1c78e
-
-!BLUE
-*color12:        #A4c9e0
-*color4:         #6FA5C7
-
-!MAGENTA
-*color5:          #b374a7
-*color13:        #d1a3c8
-
-!CYAN
-*color6:         #75a692
-*color14:        #89bca7
-
-!WHITE
-*color7:        #BBBBBB
-*color15:        #EEEEEE
