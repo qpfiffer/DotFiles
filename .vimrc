@@ -8,6 +8,15 @@ set expandtab
 set shiftwidth=4
 set softtabstop=4
 
+set t_Co=256
+colorscheme jellybeans
+
+set textwidth=75
+set nowrap
+set linebreak
+
+" vertical/horizontal column indicator
+
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
