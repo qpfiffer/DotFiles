@@ -97,21 +97,16 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 export LD_LIBRARY_PATH=/usr/local/lib
+export EDITOR=vim
 
-export PATH=$PATH:/usr/lib/postgresql/9.1/bin/
-alias tmux="TERM=xterm-256color tmux"
+export PATH=$PATH:$HOME/.cabal/bin
 
 export WORKON_HOME=~/.envs
-source /usr/local/bin/virtualenvwrapper.sh
+source /usr/bin/virtualenvwrapper.sh
+source /usr/share/git/completion/git-completion.bash
 
 settitle() {
   printf "\033k$*\033\\"
-}
-
-ssh() {
-  settitle $(echo $* | sed -e 's/-p.[0-9]*//g' -e 's/-A//g' -e 's/[a-zA-Z]*@//g' -e 's/ssh[ ]*//g' -e 's/\..*//g')
-  command ssh "$@"
-  tmux set-window-option automatic-rename on > /dev/null
 }
 
 function parse_git_branch {
@@ -119,4 +114,5 @@ function parse_git_branch {
     echo "("${ref#refs/heads/}")"
 }
 
-PS1='\[\033[0;31m\]$(parse_git_branch)\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+#PS1='\[\033[0;31m\]$(parse_git_branch)\n\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+PS1='\[\033[0;31m\]$(parse_git_branch)\n\[\033[01;32m\]λ\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] '
