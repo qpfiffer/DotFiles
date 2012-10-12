@@ -2,10 +2,11 @@
 urxvtd -q -f -o &
 eval $(cat ~/.fehbg) &
 xrdb ~/.Xresources &
-eval `ssh-agent -t 21600`
+eval `ssh-agent -t 28800`
 firefox &
 # To get the trackpoint scroll stuff going:
 ~/src/DotFiles/thinkpad/xinput_trackpoint.sh  > /dev/null &
+syndaemon -t -k -i 2 -d &
 batt() {
       FULL=`cat /sys/class/power_supply/BAT0/energy_full`
       PRESENT=`cat /sys/class/power_supply/BAT0/present`

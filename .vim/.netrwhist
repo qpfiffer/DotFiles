@@ -1,7 +1,10 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/home/quinlan/src/beehive/env/bh_staging'
-let g:netrw_dirhist_2='/home/quinlan/src/beehive/env/staging_common'
-let g:netrw_dirhist_3='/home/quinlan/src/db/db/query_editor/templates/query_editor'
-let g:netrw_dirhist_4='/home/quinlan/src/beehive/apps/dashboards/views'
-let g:netrw_dirhist_5='/home/quinlan/src/beehive/apps/web_home_page/urls'
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/home/quinlan/src/beehive/apps/web_home_page/migrations'
+let g:netrw_dirhist_2='/home/quinlan/src/beehive/apps/web_home_page/views'
+let g:netrw_dirhist_3='/home/quinlan/Downloads/redis-0.13/Test'
+let g:netrw_dirhist_4='/home/quinlan/Downloads/json-0.7/Text/JSON'
+let g:netrw_dirhist_5='/home/quinlan/Downloads/json-0.7/Text'
+let g:netrw_dirhist_6='/home/quinlan/src/beehive/apps/beehive_common/static'
+let g:netrw_dirhist_7='/home/quinlan/src/beehive/apps/beehive_common/static/js'
+let g:netrw_dirhist_8='/home/quinlan/src/beehive/apps/beehive_common/static/js/website'

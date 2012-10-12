@@ -1,26 +1,25 @@
 syntax on
 filetype indent plugin on
 set number
-set background=dark
+"set background=dark
 
+" Haskell stuff
+au Bufenter *.hs compiler ghc
+let g:haddock_browser = "/usr/bin/firefox-nightly"
+
+" Sensible tabs
 set tabstop=4
 set expandtab
 set shiftwidth=4
 set softtabstop=4
 
+" Colors
 set t_Co=256
 colorscheme jellybeans
 
-set textwidth=75
-set nowrap
-set linebreak
-
-" vertical/horizontal column indicator
-
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1 
+" Any lines over 80 chars are red
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%78v.\+/
 
 " Autocomplete stuff.
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete tabstop=4 expandtab shiftwidth=4 softtabstop=4
