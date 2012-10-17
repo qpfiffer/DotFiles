@@ -20,6 +20,11 @@ colorscheme jellybeans
 " Any lines over 80 chars are red
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%78v.\+/
+set nowrap
+
+" Whitespace
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+set list
 
 " Autocomplete stuff.
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete tabstop=4 expandtab shiftwidth=4 softtabstop=4
