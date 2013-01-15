@@ -1,6 +1,6 @@
 #!/bin/bash
 
-times=( `date +%H` `date +%M` `date +%S` )
+times=( `date +%-H` `date +%-M` `date +%-S` )
 size=${#times[@]}
 last_item=${times[$size-1]}
 printf '0x' $last_item # Print the starting chars

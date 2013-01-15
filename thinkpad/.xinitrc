@@ -7,6 +7,9 @@ firefox &
 # To get the trackpoint scroll stuff going:
 ~/src/DotFiles/thinkpad/xinput_trackpoint.sh  > /dev/null &
 syndaemon -t -k -i 2 -d &
+# At some point arch broke my natural scroll settings in synaptics
+synclient VertScrollDelta=-107 &
+synclient HorizScrollDelta=-107 &
 batt() {
       FULL=`cat /sys/class/power_supply/BAT0/energy_full`
       PRESENT=`cat /sys/class/power_supply/BAT0/present`
