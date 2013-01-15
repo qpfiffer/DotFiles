@@ -1,4 +1,4 @@
 #!/bin/bash
 
 ethtool -s eth0 autoneg off speed 100
-echo ondemand > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+echo 0 > /sys/devices/platform/thinkpad_acpi/bluetooth_enable
