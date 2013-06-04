@@ -3,10 +3,12 @@ urxvtd -q -f -o &
 eval $(cat ~/.fehbg) &
 xrdb ~/.Xresources &
 eval `ssh-agent -t 28800`
-firefox &
 # To get the trackpoint scroll stuff going:
 ~/src/DotFiles/thinkpad/xinput_trackpoint.sh  > /dev/null &
 syndaemon -t -k -i 2 -d &
+# At some point arch broke my natural scroll settings in synaptics
+synclient VertScrollDelta=-107 &
+synclient HorizScrollDelta=-107 &
 batt() {
       FULL=`cat /sys/class/power_supply/BAT0/energy_full`
       PRESENT=`cat /sys/class/power_supply/BAT0/present`
@@ -34,5 +36,6 @@ do
     xsetroot -name "`batt` | $LOCALTIME"
     sleep 5s
 done &
+xautolock -time 10 -locker slock -nowlocker slock -detectsleep -corners 000+ -cornerdelay 3 &
 
 exec dwm
