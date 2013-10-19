@@ -33,3 +33,4 @@ set completeopt=menu,longest,preview
 set pumheight=8
 highlight PmenuSel ctermfg=black ctermbg=white gui=bold
 let g:acp_completeoptPreview=1
+autocmd Filetype markdown setlocal wrap linebreak showbreak=> textwidth=80
