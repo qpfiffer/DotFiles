@@ -32,5 +32,4 @@ autocmd FileType c set tabstop=4 expandtab shiftwidth=4 softtabstop=4 omnifunc=c
 set completeopt=menu,longest,preview
 set pumheight=8
 highlight PmenuSel ctermfg=black ctermbg=white gui=bold
-let g:acp_completeoptPreview=1
 autocmd Filetype markdown setlocal wrap linebreak showbreak=> textwidth=80
