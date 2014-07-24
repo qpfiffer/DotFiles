@@ -12,14 +12,15 @@ set tabstop=4
 set expandtab
 set shiftwidth=4
 set softtabstop=4
+set modeline
 
 " Colors
 set t_Co=256
 colorscheme jellybeans
 
 " Any lines over 80 chars are red
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%78v.\+/
+"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+"match OverLength /\%78v.\+/
 set nowrap
 
 " Whitespace
