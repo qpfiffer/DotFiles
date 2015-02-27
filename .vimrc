@@ -30,7 +30,13 @@ set list
 " Autocomplete stuff.
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete tabstop=4 expandtab shiftwidth=4 softtabstop=4
 autocmd FileType c set tabstop=4 expandtab shiftwidth=4 softtabstop=4 omnifunc=ccomplete#Complete
-set completeopt=menu,longest,preview
+set completeopt=menu,longest
 set pumheight=8
 highlight PmenuSel ctermfg=black ctermbg=white gui=bold
+"let g:acp_completeoptPreview=1
 autocmd Filetype markdown setlocal wrap linebreak showbreak=> textwidth=80
+autocmd Filetype rst setlocal wrap linebreak showbreak=> textwidth=80
+autocmd BufRead,BufNewFile *.jinja2 set filetype=htmldjango
+autocmd BufRead,BufNewFile *.go set filetype=go
+set ruler
+set backspace=indent,eol,start
