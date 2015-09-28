@@ -99,11 +99,11 @@ fi
 export LD_LIBRARY_PATH=/usr/local/lib
 export EDITOR=vim
 
-export PATH=$PATH:$HOME/.cabal/bin
+export GOPATH=$HOME/go
+export PATH=$HOME/.cabal/bin:$PATH:$GOPATH/bin
 
 export WORKON_HOME=~/.envs
-source /usr/bin/virtualenvwrapper.sh
-source /usr/share/git/completion/git-completion.bash
+eval "$(rbenv init -)"
 
 settitle() {
   printf "\033k$*\033\\"
@@ -116,3 +116,6 @@ function parse_git_branch {
 
 #PS1='\[\033[0;31m\]$(parse_git_branch)\n\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 PS1='\[\033[0;31m\]$(parse_git_branch)\n\[\033[01;32m\]λ\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] '
+
+shopt -s histappend
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
