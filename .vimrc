@@ -4,8 +4,6 @@ set number
 "set background=dark
 
 " Haskell stuff
-au Bufenter *.hs compiler ghc
-let g:haddock_browser = "/usr/bin/firefox-nightly"
 
 " Sensible tabs
 set tabstop=4
@@ -37,6 +35,11 @@ highlight PmenuSel ctermfg=black ctermbg=white gui=bold
 autocmd Filetype markdown setlocal wrap linebreak showbreak=> textwidth=80
 autocmd Filetype rst setlocal wrap linebreak showbreak=> textwidth=80
 autocmd BufRead,BufNewFile *.jinja2 set filetype=htmldjango
-autocmd BufRead,BufNewFile *.go set filetype=go
+autocmd BufRead,BufNewFile *.go set filetype=go noet ts=4 sw=4 sts=4
+autocmd BufRead,BufNewFile *.coffee set filetype=coffee noet ts=4 sw=4 sts=4 autoindent
+autocmd BufRead,BufNewFile *.rb set filetype=ruby tabstop=2 expandtab shiftwidth=2 softtabstop=2
+autocmd BufRead,BufNewFile *.rs set filetype=rust ts=4 sw=4
 set ruler
 set backspace=indent,eol,start
+"let g:PyFlakeOnWrite = 1
+"let g:PyFlakeSigns = 1
