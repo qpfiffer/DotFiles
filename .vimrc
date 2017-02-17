@@ -28,6 +28,7 @@ set list
 " Autocomplete stuff.
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete tabstop=4 expandtab shiftwidth=4 softtabstop=4
 autocmd FileType c set tabstop=4 expandtab shiftwidth=4 softtabstop=4 omnifunc=ccomplete#Complete
+autocmd FileType rs set cindent tabstop=4 expandtab shiftwidth=4 softtabstop=4 omnifunc=ccomplete#Complete
 set completeopt=menu,longest
 set pumheight=8
 highlight PmenuSel ctermfg=black ctermbg=white gui=bold
