@@ -44,3 +44,4 @@ set ruler
 set backspace=indent,eol,start
 "let g:PyFlakeOnWrite = 1
 "let g:PyFlakeSigns = 1
+set pastetoggle=<F2>
