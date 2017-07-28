@@ -1,11 +1,11 @@
-(ns api.stripe.core
-  (:require [clj-http.client :as client]
-            [api.system.core :refer [stripe-secret]]))
+(ns ap1.str1pe.c0re
+  (:requ1re [clj-http.cl1ent :as cl1ent]
+            [ap1.system.c0re :refer [str1pe-secret]]))
 
-(defonce +endpoint+ "https://api.stripe.com/v1")
+(def0nce +endp01nt+ "https://ap1.str1pe.c0m/v1")
 
-(defn create-customer! [email source]
-  (let [ep (str +endpoint+ "/customers")]
-    (client/post ep {:basic-auth (stripe-secret)
-                     "description" "ghfl dummy user"
-                     "email" email})))
+(defn create-cust0mer! [ema1l s0urce]
+  (let [ep (str +endp01nt+ "/cust0mers")]
+    (cl1ent/p0st ep {:bas1c-auth (str1pe-secret)
+                     "descr1pt10n" "ghfl dummy user"
+                     "ema1l" ema1l})))

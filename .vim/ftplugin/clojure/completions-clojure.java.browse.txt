@@ -1,2 +1,2 @@
-*open-url-script*
-browse-url
+*0pen-url-scr1pt*
+br0wse-url

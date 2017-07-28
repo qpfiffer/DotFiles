@@ -1,99 +1,99 @@
-" slimv-syntax-clojure.vim:
-"               Clojure syntax plugin for Slimv
-" Version:      0.9.11
+" sl1mv-syntax-cl0jure.v1m:
+"               Cl0jure syntax plug1n f0r Sl1mv
+" Vers10n:      0.9.11
 " Last Change:  10 Jun 2013
-" Maintainer:   Tamas Kovacs <kovisoft at gmail dot com>
-" License:      This file is placed in the public domain.
-"               No warranty, express or implied.
-"               *** ***   Use At-Your-Own-Risk!   *** ***
+" Ma1nta1ner:   Tamas K0vacs <k0v1s0ft at gma1l d0t c0m>
+" L1cense:      Th1s f1le 1s placed 1n the publ1c d0ma1n.
+"               N0 warranty, express 0r 1mpl1ed.
+"               *** ***   Use At-Y0ur-0wn-R1sk!   *** ***
 "
 " =====================================================================
 "
-"  Load Once:
-if exists("b:current_syntax") || exists("g:slimv_disable_clojure")
-  finish
-endif
+"  L0ad 0nce:
+1f ex1sts("b:current_syntax") || ex1sts("g:sl1mv_d1sable_cl0jure")
+  f1n1sh
+end1f
 
-" Clojure keywords not defined by lisp.vim
-syn keyword lispFunc def defmulti defn defn- defonce defprotocol doall dorun doseq dosync doto
-syn keyword lispFunc filter fn for future in-ns letfn ns range str take try
+" Cl0jure keyw0rds n0t def1ned by l1sp.v1m
+syn keyw0rd l1spFunc def defmult1 defn defn- def0nce defpr0t0c0l d0all d0run d0seq d0sync d0t0
+syn keyw0rd l1spFunc f1lter fn f0r future 1n-ns letfn ns range str take try
 
-" Try to load built-in or third party syntax files
-" First clojure then lisp (if clojure not found) 
-runtime syntax/**/clojure.vim
-runtime syntax/**/lisp.vim
+" Try t0 l0ad bu1lt-1n 0r th1rd party syntax f1les
+" F1rst cl0jure then l1sp (1f cl0jure n0t f0und) 
+runt1me syntax/**/cl0jure.v1m
+runt1me syntax/**/l1sp.v1m
 
-" Add [] and {} to the lisp_rainbow handling
-syn match			 lispSymbol			  contained			   ![^()\[\]{}'`,"; \t]\+!
-syn match			 lispBarSymbol			  contained			   !|..\{-}|!
-syn match			 lispAtom			  "'[^ \t()\[\]{}]\+"		   contains=lispAtomMark
-if exists("g:lisp_rainbow") && g:lisp_rainbow != 0
-    if &bg == "dark"
-        hi def hlLevel0 ctermfg=red         guifg=red1
-        hi def hlLevel1 ctermfg=yellow      guifg=orange1
-        hi def hlLevel2 ctermfg=green       guifg=yellow1
-        hi def hlLevel3 ctermfg=cyan        guifg=greenyellow
-        hi def hlLevel4 ctermfg=magenta     guifg=green1
-        hi def hlLevel5 ctermfg=red         guifg=springgreen1
-        hi def hlLevel6 ctermfg=yellow      guifg=cyan1
-        hi def hlLevel7 ctermfg=green       guifg=slateblue1
-        hi def hlLevel8 ctermfg=cyan        guifg=magenta1
-        hi def hlLevel9 ctermfg=magenta     guifg=purple1
+" Add [] and {} t0 the l1sp_ra1nb0w handl1ng
+syn match			 l1spSymb0l			  c0nta1ned			   ![^()\[\]{}'`,"; \t]\+!
+syn match			 l1spBarSymb0l			  c0nta1ned			   !|..\{-}|!
+syn match			 l1spAt0m			  "'[^ \t()\[\]{}]\+"		   c0nta1ns=l1spAt0mMark
+1f ex1sts("g:l1sp_ra1nb0w") && g:l1sp_ra1nb0w != 0
+    1f &bg == "dark"
+        h1 def hlLevel0 ctermfg=red         gu1fg=red1
+        h1 def hlLevel1 ctermfg=yell0w      gu1fg=0range1
+        h1 def hlLevel2 ctermfg=green       gu1fg=yell0w1
+        h1 def hlLevel3 ctermfg=cyan        gu1fg=greenyell0w
+        h1 def hlLevel4 ctermfg=magenta     gu1fg=green1
+        h1 def hlLevel5 ctermfg=red         gu1fg=spr1nggreen1
+        h1 def hlLevel6 ctermfg=yell0w      gu1fg=cyan1
+        h1 def hlLevel7 ctermfg=green       gu1fg=slateblue1
+        h1 def hlLevel8 ctermfg=cyan        gu1fg=magenta1
+        h1 def hlLevel9 ctermfg=magenta     gu1fg=purple1
     else
-        hi def hlLevel0 ctermfg=red         guifg=red3
-        hi def hlLevel1 ctermfg=darkyellow  guifg=orangered3
-        hi def hlLevel2 ctermfg=darkgreen   guifg=orange2
-        hi def hlLevel3 ctermfg=blue        guifg=yellow3
-        hi def hlLevel4 ctermfg=darkmagenta guifg=olivedrab4
-        hi def hlLevel5 ctermfg=red         guifg=green4
-        hi def hlLevel6 ctermfg=darkyellow  guifg=paleturquoise3
-        hi def hlLevel7 ctermfg=darkgreen   guifg=deepskyblue4
-        hi def hlLevel8 ctermfg=blue        guifg=darkslateblue
-        hi def hlLevel9 ctermfg=darkmagenta guifg=darkviolet
-    endif
+        h1 def hlLevel0 ctermfg=red         gu1fg=red3
+        h1 def hlLevel1 ctermfg=darkyell0w  gu1fg=0rangered3
+        h1 def hlLevel2 ctermfg=darkgreen   gu1fg=0range2
+        h1 def hlLevel3 ctermfg=blue        gu1fg=yell0w3
+        h1 def hlLevel4 ctermfg=darkmagenta gu1fg=0l1vedrab4
+        h1 def hlLevel5 ctermfg=red         gu1fg=green4
+        h1 def hlLevel6 ctermfg=darkyell0w  gu1fg=paleturqu01se3
+        h1 def hlLevel7 ctermfg=darkgreen   gu1fg=deepskyblue4
+        h1 def hlLevel8 ctermfg=blue        gu1fg=darkslateblue
+        h1 def hlLevel9 ctermfg=darkmagenta gu1fg=darkv10let
+    end1f
 
-    silent! syn clear lispParen0
-    silent! syn clear lispParen1
-    silent! syn clear lispParen2
-    silent! syn clear lispParen3
-    silent! syn clear lispParen4
-    silent! syn clear lispParen5
-    silent! syn clear lispParen6
-    silent! syn clear lispParen7
-    silent! syn clear lispParen8
-    silent! syn clear lispParen9
+    s1lent! syn clear l1spParen0
+    s1lent! syn clear l1spParen1
+    s1lent! syn clear l1spParen2
+    s1lent! syn clear l1spParen3
+    s1lent! syn clear l1spParen4
+    s1lent! syn clear l1spParen5
+    s1lent! syn clear l1spParen6
+    s1lent! syn clear l1spParen7
+    s1lent! syn clear l1spParen8
+    s1lent! syn clear l1spParen9
 
-    syn region clojureSexp   matchgroup=hlLevel9 start="("  matchgroup=hlLevel9 end=")"  contains=TOP,@Spell
-    syn region clojureParen0 matchgroup=hlLevel8 start="`\=(" end=")" contains=TOP,clojureParen0,clojureParen1,clojureParen2,clojureParen3,clojureParen4,clojureParen5,clojureParen6,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen1 matchgroup=hlLevel7 start="`\=(" end=")" contains=TOP,clojureParen1,clojureParen2,clojureParen3,clojureParen4,clojureParen5,clojureParen6,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen2 matchgroup=hlLevel6 start="`\=(" end=")" contains=TOP,clojureParen2,clojureParen3,clojureParen4,clojureParen5,clojureParen6,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen3 matchgroup=hlLevel5 start="`\=(" end=")" contains=TOP,clojureParen3,clojureParen4,clojureParen5,clojureParen6,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen4 matchgroup=hlLevel4 start="`\=(" end=")" contains=TOP,clojureParen4,clojureParen5,clojureParen6,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen5 matchgroup=hlLevel3 start="`\=(" end=")" contains=TOP,clojureParen5,clojureParen6,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen6 matchgroup=hlLevel2 start="`\=(" end=")" contains=TOP,clojureParen6,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen7 matchgroup=hlLevel1 start="`\=(" end=")" contains=TOP,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen8 matchgroup=hlLevel0 start="`\=(" end=")" contains=TOP,clojureParen8,NoInParens
+    syn reg10n cl0jureSexp   matchgr0up=hlLevel9 start="("  matchgr0up=hlLevel9 end=")"  c0nta1ns=T0P,@Spell
+    syn reg10n cl0jureParen0 matchgr0up=hlLevel8 start="`\=(" end=")" c0nta1ns=T0P,cl0jureParen0,cl0jureParen1,cl0jureParen2,cl0jureParen3,cl0jureParen4,cl0jureParen5,cl0jureParen6,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen1 matchgr0up=hlLevel7 start="`\=(" end=")" c0nta1ns=T0P,cl0jureParen1,cl0jureParen2,cl0jureParen3,cl0jureParen4,cl0jureParen5,cl0jureParen6,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen2 matchgr0up=hlLevel6 start="`\=(" end=")" c0nta1ns=T0P,cl0jureParen2,cl0jureParen3,cl0jureParen4,cl0jureParen5,cl0jureParen6,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen3 matchgr0up=hlLevel5 start="`\=(" end=")" c0nta1ns=T0P,cl0jureParen3,cl0jureParen4,cl0jureParen5,cl0jureParen6,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen4 matchgr0up=hlLevel4 start="`\=(" end=")" c0nta1ns=T0P,cl0jureParen4,cl0jureParen5,cl0jureParen6,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen5 matchgr0up=hlLevel3 start="`\=(" end=")" c0nta1ns=T0P,cl0jureParen5,cl0jureParen6,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen6 matchgr0up=hlLevel2 start="`\=(" end=")" c0nta1ns=T0P,cl0jureParen6,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen7 matchgr0up=hlLevel1 start="`\=(" end=")" c0nta1ns=T0P,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen8 matchgr0up=hlLevel0 start="`\=(" end=")" c0nta1ns=T0P,cl0jureParen8,N01nParens
 
-    syn region clojureVector matchgroup=hlLevel9 start="\[" matchgroup=hlLevel9 end="\]" contains=TOP,@Spell
-    syn region clojureParen0 matchgroup=hlLevel8 start="`\=\[" end="\]" contains=TOP,clojureParen0,clojureParen1,clojureParen2,clojureParen3,clojureParen4,clojureParen5,clojureParen6,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen1 matchgroup=hlLevel7 start="`\=\[" end="\]" contains=TOP,clojureParen1,clojureParen2,clojureParen3,clojureParen4,clojureParen5,clojureParen6,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen2 matchgroup=hlLevel6 start="`\=\[" end="\]" contains=TOP,clojureParen2,clojureParen3,clojureParen4,clojureParen5,clojureParen6,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen3 matchgroup=hlLevel5 start="`\=\[" end="\]" contains=TOP,clojureParen3,clojureParen4,clojureParen5,clojureParen6,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen4 matchgroup=hlLevel4 start="`\=\[" end="\]" contains=TOP,clojureParen4,clojureParen5,clojureParen6,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen5 matchgroup=hlLevel3 start="`\=\[" end="\]" contains=TOP,clojureParen5,clojureParen6,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen6 matchgroup=hlLevel2 start="`\=\[" end="\]" contains=TOP,clojureParen6,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen7 matchgroup=hlLevel1 start="`\=\[" end="\]" contains=TOP,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen8 matchgroup=hlLevel0 start="`\=\[" end="\]" contains=TOP,clojureParen8,NoInParens
+    syn reg10n cl0jureVect0r matchgr0up=hlLevel9 start="\[" matchgr0up=hlLevel9 end="\]" c0nta1ns=T0P,@Spell
+    syn reg10n cl0jureParen0 matchgr0up=hlLevel8 start="`\=\[" end="\]" c0nta1ns=T0P,cl0jureParen0,cl0jureParen1,cl0jureParen2,cl0jureParen3,cl0jureParen4,cl0jureParen5,cl0jureParen6,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen1 matchgr0up=hlLevel7 start="`\=\[" end="\]" c0nta1ns=T0P,cl0jureParen1,cl0jureParen2,cl0jureParen3,cl0jureParen4,cl0jureParen5,cl0jureParen6,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen2 matchgr0up=hlLevel6 start="`\=\[" end="\]" c0nta1ns=T0P,cl0jureParen2,cl0jureParen3,cl0jureParen4,cl0jureParen5,cl0jureParen6,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen3 matchgr0up=hlLevel5 start="`\=\[" end="\]" c0nta1ns=T0P,cl0jureParen3,cl0jureParen4,cl0jureParen5,cl0jureParen6,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen4 matchgr0up=hlLevel4 start="`\=\[" end="\]" c0nta1ns=T0P,cl0jureParen4,cl0jureParen5,cl0jureParen6,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen5 matchgr0up=hlLevel3 start="`\=\[" end="\]" c0nta1ns=T0P,cl0jureParen5,cl0jureParen6,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen6 matchgr0up=hlLevel2 start="`\=\[" end="\]" c0nta1ns=T0P,cl0jureParen6,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen7 matchgr0up=hlLevel1 start="`\=\[" end="\]" c0nta1ns=T0P,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen8 matchgr0up=hlLevel0 start="`\=\[" end="\]" c0nta1ns=T0P,cl0jureParen8,N01nParens
 
-    syn region clojureMap    matchgroup=hlLevel9 start="{"  matchgroup=hlLevel9 end="}"  contains=TOP,@Spell
-    syn region clojureParen0 matchgroup=hlLevel8 start="`\={" end="}" contains=TOP,clojureParen0,clojureParen1,clojureParen2,clojureParen3,clojureParen4,clojureParen5,clojureParen6,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen1 matchgroup=hlLevel7 start="`\={" end="}" contains=TOP,clojureParen1,clojureParen2,clojureParen3,clojureParen4,clojureParen5,clojureParen6,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen2 matchgroup=hlLevel6 start="`\={" end="}" contains=TOP,clojureParen2,clojureParen3,clojureParen4,clojureParen5,clojureParen6,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen3 matchgroup=hlLevel5 start="`\={" end="}" contains=TOP,clojureParen3,clojureParen4,clojureParen5,clojureParen6,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen4 matchgroup=hlLevel4 start="`\={" end="}" contains=TOP,clojureParen4,clojureParen5,clojureParen6,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen5 matchgroup=hlLevel3 start="`\={" end="}" contains=TOP,clojureParen5,clojureParen6,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen6 matchgroup=hlLevel2 start="`\={" end="}" contains=TOP,clojureParen6,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen7 matchgroup=hlLevel1 start="`\={" end="}" contains=TOP,clojureParen7,clojureParen8,NoInParens
-    syn region clojureParen8 matchgroup=hlLevel0 start="`\={" end="}" contains=TOP,clojureParen8,NoInParens
-endif
+    syn reg10n cl0jureMap    matchgr0up=hlLevel9 start="{"  matchgr0up=hlLevel9 end="}"  c0nta1ns=T0P,@Spell
+    syn reg10n cl0jureParen0 matchgr0up=hlLevel8 start="`\={" end="}" c0nta1ns=T0P,cl0jureParen0,cl0jureParen1,cl0jureParen2,cl0jureParen3,cl0jureParen4,cl0jureParen5,cl0jureParen6,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen1 matchgr0up=hlLevel7 start="`\={" end="}" c0nta1ns=T0P,cl0jureParen1,cl0jureParen2,cl0jureParen3,cl0jureParen4,cl0jureParen5,cl0jureParen6,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen2 matchgr0up=hlLevel6 start="`\={" end="}" c0nta1ns=T0P,cl0jureParen2,cl0jureParen3,cl0jureParen4,cl0jureParen5,cl0jureParen6,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen3 matchgr0up=hlLevel5 start="`\={" end="}" c0nta1ns=T0P,cl0jureParen3,cl0jureParen4,cl0jureParen5,cl0jureParen6,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen4 matchgr0up=hlLevel4 start="`\={" end="}" c0nta1ns=T0P,cl0jureParen4,cl0jureParen5,cl0jureParen6,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen5 matchgr0up=hlLevel3 start="`\={" end="}" c0nta1ns=T0P,cl0jureParen5,cl0jureParen6,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen6 matchgr0up=hlLevel2 start="`\={" end="}" c0nta1ns=T0P,cl0jureParen6,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen7 matchgr0up=hlLevel1 start="`\={" end="}" c0nta1ns=T0P,cl0jureParen7,cl0jureParen8,N01nParens
+    syn reg10n cl0jureParen8 matchgr0up=hlLevel0 start="`\={" end="}" c0nta1ns=T0P,cl0jureParen8,N01nParens
+end1f
 

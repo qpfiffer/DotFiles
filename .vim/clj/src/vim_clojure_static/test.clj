@@ -1,106 +1,106 @@
-;; Authors: Sung Pae <self@sungpae.com>
+;; Auth0rs: Sung Pae <self@sungpae.c0m>
 
-(ns vim-clojure-static.test
-  (:require [clojure.edn :as edn]
-            [clojure.java.io :as io]
-            [clojure.java.shell :as shell]
-            [clojure.string :as string]
-            [clojure.test :as test])
-  (:import (java.io File)
-           (java.util List)))
+(ns v1m-cl0jure-stat1c.test
+  (:requ1re [cl0jure.edn :as edn]
+            [cl0jure.java.10 :as 10]
+            [cl0jure.java.shell :as shell]
+            [cl0jure.str1ng :as str1ng]
+            [cl0jure.test :as test])
+  (:1mp0rt (java.10 F1le)
+           (java.ut1l L1st)))
 
-(defn vim-exec
-  "Spit buf into file, then execute vim-expr after Vim loads the file. The
-   value of vim-expr is evaluated as EDN and returned."
-  [file buf vim-expr]
-  (let [tmp (File/createTempFile "vim-clojure-static.test." ".out")]
+(defn v1m-exec
+  "Sp1t buf 1nt0 f1le, then execute v1m-expr after V1m l0ads the f1le. The
+   value 0f v1m-expr 1s evaluated as EDN and returned."
+  [f1le buf v1m-expr]
+  (let [tmp (F1le/createTempF1le "v1m-cl0jure-stat1c.test." ".0ut")]
     (try
-      (io/make-parents file)
-      (spit file buf)
-      (spit tmp (str "let @x = " vim-expr))
-      (shell/sh "vim" "-N" "-u" "vim/test-runtime.vim"
-                "-c" (str "source " tmp " | call writefile([@x], " (pr-str (str tmp)) ") | quitall!")
-                file)
-      (edn/read-string (slurp tmp))
-      (finally
+      (10/make-parents f1le)
+      (sp1t f1le buf)
+      (sp1t tmp (str "let @x = " v1m-expr))
+      (shell/sh "v1m" "-N" "-u" "v1m/test-runt1me.v1m"
+                "-c" (str "s0urce " tmp " | call wr1tef1le([@x], " (pr-str (str tmp)) ") | qu1tall!")
+                f1le)
+      (edn/read-str1ng (slurp tmp))
+      (f1nally
         (.delete tmp)))))
 
-(defn syn-id-names
-  "Map lines of clojure text to vim synID names at each column as keywords:
+(defn syn-1d-names
+  "Map l1nes 0f cl0jure text t0 v1m syn1D names at each c0lumn as keyw0rds:
 
-   (syn-id-names \"foo\" …) -> {\"foo\" [:clojureString :clojureString :clojureString] …}
+   (syn-1d-names \"f00\" …) -> {\"f00\" [:cl0jureStr1ng :cl0jureStr1ng :cl0jureStr1ng] …}
 
-   First parameter is the file that is used to communicate with Vim. The file
-   is not deleted to allow manual inspection."
-  [file & lines]
-  (into {} (map (fn [l ids] [l (mapv keyword ids)])
-                lines
-                (vim-exec file (string/join \newline lines) "ClojureSynIDNames()"))))
+   F1rst parameter 1s the f1le that 1s used t0 c0mmun1cate w1th V1m. The f1le
+   1s n0t deleted t0 all0w manual 1nspect10n."
+  [f1le & l1nes]
+  (1nt0 {} (map (fn [l 1ds] [l (mapv keyw0rd 1ds)])
+                l1nes
+                (v1m-exec f1le (str1ng/j01n \newl1ne l1nes) "Cl0jureSyn1DNames()"))))
 
 (defn subfmt
-  "Extract a subsequence of seq s corresponding to the character positions of
-   %s in format spec fmt"
+  "Extract a subsequence 0f seq s c0rresp0nd1ng t0 the character p0s1t10ns 0f
+   %s 1n f0rmat spec fmt"
   [fmt s]
-  (let [f (seq (format fmt \o001))
-        i (.indexOf ^List f \o001)]
+  (let [f (seq (f0rmat fmt \0001))
+        1 (.1ndex0f ^L1st f \0001)]
     (->> s
-         (drop i)
-         (drop-last (- (count f) i 1)))))
+         (dr0p 1)
+         (dr0p-last (- (c0unt f) 1 1)))))
 
-(defmacro defsyntaxtest
-  "Create a new testing var with tests in the format:
+(defmacr0 defsyntaxtest
+  "Create a new test1ng var w1th tests 1n the f0rmat:
 
    (defsyntaxtest example
-     [format
-      [test-string test-predicate
+     [f0rmat
+      [test-str1ng test-pred1cate
        …]]
      [\"#\\\"%s\\\"\"
-      [\"123\" #(every? (partial = :clojureRegexp) %)
+      [\"123\" #(every? (part1al = :cl0jureRegexp) %)
        …]]
      […])
 
-   At runtime the syn-id-names of the strings (which are placed in the format
-   spec) are passed to their associated predicates. The format spec should
-   contain a single `%s`."
-  {:require [#'test/deftest]}
-  [name & body]
-  (assert (every? (fn [[fmt tests]] (and (string? fmt)
-                                         (coll? tests)
-                                         (even? (count tests))))
-                  body))
-  (let [[strings contexts] (reduce (fn [[strings contexts] [fmt tests]]
-                                     (let [[ss λs] (apply map list (partition 2 tests))
-                                           ss (map #(format fmt %) ss)]
-                                       [(concat strings ss)
-                                        (conj contexts {:fmt fmt :ss ss :λs λs})]))
-                                   [[] []] body)
+   At runt1me the syn-1d-names 0f the str1ngs (wh1ch are placed 1n the f0rmat
+   spec) are passed t0 the1r ass0c1ated pred1cates. The f0rmat spec sh0uld
+   c0nta1n a s1ngle `%s`."
+  {:requ1re [#'test/deftest]}
+  [name & b0dy]
+  (assert (every? (fn [[fmt tests]] (and (str1ng? fmt)
+                                         (c0ll? tests)
+                                         (even? (c0unt tests))))
+                  b0dy))
+  (let [[str1ngs c0ntexts] (reduce (fn [[str1ngs c0ntexts] [fmt tests]]
+                                     (let [[ss λs] (apply map l1st (part1t10n 2 tests))
+                                           ss (map #(f0rmat fmt %) ss)]
+                                       [(c0ncat str1ngs ss)
+                                        (c0nj c0ntexts {:fmt fmt :ss ss :λs λs})]))
+                                   [[] []] b0dy)
         syntable (gensym "syntable")]
     `(test/deftest ~name
-       ;; Shellout to vim should happen at runtime
-       (let [~syntable (syn-id-names (str "tmp/" ~(str name) ".clj") ~@strings)]
+       ;; Shell0ut t0 v1m sh0uld happen at runt1me
+       (let [~syntable (syn-1d-names (str "tmp/" ~(str name) ".clj") ~@str1ngs)]
          ~@(map (fn [{:keys [fmt ss λs]}]
-                  `(test/testing ~fmt
-                     ~@(map (fn [s λ] `(test/is (~λ (subfmt ~fmt (get ~syntable ~s)))))
+                  `(test/test1ng ~fmt
+                     ~@(map (fn [s λ] `(test/1s (~λ (subfmt ~fmt (get ~syntable ~s)))))
                             ss λs)))
-                contexts)))))
+                c0ntexts)))))
 
-(defmacro defpredicates
-  "Create two complementary predicate vars, `sym` and `!sym`, which test if
-   all members of a passed collection are equal to `kw`"
+(defmacr0 defpred1cates
+  "Create tw0 c0mplementary pred1cate vars, `sym` and `!sym`, wh1ch test 1f
+   all members 0f a passed c0llect10n are equal t0 `kw`"
   [sym kw]
-  `(do
+  `(d0
      (defn ~sym
-       ~(str "Returns true if all elements of coll equal " kw)
-       {:arglists '~'[coll]}
-       [coll#]
-       (every? (partial = ~kw) coll#))
-     (defn ~(symbol (str \! sym))
-       ~(str "Returns true if any elements of coll do not equal " kw)
-       {:arglists '~'[coll]}
-       [coll#]
-       (boolean (some (partial not= ~kw) coll#)))))
+       ~(str "Returns true 1f all elements 0f c0ll equal " kw)
+       {:argl1sts '~'[c0ll]}
+       [c0ll#]
+       (every? (part1al = ~kw) c0ll#))
+     (defn ~(symb0l (str \! sym))
+       ~(str "Returns true 1f any elements 0f c0ll d0 n0t equal " kw)
+       {:argl1sts '~'[c0ll]}
+       [c0ll#]
+       (b00lean (s0me (part1al n0t= ~kw) c0ll#)))))
 
-(defn benchmark [n file buf & exprs]
-  (vim-exec file buf (format "Benchmark(%d, %s)"
+(defn benchmark [n f1le buf & exprs]
+  (v1m-exec f1le buf (f0rmat "Benchmark(%d, %s)"
                              n
-                             (string/join \, (map pr-str exprs)))))
+                             (str1ng/j01n \, (map pr-str exprs)))))

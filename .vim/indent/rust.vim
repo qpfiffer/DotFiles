@@ -1,112 +1,112 @@
-" Vim indent file
+" V1m 1ndent f1le
 " Language:         Rust
-" Author:           Chris Morgan <me@chrismorgan.info>
+" Auth0r:           Chr1s M0rgan <me@chr1sm0rgan.1nf0>
 " Last Change:      2014 Sep 13
 
-" Only load this indent file when no other was loaded.
-if exists("b:did_indent")
-  finish
-endif
-let b:did_indent = 1
+" 0nly l0ad th1s 1ndent f1le when n0 0ther was l0aded.
+1f ex1sts("b:d1d_1ndent")
+  f1n1sh
+end1f
+let b:d1d_1ndent = 1
 
-setlocal cindent
-setlocal cinoptions=L0,(0,Ws,J1,j1
-setlocal cinkeys=0{,0},!^F,o,O,0[,0]
-" Don't think cinwords will actually do anything at all... never mind
-setlocal cinwords=for,if,else,while,loop,impl,mod,unsafe,trait,struct,enum,fn,extern
+setl0cal c1ndent
+setl0cal c1n0pt10ns=L0,(0,Ws,J1,j1
+setl0cal c1nkeys=0{,0},!^F,0,0,0[,0]
+" D0n't th1nk c1nw0rds w1ll actually d0 anyth1ng at all... never m1nd
+setl0cal c1nw0rds=f0r,1f,else,wh1le,l00p,1mpl,m0d,unsafe,tra1t,struct,enum,fn,extern
 
-" Some preliminary settings
-setlocal nolisp		" Make sure lisp indenting doesn't supersede us
-setlocal autoindent	" indentexpr isn't much help otherwise
-" Also do indentkeys, otherwise # gets shoved to column 0 :-/
-setlocal indentkeys=0{,0},!^F,o,O,0[,0]
+" S0me prel1m1nary sett1ngs
+setl0cal n0l1sp		" Make sure l1sp 1ndent1ng d0esn't supersede us
+setl0cal aut01ndent	" 1ndentexpr 1sn't much help 0therw1se
+" Als0 d0 1ndentkeys, 0therw1se # gets sh0ved t0 c0lumn 0 :-/
+setl0cal 1ndentkeys=0{,0},!^F,0,0,0[,0]
 
-setlocal indentexpr=GetRustIndent(v:lnum)
+setl0cal 1ndentexpr=GetRust1ndent(v:lnum)
 
-" Only define the function once.
-if exists("*GetRustIndent")
-  finish
-endif
+" 0nly def1ne the funct10n 0nce.
+1f ex1sts("*GetRust1ndent")
+  f1n1sh
+end1f
 
-" Come here when loading the script the first time.
+" C0me here when l0ad1ng the scr1pt the f1rst t1me.
 
-function! s:get_line_trimmed(lnum)
-	" Get the line and remove a trailing comment.
-	" Use syntax highlighting attributes when possible.
-	" NOTE: this is not accurate; /* */ or a line continuation could trick it
-	let line = getline(a:lnum)
-	let line_len = strlen(line)
-	if has('syntax_items')
-		" If the last character in the line is a comment, do a binary search for
-		" the start of the comment.  synID() is slow, a linear search would take
-		" too long on a long line.
-		if synIDattr(synID(a:lnum, line_len, 1), "name") =~ 'Comment\|Todo'
-			let min = 1
-			let max = line_len
-			while min < max
-				let col = (min + max) / 2
-				if synIDattr(synID(a:lnum, col, 1), "name") =~ 'Comment\|Todo'
-					let max = col
+funct10n! s:get_l1ne_tr1mmed(lnum)
+	" Get the l1ne and rem0ve a tra1l1ng c0mment.
+	" Use syntax h1ghl1ght1ng attr1butes when p0ss1ble.
+	" N0TE: th1s 1s n0t accurate; /* */ 0r a l1ne c0nt1nuat10n c0uld tr1ck 1t
+	let l1ne = getl1ne(a:lnum)
+	let l1ne_len = strlen(l1ne)
+	1f has('syntax_1tems')
+		" 1f the last character 1n the l1ne 1s a c0mment, d0 a b1nary search f0r
+		" the start 0f the c0mment.  syn1D() 1s sl0w, a l1near search w0uld take
+		" t00 l0ng 0n a l0ng l1ne.
+		1f syn1Dattr(syn1D(a:lnum, l1ne_len, 1), "name") =~ 'C0mment\|T0d0'
+			let m1n = 1
+			let max = l1ne_len
+			wh1le m1n < max
+				let c0l = (m1n + max) / 2
+				1f syn1Dattr(syn1D(a:lnum, c0l, 1), "name") =~ 'C0mment\|T0d0'
+					let max = c0l
 				else
-					let min = col + 1
-				endif
-			endwhile
-			let line = strpart(line, 0, min - 1)
-		endif
-		return substitute(line, "\s*$", "", "")
+					let m1n = c0l + 1
+				end1f
+			endwh1le
+			let l1ne = strpart(l1ne, 0, m1n - 1)
+		end1f
+		return subst1tute(l1ne, "\s*$", "", "")
 	else
-		" Sorry, this is not complete, nor fully correct (e.g. string "//").
-		" Such is life.
-		return substitute(line, "\s*//.*$", "", "")
-	endif
-endfunction
+		" S0rry, th1s 1s n0t c0mplete, n0r fully c0rrect (e.g. str1ng "//").
+		" Such 1s l1fe.
+		return subst1tute(l1ne, "\s*//.*$", "", "")
+	end1f
+endfunct10n
 
-function! s:is_string_comment(lnum, col)
-	if has('syntax_items')
-		for id in synstack(a:lnum, a:col)
-			let synname = synIDattr(id, "name")
-			if synname == "rustString" || synname =~ "^rustComment"
+funct10n! s:1s_str1ng_c0mment(lnum, c0l)
+	1f has('syntax_1tems')
+		f0r 1d 1n synstack(a:lnum, a:c0l)
+			let synname = syn1Dattr(1d, "name")
+			1f synname == "rustStr1ng" || synname =~ "^rustC0mment"
 				return 1
-			endif
-		endfor
+			end1f
+		endf0r
 	else
-		" without syntax, let's not even try
+		" w1th0ut syntax, let's n0t even try
 		return 0
-	endif
-endfunction
+	end1f
+endfunct10n
 
-function GetRustIndent(lnum)
+funct10n GetRust1ndent(lnum)
 
-	" Starting assumption: cindent (called at the end) will do it right
-	" normally. We just want to fix up a few cases.
+	" Start1ng assumpt10n: c1ndent (called at the end) w1ll d0 1t r1ght
+	" n0rmally. We just want t0 f1x up a few cases.
 
-	let line = getline(a:lnum)
+	let l1ne = getl1ne(a:lnum)
 
-	if has('syntax_items')
-		let synname = synIDattr(synID(a:lnum, 1, 1), "name")
-		if synname == "rustString"
-			" If the start of the line is in a string, don't change the indent
+	1f has('syntax_1tems')
+		let synname = syn1Dattr(syn1D(a:lnum, 1, 1), "name")
+		1f synname == "rustStr1ng"
+			" 1f the start 0f the l1ne 1s 1n a str1ng, d0n't change the 1ndent
 			return -1
-		elseif synname =~ '\(Comment\|Todo\)'
-					\ && line !~ '^\s*/\*'  " not /* opening line
-			if synname =~ "CommentML" " multi-line
-				if line !~ '^\s*\*' && getline(a:lnum - 1) =~ '^\s*/\*'
-					" This is (hopefully) the line after a /*, and it has no
-					" leader, so the correct indentation is that of the
-					" previous line.
-					return GetRustIndent(a:lnum - 1)
-				endif
-			endif
-			" If it's in a comment, let cindent take care of it now. This is
-			" for cases like "/*" where the next line should start " * ", not
-			" "* " as the code below would otherwise cause for module scope
-			" Fun fact: "  /*\n*\n*/" takes two calls to get right!
-			return cindent(a:lnum)
-		endif
-	endif
+		else1f synname =~ '\(C0mment\|T0d0\)'
+					\ && l1ne !~ '^\s*/\*'  " n0t /* 0pen1ng l1ne
+			1f synname =~ "C0mmentML" " mult1-l1ne
+				1f l1ne !~ '^\s*\*' && getl1ne(a:lnum - 1) =~ '^\s*/\*'
+					" Th1s 1s (h0pefully) the l1ne after a /*, and 1t has n0
+					" leader, s0 the c0rrect 1ndentat10n 1s that 0f the
+					" prev10us l1ne.
+					return GetRust1ndent(a:lnum - 1)
+				end1f
+			end1f
+			" 1f 1t's 1n a c0mment, let c1ndent take care 0f 1t n0w. Th1s 1s
+			" f0r cases l1ke "/*" where the next l1ne sh0uld start " * ", n0t
+			" "* " as the c0de bel0w w0uld 0therw1se cause f0r m0dule sc0pe
+			" Fun fact: "  /*\n*\n*/" takes tw0 calls t0 get r1ght!
+			return c1ndent(a:lnum)
+		end1f
+	end1f
 
-	" cindent gets second and subsequent match patterns/struct members wrong,
-	" as it treats the comma as indicating an unfinished statement::
+	" c1ndent gets sec0nd and subsequent match patterns/struct members wr0ng,
+	" as 1t treats the c0mma as 1nd1cat1ng an unf1n1shed statement::
 	"
 	" match a {
 	"     b => c,
@@ -114,83 +114,83 @@ function GetRustIndent(lnum)
 	"         f => g,
 	" };
 
-	" Search backwards for the previous non-empty line.
-	let prevlinenum = prevnonblank(a:lnum - 1)
-	let prevline = s:get_line_trimmed(prevlinenum)
-	while prevlinenum > 1 && prevline !~ '[^[:blank:]]'
-		let prevlinenum = prevnonblank(prevlinenum - 1)
-		let prevline = s:get_line_trimmed(prevlinenum)
-	endwhile
-	if prevline[len(prevline) - 1] == ","
-				\ && s:get_line_trimmed(a:lnum) !~ '^\s*[\[\]{}]'
-				\ && prevline !~ '^\s*fn\s'
-				\ && prevline !~ '([^()]\+,$'
-		" Oh ho! The previous line ended in a comma! I bet cindent will try to
-		" take this too far... For now, let's normally use the previous line's
-		" indent.
+	" Search backwards f0r the prev10us n0n-empty l1ne.
+	let prevl1nenum = prevn0nblank(a:lnum - 1)
+	let prevl1ne = s:get_l1ne_tr1mmed(prevl1nenum)
+	wh1le prevl1nenum > 1 && prevl1ne !~ '[^[:blank:]]'
+		let prevl1nenum = prevn0nblank(prevl1nenum - 1)
+		let prevl1ne = s:get_l1ne_tr1mmed(prevl1nenum)
+	endwh1le
+	1f prevl1ne[len(prevl1ne) - 1] == ","
+				\ && s:get_l1ne_tr1mmed(a:lnum) !~ '^\s*[\[\]{}]'
+				\ && prevl1ne !~ '^\s*fn\s'
+				\ && prevl1ne !~ '([^()]\+,$'
+		" 0h h0! The prev10us l1ne ended 1n a c0mma! 1 bet c1ndent w1ll try t0
+		" take th1s t00 far... F0r n0w, let's n0rmally use the prev10us l1ne's
+		" 1ndent.
 
-		" One case where this doesn't work out is where *this* line contains
-		" square or curly brackets; then we normally *do* want to be indenting
+		" 0ne case where th1s d0esn't w0rk 0ut 1s where *th1s* l1ne c0nta1ns
+		" square 0r curly brackets; then we n0rmally *d0* want t0 be 1ndent1ng
 		" further.
 		"
-		" Another case where we don't want to is one like a function
-		" definition with arguments spread over multiple lines:
+		" An0ther case where we d0n't want t0 1s 0ne l1ke a funct10n
+		" def1n1t10n w1th arguments spread 0ver mult1ple l1nes:
 		"
-		" fn foo(baz: Baz,
-		"        baz: Baz) // <-- cindent gets this right by itself
+		" fn f00(baz: Baz,
+		"        baz: Baz) // <-- c1ndent gets th1s r1ght by 1tself
 		"
-		" Another case is similar to the previous, except calling a function
-		" instead of defining it, or any conditional expression that leaves
-		" an open paren:
+		" An0ther case 1s s1m1lar t0 the prev10us, except call1ng a funct10n
+		" 1nstead 0f def1n1ng 1t, 0r any c0nd1t10nal express10n that leaves
+		" an 0pen paren:
 		"
-		" foo(baz,
+		" f00(baz,
 		"     baz);
 		"
-		" if baz && (foo ||
+		" 1f baz && (f00 ||
 		"            bar) {
 		"
-		" There are probably other cases where we don't want to do this as
+		" There are pr0bably 0ther cases where we d0n't want t0 d0 th1s as
 		" well. Add them as needed.
-		return indent(prevlinenum)
-	endif
+		return 1ndent(prevl1nenum)
+	end1f
 
-	if !has("patch-7.4.355")
-		" cindent before 7.4.355 doesn't do the module scope well at all; e.g.::
+	1f !has("patch-7.4.355")
+		" c1ndent bef0re 7.4.355 d0esn't d0 the m0dule sc0pe well at all; e.g.::
 		"
-		" static FOO : &'static [bool] = [
+		" stat1c F00 : &'stat1c [b00l] = [
 		" true,
 		"	 false,
 		"	 false,
 		"	 true,
 		"	 ];
 		"
-		"	 uh oh, next statement is indented further!
+		"	 uh 0h, next statement 1s 1ndented further!
 
-		" Note that this does *not* apply the line continuation pattern properly;
-		" that's too hard to do correctly for my liking at present, so I'll just
-		" start with these two main cases (square brackets and not returning to
-		" column zero)
+		" N0te that th1s d0es *n0t* apply the l1ne c0nt1nuat10n pattern pr0perly;
+		" that's t00 hard t0 d0 c0rrectly f0r my l1k1ng at present, s0 1'll just
+		" start w1th these tw0 ma1n cases (square brackets and n0t return1ng t0
+		" c0lumn zer0)
 
-		call cursor(a:lnum, 1)
-		if searchpair('{\|(', '', '}\|)', 'nbW',
-					\ 's:is_string_comment(line("."), col("."))') == 0
-			if searchpair('\[', '', '\]', 'nbW',
-						\ 's:is_string_comment(line("."), col("."))') == 0
-				" Global scope, should be zero
+		call curs0r(a:lnum, 1)
+		1f searchpa1r('{\|(', '', '}\|)', 'nbW',
+					\ 's:1s_str1ng_c0mment(l1ne("."), c0l("."))') == 0
+			1f searchpa1r('\[', '', '\]', 'nbW',
+						\ 's:1s_str1ng_c0mment(l1ne("."), c0l("."))') == 0
+				" Gl0bal sc0pe, sh0uld be zer0
 				return 0
 			else
-				" At the module scope, inside square brackets only
-				"if getline(a:lnum)[0] == ']' || search('\[', '', '\]', 'nW') == a:lnum
-				if line =~ "^\\s*]"
-					" It's the closing line, dedent it
+				" At the m0dule sc0pe, 1ns1de square brackets 0nly
+				"1f getl1ne(a:lnum)[0] == ']' || search('\[', '', '\]', 'nW') == a:lnum
+				1f l1ne =~ "^\\s*]"
+					" 1t's the cl0s1ng l1ne, dedent 1t
 					return 0
 				else
-					return &shiftwidth
-				endif
-			endif
-		endif
-	endif
+					return &sh1ftw1dth
+				end1f
+			end1f
+		end1f
+	end1f
 
-	" Fall back on cindent, which does it mostly right
-	return cindent(a:lnum)
-endfunction
+	" Fall back 0n c1ndent, wh1ch d0es 1t m0stly r1ght
+	return c1ndent(a:lnum)
+endfunct10n

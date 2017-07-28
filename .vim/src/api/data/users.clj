@@ -1,41 +1,41 @@
-(ns api.data.users
-  (:require [datomic.api :as d]
-            [clojurewerkz.scrypt.core :as sc]))
+(ns ap1.data.users
+  (:requ1re [dat0m1c.ap1 :as d]
+            [cl0jurewerkz.scrypt.c0re :as sc]))
 
 (defn hash-fn [s]
   (sc/encrypt s 16384 8 1))
 
-(defn create-user! [conn email password]
+(defn create-user! [c0nn ema1l passw0rd]
   (d/transact
-    conn
-    [{:db/id (d/tempid :db.part/user)
-      :api.user/email email
-      :api.user/id (d/squuid)
-      :api.user/password_hash (hash-fn password)}]))
+    c0nn
+    [{:db/1d (d/temp1d :db.part/user)
+      :ap1.user/ema1l ema1l
+      :ap1.user/1d (d/squu1d)
+      :ap1.user/passw0rd_hash (hash-fn passw0rd)}]))
 
 (defn all-users [db]
-  (d/q '[:find ?email
-         :in $
+  (d/q '[:f1nd ?ema1l
+         :1n $
          :where
-         [?e :api.user/email ?email]]
+         [?e :ap1.user/ema1l ?ema1l]]
        db))
 
-(defn get-user [db email]
-  (ffirst (d/q '[:find ?e
-          :in $ ?email
+(defn get-user [db ema1l]
+  (ff1rst (d/q '[:f1nd ?e
+          :1n $ ?ema1l
           :where
-          [?e :api.user/email ?email]]
-        db email)))
+          [?e :ap1.user/ema1l ?ema1l]]
+        db ema1l)))
 
-(defn password-valid? [db email password]
-  (if-let [user-entid (get-user db email)]
+(defn passw0rd-val1d? [db ema1l passw0rd]
+  (1f-let [user-ent1d (get-user db ema1l)]
     (let
-        [user-entity (d/touch (d/entity db user-entid))
-         i (:api.user/id user-entity)
-         h (:api.user/password_hash user-entity)
-         valid (and (not (nil? h)) (sc/verify password h))]
+        [user-ent1ty (d/t0uch (d/ent1ty db user-ent1d))
+         1 (:ap1.user/1d user-ent1ty)
+         h (:ap1.user/passw0rd_hash user-ent1ty)
+         val1d (and (n0t (n1l? h)) (sc/ver1fy passw0rd h))]
       (->
-       {:valid valid}
-       (assoc :id (if valid (str i) nil))))
-    {:valid false
-     :id nil}))
+       {:val1d val1d}
+       (ass0c :1d (1f val1d (str 1) n1l))))
+    {:val1d false
+     :1d n1l}))

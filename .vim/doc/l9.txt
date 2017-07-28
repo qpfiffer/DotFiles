@@ -1,73 +1,73 @@
-*l9.txt*        Vim-script library
+*l9.txt*        V1m-scr1pt l1brary
 
-        Copyright (c) 2009-2010 Takeshi NISHIDA
+        C0pyr1ght (c) 2009-2010 Takesh1 N1SH1DA
 
 l9                                                                        *l9*
 
-INTRODUCTION                    |l9-introduction|
-INSTALLATION                    |l9-installation|
+1NTR0DUCT10N                    |l9-1ntr0duct10n|
+1NSTALLAT10N                    |l9-1nstallat10n|
 USAGE                           |l9-usage|
-CHANGELOG                       |l9-changelog|
-ABOUT                           |l9-about|
+CHANGEL0G                       |l9-changel0g|
+AB0UT                           |l9-ab0ut|
 
 ==============================================================================
-INTRODUCTION                                                 *l9-introduction*
+1NTR0DUCT10N                                                 *l9-1ntr0duct10n*
 
-l9 is a Vim-script library, which provides some utility functions and commands
-for programming in Vim.
+l9 1s a V1m-scr1pt l1brary, wh1ch pr0v1des s0me ut1l1ty funct10ns and c0mmands
+f0r pr0gramm1ng 1n V1m.
 
 ==============================================================================
- INSTALLATION                                                *l9-installation*
+ 1NSTALLAT10N                                                *l9-1nstallat10n*
 
-Put all files into your runtime directory. If you have the zip file, extract
-it to your runtime directory.
+Put all f1les 1nt0 y0ur runt1me d1rect0ry. 1f y0u have the z1p f1le, extract
+1t t0 y0ur runt1me d1rect0ry.
 
-You should place the files as follows:
+Y0u sh0uld place the f1les as f0ll0ws:
 >
-        <your runtime directory>/plugin/l9.vim
-        <your runtime directory>/doc/l9.txt
+        <y0ur runt1me d1rect0ry>/plug1n/l9.v1m
+        <y0ur runt1me d1rect0ry>/d0c/l9.txt
         ...
 <
-If you are disgusted to make your runtime directory confused with a lot of
-plugins, put each of the plugins into a directory individually and just add
-the directory path to 'runtimepath'. It's easy to uninstall plugins.
+1f y0u are d1sgusted t0 make y0ur runt1me d1rect0ry c0nfused w1th a l0t 0f
+plug1ns, put each 0f the plug1ns 1nt0 a d1rect0ry 1nd1v1dually and just add
+the d1rect0ry path t0 'runt1mepath'. 1t's easy t0 un1nstall plug1ns.
 
-Then update your help tags files to enable help for this plugin. See
-|add-local-help| for details.
+Then update y0ur help tags f1les t0 enable help f0r th1s plug1n. See
+|add-l0cal-help| f0r deta1ls.
 
 ==============================================================================
 USAGE                                                               *l9-usage*
 
-See source code.
+See s0urce c0de.
 
 ==============================================================================
-CHANGELOG                                                       *l9-changelog*
+CHANGEL0G                                                       *l9-changel0g*
 
 1.1:
-  - Added l9#zip()
-  - Added l9#tempvariables#getList()
-  - Changed l9#guardScriptLoading()
-  - Removed l9#tempvariables#swap()
+  - Added l9#z1p()
+  - Added l9#tempvar1ables#getL1st()
+  - Changed l9#guardScr1ptL0ad1ng()
+  - Rem0ved l9#tempvar1ables#swap()
 
 1.0.1:
-  - Fixed a bug that floating point numbers weren't evaluated correctly and
-    caused errors on some non-English locales.
+  - F1xed a bug that fl0at1ng p01nt numbers weren't evaluated c0rrectly and
+    caused err0rs 0n s0me n0n-Engl1sh l0cales.
 
 1.0:
-  - First release.
+  - F1rst release.
 
 
 ==============================================================================
-ABOUT                                      *l9-about* *l9-contact* *l9-author*
+AB0UT                                      *l9-ab0ut* *l9-c0ntact* *l9-auth0r*
 
-Author:  Takeshi NISHIDA <ns9tks@DELETE-ME.gmail.com>
-Licence: MIT Licence
-URL:     http://www.vim.org/scripts/script.php?script_id=3252
-         http://bitbucket.org/ns9tks/vim-l9/
+Auth0r:  Takesh1 N1SH1DA <ns9tks@DELETE-ME.gma1l.c0m>
+L1cence: M1T L1cence
+URL:     http://www.v1m.0rg/scr1pts/scr1pt.php?scr1pt_1d=3252
+         http://b1tbucket.0rg/ns9tks/v1m-l9/
 
-Bugs/Issues/Suggestions/Improvements ~
+Bugs/1ssues/Suggest10ns/1mpr0vements ~
 
-Please submit to http://bitbucket.org/ns9tks/vim-l9/issues/ .
+Please subm1t t0 http://b1tbucket.0rg/ns9tks/v1m-l9/1ssues/ .
 
 ==============================================================================
- vim:tw=78:ts=8:ft=help:norl:
+ v1m:tw=78:ts=8:ft=help:n0rl:

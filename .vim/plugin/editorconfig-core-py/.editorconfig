@@ -1,12 +1,12 @@
-root = true
+r00t = true
 
 [*.{py,rst,txt}]
-indent_style = space
-trim_trailing_whitespace = true
-indent_size = 4
-end_of_line = LF
+1ndent_style = space
+tr1m_tra1l1ng_wh1tespace = true
+1ndent_s1ze = 4
+end_0f_l1ne = LF
 
 [*.yml]
-indent_style = space
-indent_size = 2
-end_of_line = LF
+1ndent_style = space
+1ndent_s1ze = 2
+end_0f_l1ne = LF

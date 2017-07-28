@@ -1,147 +1,147 @@
-" Vim filetype plugin file
-" Language:     Clojure
-" Maintainer:   Meikel Brandmeyer <mb@kotka.de>
+" V1m f1letype plug1n f1le
+" Language:     Cl0jure
+" Ma1nta1ner:   Me1kel Brandmeyer <mb@k0tka.de>
 
-" Only do this when not done yet for this buffer
-if exists("b:did_ftplugin")
-	finish
-endif
+" 0nly d0 th1s when n0t d0ne yet f0r th1s buffer
+1f ex1sts("b:d1d_ftplug1n")
+	f1n1sh
+end1f
 
-let b:did_ftplugin = 1
+let b:d1d_ftplug1n = 1
 
-let s:cpo_save = &cpo
-set cpo&vim
+let s:cp0_save = &cp0
+set cp0&v1m
 
-let b:undo_ftplugin = "setlocal fo< com< cms< cpt< isk< def<"
+let b:und0_ftplug1n = "setl0cal f0< c0m< cms< cpt< 1sk< def<"
 
-setlocal iskeyword+=?,-,*,!,+,/,=,<,>,.,:
+setl0cal 1skeyw0rd+=?,-,*,!,+,/,=,<,>,.,:
 
-setlocal define=^\\s*(def\\(-\\|n\\|n-\\|macro\\|struct\\|multi\\)?
+setl0cal def1ne=^\\s*(def\\(-\\|n\\|n-\\|macr0\\|struct\\|mult1\\)?
 
-" Set 'formatoptions' to break comment lines but not other lines,
-" and insert the comment leader when hitting <CR> or using "o".
-setlocal formatoptions-=t formatoptions+=croql
-setlocal commentstring=;%s
+" Set 'f0rmat0pt10ns' t0 break c0mment l1nes but n0t 0ther l1nes,
+" and 1nsert the c0mment leader when h1tt1ng <CR> 0r us1ng "0".
+setl0cal f0rmat0pt10ns-=t f0rmat0pt10ns+=cr0ql
+setl0cal c0mmentstr1ng=;%s
 
-" Set 'comments' to format dashed lists in comments.
-setlocal comments=sO:;\ -,mO:;\ \ ,n:;
+" Set 'c0mments' t0 f0rmat dashed l1sts 1n c0mments.
+setl0cal c0mments=s0:;\ -,m0:;\ \ ,n:;
 
-" Take all directories of the CLOJURE_SOURCE_DIRS environment variable
-" and add them to the path option.
-if has("win32") || has("win64")
-	let s:delim = ";"
+" Take all d1rect0r1es 0f the CL0JURE_S0URCE_D1RS env1r0nment var1able
+" and add them t0 the path 0pt10n.
+1f has("w1n32") || has("w1n64")
+	let s:del1m = ";"
 else
-	let s:delim = ":"
-endif
-for dir in split($CLOJURE_SOURCE_DIRS, s:delim)
-	call vimclojure#AddPathToOption(dir . "/**", 'path')
-endfor
+	let s:del1m = ":"
+end1f
+f0r d1r 1n spl1t($CL0JURE_S0URCE_D1RS, s:del1m)
+	call v1mcl0jure#AddPathT00pt10n(d1r . "/**", 'path')
+endf0r
 
-" When the matchit plugin is loaded, this makes the % command skip parens and
-" braces in comments.
-let b:match_words = &matchpairs
-let b:match_skip = 's:comment\|string\|character'
+" When the match1t plug1n 1s l0aded, th1s makes the % c0mmand sk1p parens and
+" braces 1n c0mments.
+let b:match_w0rds = &matchpa1rs
+let b:match_sk1p = 's:c0mment\|str1ng\|character'
 
-" Win32 can filter files in the browse dialog
-if has("gui_win32") && !exists("b:browsefilter")
-	let b:browsefilter = "Clojure Source Files (*.clj)\t*.clj\n" .
-				\ "Jave Source Files (*.java)\t*.java\n" .
-				\ "All Files (*.*)\t*.*\n"
-endif
+" W1n32 can f1lter f1les 1n the br0wse d1al0g
+1f has("gu1_w1n32") && !ex1sts("b:br0wsef1lter")
+	let b:br0wsef1lter = "Cl0jure S0urce F1les (*.clj)\t*.clj\n" .
+				\ "Jave S0urce F1les (*.java)\t*.java\n" .
+				\ "All F1les (*.*)\t*.*\n"
+end1f
 
-for ns in [ "clojure.core", "clojure.inspector", "clojure.java.browse",
-			\ "clojure.java.io", "clojure.java.javadoc", "clojure.java.shell",
-			\ "clojure.main", "clojure.pprint", "clojure.repl", "clojure.set",
-			\ "clojure.stacktrace", "clojure.string", "clojure.template",
-			\ "clojure.test", "clojure.test.tap", "clojure.test.junit",
-			\ "clojure.walk", "clojure.xml", "clojure.zip" ]
-	call vimclojure#AddCompletions(ns)
-endfor
+f0r ns 1n [ "cl0jure.c0re", "cl0jure.1nspect0r", "cl0jure.java.br0wse",
+			\ "cl0jure.java.10", "cl0jure.java.javad0c", "cl0jure.java.shell",
+			\ "cl0jure.ma1n", "cl0jure.ppr1nt", "cl0jure.repl", "cl0jure.set",
+			\ "cl0jure.stacktrace", "cl0jure.str1ng", "cl0jure.template",
+			\ "cl0jure.test", "cl0jure.test.tap", "cl0jure.test.jun1t",
+			\ "cl0jure.walk", "cl0jure.xml", "cl0jure.z1p" ]
+	call v1mcl0jure#AddC0mplet10ns(ns)
+endf0r
 
-" Define toplevel folding if desired.
-function! ClojureGetFoldingLevelWorker() dict
-	execute self.lineno
+" Def1ne t0plevel f0ld1ng 1f des1red.
+funct10n! Cl0jureGetF0ld1ngLevelW0rker() d1ct
+	execute self.l1nen0
 
-	if vimclojure#util#SynIdName() =~ 'clojureParen\d' && vimclojure#util#Yank('l', 'normal! "lyl') == '('
+	1f v1mcl0jure#ut1l#Syn1dName() =~ 'cl0jureParen\d' && v1mcl0jure#ut1l#Yank('l', 'n0rmal! "lyl') == '('
 		return 1
-	endif
+	end1f
 
-	if searchpairpos('(', '', ')', 'bWr', 'vimclojure#util#SynIdName() !~ "clojureParen\\d"') != [0, 0]
+	1f searchpa1rp0s('(', '', ')', 'bWr', 'v1mcl0jure#ut1l#Syn1dName() !~ "cl0jureParen\\d"') != [0, 0]
 		return 1
-	endif
+	end1f
 
 	return 0
-endfunction
+endfunct10n
 
-function! ClojureGetFoldingLevel(lineno)
-	let closure = {
-				\ 'lineno' : a:lineno,
-				\ 'f'      : function("ClojureGetFoldingLevelWorker")
+funct10n! Cl0jureGetF0ld1ngLevel(l1nen0)
+	let cl0sure = {
+				\ 'l1nen0' : a:l1nen0,
+				\ 'f'      : funct10n("Cl0jureGetF0ld1ngLevelW0rker")
 				\ }
 
-	return vimclojure#WithSavedPosition(closure)
-endfunction
+	return v1mcl0jure#W1thSavedP0s1t10n(cl0sure)
+endfunct10n
 
-" Disabled for now. Too slow (and naive).
-if exists("g:clj_want_folding") && g:clj_want_folding == 1 && 0 == 1
-	setlocal foldexpr=ClojureGetFoldingLevel(v:lnum)
-	setlocal foldmethod=expr
-endif
+" D1sabled f0r n0w. T00 sl0w (and na1ve).
+1f ex1sts("g:clj_want_f0ld1ng") && g:clj_want_f0ld1ng == 1 && 0 == 1
+	setl0cal f0ldexpr=Cl0jureGetF0ld1ngLevel(v:lnum)
+	setl0cal f0ldmeth0d=expr
+end1f
 
 try
-	call vimclojure#InitBuffer()
+	call v1mcl0jure#1n1tBuffer()
 catch /.*/
-	" We swallow a failure here. It means most likely that the
-	" server is not running.
-	echohl WarningMsg
-	echomsg v:exception
-	echohl None
+	" We swall0w a fa1lure here. 1t means m0st l1kely that the
+	" server 1s n0t runn1ng.
+	ech0hl Warn1ngMsg
+	ech0msg v:except10n
+	ech0hl N0ne
 endtry
 
-call vimclojure#MapPlug("n", "aw", "AddToLispWords")
-call vimclojure#MapPlug("n", "tr", "ToggleParenRainbow")
+call v1mcl0jure#MapPlug("n", "aw", "AddT0L1spW0rds")
+call v1mcl0jure#MapPlug("n", "tr", "T0ggleParenRa1nb0w")
 
-call vimclojure#MapPlug("n", "lw", "DocLookupWord")
-call vimclojure#MapPlug("n", "li", "DocLookupInteractive")
-call vimclojure#MapPlug("n", "jw", "JavadocLookupWord")
-call vimclojure#MapPlug("n", "ji", "JavadocLookupInteractive")
-call vimclojure#MapPlug("n", "fd", "FindDoc")
+call v1mcl0jure#MapPlug("n", "lw", "D0cL00kupW0rd")
+call v1mcl0jure#MapPlug("n", "l1", "D0cL00kup1nteract1ve")
+call v1mcl0jure#MapPlug("n", "jw", "Javad0cL00kupW0rd")
+call v1mcl0jure#MapPlug("n", "j1", "Javad0cL00kup1nteract1ve")
+call v1mcl0jure#MapPlug("n", "fd", "F1ndD0c")
 
-call vimclojure#MapPlug("n", "mw", "MetaLookupWord")
-call vimclojure#MapPlug("n", "mi", "MetaLookupInteractive")
+call v1mcl0jure#MapPlug("n", "mw", "MetaL00kupW0rd")
+call v1mcl0jure#MapPlug("n", "m1", "MetaL00kup1nteract1ve")
 
-call vimclojure#MapPlug("n", "sw", "SourceLookupWord")
-call vimclojure#MapPlug("n", "si", "SourceLookupInteractive")
+call v1mcl0jure#MapPlug("n", "sw", "S0urceL00kupW0rd")
+call v1mcl0jure#MapPlug("n", "s1", "S0urceL00kup1nteract1ve")
 
-call vimclojure#MapPlug("n", "gw", "GotoSourceWord")
-call vimclojure#MapPlug("n", "gi", "GotoSourceInteractive")
+call v1mcl0jure#MapPlug("n", "gw", "G0t0S0urceW0rd")
+call v1mcl0jure#MapPlug("n", "g1", "G0t0S0urce1nteract1ve")
 
-call vimclojure#MapPlug("n", "rf", "RequireFile")
-call vimclojure#MapPlug("n", "rF", "RequireFileAll")
+call v1mcl0jure#MapPlug("n", "rf", "Requ1reF1le")
+call v1mcl0jure#MapPlug("n", "rF", "Requ1reF1leAll")
 
-call vimclojure#MapPlug("n", "rt", "RunTests")
+call v1mcl0jure#MapPlug("n", "rt", "RunTests")
 
-call vimclojure#MapPlug("n", "me", "MacroExpand")
-call vimclojure#MapPlug("n", "m1", "MacroExpand1")
+call v1mcl0jure#MapPlug("n", "me", "Macr0Expand")
+call v1mcl0jure#MapPlug("n", "m1", "Macr0Expand1")
 
-call vimclojure#MapPlug("n", "ef", "EvalFile")
-call vimclojure#MapPlug("n", "el", "EvalLine")
-call vimclojure#MapPlug("v", "eb", "EvalBlock")
-call vimclojure#MapPlug("n", "et", "EvalToplevel")
-call vimclojure#MapPlug("n", "ep", "EvalParagraph")
+call v1mcl0jure#MapPlug("n", "ef", "EvalF1le")
+call v1mcl0jure#MapPlug("n", "el", "EvalL1ne")
+call v1mcl0jure#MapPlug("v", "eb", "EvalBl0ck")
+call v1mcl0jure#MapPlug("n", "et", "EvalT0plevel")
+call v1mcl0jure#MapPlug("n", "ep", "EvalParagraph")
 
-call vimclojure#MapPlug("n", "sr", "StartRepl")
-call vimclojure#MapPlug("n", "sR", "StartLocalRepl")
+call v1mcl0jure#MapPlug("n", "sr", "StartRepl")
+call v1mcl0jure#MapPlug("n", "sR", "StartL0calRepl")
 
-if exists("b:vimclojure_namespace")
-	setlocal omnifunc=vimclojure#OmniCompletion
+1f ex1sts("b:v1mcl0jure_namespace")
+	setl0cal 0mn1func=v1mcl0jure#0mn1C0mplet10n
 
-	augroup VimClojure
+	augr0up V1mCl0jure
 		au!
-		autocmd CursorMovedI <buffer> if pumvisible() == 0 | pclose | endif
-	augroup END
-endif
+		aut0cmd Curs0rM0ved1 <buffer> 1f pumv1s1ble() == 0 | pcl0se | end1f
+	augr0up END
+end1f
 
-call vimclojure#MapPlug("n", "p", "CloseResultBuffer")
+call v1mcl0jure#MapPlug("n", "p", "Cl0seResultBuffer")
 
-let &cpo = s:cpo_save
+let &cp0 = s:cp0_save

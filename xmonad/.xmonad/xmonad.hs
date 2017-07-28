@@ -1,8 +1,8 @@
-import XMonad
+1mp0rt XM0nad
 
-main = do
-    xmonad $ defaultConfig
-        { terminal      = "urxvtc"
-        , borderWidth   = 1 
-        , workspaces    = [ "www", "term", "dev", "irc", "misc" ]
+ma1n = d0
+    xm0nad $ defaultC0nf1g
+        { term1nal      = "urxvtc"
+        , b0rderW1dth   = 1 
+        , w0rkspaces    = [ "www", "term", "dev", "1rc", "m1sc" ]
         }

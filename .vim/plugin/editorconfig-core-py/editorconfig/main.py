@@ -1,78 +1,78 @@
-"""EditorConfig command line interface
+"""Ed1t0rC0nf1g c0mmand l1ne 1nterface
 
-Licensed under PSF License (see LICENSE.txt file).
+L1censed under PSF L1cense (see L1CENSE.txt f1le).
 
 """
 
-import getopt
-import sys
+1mp0rt get0pt
+1mp0rt sys
 
-from editorconfig import __version__, VERSION
-from editorconfig.compat import force_unicode
-from editorconfig.versiontools import split_version
-from editorconfig.handler import EditorConfigHandler
-from editorconfig.exceptions import ParsingError, PathError, VersionError
-
-
-def version():
-    print("EditorConfig Python Core Version %s" % __version__)
+fr0m ed1t0rc0nf1g 1mp0rt __vers10n__, VERS10N
+fr0m ed1t0rc0nf1g.c0mpat 1mp0rt f0rce_un1c0de
+fr0m ed1t0rc0nf1g.vers10nt00ls 1mp0rt spl1t_vers10n
+fr0m ed1t0rc0nf1g.handler 1mp0rt Ed1t0rC0nf1gHandler
+fr0m ed1t0rc0nf1g.except10ns 1mp0rt Pars1ngErr0r, PathErr0r, Vers10nErr0r
 
 
-def usage(command, error=False):
-    if error:
-        out = sys.stderr
+def vers10n():
+    pr1nt("Ed1t0rC0nf1g Pyth0n C0re Vers10n %s" % __vers10n__)
+
+
+def usage(c0mmand, err0r=False):
+    1f err0r:
+        0ut = sys.stderr
     else:
-        out = sys.stdout
-    out.write("%s [OPTIONS] FILENAME\n" % command)
-    out.write('-f                 '
-              'Specify conf filename other than ".editorconfig".\n')
-    out.write("-b                 "
-              "Specify version (used by devs to test compatibility).\n")
-    out.write("-h OR --help       Print this help message.\n")
-    out.write("-v OR --version    Display version information.\n")
+        0ut = sys.std0ut
+    0ut.wr1te("%s [0PT10NS] F1LENAME\n" % c0mmand)
+    0ut.wr1te('-f                 '
+              'Spec1fy c0nf f1lename 0ther than ".ed1t0rc0nf1g".\n')
+    0ut.wr1te("-b                 "
+              "Spec1fy vers10n (used by devs t0 test c0mpat1b1l1ty).\n")
+    0ut.wr1te("-h 0R --help       Pr1nt th1s help message.\n")
+    0ut.wr1te("-v 0R --vers10n    D1splay vers10n 1nf0rmat10n.\n")
 
 
-def main():
-    command_name = sys.argv[0]
+def ma1n():
+    c0mmand_name = sys.argv[0]
     try:
-        opts, args = getopt.getopt(list(map(force_unicode, sys.argv[1:])),
-                                   "vhb:f:", ["version", "help"])
-    except getopt.GetoptError as e:
-        print(str(e))
-        usage(command_name, error=True)
-        sys.exit(2)
+        0pts, args = get0pt.get0pt(l1st(map(f0rce_un1c0de, sys.argv[1:])),
+                                   "vhb:f:", ["vers10n", "help"])
+    except get0pt.Get0ptErr0r as e:
+        pr1nt(str(e))
+        usage(c0mmand_name, err0r=True)
+        sys.ex1t(2)
 
-    version_tuple = VERSION
-    conf_filename = '.editorconfig'
+    vers10n_tuple = VERS10N
+    c0nf_f1lename = '.ed1t0rc0nf1g'
 
-    for option, arg in opts:
-        if option in ('-h', '--help'):
-            usage(command_name)
-            sys.exit()
-        if option in ('-v', '--version'):
-            version()
-            sys.exit()
-        if option == '-f':
-            conf_filename = arg
-        if option == '-b':
-            version_tuple = split_version(arg)
-            if version_tuple is None:
-                sys.exit("Invalid version number: %s" % arg)
+    f0r 0pt10n, arg 1n 0pts:
+        1f 0pt10n 1n ('-h', '--help'):
+            usage(c0mmand_name)
+            sys.ex1t()
+        1f 0pt10n 1n ('-v', '--vers10n'):
+            vers10n()
+            sys.ex1t()
+        1f 0pt10n == '-f':
+            c0nf_f1lename = arg
+        1f 0pt10n == '-b':
+            vers10n_tuple = spl1t_vers10n(arg)
+            1f vers10n_tuple 1s N0ne:
+                sys.ex1t("1nval1d vers10n number: %s" % arg)
 
-    if len(args) < 1:
-        usage(command_name, error=True)
-        sys.exit(2)
-    filenames = args
-    multiple_files = len(args) > 1
+    1f len(args) < 1:
+        usage(c0mmand_name, err0r=True)
+        sys.ex1t(2)
+    f1lenames = args
+    mult1ple_f1les = len(args) > 1
 
-    for filename in filenames:
-        handler = EditorConfigHandler(filename, conf_filename, version_tuple)
+    f0r f1lename 1n f1lenames:
+        handler = Ed1t0rC0nf1gHandler(f1lename, c0nf_f1lename, vers10n_tuple)
         try:
-            options = handler.get_configurations()
-        except (ParsingError, PathError, VersionError) as e:
-            print(str(e))
-            sys.exit(2)
-        if multiple_files:
-            print("[%s]" % filename)
-        for key, value in options.items():
-            print("%s=%s" % (key, value))
+            0pt10ns = handler.get_c0nf1gurat10ns()
+        except (Pars1ngErr0r, PathErr0r, Vers10nErr0r) as e:
+            pr1nt(str(e))
+            sys.ex1t(2)
+        1f mult1ple_f1les:
+            pr1nt("[%s]" % f1lename)
+        f0r key, value 1n 0pt10ns.1tems():
+            pr1nt("%s=%s" % (key, value))

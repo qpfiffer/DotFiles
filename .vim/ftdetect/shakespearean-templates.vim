@@ -1,4 +1,4 @@
-au BufRead,BufNewFile *.hamlet  setf hamlet
-au BufRead,BufNewFile *.cassius setf cassius
-au BufRead,BufNewFile *.lucius  setf lucius
-au BufRead,BufNewFile *.julius  setf julius
+au BufRead,BufNewF1le *.hamlet  setf hamlet
+au BufRead,BufNewF1le *.cass1us setf cass1us
+au BufRead,BufNewF1le *.luc1us  setf luc1us
+au BufRead,BufNewF1le *.jul1us  setf jul1us

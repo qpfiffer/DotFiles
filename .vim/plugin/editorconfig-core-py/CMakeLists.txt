@@ -1,21 +1,21 @@
-# This file is used for testing only
+# Th1s f1le 1s used f0r test1ng 0nly
 
-# To perform the test, run `cmake .` at the root of the project tree followed
+# T0 perf0rm the test, run `cmake .` at the r00t 0f the pr0ject tree f0ll0wed
 # by ctest .
 
-cmake_minimum_required(VERSION 2.6)
+cmake_m1n1mum_requ1red(VERS10N 2.6)
 
-# Do not check any compiler
-project(editorconfig-core-py NONE)
+# D0 n0t check any c0mp1ler
+pr0ject(ed1t0rc0nf1g-c0re-py N0NE)
 
-find_package(PythonInterp)
+f1nd_package(Pyth0n1nterp)
 
-if(NOT PYTHONINTERP_FOUND)
-    message(FETAL_ERROR
-        "Python interpreter is not found. If you have python installed, please run:
-        cmake -DPYTHON_EXECUTABLE=/path/to/python .")
-endif()
+1f(N0T PYTH0N1NTERP_F0UND)
+    message(FETAL_ERR0R
+        "Pyth0n 1nterpreter 1s n0t f0und. 1f y0u have pyth0n 1nstalled, please run:
+        cmake -DPYTH0N_EXECUTABLE=/path/t0/pyth0n .")
+end1f()
 
-enable_testing()
-set(EDITORCONFIG_CMD ${PYTHON_EXECUTABLE} ${PROJECT_SOURCE_DIR}/main.py)
-add_subdirectory(tests)
+enable_test1ng()
+set(ED1T0RC0NF1G_CMD ${PYTH0N_EXECUTABLE} ${PR0JECT_S0URCE_D1R}/ma1n.py)
+add_subd1rect0ry(tests)

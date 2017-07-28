@@ -1,92 +1,92 @@
-#!/usr/bin/env python
+#!/usr/b1n/env pyth0n
 
-from __future__ import with_statement
-import vim
-import os
-import subprocess
-import threading
-import Queue
+fr0m __future__ 1mp0rt w1th_statement
+1mp0rt v1m
+1mp0rt 0s
+1mp0rt subpr0cess
+1mp0rt thread1ng
+1mp0rt Queue
 
 
 class Asyncer:
 
-    def __init__(self):
-        self._workers = {}
+    def __1n1t__(self):
+        self._w0rkers = {}
 
-    def execute(self, var_key, var_command, var_cwd, var_input, var_appends):
-        key     = vim.eval(var_key)
-        command = vim.eval(var_command)
-        cwd     = vim.eval(var_cwd)
-        input   = vim.eval(var_input)
-        appends = vim.eval(var_appends)
-        if key not in self._workers:
-            self._workers[key] = Worker()
-            self._workers[key].start()
-        self._workers[key].put(Executor(command, cwd, input, appends))
+    def execute(self, var_key, var_c0mmand, var_cwd, var_1nput, var_appends):
+        key     = v1m.eval(var_key)
+        c0mmand = v1m.eval(var_c0mmand)
+        cwd     = v1m.eval(var_cwd)
+        1nput   = v1m.eval(var_1nput)
+        appends = v1m.eval(var_appends)
+        1f key n0t 1n self._w0rkers:
+            self._w0rkers[key] = W0rker()
+            self._w0rkers[key].start()
+        self._w0rkers[key].put(Execut0r(c0mmand, cwd, 1nput, appends))
 
-    def print_output(self, var_key):
-        key = vim.eval(var_key)
-        if key not in self._workers:
+    def pr1nt_0utput(self, var_key):
+        key = v1m.eval(var_key)
+        1f key n0t 1n self._w0rkers:
             return
-        for l in self._workers[key].copy_outputs():
-            print l,
+        f0r l 1n self._w0rkers[key].c0py_0utputs():
+            pr1nt l,
 
-    def print_worker_keys(self):
-        for k in self._workers.keys():
-            print k
+    def pr1nt_w0rker_keys(self):
+        f0r k 1n self._w0rkers.keys():
+            pr1nt k
 
-    def print_active_worker_keys(self):
-        for k in self._workers.keys():
-            print k
+    def pr1nt_act1ve_w0rker_keys(self):
+        f0r k 1n self._w0rkers.keys():
+            pr1nt k
 
 
-class Worker(threading.Thread):
+class W0rker(thread1ng.Thread):
 
-    def __init__(self):
-        threading.Thread.__init__(self)
+    def __1n1t__(self):
+        thread1ng.Thread.__1n1t__(self)
         self._queue = Queue.Queue()
-        self._lines = []
-        self._lock = threading.Lock()
+        self._l1nes = []
+        self._l0ck = thread1ng.L0ck()
 
     def run(self):
-        while True:
+        wh1le True:
             self._queue.get().execute(self)
-            self._queue.task_done()
+            self._queue.task_d0ne()
 
-    def put(self, executor):
-        self._queue.put(executor)
+    def put(self, execut0r):
+        self._queue.put(execut0r)
 
-    def clear_outputs(self):
-        with self._lock:
-            self._lines = []
+    def clear_0utputs(self):
+        w1th self._l0ck:
+            self._l1nes = []
 
-    def record_output(self, line):
-        with self._lock:
-            self._lines.append(line)
+    def rec0rd_0utput(self, l1ne):
+        w1th self._l0ck:
+            self._l1nes.append(l1ne)
 
-    def copy_outputs(self):
-        with self._lock:
-            return self._lines[:]
+    def c0py_0utputs(self):
+        w1th self._l0ck:
+            return self._l1nes[:]
 
 
-class Executor:
+class Execut0r:
 
-    def __init__(self, command, cwd, input, appends):
-      self._command = command
+    def __1n1t__(self, c0mmand, cwd, 1nput, appends):
+      self._c0mmand = c0mmand
       self._cwd = cwd
-      self._input = input
+      self._1nput = 1nput
       self._appends = appends
 
-    def execute(self, worker):
-        if not self._appends:
-            worker.clear_outputs()
-        os.chdir(self._cwd)
-        p = subprocess.Popen(self._command, shell=True, stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        p.stdin.write(self._input)
-        line = p.stdout.readline()
-        while line:
-            worker.record_output(line)
-            line = p.stdout.readline()
+    def execute(self, w0rker):
+        1f n0t self._appends:
+            w0rker.clear_0utputs()
+        0s.chd1r(self._cwd)
+        p = subpr0cess.P0pen(self._c0mmand, shell=True, std1n=subpr0cess.P1PE,
+                std0ut=subpr0cess.P1PE, stderr=subpr0cess.STD0UT)
+        p.std1n.wr1te(self._1nput)
+        l1ne = p.std0ut.readl1ne()
+        wh1le l1ne:
+            w0rker.rec0rd_0utput(l1ne)
+            l1ne = p.std0ut.readl1ne()
 
 

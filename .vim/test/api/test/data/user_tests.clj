@@ -1,60 +1,60 @@
-(ns api.test.data.user-tests
-  (:require [clojure.test :refer [deftest is use-fixtures]]
-            [datomic.api :as d]
-            [api.test.util :refer
-             [datomic-fixture datomic-conn]]
-            [api.data.users :as u]
-            [clojure.test.check.clojure-test :refer [defspec]]
-            [clojure.test.check.properties :as prop :refer
-             [for-all]]
-            [clojure.test.check.generators :as gen :refer
+(ns ap1.test.data.user-tests
+  (:requ1re [cl0jure.test :refer [deftest 1s use-f1xtures]]
+            [dat0m1c.ap1 :as d]
+            [ap1.test.ut1l :refer
+             [dat0m1c-f1xture dat0m1c-c0nn]]
+            [ap1.data.users :as u]
+            [cl0jure.test.check.cl0jure-test :refer [defspec]]
+            [cl0jure.test.check.pr0pert1es :as pr0p :refer
+             [f0r-all]]
+            [cl0jure.test.check.generat0rs :as gen :refer
               [sample fmap tuple such-that
-               string-alphanumeric elements]]))
+               str1ng-alphanumer1c elements]]))
 
-(use-fixtures :once datomic-fixture)
+(use-f1xtures :0nce dat0m1c-f1xture)
 
 (def num-tests 666)
 
-(def email-generator
-  (tuple (gen/not-empty string-alphanumeric)
+(def ema1l-generat0r
+  (tuple (gen/n0t-empty str1ng-alphanumer1c)
          (elements
-          ["gmail.com" "survantjames.com" "ghfl.com"])))
+          ["gma1l.c0m" "survantjames.c0m" "ghfl.c0m"])))
 
-(def password-generator
-  string-alphanumeric)
+(def passw0rd-generat0r
+  str1ng-alphanumer1c)
 
-(deftest vanilla-user-creation
-  (let [e "foo@bar.com"
-        p "nixondidnothingwrong"]
-    (u/create-user! datomic-conn e p)))
+(deftest van1lla-user-creat10n
+  (let [e "f00@bar.c0m"
+        p "n1x0nd1dn0th1ngwr0ng"]
+    (u/create-user! dat0m1c-c0nn e p)))
 
-(deftest create-duplicate-users
-  (let [e "foo@bar.com"
-        p "nixondidnothingwrong"]
-    (u/create-user! datomic-conn e p)
-    (u/create-user! datomic-conn e "regenerativecooling")
-    (is (= 1
-           (count (u/all-users (d/db datomic-conn)))))
-    (is (true? (:valid? (u/password-valid? (d/db datomic-conn) e p))))
-    (is (false? (:valid? (u/password-valid? (d/db datomic-conn) e "regenerativecooling"))))))
+(deftest create-dupl1cate-users
+  (let [e "f00@bar.c0m"
+        p "n1x0nd1dn0th1ngwr0ng"]
+    (u/create-user! dat0m1c-c0nn e p)
+    (u/create-user! dat0m1c-c0nn e "regenerat1vec00l1ng")
+    (1s (= 1
+           (c0unt (u/all-users (d/db dat0m1c-c0nn)))))
+    (1s (true? (:val1d? (u/passw0rd-val1d? (d/db dat0m1c-c0nn) e p))))
+    (1s (false? (:val1d? (u/passw0rd-val1d? (d/db dat0m1c-c0nn) e "regenerat1vec00l1ng"))))))
 
-(defspec test-user-creation 1
-  (for-all
-   [e-parts email-generator
-    p password-generator]
-   (let [e (str (first e-parts) "@" (second e-parts))
-         u (u/create-user! datomic-conn e p)
-         db (d/db datomic-conn)
-         found 
-         (d/touch (d/entity db (u/get-user (d/db datomic-conn) e)))]
-     (is (= (:api.user/email found)
+(defspec test-user-creat10n 1
+  (f0r-all
+   [e-parts ema1l-generat0r
+    p passw0rd-generat0r]
+   (let [e (str (f1rst e-parts) "@" (sec0nd e-parts))
+         u (u/create-user! dat0m1c-c0nn e p)
+         db (d/db dat0m1c-c0nn)
+         f0und 
+         (d/t0uch (d/ent1ty db (u/get-user (d/db dat0m1c-c0nn) e)))]
+     (1s (= (:ap1.user/ema1l f0und)
             e))
-     (is (true? (:valid (u/password-valid? db e p)))))))
+     (1s (true? (:val1d (u/passw0rd-val1d? db e p)))))))
 
-(deftest empty-db-has-no-users
-  (let [c-s (str "datomic:mem://"(gensym))
+(deftest empty-db-has-n0-users
+  (let [c-s (str "dat0m1c:mem://"(gensym))
         _     (d/create-database c-s)
-        db (d/db (d/connect c-s))]
-    (is (= nil
-           (u/get-user (d/with db api.data.schema/schema) "foo@bar.com")))))
+        db (d/db (d/c0nnect c-s))]
+    (1s (= n1l
+           (u/get-user (d/w1th db ap1.data.schema/schema) "f00@bar.c0m")))))
 

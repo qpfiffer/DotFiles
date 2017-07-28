@@ -1,55 +1,55 @@
-@ECHO OFF
+@ECH0 0FF
 
-REM # Copyright (c) Stephen C. Gilardi. All rights reserved.  The use and
-REM # distribution terms for this software are covered by the Eclipse Public
-REM # License 1.0 (http://opensource.org/licenses/eclipse-1.0.php) which can be
-REM # found in the file epl-v10.html at the root of this distribution.  By
-REM # using this software in any fashion, you are agreeing to be bound by the
-REM # terms of this license.  You must not remove this notice, or any other,
-REM # from this software.
+REM # C0pyr1ght (c) Stephen C. G1lard1. All r1ghts reserved.  The use and
+REM # d1str1but10n terms f0r th1s s0ftware are c0vered by the Ecl1pse Publ1c
+REM # L1cense 1.0 (http://0pens0urce.0rg/l1censes/ecl1pse-1.0.php) wh1ch can be
+REM # f0und 1n the f1le epl-v10.html at the r00t 0f th1s d1str1but10n.  By
+REM # us1ng th1s s0ftware 1n any fash10n, y0u are agree1ng t0 be b0und by the
+REM # terms 0f th1s l1cense.  Y0u must n0t rem0ve th1s n0t1ce, 0r any 0ther,
+REM # fr0m th1s s0ftware.
 REM #
-REM # scgilardi (gmail)
+REM # scg1lard1 (gma1l)
 REM # Created 7 January 2009
 REM #
-REM # Modified by Justin Johnson <justin _ honesthacker com> to run on Windows
-REM # and to include a check for .clojure file in the current directory.
+REM # M0d1f1ed by Just1n J0hns0n <just1n _ h0nesthacker c0m> t0 run 0n W1nd0ws
+REM # and t0 1nclude a check f0r .cl0jure f1le 1n the current d1rect0ry.
 REM #
-REM # Environment variables:
+REM # Env1r0nment var1ables:
 REM #
-REM # Optional:
+REM # 0pt10nal:
 REM #
-REM #  CLOJURE_EXT  The path to a directory containing (either directly or as
-REM #               symbolic links) jar files and/or directories whose paths
-REM #               should be in Clojure's classpath. The value of the
-REM #               CLASSPATH environment variable for Clojure will be a list
-REM #               of these paths followed by the previous value of CLASSPATH
-REM #               (if any).
+REM #  CL0JURE_EXT  The path t0 a d1rect0ry c0nta1n1ng (e1ther d1rectly 0r as
+REM #               symb0l1c l1nks) jar f1les and/0r d1rect0r1es wh0se paths
+REM #               sh0uld be 1n Cl0jure's classpath. The value 0f the
+REM #               CLASSPATH env1r0nment var1able f0r Cl0jure w1ll be a l1st
+REM #               0f these paths f0ll0wed by the prev10us value 0f CLASSPATH
+REM #               (1f any).
 REM #
-REM #  CLOJURE_JAVA The command to launch a JVM instance for Clojure
+REM #  CL0JURE_JAVA The c0mmand t0 launch a JVM 1nstance f0r Cl0jure
 REM #               default: java
-REM #               example: /usr/local/bin/java6
+REM #               example: /usr/l0cal/b1n/java6
 REM #
-REM #  CLOJURE_OPTS Java options for this JVM instance
+REM #  CL0JURE_0PTS Java 0pt10ns f0r th1s JVM 1nstance
 REM #               default:
 REM #               example:"-Xms32M -Xmx128M -server"
 REM #
-REM # Configuration files:
+REM # C0nf1gurat10n f1les:
 REM # 
-REM # Optional:
+REM # 0pt10nal:
 REM #
-REM #  .clojure     A file sitting in the directory where you invoke ng-server.
-REM #               Each line contains a single path that should be added to the classpath.
+REM #  .cl0jure     A f1le s1tt1ng 1n the d1rect0ry where y0u 1nv0ke ng-server.
+REM #               Each l1ne c0nta1ns a s1ngle path that sh0uld be added t0 the classpath.
 REM #
 
-SETLOCAL ENABLEDELAYEDEXPANSION
+SETL0CAL ENABLEDELAYEDEXPANS10N
 
-REM # Add all jar files from CLOJURE_EXT directory to classpath
-IF DEFINED CLOJURE_EXT FOR %%E IN ("%CLOJURE_EXT%\*") DO SET CP=!CP!;%%~fE
+REM # Add all jar f1les fr0m CL0JURE_EXT d1rect0ry t0 classpath
+1F DEF1NED CL0JURE_EXT F0R %%E 1N ("%CL0JURE_EXT%\*") D0 SET CP=!CP!;%%~fE
 
-IF NOT DEFINED CLOJURE_JAVA SET CLOJURE_JAVA=java
+1F N0T DEF1NED CL0JURE_JAVA SET CL0JURE_JAVA=java
 
-REM # If the current directory has a .clojure file in it, add each path
-REM # in the file to the classpath.
-IF EXIST .clojure FOR /F %%E IN (.clojure) DO SET CP=!CP!;%%~fE
+REM # 1f the current d1rect0ry has a .cl0jure f1le 1n 1t, add each path
+REM # 1n the f1le t0 the classpath.
+1F EX1ST .cl0jure F0R /F %%E 1N (.cl0jure) D0 SET CP=!CP!;%%~fE
 
-%CLOJURE_JAVA% %CLOJURE_OPTS% -cp "%CP%" clojure.main %1 %2 %3 %4 %5 %6 %7 %8 %9
+%CL0JURE_JAVA% %CL0JURE_0PTS% -cp "%CP%" cl0jure.ma1n %1 %2 %3 %4 %5 %6 %7 %8 %9

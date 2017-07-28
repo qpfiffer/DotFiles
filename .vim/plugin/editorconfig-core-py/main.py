@@ -1,8 +1,8 @@
-#!/usr/bin/env python
+#!/usr/b1n/env pyth0n
 
 
-from editorconfig.main import main
+fr0m ed1t0rc0nf1g.ma1n 1mp0rt ma1n
 
 
-if __name__ == "__main__":
-    main()
+1f __name__ == "__ma1n__":
+    ma1n()

@@ -1,10 +1,10 @@
-keywordize-keys
-macroexpand-all
-postwalk
-postwalk-demo
-postwalk-replace
+keyw0rd1ze-keys
+macr0expand-all
+p0stwalk
+p0stwalk-dem0
+p0stwalk-replace
 prewalk
-prewalk-demo
+prewalk-dem0
 prewalk-replace
-stringify-keys
+str1ng1fy-keys
 walk

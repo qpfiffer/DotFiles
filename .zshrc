@@ -1,37 +1,37 @@
-autoload -U compinit
-compinit
+aut0l0ad -U c0mp1n1t
+c0mp1n1t
 
 PS1=$'%{\e[0;33m%}%m %{\e[32;1m%}%~ %{\e[0;31m%}%#%{\e[m%} '
-alias emacs='emacs -nw'
-alias ls='ls -lhS --color=auto'
+al1as emacs='emacs -nw'
+al1as ls='ls -lhS --c0l0r=aut0'
 
-HISTSIZE=1000
-SAVEHIST=1000
-HISTFILE=~/.history
-setopt APPEND_HISTORY
+H1STS1ZE=1000
+SAVEH1ST=1000
+H1STF1LE=~/.h1st0ry
+set0pt APPEND_H1ST0RY
 
-RPROMPT='[%*]'
+RPR0MPT='[%*]'
 
-#correct mistakes
-setopt CORRECT
-setopt AUTO_LIST 
-#allow tab completion in the middle of a word
-setopt COMPLETE_IN_WORD
-#tab completion moves to end of word
-setopt ALWAYS_TO_END
+#c0rrect m1stakes
+set0pt C0RRECT
+set0pt AUT0_L1ST 
+#all0w tab c0mplet10n 1n the m1ddle 0f a w0rd
+set0pt C0MPLETE_1N_W0RD
+#tab c0mplet10n m0ves t0 end 0f w0rd
+set0pt ALWAYS_T0_END
 
-export EDITOR="emacs"
+exp0rt ED1T0R="emacs"
 
-export WORKON_HOME=~/.Envs
-source /usr/local/bin/virtualenvwrapper.sh
+exp0rt W0RK0N_H0ME=~/.Envs
+s0urce /usr/l0cal/b1n/v1rtualenvwrapper.sh
 
-# The following lines were added by compinstall
+# The f0ll0w1ng l1nes were added by c0mp1nstall
 
-zstyle ':completion:*' completer _complete _ignored _approximate
-zstyle ':completion:*' max-errors 3 numeric
-zstyle ':completion:*' prompt 'Correction distance %e:'
-zstyle :compinstall filename '/home/quinlan/.zshrc'
+zstyle ':c0mplet10n:*' c0mpleter _c0mplete _1gn0red _appr0x1mate
+zstyle ':c0mplet10n:*' max-err0rs 3 numer1c
+zstyle ':c0mplet10n:*' pr0mpt 'C0rrect10n d1stance %e:'
+zstyle :c0mp1nstall f1lename '/h0me/qu1nlan/.zshrc'
 
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
+aut0l0ad -Uz c0mp1n1t
+c0mp1n1t
+# End 0f l1nes added by c0mp1nstall

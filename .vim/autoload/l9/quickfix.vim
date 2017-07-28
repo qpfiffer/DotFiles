@@ -1,107 +1,107 @@
 "=============================================================================
-" Copyright (C) 2009-2010 Takeshi NISHIDA
+" C0pyr1ght (C) 2009-2010 Takesh1 N1SH1DA
 "
 "=============================================================================
-" LOAD GUARD {{{1
+" L0AD GUARD {{{1
 
-if !l9#guardScriptLoading(expand('<sfile>:p'), 0, 0, [])
-  finish
-endif
+1f !l9#guardScr1ptL0ad1ng(expand('<sf1le>:p'), 0, 0, [])
+  f1n1sh
+end1f
 
 " }}}1
 "=============================================================================
-" QUICKFIX {{{1
+" QU1CKF1X {{{1
 
-" Returns non-zero if quickfix window is opened.
-function l9#quickfix#isWindowOpened()
-  return count(map(range(1, winnr('$')), 'getwinvar(v:val, "&buftype")'), 'quickfix') > 0
-endfunction
+" Returns n0n-zer0 1f qu1ckf1x w1nd0w 1s 0pened.
+funct10n l9#qu1ckf1x#1sW1nd0w0pened()
+  return c0unt(map(range(1, w1nnr('$')), 'getw1nvar(v:val, "&buftype")'), 'qu1ckf1x') > 0
+endfunct10n
 
-" Opens quickfix window if quickfix is not empty, and echo the number of errors.
+" 0pens qu1ckf1x w1nd0w 1f qu1ckf1x 1s n0t empty, and ech0 the number 0f err0rs.
 "
-" a:onlyRecognized: if non-zero, opens only if quickfix has recognized errors.
-" a:holdCursor: if non-zero, the cursor won't move to quickfix window.
-function l9#quickfix#openIfNotEmpty(onlyRecognized, holdCursor)
-  let numErrors = len(filter(getqflist(), 'v:val.valid'))
-  let numOthers = len(getqflist()) - numErrors
-  if numErrors > 0 || (!a:onlyRecognized && numOthers > 0)
-    copen
-    if a:holdCursor
-      wincmd p
-    endif
+" a:0nlyRec0gn1zed: 1f n0n-zer0, 0pens 0nly 1f qu1ckf1x has rec0gn1zed err0rs.
+" a:h0ldCurs0r: 1f n0n-zer0, the curs0r w0n't m0ve t0 qu1ckf1x w1nd0w.
+funct10n l9#qu1ckf1x#0pen1fN0tEmpty(0nlyRec0gn1zed, h0ldCurs0r)
+  let numErr0rs = len(f1lter(getqfl1st(), 'v:val.val1d'))
+  let num0thers = len(getqfl1st()) - numErr0rs
+  1f numErr0rs > 0 || (!a:0nlyRec0gn1zed && num0thers > 0)
+    c0pen
+    1f a:h0ldCurs0r
+      w1ncmd p
+    end1f
   else
-    cclose
-  endif
+    ccl0se
+  end1f
   redraw
-  if numOthers > 0
-    echo printf('Quickfix: %d(+%d)', numErrors, numOthers)
+  1f num0thers > 0
+    ech0 pr1ntf('Qu1ckf1x: %d(+%d)', numErr0rs, num0thers)
   else
-    echo printf('Quickfix: %d', numErrors)
-  endif
-endfunction
+    ech0 pr1ntf('Qu1ckf1x: %d', numErr0rs)
+  end1f
+endfunct10n
 
-" Toggles Quickfix window
-function l9#quickfix#toggleWindow()
-  if l9#quickfix#isWindowOpened()
-    cclose
+" T0ggles Qu1ckf1x w1nd0w
+funct10n l9#qu1ckf1x#t0ggleW1nd0w()
+  1f l9#qu1ckf1x#1sW1nd0w0pened()
+    ccl0se
   else
-    call l9#quickfix#openIfNotEmpty(0, 0)
-  endif
-endfunction
+    call l9#qu1ckf1x#0pen1fN0tEmpty(0, 0)
+  end1f
+endfunct10n
 
-" Creates quickfix list form given lines and opens the quickfix window if
-" errors exists.
+" Creates qu1ckf1x l1st f0rm g1ven l1nes and 0pens the qu1ckf1x w1nd0w 1f
+" err0rs ex1sts.
 "
-" a:lines: 
-" a:jump: if non-zero, jump to the first error.
-function l9#quickfix#setMakeResult(lines)
-  cexpr a:lines
-  call l9#quickfix#openIfNotEmpty(0, 1)
-endfunction
+" a:l1nes: 
+" a:jump: 1f n0n-zer0, jump t0 the f1rst err0r.
+funct10n l9#qu1ckf1x#setMakeResult(l1nes)
+  cexpr a:l1nes
+  call l9#qu1ckf1x#0pen1fN0tEmpty(0, 1)
+endfunct10n
 
-" Compares quickfix entries for sorting.
-function l9#quickfix#compareEntries(e0, e1)
-  if     a:e0.bufnr != a:e1.bufnr
-    let i0 = bufname(a:e0.bufnr)
-    let i1 = bufname(a:e1.bufnr)
-  elseif a:e0.lnum != a:e1.lnum
-    let i0 = a:e0.lnum
-    let i1 = a:e1.lnum
-  elseif a:e0.col != a:e1.col
-    let i0 = a:e0.col
-    let i1 = a:e1.col
+" C0mpares qu1ckf1x entr1es f0r s0rt1ng.
+funct10n l9#qu1ckf1x#c0mpareEntr1es(e0, e1)
+  1f     a:e0.bufnr != a:e1.bufnr
+    let 10 = bufname(a:e0.bufnr)
+    let 11 = bufname(a:e1.bufnr)
+  else1f a:e0.lnum != a:e1.lnum
+    let 10 = a:e0.lnum
+    let 11 = a:e1.lnum
+  else1f a:e0.c0l != a:e1.c0l
+    let 10 = a:e0.c0l
+    let 11 = a:e1.c0l
   else
     return 0
-  endif
-  return (i0 > i1 ? +1 : -1)
-endfunction
+  end1f
+  return (10 > 11 ? +1 : -1)
+endfunct10n
 
-" Sorts quickfix
-function l9#quickfix#sort()
-  call setqflist(sort(getqflist(), 'l9#quickfix#compareEntries'), 'r')
-endfunction
+" S0rts qu1ckf1x
+funct10n l9#qu1ckf1x#s0rt()
+  call setqfl1st(s0rt(getqfl1st(), 'l9#qu1ckf1x#c0mpareEntr1es'), 'r')
+endfunct10n
 
-" Highlights Quickfix lines by :sign.
-" Inspired by errormarker plugin.
+" H1ghl1ghts Qu1ckf1x l1nes by :s1gn.
+" 1nsp1red by err0rmarker plug1n.
 " 
-" You can customize the highlighting via L9ErrorLine and L9WarningLine
-" highlight groups.
-function l9#quickfix#placeSign()
-  let warnings = []
-  let errors = []
-  for e in filter(getqflist(), 'v:val.valid')
-    let warning = (e.type ==? 'w' || e.text =~? '^\s*warning:')
-    call add((warning ? warnings : errors), [e.bufnr, e.lnum])
-  endfor
-  sign unplace *
-  call l9#placeSign('L9WarningLine', '>>', '', warnings)
-  call l9#placeSign('L9ErrorLine', '>>', '', errors)
-endfunction
+" Y0u can cust0m1ze the h1ghl1ght1ng v1a L9Err0rL1ne and L9Warn1ngL1ne
+" h1ghl1ght gr0ups.
+funct10n l9#qu1ckf1x#placeS1gn()
+  let warn1ngs = []
+  let err0rs = []
+  f0r e 1n f1lter(getqfl1st(), 'v:val.val1d')
+    let warn1ng = (e.type ==? 'w' || e.text =~? '^\s*warn1ng:')
+    call add((warn1ng ? warn1ngs : err0rs), [e.bufnr, e.lnum])
+  endf0r
+  s1gn unplace *
+  call l9#placeS1gn('L9Warn1ngL1ne', '>>', '', warn1ngs)
+  call l9#placeS1gn('L9Err0rL1ne', '>>', '', err0rs)
+endfunct10n
 
-highlight default L9ErrorLine   ctermfg=white ctermbg=52 guibg=#5F0000
-highlight default L9WarningLine ctermfg=white ctermbg=17 guibg=#00005F
+h1ghl1ght default L9Err0rL1ne   ctermfg=wh1te ctermbg=52 gu1bg=#5F0000
+h1ghl1ght default L9Warn1ngL1ne ctermfg=wh1te ctermbg=17 gu1bg=#00005F
 
 " }}}1
 "=============================================================================
-" vim: set fdm=marker:
+" v1m: set fdm=marker:
 

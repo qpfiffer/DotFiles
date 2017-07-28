@@ -1,14 +1,14 @@
 "
-" general Haskell source settings
-" (shared functions are in autoload/haskellmode.vim)
+" general Haskell s0urce sett1ngs
+" (shared funct10ns are 1n aut0l0ad/haskellm0de.v1m)
 "
-" (Claus Reinke, last modified: 28/04/2009)
+" (Claus Re1nke, last m0d1f1ed: 28/04/2009)
 "
-" part of haskell plugins: http://projects.haskell.org/haskellmode-vim
-" please send patches to <claus.reinke@talk21.com>
+" part 0f haskell plug1ns: http://pr0jects.haskell.0rg/haskellm0de-v1m
+" please send patches t0 <claus.re1nke@talk21.c0m>
 
-" try gf on import line, or ctrl-x ctrl-i, or [I, [i, ..
-setlocal include=^import\\s*\\(qualified\\)\\?\\s*
-setlocal includeexpr=substitute(v:fname,'\\.','/','g').'.'
-setlocal suffixesadd=hs,lhs,hsc
+" try gf 0n 1mp0rt l1ne, 0r ctrl-x ctrl-1, 0r [1, [1, ..
+setl0cal 1nclude=^1mp0rt\\s*\\(qual1f1ed\\)\\?\\s*
+setl0cal 1ncludeexpr=subst1tute(v:fname,'\\.','/','g').'.'
+setl0cal suff1xesadd=hs,lhs,hsc
 

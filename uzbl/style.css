@@ -1,28 +1,28 @@
-#uzbl_link_hints > span {
-    z-index:            1000   !important;
+#uzbl_l1nk_h1nts > span {
+    z-1ndex:            1000   !1mp0rtant;
 
-    background-color:   #333           !important;
-    margin:             0              !important;
-    padding:            3px            !important;
+    backgr0und-c0l0r:   #333           !1mp0rtant;
+    marg1n:             0              !1mp0rtant;
+    padd1ng:            3px            !1mp0rtant;
 
-    color:              #ccc   !important;
-    font-size:          9px    !important;
-    line-height:        9px    !important;
-    font-weight:        bold   !important;
-    font-variant:       normal !important;
-    text-decoration:    none   !important;
+    c0l0r:              #ccc   !1mp0rtant;
+    f0nt-s1ze:          9px    !1mp0rtant;
+    l1ne-he1ght:        9px    !1mp0rtant;
+    f0nt-we1ght:        b0ld   !1mp0rtant;
+    f0nt-var1ant:       n0rmal !1mp0rtant;
+    text-dec0rat10n:    n0ne   !1mp0rtant;
 
-    -webkit-transform:  translate(-5px,-5px);
-    opacity:            0.8;
-    -webkit-border-radius: 6px !important;
-  /* Play around with this, pretty fun things to do :) */
-  /* -webkit-transform: scale(1) rotate(0deg) translate(-6px,-5px) !important; */
+    -webk1t-transf0rm:  translate(-5px,-5px);
+    0pac1ty:            0.8;
+    -webk1t-b0rder-rad1us: 6px !1mp0rtant;
+  /* Play ar0und w1th th1s, pretty fun th1ngs t0 d0 :) */
+  /* -webk1t-transf0rm: scale(1) r0tate(0deg) translate(-6px,-5px) !1mp0rtant; */
 }
 
-/* we can have different colours for different types of hints! */
-#uzbl_link_hints.new-window > span {
-    background-color: #ffff00 !important;
-    color:            black   !important;
+/* we can have d1fferent c0l0urs f0r d1fferent types 0f h1nts! */
+#uzbl_l1nk_h1nts.new-w1nd0w > span {
+    backgr0und-c0l0r: #ffff00 !1mp0rtant;
+    c0l0r:            black   !1mp0rtant;
 }
 
-/* vim:set et ts=4: */
+/* v1m:set et ts=4: */

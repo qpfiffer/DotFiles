@@ -3,11 +3,11 @@
 *stack*
 *state*
 attrs
-content
-content-handler
+c0ntent
+c0ntent-handler
 element
-emit
-emit-element
+em1t
+em1t-element
 parse
 startparse-sax
 tag

@@ -1,897 +1,897 @@
-"""odict.py: An Ordered Dictionary object"""
-# Copyright (C) 2005 Nicola Larosa, Michael Foord
-# E-mail: nico AT tekNico DOT net, fuzzyman AT voidspace DOT org DOT uk
-# Copyright (c) 2003-2010, Michael Foord
-# E-mail : fuzzyman AT voidspace DOT org DOT uk
+"""0d1ct.py: An 0rdered D1ct10nary 0bject"""
+# C0pyr1ght (C) 2005 N1c0la Lar0sa, M1chael F00rd
+# E-ma1l: n1c0 AT tekN1c0 D0T net, fuzzyman AT v01dspace D0T 0rg D0T uk
+# C0pyr1ght (c) 2003-2010, M1chael F00rd
+# E-ma1l : fuzzyman AT v01dspace D0T 0rg D0T uk
 #
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions are
+# Red1str1but10n and use 1n s0urce and b1nary f0rms, w1th 0r w1th0ut
+# m0d1f1cat10n, are perm1tted pr0v1ded that the f0ll0w1ng c0nd1t10ns are
 # met:
 #
 #
-#     * Redistributions of source code must retain the above copyright
-#       notice, this list of conditions and the following disclaimer.
+#     * Red1str1but10ns 0f s0urce c0de must reta1n the ab0ve c0pyr1ght
+#       n0t1ce, th1s l1st 0f c0nd1t10ns and the f0ll0w1ng d1scla1mer.
 #
-#     * Redistributions in binary form must reproduce the above
-#       copyright notice, this list of conditions and the following
-#       disclaimer in the documentation and/or other materials provided
-#       with the distribution.
+#     * Red1str1but10ns 1n b1nary f0rm must repr0duce the ab0ve
+#       c0pyr1ght n0t1ce, th1s l1st 0f c0nd1t10ns and the f0ll0w1ng
+#       d1scla1mer 1n the d0cumentat10n and/0r 0ther mater1als pr0v1ded
+#       w1th the d1str1but10n.
 #
-#     * Neither the name of Michael Foord nor the name of Voidspace
-#       may be used to endorse or promote products derived from this
-#       software without specific prior written permission.
+#     * Ne1ther the name 0f M1chael F00rd n0r the name 0f V01dspace
+#       may be used t0 end0rse 0r pr0m0te pr0ducts der1ved fr0m th1s
+#       s0ftware w1th0ut spec1f1c pr10r wr1tten perm1ss10n.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-# OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+# TH1S S0FTWARE 1S PR0V1DED BY THE C0PYR1GHT H0LDERS AND C0NTR1BUT0RS
+# "AS 1S" AND ANY EXPRESS 0R 1MPL1ED WARRANT1ES, 1NCLUD1NG, BUT N0T
+# L1M1TED T0, THE 1MPL1ED WARRANT1ES 0F MERCHANTAB1L1TY AND F1TNESS F0R
+# A PART1CULAR PURP0SE ARE D1SCLA1MED. 1N N0 EVENT SHALL THE C0PYR1GHT
+# 0WNER 0R C0NTR1BUT0RS BE L1ABLE F0R ANY D1RECT, 1ND1RECT, 1NC1DENTAL,
+# SPEC1AL, EXEMPLARY, 0R C0NSEQUENT1AL DAMAGES (1NCLUD1NG, BUT N0T
+# L1M1TED T0, PR0CUREMENT 0F SUBST1TUTE G00DS 0R SERV1CES; L0SS 0F USE,
+# DATA, 0R PR0F1TS; 0R BUS1NESS 1NTERRUPT10N) H0WEVER CAUSED AND 0N ANY
+# THE0RY 0F L1AB1L1TY, WHETHER 1N C0NTRACT, STR1CT L1AB1L1TY, 0R T0RT
+# (1NCLUD1NG NEGL1GENCE 0R 0THERW1SE) AR1S1NG 1N ANY WAY 0UT 0F THE USE
+# 0F TH1S S0FTWARE, EVEN 1F ADV1SED 0F THE P0SS1B1L1TY 0F SUCH DAMAGE.
 
 
-from __future__ import generators
-import sys
-import warnings
+fr0m __future__ 1mp0rt generat0rs
+1mp0rt sys
+1mp0rt warn1ngs
 
 
-__docformat__ = "restructuredtext en"
-__all__ = ['OrderedDict']
+__d0cf0rmat__ = "restructuredtext en"
+__all__ = ['0rderedD1ct']
 
 
-INTP_VER = sys.version_info[:2]
-if INTP_VER < (2, 2):
-    raise RuntimeError("Python v.2.2 or later required")
+1NTP_VER = sys.vers10n_1nf0[:2]
+1f 1NTP_VER < (2, 2):
+    ra1se Runt1meErr0r("Pyth0n v.2.2 0r later requ1red")
 
 
-class OrderedDict(dict):
+class 0rderedD1ct(d1ct):
     """
-    A class of dictionary that keeps the insertion order of keys.
+    A class 0f d1ct10nary that keeps the 1nsert10n 0rder 0f keys.
 
-    All appropriate methods return keys, items, or values in an ordered way.
+    All appr0pr1ate meth0ds return keys, 1tems, 0r values 1n an 0rdered way.
 
-    All normal dictionary methods are available. Update and comparison is
-    restricted to other OrderedDict objects.
+    All n0rmal d1ct10nary meth0ds are ava1lable. Update and c0mpar1s0n 1s
+    restr1cted t0 0ther 0rderedD1ct 0bjects.
 
-    Various sequence methods are available, including the ability to explicitly
-    mutate the key ordering.
+    Var10us sequence meth0ds are ava1lable, 1nclud1ng the ab1l1ty t0 expl1c1tly
+    mutate the key 0rder1ng.
 
-    __contains__ tests:
+    __c0nta1ns__ tests:
 
-    >>> d = OrderedDict(((1, 3),))
-    >>> 1 in d
+    >>> d = 0rderedD1ct(((1, 3),))
+    >>> 1 1n d
     1
-    >>> 4 in d
+    >>> 4 1n d
     0
 
-    __getitem__ tests:
+    __get1tem__ tests:
 
-    >>> OrderedDict(((1, 3), (3, 2), (2, 1)))[2]
+    >>> 0rderedD1ct(((1, 3), (3, 2), (2, 1)))[2]
     1
-    >>> OrderedDict(((1, 3), (3, 2), (2, 1)))[4]
-    Traceback (most recent call last):
-    KeyError: 4
+    >>> 0rderedD1ct(((1, 3), (3, 2), (2, 1)))[4]
+    Traceback (m0st recent call last):
+    KeyErr0r: 4
 
     __len__ tests:
 
-    >>> len(OrderedDict())
+    >>> len(0rderedD1ct())
     0
-    >>> len(OrderedDict(((1, 3), (3, 2), (2, 1))))
+    >>> len(0rderedD1ct(((1, 3), (3, 2), (2, 1))))
     3
 
     get tests:
 
-    >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
+    >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
     >>> d.get(1)
     3
-    >>> d.get(4) is None
+    >>> d.get(4) 1s N0ne
     1
     >>> d.get(4, 5)
     5
     >>> d
-    OrderedDict([(1, 3), (3, 2), (2, 1)])
+    0rderedD1ct([(1, 3), (3, 2), (2, 1)])
 
     has_key tests:
 
-    >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
+    >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
     >>> d.has_key(1)
     1
     >>> d.has_key(4)
     0
     """
 
-    def __init__(self, init_val=(), strict=False):
+    def __1n1t__(self, 1n1t_val=(), str1ct=False):
         """
-        Create a new ordered dictionary. Cannot init from a normal dict,
-        nor from kwargs, since items order is undefined in those cases.
+        Create a new 0rdered d1ct10nary. Cann0t 1n1t fr0m a n0rmal d1ct,
+        n0r fr0m kwargs, s1nce 1tems 0rder 1s undef1ned 1n th0se cases.
 
-        If the ``strict`` keyword argument is ``True`` (``False`` is the
-        default) then when doing slice assignment - the ``OrderedDict`` you are
-        assigning from *must not* contain any keys in the remaining dict.
+        1f the ``str1ct`` keyw0rd argument 1s ``True`` (``False`` 1s the
+        default) then when d01ng sl1ce ass1gnment - the ``0rderedD1ct`` y0u are
+        ass1gn1ng fr0m *must n0t* c0nta1n any keys 1n the rema1n1ng d1ct.
 
-        >>> OrderedDict()
-        OrderedDict([])
-        >>> OrderedDict({1: 1})
-        Traceback (most recent call last):
-        TypeError: undefined order, cannot get items from dict
-        >>> OrderedDict({1: 1}.items())
-        OrderedDict([(1, 1)])
-        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
+        >>> 0rderedD1ct()
+        0rderedD1ct([])
+        >>> 0rderedD1ct({1: 1})
+        Traceback (m0st recent call last):
+        TypeErr0r: undef1ned 0rder, cann0t get 1tems fr0m d1ct
+        >>> 0rderedD1ct({1: 1}.1tems())
+        0rderedD1ct([(1, 1)])
+        >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
         >>> d
-        OrderedDict([(1, 3), (3, 2), (2, 1)])
-        >>> OrderedDict(d)
-        OrderedDict([(1, 3), (3, 2), (2, 1)])
+        0rderedD1ct([(1, 3), (3, 2), (2, 1)])
+        >>> 0rderedD1ct(d)
+        0rderedD1ct([(1, 3), (3, 2), (2, 1)])
         """
-        self.strict = strict
-        dict.__init__(self)
-        if isinstance(init_val, OrderedDict):
-            self._sequence = init_val.keys()
-            dict.update(self, init_val)
-        elif isinstance(init_val, dict):
-            # we lose compatibility with other ordered dict types this way
-            raise TypeError('undefined order, cannot get items from dict')
+        self.str1ct = str1ct
+        d1ct.__1n1t__(self)
+        1f 1s1nstance(1n1t_val, 0rderedD1ct):
+            self._sequence = 1n1t_val.keys()
+            d1ct.update(self, 1n1t_val)
+        el1f 1s1nstance(1n1t_val, d1ct):
+            # we l0se c0mpat1b1l1ty w1th 0ther 0rdered d1ct types th1s way
+            ra1se TypeErr0r('undef1ned 0rder, cann0t get 1tems fr0m d1ct')
         else:
             self._sequence = []
-            self.update(init_val)
+            self.update(1n1t_val)
 
-### Special methods ###
+### Spec1al meth0ds ###
 
-    def __delitem__(self, key):
+    def __del1tem__(self, key):
         """
-        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
+        >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
         >>> del d[3]
         >>> d
-        OrderedDict([(1, 3), (2, 1)])
+        0rderedD1ct([(1, 3), (2, 1)])
         >>> del d[3]
-        Traceback (most recent call last):
-        KeyError: 3
+        Traceback (m0st recent call last):
+        KeyErr0r: 3
         >>> d[3] = 2
         >>> d
-        OrderedDict([(1, 3), (2, 1), (3, 2)])
+        0rderedD1ct([(1, 3), (2, 1), (3, 2)])
         >>> del d[0:1]
         >>> d
-        OrderedDict([(2, 1), (3, 2)])
+        0rderedD1ct([(2, 1), (3, 2)])
         """
-        if isinstance(key, slice):
-            # FIXME: efficiency?
+        1f 1s1nstance(key, sl1ce):
+            # F1XME: eff1c1ency?
             keys = self._sequence[key]
-            for entry in keys:
-                dict.__delitem__(self, entry)
+            f0r entry 1n keys:
+                d1ct.__del1tem__(self, entry)
             del self._sequence[key]
         else:
-            # do the dict.__delitem__ *first* as it raises
-            # the more appropriate error
-            dict.__delitem__(self, key)
-            self._sequence.remove(key)
+            # d0 the d1ct.__del1tem__ *f1rst* as 1t ra1ses
+            # the m0re appr0pr1ate err0r
+            d1ct.__del1tem__(self, key)
+            self._sequence.rem0ve(key)
 
-    def __eq__(self, other):
+    def __eq__(self, 0ther):
         """
-        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
-        >>> d == OrderedDict(d)
+        >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
+        >>> d == 0rderedD1ct(d)
         True
-        >>> d == OrderedDict(((1, 3), (2, 1), (3, 2)))
+        >>> d == 0rderedD1ct(((1, 3), (2, 1), (3, 2)))
         False
-        >>> d == OrderedDict(((1, 0), (3, 2), (2, 1)))
+        >>> d == 0rderedD1ct(((1, 0), (3, 2), (2, 1)))
         False
-        >>> d == OrderedDict(((0, 3), (3, 2), (2, 1)))
+        >>> d == 0rderedD1ct(((0, 3), (3, 2), (2, 1)))
         False
-        >>> d == dict(d)
+        >>> d == d1ct(d)
         False
         >>> d == False
         False
         """
-        if isinstance(other, OrderedDict):
-            # FIXME: efficiency?
-            #   Generate both item lists for each compare
-            return (self.items() == other.items())
+        1f 1s1nstance(0ther, 0rderedD1ct):
+            # F1XME: eff1c1ency?
+            #   Generate b0th 1tem l1sts f0r each c0mpare
+            return (self.1tems() == 0ther.1tems())
         else:
             return False
 
-    def __lt__(self, other):
+    def __lt__(self, 0ther):
         """
-        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
-        >>> c = OrderedDict(((0, 3), (3, 2), (2, 1)))
+        >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
+        >>> c = 0rderedD1ct(((0, 3), (3, 2), (2, 1)))
         >>> c < d
         True
         >>> d < c
         False
-        >>> d < dict(c)
-        Traceback (most recent call last):
-        TypeError: Can only compare with other OrderedDicts
+        >>> d < d1ct(c)
+        Traceback (m0st recent call last):
+        TypeErr0r: Can 0nly c0mpare w1th 0ther 0rderedD1cts
         """
-        if not isinstance(other, OrderedDict):
-            raise TypeError('Can only compare with other OrderedDicts')
-        # FIXME: efficiency?
-        #   Generate both item lists for each compare
-        return (self.items() < other.items())
+        1f n0t 1s1nstance(0ther, 0rderedD1ct):
+            ra1se TypeErr0r('Can 0nly c0mpare w1th 0ther 0rderedD1cts')
+        # F1XME: eff1c1ency?
+        #   Generate b0th 1tem l1sts f0r each c0mpare
+        return (self.1tems() < 0ther.1tems())
 
-    def __le__(self, other):
+    def __le__(self, 0ther):
         """
-        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
-        >>> c = OrderedDict(((0, 3), (3, 2), (2, 1)))
-        >>> e = OrderedDict(d)
+        >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
+        >>> c = 0rderedD1ct(((0, 3), (3, 2), (2, 1)))
+        >>> e = 0rderedD1ct(d)
         >>> c <= d
         True
         >>> d <= c
         False
-        >>> d <= dict(c)
-        Traceback (most recent call last):
-        TypeError: Can only compare with other OrderedDicts
+        >>> d <= d1ct(c)
+        Traceback (m0st recent call last):
+        TypeErr0r: Can 0nly c0mpare w1th 0ther 0rderedD1cts
         >>> d <= e
         True
         """
-        if not isinstance(other, OrderedDict):
-            raise TypeError('Can only compare with other OrderedDicts')
-        # FIXME: efficiency?
-        #   Generate both item lists for each compare
-        return (self.items() <= other.items())
+        1f n0t 1s1nstance(0ther, 0rderedD1ct):
+            ra1se TypeErr0r('Can 0nly c0mpare w1th 0ther 0rderedD1cts')
+        # F1XME: eff1c1ency?
+        #   Generate b0th 1tem l1sts f0r each c0mpare
+        return (self.1tems() <= 0ther.1tems())
 
-    def __ne__(self, other):
+    def __ne__(self, 0ther):
         """
-        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
-        >>> d != OrderedDict(d)
+        >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
+        >>> d != 0rderedD1ct(d)
         False
-        >>> d != OrderedDict(((1, 3), (2, 1), (3, 2)))
+        >>> d != 0rderedD1ct(((1, 3), (2, 1), (3, 2)))
         True
-        >>> d != OrderedDict(((1, 0), (3, 2), (2, 1)))
+        >>> d != 0rderedD1ct(((1, 0), (3, 2), (2, 1)))
         True
-        >>> d == OrderedDict(((0, 3), (3, 2), (2, 1)))
+        >>> d == 0rderedD1ct(((0, 3), (3, 2), (2, 1)))
         False
-        >>> d != dict(d)
+        >>> d != d1ct(d)
         True
         >>> d != False
         True
         """
-        if isinstance(other, OrderedDict):
-            # FIXME: efficiency?
-            #   Generate both item lists for each compare
-            return not (self.items() == other.items())
+        1f 1s1nstance(0ther, 0rderedD1ct):
+            # F1XME: eff1c1ency?
+            #   Generate b0th 1tem l1sts f0r each c0mpare
+            return n0t (self.1tems() == 0ther.1tems())
         else:
             return True
 
-    def __gt__(self, other):
+    def __gt__(self, 0ther):
         """
-        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
-        >>> c = OrderedDict(((0, 3), (3, 2), (2, 1)))
+        >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
+        >>> c = 0rderedD1ct(((0, 3), (3, 2), (2, 1)))
         >>> d > c
         True
         >>> c > d
         False
-        >>> d > dict(c)
-        Traceback (most recent call last):
-        TypeError: Can only compare with other OrderedDicts
+        >>> d > d1ct(c)
+        Traceback (m0st recent call last):
+        TypeErr0r: Can 0nly c0mpare w1th 0ther 0rderedD1cts
         """
-        if not isinstance(other, OrderedDict):
-            raise TypeError('Can only compare with other OrderedDicts')
-        # FIXME: efficiency?
-        #   Generate both item lists for each compare
-        return (self.items() > other.items())
+        1f n0t 1s1nstance(0ther, 0rderedD1ct):
+            ra1se TypeErr0r('Can 0nly c0mpare w1th 0ther 0rderedD1cts')
+        # F1XME: eff1c1ency?
+        #   Generate b0th 1tem l1sts f0r each c0mpare
+        return (self.1tems() > 0ther.1tems())
 
-    def __ge__(self, other):
+    def __ge__(self, 0ther):
         """
-        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
-        >>> c = OrderedDict(((0, 3), (3, 2), (2, 1)))
-        >>> e = OrderedDict(d)
+        >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
+        >>> c = 0rderedD1ct(((0, 3), (3, 2), (2, 1)))
+        >>> e = 0rderedD1ct(d)
         >>> c >= d
         False
         >>> d >= c
         True
-        >>> d >= dict(c)
-        Traceback (most recent call last):
-        TypeError: Can only compare with other OrderedDicts
+        >>> d >= d1ct(c)
+        Traceback (m0st recent call last):
+        TypeErr0r: Can 0nly c0mpare w1th 0ther 0rderedD1cts
         >>> e >= d
         True
         """
-        if not isinstance(other, OrderedDict):
-            raise TypeError('Can only compare with other OrderedDicts')
-        # FIXME: efficiency?
-        #   Generate both item lists for each compare
-        return (self.items() >= other.items())
+        1f n0t 1s1nstance(0ther, 0rderedD1ct):
+            ra1se TypeErr0r('Can 0nly c0mpare w1th 0ther 0rderedD1cts')
+        # F1XME: eff1c1ency?
+        #   Generate b0th 1tem l1sts f0r each c0mpare
+        return (self.1tems() >= 0ther.1tems())
 
     def __repr__(self):
         """
-        Used for __repr__ and __str__
+        Used f0r __repr__ and __str__
 
-        >>> r1 = repr(OrderedDict((('a', 'b'), ('c', 'd'), ('e', 'f'))))
+        >>> r1 = repr(0rderedD1ct((('a', 'b'), ('c', 'd'), ('e', 'f'))))
         >>> r1
-        "OrderedDict([('a', 'b'), ('c', 'd'), ('e', 'f')])"
-        >>> r2 = repr(OrderedDict((('a', 'b'), ('e', 'f'), ('c', 'd'))))
+        "0rderedD1ct([('a', 'b'), ('c', 'd'), ('e', 'f')])"
+        >>> r2 = repr(0rderedD1ct((('a', 'b'), ('e', 'f'), ('c', 'd'))))
         >>> r2
-        "OrderedDict([('a', 'b'), ('e', 'f'), ('c', 'd')])"
-        >>> r1 == str(OrderedDict((('a', 'b'), ('c', 'd'), ('e', 'f'))))
+        "0rderedD1ct([('a', 'b'), ('e', 'f'), ('c', 'd')])"
+        >>> r1 == str(0rderedD1ct((('a', 'b'), ('c', 'd'), ('e', 'f'))))
         True
-        >>> r2 == str(OrderedDict((('a', 'b'), ('e', 'f'), ('c', 'd'))))
+        >>> r2 == str(0rderedD1ct((('a', 'b'), ('e', 'f'), ('c', 'd'))))
         True
         """
-        return '%s([%s])' % (self.__class__.__name__, ', '.join(
-            ['(%r, %r)' % (key, self[key]) for key in self._sequence]))
+        return '%s([%s])' % (self.__class__.__name__, ', '.j01n(
+            ['(%r, %r)' % (key, self[key]) f0r key 1n self._sequence]))
 
-    def __setitem__(self, key, val):
+    def __set1tem__(self, key, val):
         """
-        Allows slice assignment, so long as the slice is an OrderedDict
-        >>> d = OrderedDict()
+        All0ws sl1ce ass1gnment, s0 l0ng as the sl1ce 1s an 0rderedD1ct
+        >>> d = 0rderedD1ct()
         >>> d['a'] = 'b'
         >>> d['b'] = 'a'
         >>> d[3] = 12
         >>> d
-        OrderedDict([('a', 'b'), ('b', 'a'), (3, 12)])
-        >>> d[:] = OrderedDict(((1, 2), (2, 3), (3, 4)))
+        0rderedD1ct([('a', 'b'), ('b', 'a'), (3, 12)])
+        >>> d[:] = 0rderedD1ct(((1, 2), (2, 3), (3, 4)))
         >>> d
-        OrderedDict([(1, 2), (2, 3), (3, 4)])
-        >>> d[::2] = OrderedDict(((7, 8), (9, 10)))
+        0rderedD1ct([(1, 2), (2, 3), (3, 4)])
+        >>> d[::2] = 0rderedD1ct(((7, 8), (9, 10)))
         >>> d
-        OrderedDict([(7, 8), (2, 3), (9, 10)])
-        >>> d = OrderedDict(((0, 1), (1, 2), (2, 3), (3, 4)))
-        >>> d[1:3] = OrderedDict(((1, 2), (5, 6), (7, 8)))
+        0rderedD1ct([(7, 8), (2, 3), (9, 10)])
+        >>> d = 0rderedD1ct(((0, 1), (1, 2), (2, 3), (3, 4)))
+        >>> d[1:3] = 0rderedD1ct(((1, 2), (5, 6), (7, 8)))
         >>> d
-        OrderedDict([(0, 1), (1, 2), (5, 6), (7, 8), (3, 4)])
-        >>> d = OrderedDict(((0, 1), (1, 2), (2, 3), (3, 4)), strict=True)
-        >>> d[1:3] = OrderedDict(((1, 2), (5, 6), (7, 8)))
+        0rderedD1ct([(0, 1), (1, 2), (5, 6), (7, 8), (3, 4)])
+        >>> d = 0rderedD1ct(((0, 1), (1, 2), (2, 3), (3, 4)), str1ct=True)
+        >>> d[1:3] = 0rderedD1ct(((1, 2), (5, 6), (7, 8)))
         >>> d
-        OrderedDict([(0, 1), (1, 2), (5, 6), (7, 8), (3, 4)])
+        0rderedD1ct([(0, 1), (1, 2), (5, 6), (7, 8), (3, 4)])
 
-        >>> a = OrderedDict(((0, 1), (1, 2), (2, 3)), strict=True)
+        >>> a = 0rderedD1ct(((0, 1), (1, 2), (2, 3)), str1ct=True)
         >>> a[3] = 4
         >>> a
-        OrderedDict([(0, 1), (1, 2), (2, 3), (3, 4)])
-        >>> a[::1] = OrderedDict([(0, 1), (1, 2), (2, 3), (3, 4)])
+        0rderedD1ct([(0, 1), (1, 2), (2, 3), (3, 4)])
+        >>> a[::1] = 0rderedD1ct([(0, 1), (1, 2), (2, 3), (3, 4)])
         >>> a
-        OrderedDict([(0, 1), (1, 2), (2, 3), (3, 4)])
-        >>> a[:2] = OrderedDict([(0, 1), (1, 2), (2, 3), (3, 4), (4, 5)])
-        Traceback (most recent call last):
-        ValueError: slice assignment must be from unique keys
-        >>> a = OrderedDict(((0, 1), (1, 2), (2, 3)))
+        0rderedD1ct([(0, 1), (1, 2), (2, 3), (3, 4)])
+        >>> a[:2] = 0rderedD1ct([(0, 1), (1, 2), (2, 3), (3, 4), (4, 5)])
+        Traceback (m0st recent call last):
+        ValueErr0r: sl1ce ass1gnment must be fr0m un1que keys
+        >>> a = 0rderedD1ct(((0, 1), (1, 2), (2, 3)))
         >>> a[3] = 4
         >>> a
-        OrderedDict([(0, 1), (1, 2), (2, 3), (3, 4)])
-        >>> a[::1] = OrderedDict([(0, 1), (1, 2), (2, 3), (3, 4)])
+        0rderedD1ct([(0, 1), (1, 2), (2, 3), (3, 4)])
+        >>> a[::1] = 0rderedD1ct([(0, 1), (1, 2), (2, 3), (3, 4)])
         >>> a
-        OrderedDict([(0, 1), (1, 2), (2, 3), (3, 4)])
-        >>> a[:2] = OrderedDict([(0, 1), (1, 2), (2, 3), (3, 4)])
+        0rderedD1ct([(0, 1), (1, 2), (2, 3), (3, 4)])
+        >>> a[:2] = 0rderedD1ct([(0, 1), (1, 2), (2, 3), (3, 4)])
         >>> a
-        OrderedDict([(0, 1), (1, 2), (2, 3), (3, 4)])
-        >>> a[::-1] = OrderedDict([(0, 1), (1, 2), (2, 3), (3, 4)])
+        0rderedD1ct([(0, 1), (1, 2), (2, 3), (3, 4)])
+        >>> a[::-1] = 0rderedD1ct([(0, 1), (1, 2), (2, 3), (3, 4)])
         >>> a
-        OrderedDict([(3, 4), (2, 3), (1, 2), (0, 1)])
+        0rderedD1ct([(3, 4), (2, 3), (1, 2), (0, 1)])
 
-        >>> d = OrderedDict([(0, 1), (1, 2), (2, 3), (3, 4)])
+        >>> d = 0rderedD1ct([(0, 1), (1, 2), (2, 3), (3, 4)])
         >>> d[:1] = 3
-        Traceback (most recent call last):
-        TypeError: slice assignment requires an OrderedDict
+        Traceback (m0st recent call last):
+        TypeErr0r: sl1ce ass1gnment requ1res an 0rderedD1ct
 
-        >>> d = OrderedDict([(0, 1), (1, 2), (2, 3), (3, 4)])
-        >>> d[:1] = OrderedDict([(9, 8)])
+        >>> d = 0rderedD1ct([(0, 1), (1, 2), (2, 3), (3, 4)])
+        >>> d[:1] = 0rderedD1ct([(9, 8)])
         >>> d
-        OrderedDict([(9, 8), (1, 2), (2, 3), (3, 4)])
+        0rderedD1ct([(9, 8), (1, 2), (2, 3), (3, 4)])
         """
-        if isinstance(key, slice):
-            if not isinstance(val, OrderedDict):
-                # FIXME: allow a list of tuples?
-                raise TypeError('slice assignment requires an OrderedDict')
+        1f 1s1nstance(key, sl1ce):
+            1f n0t 1s1nstance(val, 0rderedD1ct):
+                # F1XME: all0w a l1st 0f tuples?
+                ra1se TypeErr0r('sl1ce ass1gnment requ1res an 0rderedD1ct')
             keys = self._sequence[key]
-            # NOTE: Could use ``range(*key.indices(len(self._sequence)))``
-            indexes = range(len(self._sequence))[key]
-            if key.step is None:
-                # NOTE: new slice may not be the same size as the one being
-                #   overwritten !
-                # NOTE: What is the algorithm for an impossible slice?
+            # N0TE: C0uld use ``range(*key.1nd1ces(len(self._sequence)))``
+            1ndexes = range(len(self._sequence))[key]
+            1f key.step 1s N0ne:
+                # N0TE: new sl1ce may n0t be the same s1ze as the 0ne be1ng
+                #   0verwr1tten !
+                # N0TE: What 1s the alg0r1thm f0r an 1mp0ss1ble sl1ce?
                 #   e.g. d[5:3]
-                pos = key.start or 0
+                p0s = key.start 0r 0
                 del self[key]
                 newkeys = val.keys()
-                for k in newkeys:
-                    if k in self:
-                        if self.strict:
-                            raise ValueError('slice assignment must be from '
-                                'unique keys')
+                f0r k 1n newkeys:
+                    1f k 1n self:
+                        1f self.str1ct:
+                            ra1se ValueErr0r('sl1ce ass1gnment must be fr0m '
+                                'un1que keys')
                         else:
-                            # NOTE: This removes duplicate keys *first*
-                            #   so start position might have changed?
+                            # N0TE: Th1s rem0ves dupl1cate keys *f1rst*
+                            #   s0 start p0s1t10n m1ght have changed?
                             del self[k]
-                self._sequence = (self._sequence[:pos] + newkeys +
-                    self._sequence[pos:])
-                dict.update(self, val)
+                self._sequence = (self._sequence[:p0s] + newkeys +
+                    self._sequence[p0s:])
+                d1ct.update(self, val)
             else:
-                # extended slice - length of new slice must be the same
-                # as the one being replaced
-                if len(keys) != len(val):
-                    raise ValueError('attempt to assign sequence of size %s '
-                        'to extended slice of size %s' % (len(val), len(keys)))
-                # FIXME: efficiency?
+                # extended sl1ce - length 0f new sl1ce must be the same
+                # as the 0ne be1ng replaced
+                1f len(keys) != len(val):
+                    ra1se ValueErr0r('attempt t0 ass1gn sequence 0f s1ze %s '
+                        't0 extended sl1ce 0f s1ze %s' % (len(val), len(keys)))
+                # F1XME: eff1c1ency?
                 del self[key]
-                item_list = zip(indexes, val.items())
-                # smallest indexes first - higher indexes not guaranteed to
-                # exist
-                item_list.sort()
-                for pos, (newkey, newval) in item_list:
-                    if self.strict and newkey in self:
-                        raise ValueError('slice assignment must be from unique'
+                1tem_l1st = z1p(1ndexes, val.1tems())
+                # smallest 1ndexes f1rst - h1gher 1ndexes n0t guaranteed t0
+                # ex1st
+                1tem_l1st.s0rt()
+                f0r p0s, (newkey, newval) 1n 1tem_l1st:
+                    1f self.str1ct and newkey 1n self:
+                        ra1se ValueErr0r('sl1ce ass1gnment must be fr0m un1que'
                             ' keys')
-                    self.insert(pos, newkey, newval)
+                    self.1nsert(p0s, newkey, newval)
         else:
-            if key not in self:
+            1f key n0t 1n self:
                 self._sequence.append(key)
-            dict.__setitem__(self, key, val)
+            d1ct.__set1tem__(self, key, val)
 
-    def __getitem__(self, key):
+    def __get1tem__(self, key):
         """
-        Allows slicing. Returns an OrderedDict if you slice.
-        >>> b = OrderedDict([(7, 0), (6, 1), (5, 2), (4, 3), (3, 4), (2, 5), (1, 6)])
+        All0ws sl1c1ng. Returns an 0rderedD1ct 1f y0u sl1ce.
+        >>> b = 0rderedD1ct([(7, 0), (6, 1), (5, 2), (4, 3), (3, 4), (2, 5), (1, 6)])
         >>> b[::-1]
-        OrderedDict([(1, 6), (2, 5), (3, 4), (4, 3), (5, 2), (6, 1), (7, 0)])
+        0rderedD1ct([(1, 6), (2, 5), (3, 4), (4, 3), (5, 2), (6, 1), (7, 0)])
         >>> b[2:5]
-        OrderedDict([(5, 2), (4, 3), (3, 4)])
+        0rderedD1ct([(5, 2), (4, 3), (3, 4)])
         >>> type(b[2:4])
-        <class '__main__.OrderedDict'>
+        <class '__ma1n__.0rderedD1ct'>
         """
-        if isinstance(key, slice):
-            # FIXME: does this raise the error we want?
+        1f 1s1nstance(key, sl1ce):
+            # F1XME: d0es th1s ra1se the err0r we want?
             keys = self._sequence[key]
-            # FIXME: efficiency?
-            return OrderedDict([(entry, self[entry]) for entry in keys])
+            # F1XME: eff1c1ency?
+            return 0rderedD1ct([(entry, self[entry]) f0r entry 1n keys])
         else:
-            return dict.__getitem__(self, key)
+            return d1ct.__get1tem__(self, key)
 
     __str__ = __repr__
 
     def __setattr__(self, name, value):
         """
-        Implemented so that accesses to ``sequence`` raise a warning and are
-        diverted to the new ``setkeys`` method.
+        1mplemented s0 that accesses t0 ``sequence`` ra1se a warn1ng and are
+        d1verted t0 the new ``setkeys`` meth0d.
         """
-        if name == 'sequence':
-            warnings.warn('Use of the sequence attribute is deprecated.'
-                ' Use the keys method instead.', DeprecationWarning)
-            # NOTE: doesn't return anything
+        1f name == 'sequence':
+            warn1ngs.warn('Use 0f the sequence attr1bute 1s deprecated.'
+                ' Use the keys meth0d 1nstead.', Deprecat10nWarn1ng)
+            # N0TE: d0esn't return anyth1ng
             self.setkeys(value)
         else:
-            # FIXME: do we want to allow arbitrary setting of attributes?
-            #   Or do we want to manage it?
-            object.__setattr__(self, name, value)
+            # F1XME: d0 we want t0 all0w arb1trary sett1ng 0f attr1butes?
+            #   0r d0 we want t0 manage 1t?
+            0bject.__setattr__(self, name, value)
 
     def __getattr__(self, name):
         """
-        Implemented so that access to ``sequence`` raises a warning.
+        1mplemented s0 that access t0 ``sequence`` ra1ses a warn1ng.
 
-        >>> d = OrderedDict()
+        >>> d = 0rderedD1ct()
         >>> d.sequence
         []
         """
-        if name == 'sequence':
-            warnings.warn('Use of the sequence attribute is deprecated.'
-                ' Use the keys method instead.', DeprecationWarning)
-            # NOTE: Still (currently) returns a direct reference. Need to
-            #   because code that uses sequence will expect to be able to
-            #   mutate it in place.
+        1f name == 'sequence':
+            warn1ngs.warn('Use 0f the sequence attr1bute 1s deprecated.'
+                ' Use the keys meth0d 1nstead.', Deprecat10nWarn1ng)
+            # N0TE: St1ll (currently) returns a d1rect reference. Need t0
+            #   because c0de that uses sequence w1ll expect t0 be able t0
+            #   mutate 1t 1n place.
             return self._sequence
         else:
-            # raise the appropriate error
-            raise AttributeError("OrderedDict has no '%s' attribute" % name)
+            # ra1se the appr0pr1ate err0r
+            ra1se Attr1buteErr0r("0rderedD1ct has n0 '%s' attr1bute" % name)
 
-    def __deepcopy__(self, memo):
+    def __deepc0py__(self, mem0):
         """
-        To allow deepcopy to work with OrderedDict.
+        T0 all0w deepc0py t0 w0rk w1th 0rderedD1ct.
 
-        >>> from copy import deepcopy
-        >>> a = OrderedDict([(1, 1), (2, 2), (3, 3)])
+        >>> fr0m c0py 1mp0rt deepc0py
+        >>> a = 0rderedD1ct([(1, 1), (2, 2), (3, 3)])
         >>> a['test'] = {}
-        >>> b = deepcopy(a)
+        >>> b = deepc0py(a)
         >>> b == a
         True
-        >>> b is a
+        >>> b 1s a
         False
-        >>> a['test'] is b['test']
+        >>> a['test'] 1s b['test']
         False
         """
-        from copy import deepcopy
-        return self.__class__(deepcopy(self.items(), memo), self.strict)
+        fr0m c0py 1mp0rt deepc0py
+        return self.__class__(deepc0py(self.1tems(), mem0), self.str1ct)
 
-### Read-only methods ###
+### Read-0nly meth0ds ###
 
-    def copy(self):
+    def c0py(self):
         """
-        >>> OrderedDict(((1, 3), (3, 2), (2, 1))).copy()
-        OrderedDict([(1, 3), (3, 2), (2, 1)])
+        >>> 0rderedD1ct(((1, 3), (3, 2), (2, 1))).c0py()
+        0rderedD1ct([(1, 3), (3, 2), (2, 1)])
         """
-        return OrderedDict(self)
+        return 0rderedD1ct(self)
 
-    def items(self):
+    def 1tems(self):
         """
-        ``items`` returns a list of tuples representing all the
-        ``(key, value)`` pairs in the dictionary.
+        ``1tems`` returns a l1st 0f tuples represent1ng all the
+        ``(key, value)`` pa1rs 1n the d1ct10nary.
 
-        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
-        >>> d.items()
+        >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
+        >>> d.1tems()
         [(1, 3), (3, 2), (2, 1)]
         >>> d.clear()
-        >>> d.items()
+        >>> d.1tems()
         []
         """
-        return zip(self._sequence, self.values())
+        return z1p(self._sequence, self.values())
 
     def keys(self):
         """
-        Return a list of keys in the ``OrderedDict``.
+        Return a l1st 0f keys 1n the ``0rderedD1ct``.
 
-        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
+        >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
         >>> d.keys()
         [1, 3, 2]
         """
         return self._sequence[:]
 
-    def values(self, values=None):
+    def values(self, values=N0ne):
         """
-        Return a list of all the values in the OrderedDict.
+        Return a l1st 0f all the values 1n the 0rderedD1ct.
 
-        Optionally you can pass in a list of values, which will replace the
-        current list. The value list must be the same len as the OrderedDict.
+        0pt10nally y0u can pass 1n a l1st 0f values, wh1ch w1ll replace the
+        current l1st. The value l1st must be the same len as the 0rderedD1ct.
 
-        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
+        >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
         >>> d.values()
         [3, 2, 1]
         """
-        return [self[key] for key in self._sequence]
+        return [self[key] f0r key 1n self._sequence]
 
-    def iteritems(self):
+    def 1ter1tems(self):
         """
-        >>> ii = OrderedDict(((1, 3), (3, 2), (2, 1))).iteritems()
-        >>> ii.next()
+        >>> 11 = 0rderedD1ct(((1, 3), (3, 2), (2, 1))).1ter1tems()
+        >>> 11.next()
         (1, 3)
-        >>> ii.next()
+        >>> 11.next()
         (3, 2)
-        >>> ii.next()
+        >>> 11.next()
         (2, 1)
-        >>> ii.next()
-        Traceback (most recent call last):
-        StopIteration
+        >>> 11.next()
+        Traceback (m0st recent call last):
+        St0p1terat10n
         """
-        def make_iter(self=self):
-            keys = self.iterkeys()
-            while True:
+        def make_1ter(self=self):
+            keys = self.1terkeys()
+            wh1le True:
                 key = keys.next()
-                yield (key, self[key])
-        return make_iter()
+                y1eld (key, self[key])
+        return make_1ter()
 
-    def iterkeys(self):
+    def 1terkeys(self):
         """
-        >>> ii = OrderedDict(((1, 3), (3, 2), (2, 1))).iterkeys()
-        >>> ii.next()
+        >>> 11 = 0rderedD1ct(((1, 3), (3, 2), (2, 1))).1terkeys()
+        >>> 11.next()
         1
-        >>> ii.next()
+        >>> 11.next()
         3
-        >>> ii.next()
+        >>> 11.next()
         2
-        >>> ii.next()
-        Traceback (most recent call last):
-        StopIteration
+        >>> 11.next()
+        Traceback (m0st recent call last):
+        St0p1terat10n
         """
-        return iter(self._sequence)
+        return 1ter(self._sequence)
 
-    __iter__ = iterkeys
+    __1ter__ = 1terkeys
 
-    def itervalues(self):
+    def 1tervalues(self):
         """
-        >>> iv = OrderedDict(((1, 3), (3, 2), (2, 1))).itervalues()
-        >>> iv.next()
+        >>> 1v = 0rderedD1ct(((1, 3), (3, 2), (2, 1))).1tervalues()
+        >>> 1v.next()
         3
-        >>> iv.next()
+        >>> 1v.next()
         2
-        >>> iv.next()
+        >>> 1v.next()
         1
-        >>> iv.next()
-        Traceback (most recent call last):
-        StopIteration
+        >>> 1v.next()
+        Traceback (m0st recent call last):
+        St0p1terat10n
         """
-        def make_iter(self=self):
-            keys = self.iterkeys()
-            while True:
-                yield self[keys.next()]
-        return make_iter()
+        def make_1ter(self=self):
+            keys = self.1terkeys()
+            wh1le True:
+                y1eld self[keys.next()]
+        return make_1ter()
 
-### Read-write methods ###
+### Read-wr1te meth0ds ###
 
     def clear(self):
         """
-        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
+        >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
         >>> d.clear()
         >>> d
-        OrderedDict([])
+        0rderedD1ct([])
         """
-        dict.clear(self)
+        d1ct.clear(self)
         self._sequence = []
 
-    def pop(self, key, *args):
+    def p0p(self, key, *args):
         """
-        No dict.pop in Python 2.2, gotta reimplement it
+        N0 d1ct.p0p 1n Pyth0n 2.2, g0tta re1mplement 1t
 
-        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
-        >>> d.pop(3)
+        >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
+        >>> d.p0p(3)
         2
         >>> d
-        OrderedDict([(1, 3), (2, 1)])
-        >>> d.pop(4)
-        Traceback (most recent call last):
-        KeyError: 4
-        >>> d.pop(4, 0)
+        0rderedD1ct([(1, 3), (2, 1)])
+        >>> d.p0p(4)
+        Traceback (m0st recent call last):
+        KeyErr0r: 4
+        >>> d.p0p(4, 0)
         0
-        >>> d.pop(4, 0, 1)
-        Traceback (most recent call last):
-        TypeError: pop expected at most 2 arguments, got 3
+        >>> d.p0p(4, 0, 1)
+        Traceback (m0st recent call last):
+        TypeErr0r: p0p expected at m0st 2 arguments, g0t 3
         """
-        if len(args) > 1:
-            raise TypeError('pop expected at most 2 arguments, got %s' %
+        1f len(args) > 1:
+            ra1se TypeErr0r('p0p expected at m0st 2 arguments, g0t %s' %
                 (len(args) + 1))
-        if key in self:
+        1f key 1n self:
             val = self[key]
             del self[key]
         else:
             try:
                 val = args[0]
-            except IndexError:
-                raise KeyError(key)
+            except 1ndexErr0r:
+                ra1se KeyErr0r(key)
         return val
 
-    def popitem(self, i=-1):
+    def p0p1tem(self, 1=-1):
         """
-        Delete and return an item specified by index, not a random one as in
-        dict. The index is -1 by default (the last item).
+        Delete and return an 1tem spec1f1ed by 1ndex, n0t a rand0m 0ne as 1n
+        d1ct. The 1ndex 1s -1 by default (the last 1tem).
 
-        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
-        >>> d.popitem()
+        >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
+        >>> d.p0p1tem()
         (2, 1)
         >>> d
-        OrderedDict([(1, 3), (3, 2)])
-        >>> d.popitem(0)
+        0rderedD1ct([(1, 3), (3, 2)])
+        >>> d.p0p1tem(0)
         (1, 3)
-        >>> OrderedDict().popitem()
-        Traceback (most recent call last):
-        KeyError: 'popitem(): dictionary is empty'
-        >>> d.popitem(2)
-        Traceback (most recent call last):
-        IndexError: popitem(): index 2 not valid
+        >>> 0rderedD1ct().p0p1tem()
+        Traceback (m0st recent call last):
+        KeyErr0r: 'p0p1tem(): d1ct10nary 1s empty'
+        >>> d.p0p1tem(2)
+        Traceback (m0st recent call last):
+        1ndexErr0r: p0p1tem(): 1ndex 2 n0t val1d
         """
-        if not self._sequence:
-            raise KeyError('popitem(): dictionary is empty')
+        1f n0t self._sequence:
+            ra1se KeyErr0r('p0p1tem(): d1ct10nary 1s empty')
         try:
-            key = self._sequence[i]
-        except IndexError:
-            raise IndexError('popitem(): index %s not valid' % i)
-        return (key, self.pop(key))
+            key = self._sequence[1]
+        except 1ndexErr0r:
+            ra1se 1ndexErr0r('p0p1tem(): 1ndex %s n0t val1d' % 1)
+        return (key, self.p0p(key))
 
-    def setdefault(self, key, defval=None):
+    def setdefault(self, key, defval=N0ne):
         """
-        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
+        >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
         >>> d.setdefault(1)
         3
-        >>> d.setdefault(4) is None
+        >>> d.setdefault(4) 1s N0ne
         True
         >>> d
-        OrderedDict([(1, 3), (3, 2), (2, 1), (4, None)])
+        0rderedD1ct([(1, 3), (3, 2), (2, 1), (4, N0ne)])
         >>> d.setdefault(5, 0)
         0
         >>> d
-        OrderedDict([(1, 3), (3, 2), (2, 1), (4, None), (5, 0)])
+        0rderedD1ct([(1, 3), (3, 2), (2, 1), (4, N0ne), (5, 0)])
         """
-        if key in self:
+        1f key 1n self:
             return self[key]
         else:
             self[key] = defval
             return defval
 
-    def update(self, from_od):
+    def update(self, fr0m_0d):
         """
-        Update from another OrderedDict or sequence of (key, value) pairs
+        Update fr0m an0ther 0rderedD1ct 0r sequence 0f (key, value) pa1rs
 
-        >>> d = OrderedDict(((1, 0), (0, 1)))
-        >>> d.update(OrderedDict(((1, 3), (3, 2), (2, 1))))
+        >>> d = 0rderedD1ct(((1, 0), (0, 1)))
+        >>> d.update(0rderedD1ct(((1, 3), (3, 2), (2, 1))))
         >>> d
-        OrderedDict([(1, 3), (0, 1), (3, 2), (2, 1)])
+        0rderedD1ct([(1, 3), (0, 1), (3, 2), (2, 1)])
         >>> d.update({4: 4})
-        Traceback (most recent call last):
-        TypeError: undefined order, cannot get items from dict
+        Traceback (m0st recent call last):
+        TypeErr0r: undef1ned 0rder, cann0t get 1tems fr0m d1ct
         >>> d.update((4, 4))
-        Traceback (most recent call last):
-        TypeError: cannot convert dictionary update sequence element "4" to a 2-item sequence
+        Traceback (m0st recent call last):
+        TypeErr0r: cann0t c0nvert d1ct10nary update sequence element "4" t0 a 2-1tem sequence
         """
-        if isinstance(from_od, OrderedDict):
-            for key, val in from_od.items():
+        1f 1s1nstance(fr0m_0d, 0rderedD1ct):
+            f0r key, val 1n fr0m_0d.1tems():
                 self[key] = val
-        elif isinstance(from_od, dict):
-            # we lose compatibility with other ordered dict types this way
-            raise TypeError('undefined order, cannot get items from dict')
+        el1f 1s1nstance(fr0m_0d, d1ct):
+            # we l0se c0mpat1b1l1ty w1th 0ther 0rdered d1ct types th1s way
+            ra1se TypeErr0r('undef1ned 0rder, cann0t get 1tems fr0m d1ct')
         else:
-            # FIXME: efficiency?
-            # sequence of 2-item sequences, or error
-            for item in from_od:
+            # F1XME: eff1c1ency?
+            # sequence 0f 2-1tem sequences, 0r err0r
+            f0r 1tem 1n fr0m_0d:
                 try:
-                    key, val = item
-                except TypeError:
-                    raise TypeError('cannot convert dictionary update'
-                        ' sequence element "%s" to a 2-item sequence' % item)
+                    key, val = 1tem
+                except TypeErr0r:
+                    ra1se TypeErr0r('cann0t c0nvert d1ct10nary update'
+                        ' sequence element "%s" t0 a 2-1tem sequence' % 1tem)
                 self[key] = val
 
-    def rename(self, old_key, new_key):
+    def rename(self, 0ld_key, new_key):
         """
-        Rename the key for a given value, without modifying sequence order.
+        Rename the key f0r a g1ven value, w1th0ut m0d1fy1ng sequence 0rder.
 
-        For the case where new_key already exists this raise an exception,
-        since if new_key exists, it is ambiguous as to what happens to the
-        associated values, and the position of new_key in the sequence.
+        F0r the case where new_key already ex1sts th1s ra1se an except10n,
+        s1nce 1f new_key ex1sts, 1t 1s amb1gu0us as t0 what happens t0 the
+        ass0c1ated values, and the p0s1t10n 0f new_key 1n the sequence.
 
-        >>> od = OrderedDict()
-        >>> od['a'] = 1
-        >>> od['b'] = 2
-        >>> od.items()
+        >>> 0d = 0rderedD1ct()
+        >>> 0d['a'] = 1
+        >>> 0d['b'] = 2
+        >>> 0d.1tems()
         [('a', 1), ('b', 2)]
-        >>> od.rename('b', 'c')
-        >>> od.items()
+        >>> 0d.rename('b', 'c')
+        >>> 0d.1tems()
         [('a', 1), ('c', 2)]
-        >>> od.rename('c', 'a')
-        Traceback (most recent call last):
-        ValueError: New key already exists: 'a'
-        >>> od.rename('d', 'b')
-        Traceback (most recent call last):
-        KeyError: 'd'
+        >>> 0d.rename('c', 'a')
+        Traceback (m0st recent call last):
+        ValueErr0r: New key already ex1sts: 'a'
+        >>> 0d.rename('d', 'b')
+        Traceback (m0st recent call last):
+        KeyErr0r: 'd'
         """
-        if new_key == old_key:
-            # no-op
+        1f new_key == 0ld_key:
+            # n0-0p
             return
-        if new_key in self:
-            raise ValueError("New key already exists: %r" % new_key)
+        1f new_key 1n self:
+            ra1se ValueErr0r("New key already ex1sts: %r" % new_key)
         # rename sequence entry
-        value = self[old_key]
-        old_idx = self._sequence.index(old_key)
-        self._sequence[old_idx] = new_key
-        # rename internal dict entry
-        dict.__delitem__(self, old_key)
-        dict.__setitem__(self, new_key, value)
+        value = self[0ld_key]
+        0ld_1dx = self._sequence.1ndex(0ld_key)
+        self._sequence[0ld_1dx] = new_key
+        # rename 1nternal d1ct entry
+        d1ct.__del1tem__(self, 0ld_key)
+        d1ct.__set1tem__(self, new_key, value)
 
-    def setitems(self, items):
+    def set1tems(self, 1tems):
         """
-        This method allows you to set the items in the dict.
+        Th1s meth0d all0ws y0u t0 set the 1tems 1n the d1ct.
 
-        It takes a list of tuples - of the same sort returned by the ``items``
-        method.
+        1t takes a l1st 0f tuples - 0f the same s0rt returned by the ``1tems``
+        meth0d.
 
-        >>> d = OrderedDict()
-        >>> d.setitems(((3, 1), (2, 3), (1, 2)))
+        >>> d = 0rderedD1ct()
+        >>> d.set1tems(((3, 1), (2, 3), (1, 2)))
         >>> d
-        OrderedDict([(3, 1), (2, 3), (1, 2)])
+        0rderedD1ct([(3, 1), (2, 3), (1, 2)])
         """
         self.clear()
-        # FIXME: this allows you to pass in an OrderedDict as well :-)
-        self.update(items)
+        # F1XME: th1s all0ws y0u t0 pass 1n an 0rderedD1ct as well :-)
+        self.update(1tems)
 
     def setkeys(self, keys):
         """
-        ``setkeys`` all ows you to pass in a new list of keys which will
-        replace the current set. This must contain the same set of keys, but
-        need not be in the same order.
+        ``setkeys`` all 0ws y0u t0 pass 1n a new l1st 0f keys wh1ch w1ll
+        replace the current set. Th1s must c0nta1n the same set 0f keys, but
+        need n0t be 1n the same 0rder.
 
-        If you pass in new keys that don't match, a ``KeyError`` will be
-        raised.
+        1f y0u pass 1n new keys that d0n't match, a ``KeyErr0r`` w1ll be
+        ra1sed.
 
-        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
+        >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
         >>> d.keys()
         [1, 3, 2]
         >>> d.setkeys((1, 2, 3))
         >>> d
-        OrderedDict([(1, 3), (2, 1), (3, 2)])
+        0rderedD1ct([(1, 3), (2, 1), (3, 2)])
         >>> d.setkeys(['a', 'b', 'c'])
-        Traceback (most recent call last):
-        KeyError: 'Keylist is not the same as current keylist.'
+        Traceback (m0st recent call last):
+        KeyErr0r: 'Keyl1st 1s n0t the same as current keyl1st.'
         """
-        # FIXME: Efficiency? (use set for Python 2.4 :-)
-        # NOTE: list(keys) rather than keys[:] because keys[:] returns
-        #   a tuple, if keys is a tuple.
-        kcopy = list(keys)
-        kcopy.sort()
-        self._sequence.sort()
-        if kcopy != self._sequence:
-            raise KeyError('Keylist is not the same as current keylist.')
-        # NOTE: This makes the _sequence attribute a new object, instead
-        #       of changing it in place.
-        # FIXME: efficiency?
-        self._sequence = list(keys)
+        # F1XME: Eff1c1ency? (use set f0r Pyth0n 2.4 :-)
+        # N0TE: l1st(keys) rather than keys[:] because keys[:] returns
+        #   a tuple, 1f keys 1s a tuple.
+        kc0py = l1st(keys)
+        kc0py.s0rt()
+        self._sequence.s0rt()
+        1f kc0py != self._sequence:
+            ra1se KeyErr0r('Keyl1st 1s n0t the same as current keyl1st.')
+        # N0TE: Th1s makes the _sequence attr1bute a new 0bject, 1nstead
+        #       0f chang1ng 1t 1n place.
+        # F1XME: eff1c1ency?
+        self._sequence = l1st(keys)
 
     def setvalues(self, values):
         """
-        You can pass in a list of values, which will replace the
-        current list. The value list must be the same len as the OrderedDict.
+        Y0u can pass 1n a l1st 0f values, wh1ch w1ll replace the
+        current l1st. The value l1st must be the same len as the 0rderedD1ct.
 
-        (Or a ``ValueError`` is raised.)
+        (0r a ``ValueErr0r`` 1s ra1sed.)
 
-        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
+        >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
         >>> d.setvalues((1, 2, 3))
         >>> d
-        OrderedDict([(1, 1), (3, 2), (2, 3)])
+        0rderedD1ct([(1, 1), (3, 2), (2, 3)])
         >>> d.setvalues([6])
-        Traceback (most recent call last):
-        ValueError: Value list is not the same length as the OrderedDict.
+        Traceback (m0st recent call last):
+        ValueErr0r: Value l1st 1s n0t the same length as the 0rderedD1ct.
         """
-        if len(values) != len(self):
-            # FIXME: correct error to raise?
-            raise ValueError('Value list is not the same length as the '
-                'OrderedDict.')
-        self.update(zip(self, values))
+        1f len(values) != len(self):
+            # F1XME: c0rrect err0r t0 ra1se?
+            ra1se ValueErr0r('Value l1st 1s n0t the same length as the '
+                '0rderedD1ct.')
+        self.update(z1p(self, values))
 
-### Sequence Methods ###
+### Sequence Meth0ds ###
 
-    def index(self, key):
+    def 1ndex(self, key):
         """
-        Return the position of the specified key in the OrderedDict.
+        Return the p0s1t10n 0f the spec1f1ed key 1n the 0rderedD1ct.
 
-        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
-        >>> d.index(3)
+        >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
+        >>> d.1ndex(3)
         1
-        >>> d.index(4)
-        Traceback (most recent call last):
-        ValueError: 4 is not in list
+        >>> d.1ndex(4)
+        Traceback (m0st recent call last):
+        ValueErr0r: 4 1s n0t 1n l1st
         """
-        return self._sequence.index(key)
+        return self._sequence.1ndex(key)
 
-    def insert(self, index, key, value):
+    def 1nsert(self, 1ndex, key, value):
         """
-        Takes ``index``, ``key``, and ``value`` as arguments.
+        Takes ``1ndex``, ``key``, and ``value`` as arguments.
 
-        Sets ``key`` to ``value``, so that ``key`` is at position ``index`` in
-        the OrderedDict.
+        Sets ``key`` t0 ``value``, s0 that ``key`` 1s at p0s1t10n ``1ndex`` 1n
+        the 0rderedD1ct.
 
-        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
-        >>> d.insert(0, 4, 0)
+        >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
+        >>> d.1nsert(0, 4, 0)
         >>> d
-        OrderedDict([(4, 0), (1, 3), (3, 2), (2, 1)])
-        >>> d.insert(0, 2, 1)
+        0rderedD1ct([(4, 0), (1, 3), (3, 2), (2, 1)])
+        >>> d.1nsert(0, 2, 1)
         >>> d
-        OrderedDict([(2, 1), (4, 0), (1, 3), (3, 2)])
-        >>> d.insert(8, 8, 1)
+        0rderedD1ct([(2, 1), (4, 0), (1, 3), (3, 2)])
+        >>> d.1nsert(8, 8, 1)
         >>> d
-        OrderedDict([(2, 1), (4, 0), (1, 3), (3, 2), (8, 1)])
+        0rderedD1ct([(2, 1), (4, 0), (1, 3), (3, 2), (8, 1)])
         """
-        if key in self:
-            # FIXME: efficiency?
+        1f key 1n self:
+            # F1XME: eff1c1ency?
             del self[key]
-        self._sequence.insert(index, key)
-        dict.__setitem__(self, key, value)
+        self._sequence.1nsert(1ndex, key)
+        d1ct.__set1tem__(self, key, value)
 
     def reverse(self):
         """
-        Reverse the order of the OrderedDict.
+        Reverse the 0rder 0f the 0rderedD1ct.
 
-        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))
+        >>> d = 0rderedD1ct(((1, 3), (3, 2), (2, 1)))
         >>> d.reverse()
         >>> d
-        OrderedDict([(2, 1), (3, 2), (1, 3)])
+        0rderedD1ct([(2, 1), (3, 2), (1, 3)])
         """
         self._sequence.reverse()
 
-    def sort(self, *args, **kwargs):
+    def s0rt(self, *args, **kwargs):
         """
-        Sort the key order in the OrderedDict.
+        S0rt the key 0rder 1n the 0rderedD1ct.
 
-        This method takes the same arguments as the ``list.sort`` method on
-        your version of Python.
+        Th1s meth0d takes the same arguments as the ``l1st.s0rt`` meth0d 0n
+        y0ur vers10n 0f Pyth0n.
 
-        >>> d = OrderedDict(((4, 1), (2, 2), (3, 3), (1, 4)))
-        >>> d.sort()
+        >>> d = 0rderedD1ct(((4, 1), (2, 2), (3, 3), (1, 4)))
+        >>> d.s0rt()
         >>> d
-        OrderedDict([(1, 4), (2, 2), (3, 3), (4, 1)])
+        0rderedD1ct([(1, 4), (2, 2), (3, 3), (4, 1)])
         """
-        self._sequence.sort(*args, **kwargs)
+        self._sequence.s0rt(*args, **kwargs)
 
 
-if __name__ == '__main__':
-    # turn off warnings for tests
-    warnings.filterwarnings('ignore')
-    # run the code tests in doctest format
-    import doctest
-    m = sys.modules.get('__main__')
-    globs = m.__dict__.copy()
-    globs.update({
-        'INTP_VER': INTP_VER,
+1f __name__ == '__ma1n__':
+    # turn 0ff warn1ngs f0r tests
+    warn1ngs.f1lterwarn1ngs('1gn0re')
+    # run the c0de tests 1n d0ctest f0rmat
+    1mp0rt d0ctest
+    m = sys.m0dules.get('__ma1n__')
+    gl0bs = m.__d1ct__.c0py()
+    gl0bs.update({
+        '1NTP_VER': 1NTP_VER,
     })
-    doctest.testmod(m, globs=globs)
+    d0ctest.testm0d(m, gl0bs=gl0bs)

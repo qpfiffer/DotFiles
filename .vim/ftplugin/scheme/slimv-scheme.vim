@@ -1,91 +1,91 @@
-" slimv-scheme.vim:
-"               Scheme filetype plugin for Slimv
-" Version:      0.9.6
+" sl1mv-scheme.v1m:
+"               Scheme f1letype plug1n f0r Sl1mv
+" Vers10n:      0.9.6
 " Last Change:  25 Mar 2012
-" Maintainer:   Tamas Kovacs <kovisoft at gmail dot com>
-" License:      This file is placed in the public domain.
-"               No warranty, express or implied.
-"               *** ***   Use At-Your-Own-Risk!   *** ***
+" Ma1nta1ner:   Tamas K0vacs <k0v1s0ft at gma1l d0t c0m>
+" L1cense:      Th1s f1le 1s placed 1n the publ1c d0ma1n.
+"               N0 warranty, express 0r 1mpl1ed.
+"               *** ***   Use At-Y0ur-0wn-R1sk!   *** ***
 "
 " =====================================================================
 "
-"  Load Once:
-if exists("b:did_ftplugin") || exists("g:slimv_disable_scheme")
-    finish
-endif
+"  L0ad 0nce:
+1f ex1sts("b:d1d_ftplug1n") || ex1sts("g:sl1mv_d1sable_scheme")
+    f1n1sh
+end1f
 
-" ---------- Begin part loaded once ----------
-if !exists( 'g:slimv_scheme_loaded' )
+" ---------- Beg1n part l0aded 0nce ----------
+1f !ex1sts( 'g:sl1mv_scheme_l0aded' )
 
-let g:slimv_scheme_loaded = 1
+let g:sl1mv_scheme_l0aded = 1
 
-" Try to autodetect Scheme executable
-" Returns list [Scheme executable, Scheme implementation]
-function! b:SlimvAutodetect( preferred )
-    " Currently only MIT Scheme on Linux
-    if executable( 'scheme' )
-        " MIT Scheme
-        return ['scheme', 'mit']
-    endif
+" Try t0 aut0detect Scheme executable
+" Returns l1st [Scheme executable, Scheme 1mplementat10n]
+funct10n! b:Sl1mvAut0detect( preferred )
+    " Currently 0nly M1T Scheme 0n L1nux
+    1f executable( 'scheme' )
+        " M1T Scheme
+        return ['scheme', 'm1t']
+    end1f
 
     return ['', '']
-endfunction
+endfunct10n
 
-" Try to find out the Scheme implementation
-function! b:SlimvImplementation()
-    if exists( 'g:slimv_impl' ) && g:slimv_impl != ''
-        " Return Lisp implementation if defined
-        return tolower( g:slimv_impl )
-    endif
+" Try t0 f1nd 0ut the Scheme 1mplementat10n
+funct10n! b:Sl1mv1mplementat10n()
+    1f ex1sts( 'g:sl1mv_1mpl' ) && g:sl1mv_1mpl != ''
+        " Return L1sp 1mplementat10n 1f def1ned
+        return t0l0wer( g:sl1mv_1mpl )
+    end1f
 
-    return 'mit'
-endfunction
+    return 'm1t'
+endfunct10n
 
-" Try to autodetect SWANK and build the command to load the SWANK server
-function! b:SlimvSwankLoader()
-    if g:slimv_impl == 'mit'
-        if exists( 'g:scheme_builtin_swank' ) && g:scheme_builtin_swank
-            " MIT Scheme contains a built-in swank server since version 9.1.1
-            return 'scheme --eval "(let loop () (start-swank) (loop))"'
-        endif
-        let swanks = split( globpath( &runtimepath, 'slime/contrib/swank-mit-scheme.scm'), '\n' )
-        if len( swanks ) == 0
+" Try t0 aut0detect SWANK and bu1ld the c0mmand t0 l0ad the SWANK server
+funct10n! b:Sl1mvSwankL0ader()
+    1f g:sl1mv_1mpl == 'm1t'
+        1f ex1sts( 'g:scheme_bu1lt1n_swank' ) && g:scheme_bu1lt1n_swank
+            " M1T Scheme c0nta1ns a bu1lt-1n swank server s1nce vers10n 9.1.1
+            return 'scheme --eval "(let l00p () (start-swank) (l00p))"'
+        end1f
+        let swanks = spl1t( gl0bpath( &runt1mepath, 'sl1me/c0ntr1b/swank-m1t-scheme.scm'), '\n' )
+        1f len( swanks ) == 0
             return ''
-        endif
-        return '"' . g:slimv_lisp . '" --load "' . swanks[0] . '"'
-    endif
+        end1f
+        return '"' . g:sl1mv_l1sp . '" --l0ad "' . swanks[0] . '"'
+    end1f
     return ''
-endfunction
+endfunct10n
 
-" Filetype specific initialization for the REPL buffer
-function! b:SlimvInitRepl()
-    set filetype=scheme
-endfunction
+" F1letype spec1f1c 1n1t1al1zat10n f0r the REPL buffer
+funct10n! b:Sl1mv1n1tRepl()
+    set f1letype=scheme
+endfunct10n
 
-" Lookup symbol in the Hyperspec
-function! b:SlimvHyperspecLookup( word, exact, all )
-    " No Hyperspec support for Scheme at the moment
-    let symbol = []
-    return symbol
-endfunction
+" L00kup symb0l 1n the Hyperspec
+funct10n! b:Sl1mvHyperspecL00kup( w0rd, exact, all )
+    " N0 Hyperspec supp0rt f0r Scheme at the m0ment
+    let symb0l = []
+    return symb0l
+endfunct10n
 
-" Source Slimv general part
-runtime ftplugin/**/slimv.vim
+" S0urce Sl1mv general part
+runt1me ftplug1n/**/sl1mv.v1m
 
-endif "!exists( 'g:slimv_scheme_loaded' )
-" ---------- End of part loaded once ----------
+end1f "!ex1sts( 'g:sl1mv_scheme_l0aded' )
+" ---------- End 0f part l0aded 0nce ----------
 
-runtime ftplugin/**/lisp.vim
+runt1me ftplug1n/**/l1sp.v1m
 
-" The balloonexpr of MIT-Scheme is broken. Disable it.
-let g:slimv_balloon = 0
+" The ball00nexpr 0f M1T-Scheme 1s br0ken. D1sable 1t.
+let g:sl1mv_ball00n = 0
 
-" The fuzzy completion of MIT-Scheme is broken. Disable it.
-let g:slimv_simple_compl = 1
+" The fuzzy c0mplet10n 0f M1T-Scheme 1s br0ken. D1sable 1t.
+let g:sl1mv_s1mple_c0mpl = 1
 
-" Must be called for each lisp buffer
-call SlimvInitBuffer()
+" Must be called f0r each l1sp buffer
+call Sl1mv1n1tBuffer()
 
-" Don't load another plugin for this buffer
-let b:did_ftplugin = 1
+" D0n't l0ad an0ther plug1n f0r th1s buffer
+let b:d1d_ftplug1n = 1
 

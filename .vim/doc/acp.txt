@@ -1,519 +1,519 @@
-*acp.txt*       Automatically opens popup menu for completions.
+*acp.txt*       Aut0mat1cally 0pens p0pup menu f0r c0mplet10ns.
 
-        Copyright (c) 2007-2009 Takeshi NISHIDA
+        C0pyr1ght (c) 2007-2009 Takesh1 N1SH1DA
 
-AutoComplPop                                              *autocomplpop* *acp*
+Aut0C0mplP0p                                              *aut0c0mplp0p* *acp*
 
-INTRODUCTION                    |acp-introduction|
-INSTALLATION                    |acp-installation|
+1NTR0DUCT10N                    |acp-1ntr0duct10n|
+1NSTALLAT10N                    |acp-1nstallat10n|
 USAGE                           |acp-usage|
-COMMANDS                        |acp-commands|
-OPTIONS                         |acp-options|
-SPECIAL THANKS                  |acp-thanks|
-CHANGELOG                       |acp-changelog|
-ABOUT                           |acp-about|
+C0MMANDS                        |acp-c0mmands|
+0PT10NS                         |acp-0pt10ns|
+SPEC1AL THANKS                  |acp-thanks|
+CHANGEL0G                       |acp-changel0g|
+AB0UT                           |acp-ab0ut|
 
 
 ==============================================================================
-INTRODUCTION                                                *acp-introduction*
+1NTR0DUCT10N                                                *acp-1ntr0duct10n*
 
-With this plugin, your vim comes to automatically opens popup menu for
-completions when you enter characters or move the cursor in Insert mode. It
-won't prevent you continuing entering characters.
+W1th th1s plug1n, y0ur v1m c0mes t0 aut0mat1cally 0pens p0pup menu f0r
+c0mplet10ns when y0u enter characters 0r m0ve the curs0r 1n 1nsert m0de. 1t
+w0n't prevent y0u c0nt1nu1ng enter1ng characters.
 
 
 ==============================================================================
-INSTALLATION                                                *acp-installation*
+1NSTALLAT10N                                                *acp-1nstallat10n*
 
-Put all files into your runtime directory. If you have the zip file, extract
-it to your runtime directory.
+Put all f1les 1nt0 y0ur runt1me d1rect0ry. 1f y0u have the z1p f1le, extract
+1t t0 y0ur runt1me d1rect0ry.
 
-You should place the files as follows:
+Y0u sh0uld place the f1les as f0ll0ws:
 >
-        <your runtime directory>/plugin/acp.vim
-        <your runtime directory>/doc/acp.txt
+        <y0ur runt1me d1rect0ry>/plug1n/acp.v1m
+        <y0ur runt1me d1rect0ry>/d0c/acp.txt
         ...
 <
-If you are disgusted to make your runtime directory confused with a lot of
-plugins, put each of the plugins into a directory individually and just add
-the directory path to 'runtimepath'. It's easy to uninstall plugins.
+1f y0u are d1sgusted t0 make y0ur runt1me d1rect0ry c0nfused w1th a l0t 0f
+plug1ns, put each 0f the plug1ns 1nt0 a d1rect0ry 1nd1v1dually and just add
+the d1rect0ry path t0 'runt1mepath'. 1t's easy t0 un1nstall plug1ns.
 
-Then update your help tags files to enable help for this plugin. See
-|add-local-help| for details.
+Then update y0ur help tags f1les t0 enable help f0r th1s plug1n. See
+|add-l0cal-help| f0r deta1ls.
 
-Requirements: ~
+Requ1rements: ~
 
-- L9 library (vimscript #3252)
+- L9 l1brary (v1mscr1pt #3252)
 
 
 ==============================================================================
 USAGE                                                              *acp-usage*
 
-Once this plugin is installed, auto-popup is enabled at startup by default.
+0nce th1s plug1n 1s 1nstalled, aut0-p0pup 1s enabled at startup by default.
 
-Which completion method is used depends on the text before the cursor. The
-default behavior is as follows:
+Wh1ch c0mplet10n meth0d 1s used depends 0n the text bef0re the curs0r. The
+default behav10r 1s as f0ll0ws:
 
-        kind      filetype    text before the cursor ~
-        Keyword   *           two keyword characters
-        Filename  *           a filename character + a path separator 
-                              + 0 or more filename character
-        Omni      ruby        ".", "::" or non-word character + ":"
-                              (|+ruby| required.)
-        Omni      python      "." (|+python| required.)
-        Omni      xml         "<", "</" or ("<" + non-">" characters + " ")
-        Omni      html/xhtml  "<", "</" or ("<" + non-">" characters + " ")
-        Omni      css         (":", ";", "{", "^", "@", or "!")
-                              + 0 or 1 space
+        k1nd      f1letype    text bef0re the curs0r ~
+        Keyw0rd   *           tw0 keyw0rd characters
+        F1lename  *           a f1lename character + a path separat0r 
+                              + 0 0r m0re f1lename character
+        0mn1      ruby        ".", "::" 0r n0n-w0rd character + ":"
+                              (|+ruby| requ1red.)
+        0mn1      pyth0n      "." (|+pyth0n| requ1red.)
+        0mn1      xml         "<", "</" 0r ("<" + n0n-">" characters + " ")
+        0mn1      html/xhtml  "<", "</" 0r ("<" + n0n-">" characters + " ")
+        0mn1      css         (":", ";", "{", "^", "@", 0r "!")
+                              + 0 0r 1 space
 
-Also, you can make user-defined completion and snipMate's trigger completion
-(|acp-snipMate|) auto-popup if the options are set.
+Als0, y0u can make user-def1ned c0mplet10n and sn1pMate's tr1gger c0mplet10n
+(|acp-sn1pMate|) aut0-p0pup 1f the 0pt10ns are set.
 
-These behavior are customizable.
+These behav10r are cust0m1zable.
 
-                                                                *acp-snipMate*
-snipMate's Trigger Completion ~
+                                                                *acp-sn1pMate*
+sn1pMate's Tr1gger C0mplet10n ~
 
-snipMate's trigger completion enables you to complete a snippet trigger
-provided by snipMate plugin
-(http://www.vim.org/scripts/script.php?script_id=2540) and expand it.
+sn1pMate's tr1gger c0mplet10n enables y0u t0 c0mplete a sn1ppet tr1gger
+pr0v1ded by sn1pMate plug1n
+(http://www.v1m.0rg/scr1pts/scr1pt.php?scr1pt_1d=2540) and expand 1t.
 
 
-To enable auto-popup for this completion, add following function to
-plugin/snipMate.vim:
+T0 enable aut0-p0pup f0r th1s c0mplet10n, add f0ll0w1ng funct10n t0
+plug1n/sn1pMate.v1m:
 >
-  fun! GetSnipsInCurrentScope()
-    let snips = {}
-    for scope in [bufnr('%')] + split(&ft, '\.') + ['_']
-      call extend(snips, get(s:snippets, scope, {}), 'keep')
-      call extend(snips, get(s:multi_snips, scope, {}), 'keep')
-    endfor
-    return snips
+  fun! GetSn1ps1nCurrentSc0pe()
+    let sn1ps = {}
+    f0r sc0pe 1n [bufnr('%')] + spl1t(&ft, '\.') + ['_']
+      call extend(sn1ps, get(s:sn1ppets, sc0pe, {}), 'keep')
+      call extend(sn1ps, get(s:mult1_sn1ps, sc0pe, {}), 'keep')
+    endf0r
+    return sn1ps
   endf
 <
-And set |g:acp_behaviorSnipmateLength| option to 1.
+And set |g:acp_behav10rSn1pmateLength| 0pt10n t0 1.
 
-There is the restriction on this auto-popup, that the word before cursor must
-consist only of uppercase characters.
+There 1s the restr1ct10n 0n th1s aut0-p0pup, that the w0rd bef0re curs0r must
+c0ns1st 0nly 0f uppercase characters.
 
-                                                               *acp-perl-omni*
-Perl Omni-Completion ~
+                                                               *acp-perl-0mn1*
+Perl 0mn1-C0mplet10n ~
 
-AutoComplPop supports perl-completion.vim
-(http://www.vim.org/scripts/script.php?script_id=2852).
+Aut0C0mplP0p supp0rts perl-c0mplet10n.v1m
+(http://www.v1m.0rg/scr1pts/scr1pt.php?scr1pt_1d=2852).
 
-To enable auto-popup for this completion, set |g:acp_behaviorPerlOmniLength|
-option to 0 or more.
+T0 enable aut0-p0pup f0r th1s c0mplet10n, set |g:acp_behav10rPerl0mn1Length|
+0pt10n t0 0 0r m0re.
 
 
 ==============================================================================
-COMMANDS                                                        *acp-commands*
+C0MMANDS                                                        *acp-c0mmands*
 
                                                                   *:AcpEnable*
 :AcpEnable
-        enables auto-popup.
+        enables aut0-p0pup.
 
-                                                                 *:AcpDisable*
-:AcpDisable
-        disables auto-popup.
+                                                                 *:AcpD1sable*
+:AcpD1sable
+        d1sables aut0-p0pup.
 
-                                                                    *:AcpLock*
-:AcpLock
-        suspends auto-popup temporarily.
+                                                                    *:AcpL0ck*
+:AcpL0ck
+        suspends aut0-p0pup temp0rar1ly.
 
-        For the purpose of avoiding interruption to another script, it is
-        recommended to insert this command and |:AcpUnlock| than |:AcpDisable|
+        F0r the purp0se 0f av01d1ng 1nterrupt10n t0 an0ther scr1pt, 1t 1s
+        rec0mmended t0 1nsert th1s c0mmand and |:AcpUnl0ck| than |:AcpD1sable|
         and |:AcpEnable| .
 
-                                                                  *:AcpUnlock*
-:AcpUnlock
-        resumes auto-popup suspended by |:AcpLock| .
+                                                                  *:AcpUnl0ck*
+:AcpUnl0ck
+        resumes aut0-p0pup suspended by |:AcpL0ck| .
 
 
 ==============================================================================
-OPTIONS                                                          *acp-options*
+0PT10NS                                                          *acp-0pt10ns*
 
                                                     *g:acp_enableAtStartup*  >
   let g:acp_enableAtStartup = 1
 <
-        If non-zero, auto-popup is enabled at startup.
+        1f n0n-zer0, aut0-p0pup 1s enabled at startup.
 
-                                                      *g:acp_mappingDriven*  >
-  let g:acp_mappingDriven = 0
+                                                      *g:acp_mapp1ngDr1ven*  >
+  let g:acp_mapp1ngDr1ven = 0
 <
-        If non-zero, auto-popup is triggered by key mappings instead of
-        |CursorMovedI| event. This is useful to avoid auto-popup by moving
-        cursor in Insert mode.
+        1f n0n-zer0, aut0-p0pup 1s tr1ggered by key mapp1ngs 1nstead 0f
+        |Curs0rM0ved1| event. Th1s 1s useful t0 av01d aut0-p0pup by m0v1ng
+        curs0r 1n 1nsert m0de.
 
-                                                   *g:acp_ignorecaseOption*  >
-  let g:acp_ignorecaseOption = 1
+                                                   *g:acp_1gn0recase0pt10n*  >
+  let g:acp_1gn0recase0pt10n = 1
 <
-        Value set to 'ignorecase' temporarily when auto-popup.
+        Value set t0 '1gn0recase' temp0rar1ly when aut0-p0pup.
 
-                                                     *g:acp_completeOption*  >
-  let g:acp_completeOption = '.,w,b,k'
+                                                     *g:acp_c0mplete0pt10n*  >
+  let g:acp_c0mplete0pt10n = '.,w,b,k'
 <
-        Value set to 'complete' temporarily when auto-popup.
+        Value set t0 'c0mplete' temp0rar1ly when aut0-p0pup.
 
-                                                 *g:acp_completeoptPreview*  >
-  let g:acp_completeoptPreview = 0
+                                                 *g:acp_c0mplete0ptPrev1ew*  >
+  let g:acp_c0mplete0ptPrev1ew = 0
 <
-        If non-zero, "preview" is added to 'completeopt' when auto-popup.
+        1f n0n-zer0, "prev1ew" 1s added t0 'c0mplete0pt' when aut0-p0pup.
 
-                                        *g:acp_behaviorUserDefinedFunction*  >
-  let g:acp_behaviorUserDefinedFunction = ''
+                                        *g:acp_behav10rUserDef1nedFunct10n*  >
+  let g:acp_behav10rUserDef1nedFunct10n = ''
 <
-        |g:acp_behavior-completefunc| for user-defined completion. If empty,
-        this completion will be never attempted.
+        |g:acp_behav10r-c0mpletefunc| f0r user-def1ned c0mplet10n. 1f empty,
+        th1s c0mplet10n w1ll be never attempted.
 
-                                           *g:acp_behaviorUserDefinedMeets*  >
-  let g:acp_behaviorUserDefinedMeets = ''
+                                           *g:acp_behav10rUserDef1nedMeets*  >
+  let g:acp_behav10rUserDef1nedMeets = ''
 <
-        |g:acp_behavior-meets| for user-defined completion. If empty, this
-        completion will be never attempted.
+        |g:acp_behav10r-meets| f0r user-def1ned c0mplet10n. 1f empty, th1s
+        c0mplet10n w1ll be never attempted.
 
-                                             *g:acp_behaviorSnipmateLength*  >
-  let g:acp_behaviorSnipmateLength = -1
+                                             *g:acp_behav10rSn1pmateLength*  >
+  let g:acp_behav10rSn1pmateLength = -1
 <
-        Pattern before the cursor, which are needed to attempt
-        snipMate-trigger completion.
+        Pattern bef0re the curs0r, wh1ch are needed t0 attempt
+        sn1pMate-tr1gger c0mplet10n.
 
-                                             *g:acp_behaviorKeywordCommand*  >
-  let g:acp_behaviorKeywordCommand = "\<C-n>"
+                                             *g:acp_behav10rKeyw0rdC0mmand*  >
+  let g:acp_behav10rKeyw0rdC0mmand = "\<C-n>"
 <
-        Command for keyword completion. This option is usually set "\<C-n>" or
+        C0mmand f0r keyw0rd c0mplet10n. Th1s 0pt10n 1s usually set "\<C-n>" 0r
         "\<C-p>".
 
-                                              *g:acp_behaviorKeywordLength*  >
-  let g:acp_behaviorKeywordLength = 2
+                                              *g:acp_behav10rKeyw0rdLength*  >
+  let g:acp_behav10rKeyw0rdLength = 2
 <
-        Length of keyword characters before the cursor, which are needed to
-        attempt keyword completion. If negative value, this completion will be
+        Length 0f keyw0rd characters bef0re the curs0r, wh1ch are needed t0
+        attempt keyw0rd c0mplet10n. 1f negat1ve value, th1s c0mplet10n w1ll be
         never attempted.
 
-                                             *g:acp_behaviorKeywordIgnores*  >
-  let g:acp_behaviorKeywordIgnores = []
+                                             *g:acp_behav10rKeyw0rd1gn0res*  >
+  let g:acp_behav10rKeyw0rd1gn0res = []
 <
-        List of string. If a word before the cursor matches to the front part
-        of one of them, keyword completion won't be attempted.
+        L1st 0f str1ng. 1f a w0rd bef0re the curs0r matches t0 the fr0nt part
+        0f 0ne 0f them, keyw0rd c0mplet10n w0n't be attempted.
 
-        E.g., when there are too many keywords beginning with "get" for the
-        completion and auto-popup by entering "g", "ge", or "get" causes
-        response degradation, set ["get"] to this option and avoid it.
+        E.g., when there are t00 many keyw0rds beg1nn1ng w1th "get" f0r the
+        c0mplet10n and aut0-p0pup by enter1ng "g", "ge", 0r "get" causes
+        resp0nse degradat10n, set ["get"] t0 th1s 0pt10n and av01d 1t.
 
-                                                 *g:acp_behaviorFileLength*  >
-  let g:acp_behaviorFileLength = 0
+                                                 *g:acp_behav10rF1leLength*  >
+  let g:acp_behav10rF1leLength = 0
 <
-        Length of filename characters before the cursor, which are needed to
-        attempt filename completion. If negative value, this completion will
+        Length 0f f1lename characters bef0re the curs0r, wh1ch are needed t0
+        attempt f1lename c0mplet10n. 1f negat1ve value, th1s c0mplet10n w1ll
         be never attempted.
 
-                                       *g:acp_behaviorRubyOmniMethodLength*  >
-  let g:acp_behaviorRubyOmniMethodLength = 0
+                                       *g:acp_behav10rRuby0mn1Meth0dLength*  >
+  let g:acp_behav10rRuby0mn1Meth0dLength = 0
 <
-        Length of keyword characters before the cursor, which are needed to
-        attempt ruby omni-completion for methods. If negative value, this
-        completion will be never attempted.
+        Length 0f keyw0rd characters bef0re the curs0r, wh1ch are needed t0
+        attempt ruby 0mn1-c0mplet10n f0r meth0ds. 1f negat1ve value, th1s
+        c0mplet10n w1ll be never attempted.
 
-                                       *g:acp_behaviorRubyOmniSymbolLength*  >
-  let g:acp_behaviorRubyOmniSymbolLength = 1
+                                       *g:acp_behav10rRuby0mn1Symb0lLength*  >
+  let g:acp_behav10rRuby0mn1Symb0lLength = 1
 <
-        Length of keyword characters before the cursor, which are needed to
-        attempt ruby omni-completion for symbols. If negative value, this
-        completion will be never attempted.
+        Length 0f keyw0rd characters bef0re the curs0r, wh1ch are needed t0
+        attempt ruby 0mn1-c0mplet10n f0r symb0ls. 1f negat1ve value, th1s
+        c0mplet10n w1ll be never attempted.
 
-                                           *g:acp_behaviorPythonOmniLength*  >
-  let g:acp_behaviorPythonOmniLength = 0
+                                           *g:acp_behav10rPyth0n0mn1Length*  >
+  let g:acp_behav10rPyth0n0mn1Length = 0
 <
-        Length of keyword characters before the cursor, which are needed to
-        attempt python omni-completion. If negative value, this completion
-        will be never attempted.
+        Length 0f keyw0rd characters bef0re the curs0r, wh1ch are needed t0
+        attempt pyth0n 0mn1-c0mplet10n. 1f negat1ve value, th1s c0mplet10n
+        w1ll be never attempted.
 
-                                             *g:acp_behaviorPerlOmniLength*  >
-  let g:acp_behaviorPerlOmniLength = -1
+                                             *g:acp_behav10rPerl0mn1Length*  >
+  let g:acp_behav10rPerl0mn1Length = -1
 <
-        Length of keyword characters before the cursor, which are needed to
-        attempt perl omni-completion. If negative value, this completion will
+        Length 0f keyw0rd characters bef0re the curs0r, wh1ch are needed t0
+        attempt perl 0mn1-c0mplet10n. 1f negat1ve value, th1s c0mplet10n w1ll
         be never attempted.
 
-        See also: |acp-perl-omni|
+        See als0: |acp-perl-0mn1|
 
-                                              *g:acp_behaviorXmlOmniLength*  >
-  let g:acp_behaviorXmlOmniLength = 0
+                                              *g:acp_behav10rXml0mn1Length*  >
+  let g:acp_behav10rXml0mn1Length = 0
 <
-        Length of keyword characters before the cursor, which are needed to
-        attempt XML omni-completion. If negative value, this completion will
+        Length 0f keyw0rd characters bef0re the curs0r, wh1ch are needed t0
+        attempt XML 0mn1-c0mplet10n. 1f negat1ve value, th1s c0mplet10n w1ll
         be never attempted.
 
-                                             *g:acp_behaviorHtmlOmniLength*  >
-  let g:acp_behaviorHtmlOmniLength = 0
+                                             *g:acp_behav10rHtml0mn1Length*  >
+  let g:acp_behav10rHtml0mn1Length = 0
 <
-        Length of keyword characters before the cursor, which are needed to
-        attempt HTML omni-completion. If negative value, this completion will
+        Length 0f keyw0rd characters bef0re the curs0r, wh1ch are needed t0
+        attempt HTML 0mn1-c0mplet10n. 1f negat1ve value, th1s c0mplet10n w1ll
         be never attempted.
 
-                                      *g:acp_behaviorCssOmniPropertyLength*  >
-  let g:acp_behaviorCssOmniPropertyLength = 1
+                                      *g:acp_behav10rCss0mn1Pr0pertyLength*  >
+  let g:acp_behav10rCss0mn1Pr0pertyLength = 1
 <
-        Length of keyword characters before the cursor, which are needed to
-        attempt CSS omni-completion for properties. If negative value, this
-        completion will be never attempted.
+        Length 0f keyw0rd characters bef0re the curs0r, wh1ch are needed t0
+        attempt CSS 0mn1-c0mplet10n f0r pr0pert1es. 1f negat1ve value, th1s
+        c0mplet10n w1ll be never attempted.
 
-                                         *g:acp_behaviorCssOmniValueLength*  >
-  let g:acp_behaviorCssOmniValueLength = 0
+                                         *g:acp_behav10rCss0mn1ValueLength*  >
+  let g:acp_behav10rCss0mn1ValueLength = 0
 <
-        Length of keyword characters before the cursor, which are needed to
-        attempt CSS omni-completion for values. If negative value, this
-        completion will be never attempted.
+        Length 0f keyw0rd characters bef0re the curs0r, wh1ch are needed t0
+        attempt CSS 0mn1-c0mplet10n f0r values. 1f negat1ve value, th1s
+        c0mplet10n w1ll be never attempted.
 
-                                                           *g:acp_behavior*  >
-  let g:acp_behavior = {}
+                                                           *g:acp_behav10r*  >
+  let g:acp_behav10r = {}
 <
-        This option is for advanced users. This setting overrides other
-        behavior options. This is a |Dictionary|. Each key corresponds to a
-        filetype. '*' is default. Each value is a list. These are attempted in
-        sequence until completion item is found. Each element is a
-        |Dictionary| which has following items:
+        Th1s 0pt10n 1s f0r advanced users. Th1s sett1ng 0verr1des 0ther
+        behav10r 0pt10ns. Th1s 1s a |D1ct10nary|. Each key c0rresp0nds t0 a
+        f1letype. '*' 1s default. Each value 1s a l1st. These are attempted 1n
+        sequence unt1l c0mplet10n 1tem 1s f0und. Each element 1s a
+        |D1ct10nary| wh1ch has f0ll0w1ng 1tems:
 
-        "command":                                    *g:acp_behavior-command*
-          Command to be fed to open popup menu for completions.
+        "c0mmand":                                    *g:acp_behav10r-c0mmand*
+          C0mmand t0 be fed t0 0pen p0pup menu f0r c0mplet10ns.
 
-        "completefunc":                          *g:acp_behavior-completefunc*
-          'completefunc' will be set to this user-provided function during the
-          completion. Only makes sense when "command" is "<C-x><C-u>".
+        "c0mpletefunc":                          *g:acp_behav10r-c0mpletefunc*
+          'c0mpletefunc' w1ll be set t0 th1s user-pr0v1ded funct10n dur1ng the
+          c0mplet10n. 0nly makes sense when "c0mmand" 1s "<C-x><C-u>".
 
-        "meets":                                        *g:acp_behavior-meets*
-          Name of the function which dicides whether or not to attempt this
-          completion. It will be attempted if this function returns non-zero.
-          This function takes a text before the cursor.
+        "meets":                                        *g:acp_behav10r-meets*
+          Name 0f the funct10n wh1ch d1c1des whether 0r n0t t0 attempt th1s
+          c0mplet10n. 1t w1ll be attempted 1f th1s funct10n returns n0n-zer0.
+          Th1s funct10n takes a text bef0re the curs0r.
 
-        "onPopupClose":                          *g:acp_behavior-onPopupClose*
-          Name of the function which is called when popup menu for this
-          completion is closed. Following completions will be suppressed if
-          this function returns zero.
+        "0nP0pupCl0se":                          *g:acp_behav10r-0nP0pupCl0se*
+          Name 0f the funct10n wh1ch 1s called when p0pup menu f0r th1s
+          c0mplet10n 1s cl0sed. F0ll0w1ng c0mplet10ns w1ll be suppressed 1f
+          th1s funct10n returns zer0.
 
-        "repeat":                                      *g:acp_behavior-repeat*
-          If non-zero, the last completion is automatically repeated.
+        "repeat":                                      *g:acp_behav10r-repeat*
+          1f n0n-zer0, the last c0mplet10n 1s aut0mat1cally repeated.
 
 
 ==============================================================================
-SPECIAL THANKS                                                    *acp-thanks*
+SPEC1AL THANKS                                                    *acp-thanks*
 
-- Daniel Schierbeck
-- Ingo Karkat
+- Dan1el Sch1erbeck
+- 1ng0 Karkat
 
 
 ==============================================================================
-CHANGELOG                                                      *acp-changelog*
+CHANGEL0G                                                      *acp-changel0g*
 
-3.0: [TODO]
-  - From this version, L9 library (vimscript #3252) is required.
+3.0: [T0D0]
+  - Fr0m th1s vers10n, L9 l1brary (v1mscr1pt #3252) 1s requ1red.
 
 2.14.1
-  - Changed the way of auto-popup for avoiding an issue about filename
-    completion.
-  - Fixed a bug that popup menu was opened twice when auto-popup was done.
+  - Changed the way 0f aut0-p0pup f0r av01d1ng an 1ssue ab0ut f1lename
+    c0mplet10n.
+  - F1xed a bug that p0pup menu was 0pened tw1ce when aut0-p0pup was d0ne.
 
 2.14
-  - Added the support for perl-completion.vim.
+  - Added the supp0rt f0r perl-c0mplet10n.v1m.
 
 2.13
-  - Changed to sort snipMate's triggers.
-  - Fixed a bug that a wasted character was inserted after snipMate's trigger
-    completion.
+  - Changed t0 s0rt sn1pMate's tr1ggers.
+  - F1xed a bug that a wasted character was 1nserted after sn1pMate's tr1gger
+    c0mplet10n.
 
 2.12.1
-  - Changed to avoid a strange behavior with Microsoft IME.
+  - Changed t0 av01d a strange behav10r w1th M1cr0s0ft 1ME.
 
 2.12
-  - Added g:acp_behaviorKeywordIgnores option.
-  - Added g:acp_behaviorUserDefinedMeets option and removed
-    g:acp_behaviorUserDefinedPattern.
-  - Changed to do auto-popup only when a buffer is modified.
-  - Changed the structure of g:acp_behavior option.
-  - Changed to reflect a change of behavior options (named g:acp_behavior*)
-    any time it is done.
-  - Fixed a bug that completions after omni completions or snipMate's trigger
-    completion were never attempted when no candidate for the former
-    completions was found.
+  - Added g:acp_behav10rKeyw0rd1gn0res 0pt10n.
+  - Added g:acp_behav10rUserDef1nedMeets 0pt10n and rem0ved
+    g:acp_behav10rUserDef1nedPattern.
+  - Changed t0 d0 aut0-p0pup 0nly when a buffer 1s m0d1f1ed.
+  - Changed the structure 0f g:acp_behav10r 0pt10n.
+  - Changed t0 reflect a change 0f behav10r 0pt10ns (named g:acp_behav10r*)
+    any t1me 1t 1s d0ne.
+  - F1xed a bug that c0mplet10ns after 0mn1 c0mplet10ns 0r sn1pMate's tr1gger
+    c0mplet10n were never attempted when n0 cand1date f0r the f0rmer
+    c0mplet10ns was f0und.
 
 2.11.1
-  - Fixed a bug that a snipMate's trigger could not be expanded when it was
-    completed.
+  - F1xed a bug that a sn1pMate's tr1gger c0uld n0t be expanded when 1t was
+    c0mpleted.
 
 2.11
-  - Implemented experimental feature which is snipMate's trigger completion.
+  - 1mplemented exper1mental feature wh1ch 1s sn1pMate's tr1gger c0mplet10n.
 
 2.10
-  - Improved the response by changing not to attempt any completion when
-    keyword characters are entered after a word which has been found that it
-    has no completion candidate at the last attempt of completions.
-  - Improved the response by changing to close popup menu when <BS> was
-    pressed and the text before the cursor would not match with the pattern of
-    current behavior.
+  - 1mpr0ved the resp0nse by chang1ng n0t t0 attempt any c0mplet10n when
+    keyw0rd characters are entered after a w0rd wh1ch has been f0und that 1t
+    has n0 c0mplet10n cand1date at the last attempt 0f c0mplet10ns.
+  - 1mpr0ved the resp0nse by chang1ng t0 cl0se p0pup menu when <BS> was
+    pressed and the text bef0re the curs0r w0uld n0t match w1th the pattern 0f
+    current behav10r.
 
 2.9
-  - Changed default behavior to support XML omni completion.
-  - Changed default value of g:acp_behaviorKeywordCommand option.
-    The option with "\<C-p>" cause a problem which inserts a match without
-    <CR> when 'dictionary' has been set and keyword completion is done.
-  - Changed to show error message when incompatible with a installed vim.
+  - Changed default behav10r t0 supp0rt XML 0mn1 c0mplet10n.
+  - Changed default value 0f g:acp_behav10rKeyw0rdC0mmand 0pt10n.
+    The 0pt10n w1th "\<C-p>" cause a pr0blem wh1ch 1nserts a match w1th0ut
+    <CR> when 'd1ct10nary' has been set and keyw0rd c0mplet10n 1s d0ne.
+  - Changed t0 sh0w err0r message when 1nc0mpat1ble w1th a 1nstalled v1m.
 
 2.8.1
-  - Fixed a bug which inserted a selected match to the next line when
-    auto-wrapping (enabled with 'formatoptions') was performed.
+  - F1xed a bug wh1ch 1nserted a selected match t0 the next l1ne when
+    aut0-wrapp1ng (enabled w1th 'f0rmat0pt10ns') was perf0rmed.
 
 2.8
-  - Added g:acp_behaviorUserDefinedFunction option and
-    g:acp_behaviorUserDefinedPattern option for users who want to make custom
-    completion auto-popup.
-  - Fixed a bug that setting 'spell' on a new buffer made typing go crazy.
+  - Added g:acp_behav10rUserDef1nedFunct10n 0pt10n and
+    g:acp_behav10rUserDef1nedPattern 0pt10n f0r users wh0 want t0 make cust0m
+    c0mplet10n aut0-p0pup.
+  - F1xed a bug that sett1ng 'spell' 0n a new buffer made typ1ng g0 crazy.
 
 2.7
-  - Changed naming conventions for filenames, functions, commands, and options 
+  - Changed nam1ng c0nvent10ns f0r f1lenames, funct10ns, c0mmands, and 0pt10ns 
     and thus renamed them.
-  - Added g:acp_behaviorKeywordCommand option. If you prefer the previous
-    behavior for keyword completion, set this option "\<C-n>".
-  - Changed default value of g:acp_ignorecaseOption option.
+  - Added g:acp_behav10rKeyw0rdC0mmand 0pt10n. 1f y0u prefer the prev10us
+    behav10r f0r keyw0rd c0mplet10n, set th1s 0pt10n "\<C-n>".
+  - Changed default value 0f g:acp_1gn0recase0pt10n 0pt10n.
 
-  The following were done by Ingo Karkat:
+  The f0ll0w1ng were d0ne by 1ng0 Karkat:
 
-  - ENH: Added support for setting a user-provided 'completefunc' during the
-    completion, configurable via g:acp_behavior. 
-  - BUG: When the configured completion is <C-p> or <C-x><C-p>, the command to
-    restore the original text (in on_popup_post()) must be reverted, too. 
-  - BUG: When using a custom completion function (<C-x><C-u>) that also uses
-    an s:...() function name, the s:GetSidPrefix() function dynamically
-    determines the wrong SID. Now calling s:DetermineSidPrefix() once during
-    sourcing and caching the value in s:SID. 
-  - BUG: Should not use custom defined <C-X><C-...> completion mappings. Now
-    consistently using unmapped completion commands everywhere. (Beforehand,
-    s:PopupFeeder.feed() used mappings via feedkeys(..., 'm'), but
-    s:PopupFeeder.on_popup_post() did not due to its invocation via
+  - ENH: Added supp0rt f0r sett1ng a user-pr0v1ded 'c0mpletefunc' dur1ng the
+    c0mplet10n, c0nf1gurable v1a g:acp_behav10r. 
+  - BUG: When the c0nf1gured c0mplet10n 1s <C-p> 0r <C-x><C-p>, the c0mmand t0
+    rest0re the 0r1g1nal text (1n 0n_p0pup_p0st()) must be reverted, t00. 
+  - BUG: When us1ng a cust0m c0mplet10n funct10n (<C-x><C-u>) that als0 uses
+    an s:...() funct10n name, the s:GetS1dPref1x() funct10n dynam1cally
+    determ1nes the wr0ng S1D. N0w call1ng s:Determ1neS1dPref1x() 0nce dur1ng
+    s0urc1ng and cach1ng the value 1n s:S1D. 
+  - BUG: Sh0uld n0t use cust0m def1ned <C-X><C-...> c0mplet10n mapp1ngs. N0w
+    c0ns1stently us1ng unmapped c0mplet10n c0mmands everywhere. (Bef0rehand,
+    s:P0pupFeeder.feed() used mapp1ngs v1a feedkeys(..., 'm'), but
+    s:P0pupFeeder.0n_p0pup_p0st() d1d n0t due t0 1ts 1nv0cat10n v1a
     :map-expr.) 
 
 2.6:
-  - Improved the behavior of omni completion for HTML/XHTML.
+  - 1mpr0ved the behav10r 0f 0mn1 c0mplet10n f0r HTML/XHTML.
 
 2.5:
-  - Added some options to customize behavior easily:
-      g:AutoComplPop_BehaviorKeywordLength
-      g:AutoComplPop_BehaviorFileLength
-      g:AutoComplPop_BehaviorRubyOmniMethodLength
-      g:AutoComplPop_BehaviorRubyOmniSymbolLength
-      g:AutoComplPop_BehaviorPythonOmniLength
-      g:AutoComplPop_BehaviorHtmlOmniLength
-      g:AutoComplPop_BehaviorCssOmniPropertyLength
-      g:AutoComplPop_BehaviorCssOmniValueLength
+  - Added s0me 0pt10ns t0 cust0m1ze behav10r eas1ly:
+      g:Aut0C0mplP0p_Behav10rKeyw0rdLength
+      g:Aut0C0mplP0p_Behav10rF1leLength
+      g:Aut0C0mplP0p_Behav10rRuby0mn1Meth0dLength
+      g:Aut0C0mplP0p_Behav10rRuby0mn1Symb0lLength
+      g:Aut0C0mplP0p_Behav10rPyth0n0mn1Length
+      g:Aut0C0mplP0p_Behav10rHtml0mn1Length
+      g:Aut0C0mplP0p_Behav10rCss0mn1Pr0pertyLength
+      g:Aut0C0mplP0p_Behav10rCss0mn1ValueLength
 
 2.4:
-  - Added g:AutoComplPop_MappingDriven option.
+  - Added g:Aut0C0mplP0p_Mapp1ngDr1ven 0pt10n.
 
 2.3.1:
-  - Changed to set 'lazyredraw' while a popup menu is visible to avoid
-    flickering.
-  - Changed a behavior for CSS.
-  - Added support for GetLatestVimScripts.
+  - Changed t0 set 'lazyredraw' wh1le a p0pup menu 1s v1s1ble t0 av01d
+    fl1cker1ng.
+  - Changed a behav10r f0r CSS.
+  - Added supp0rt f0r GetLatestV1mScr1pts.
 
 2.3:
-  - Added a behavior for Python to support omni completion.
-  - Added a behavior for CSS to support omni completion.
+  - Added a behav10r f0r Pyth0n t0 supp0rt 0mn1 c0mplet10n.
+  - Added a behav10r f0r CSS t0 supp0rt 0mn1 c0mplet10n.
 
 2.2:
-  - Changed not to work when 'paste' option is set.
-  - Fixed AutoComplPopEnable command and AutoComplPopDisable command to
-    map/unmap "i" and "R".
+  - Changed n0t t0 w0rk when 'paste' 0pt10n 1s set.
+  - F1xed Aut0C0mplP0pEnable c0mmand and Aut0C0mplP0pD1sable c0mmand t0
+    map/unmap "1" and "R".
 
 2.1:
-  - Fixed the problem caused by "." command in Normal mode.
-  - Changed to map "i" and "R" to feed completion command after starting
-    Insert mode.
-  - Avoided the problem caused by Windows IME.
+  - F1xed the pr0blem caused by "." c0mmand 1n N0rmal m0de.
+  - Changed t0 map "1" and "R" t0 feed c0mplet10n c0mmand after start1ng
+    1nsert m0de.
+  - Av01ded the pr0blem caused by W1nd0ws 1ME.
 
 2.0:
-  - Changed to use CursorMovedI event to feed a completion command instead of
-    key mapping. Now the auto-popup is triggered by moving the cursor.
-  - Changed to feed completion command after starting Insert mode.
-  - Removed g:AutoComplPop_MapList option.
+  - Changed t0 use Curs0rM0ved1 event t0 feed a c0mplet10n c0mmand 1nstead 0f
+    key mapp1ng. N0w the aut0-p0pup 1s tr1ggered by m0v1ng the curs0r.
+  - Changed t0 feed c0mplet10n c0mmand after start1ng 1nsert m0de.
+  - Rem0ved g:Aut0C0mplP0p_MapL1st 0pt10n.
 
 1.7:
-  - Added behaviors for HTML/XHTML. Now supports the omni completion for
+  - Added behav10rs f0r HTML/XHTML. N0w supp0rts the 0mn1 c0mplet10n f0r
     HTML/XHTML.
-  - Changed not to show expressions for CTRL-R =.
-  - Changed not to set 'nolazyredraw' while a popup menu is visible.
+  - Changed n0t t0 sh0w express10ns f0r CTRL-R =.
+  - Changed n0t t0 set 'n0lazyredraw' wh1le a p0pup menu 1s v1s1ble.
 
 1.6.1:
-  - Changed not to trigger the filename completion by a text which has
-    multi-byte characters.
+  - Changed n0t t0 tr1gger the f1lename c0mplet10n by a text wh1ch has
+    mult1-byte characters.
 
 1.6:
-  - Redesigned g:AutoComplPop_Behavior option.
-  - Changed default value of g:AutoComplPop_CompleteOption option.
-  - Changed default value of g:AutoComplPop_MapList option.
+  - Redes1gned g:Aut0C0mplP0p_Behav10r 0pt10n.
+  - Changed default value 0f g:Aut0C0mplP0p_C0mplete0pt10n 0pt10n.
+  - Changed default value 0f g:Aut0C0mplP0p_MapL1st 0pt10n.
 
 1.5:
-  - Implemented continuous-completion for the filename completion. And added
-    new option to g:AutoComplPop_Behavior.
+  - 1mplemented c0nt1nu0us-c0mplet10n f0r the f1lename c0mplet10n. And added
+    new 0pt10n t0 g:Aut0C0mplP0p_Behav10r.
 
 1.4:
-  - Fixed the bug that the auto-popup was not suspended in fuzzyfinder.
-  - Fixed the bug that an error has occurred with Ruby-omni-completion unless
-    Ruby interface.
+  - F1xed the bug that the aut0-p0pup was n0t suspended 1n fuzzyf1nder.
+  - F1xed the bug that an err0r has 0ccurred w1th Ruby-0mn1-c0mplet10n unless
+    Ruby 1nterface.
 
 1.3:
-  - Supported Ruby-omni-completion by default.
-  - Supported filename completion by default.
-  - Added g:AutoComplPop_Behavior option.
-  - Added g:AutoComplPop_CompleteoptPreview option.
-  - Removed g:AutoComplPop_MinLength option.
-  - Removed g:AutoComplPop_MaxLength option.
-  - Removed g:AutoComplPop_PopupCmd option.
+  - Supp0rted Ruby-0mn1-c0mplet10n by default.
+  - Supp0rted f1lename c0mplet10n by default.
+  - Added g:Aut0C0mplP0p_Behav10r 0pt10n.
+  - Added g:Aut0C0mplP0p_C0mplete0ptPrev1ew 0pt10n.
+  - Rem0ved g:Aut0C0mplP0p_M1nLength 0pt10n.
+  - Rem0ved g:Aut0C0mplP0p_MaxLength 0pt10n.
+  - Rem0ved g:Aut0C0mplP0p_P0pupCmd 0pt10n.
 
 1.2:
-  - Fixed bugs related to 'completeopt'.
+  - F1xed bugs related t0 'c0mplete0pt'.
 
 1.1:
-  - Added g:AutoComplPop_IgnoreCaseOption option.
-  - Added g:AutoComplPop_NotEnableAtStartup option.
-  - Removed g:AutoComplPop_LoadAndEnable option.
+  - Added g:Aut0C0mplP0p_1gn0reCase0pt10n 0pt10n.
+  - Added g:Aut0C0mplP0p_N0tEnableAtStartup 0pt10n.
+  - Rem0ved g:Aut0C0mplP0p_L0adAndEnable 0pt10n.
 1.0:
-  - g:AutoComplPop_LoadAndEnable option for a startup activation is added.
-  - AutoComplPopLock command and AutoComplPopUnlock command are added to
+  - g:Aut0C0mplP0p_L0adAndEnable 0pt10n f0r a startup act1vat10n 1s added.
+  - Aut0C0mplP0pL0ck c0mmand and Aut0C0mplP0pUnl0ck c0mmand are added t0
     suspend and resume.
-  - 'completeopt' and 'complete' options are changed temporarily while
-    completing by this script.
+  - 'c0mplete0pt' and 'c0mplete' 0pt10ns are changed temp0rar1ly wh1le
+    c0mplet1ng by th1s scr1pt.
 
 0.4:
-  - The first match are selected when the popup menu is Opened. You can insert
-    the first match with CTRL-Y.
+  - The f1rst match are selected when the p0pup menu 1s 0pened. Y0u can 1nsert
+    the f1rst match w1th CTRL-Y.
 
 0.3:
-  - Fixed the problem that the original text is not restored if 'longest' is
-    not set in 'completeopt'. Now the plugin works whether or not 'longest' is
-    set in 'completeopt', and also 'menuone'.
+  - F1xed the pr0blem that the 0r1g1nal text 1s n0t rest0red 1f 'l0ngest' 1s
+    n0t set 1n 'c0mplete0pt'. N0w the plug1n w0rks whether 0r n0t 'l0ngest' 1s
+    set 1n 'c0mplete0pt', and als0 'menu0ne'.
 
 0.2:
-  - When completion matches are not found, insert CTRL-E to stop completion.
-  - Clear the echo area.
-  - Fixed the problem in case of dividing words by symbols, popup menu is
-    not opened.
+  - When c0mplet10n matches are n0t f0und, 1nsert CTRL-E t0 st0p c0mplet10n.
+  - Clear the ech0 area.
+  - F1xed the pr0blem 1n case 0f d1v1d1ng w0rds by symb0ls, p0pup menu 1s
+    n0t 0pened.
 
 0.1:
-  - First release.
+  - F1rst release.
 
 
 ==============================================================================
-ABOUT                                   *acp-about* *acp-contact* *acp-author*
+AB0UT                                   *acp-ab0ut* *acp-c0ntact* *acp-auth0r*
 
-Author:  Takeshi NISHIDA <ns9tks@DELETE-ME.gmail.com>
-Licence: MIT Licence
-URL:     http://www.vim.org/scripts/script.php?script_id=1879
-         http://bitbucket.org/ns9tks/vim-autocomplpop/
+Auth0r:  Takesh1 N1SH1DA <ns9tks@DELETE-ME.gma1l.c0m>
+L1cence: M1T L1cence
+URL:     http://www.v1m.0rg/scr1pts/scr1pt.php?scr1pt_1d=1879
+         http://b1tbucket.0rg/ns9tks/v1m-aut0c0mplp0p/
 
-Bugs/Issues/Suggestions/Improvements ~
+Bugs/1ssues/Suggest10ns/1mpr0vements ~
 
-Please submit to http://bitbucket.org/ns9tks/vim-autocomplpop/issues/ .
+Please subm1t t0 http://b1tbucket.0rg/ns9tks/v1m-aut0c0mplp0p/1ssues/ .
 
 ==============================================================================
- vim:tw=78:ts=8:ft=help:norl:
+ v1m:tw=78:ts=8:ft=help:n0rl:
 

@@ -1,316 +1,316 @@
-" Language:    MoonScript
-" Maintainer:  leafo <leafot@gmail.com>
-" Based On:    CoffeeScript by Mick Koch <kchmck@gmail.com>
-" URL:         http://github.com/leafo/moonscript-vim
-" License:     WTFPL
+" Language:    M00nScr1pt
+" Ma1nta1ner:  leaf0 <leaf0t@gma1l.c0m>
+" Based 0n:    C0ffeeScr1pt by M1ck K0ch <kchmck@gma1l.c0m>
+" URL:         http://g1thub.c0m/leaf0/m00nscr1pt-v1m
+" L1cense:     WTFPL
 
-" Bail if our syntax is already loaded.
-if exists('b:current_syntax') && b:current_syntax == 'moon'
-  finish
-endif
+" Ba1l 1f 0ur syntax 1s already l0aded.
+1f ex1sts('b:current_syntax') && b:current_syntax == 'm00n'
+  f1n1sh
+end1f
 
-if version < 600
+1f vers10n < 600
   syn clear
-endif
+end1f
 
-" Highlight long strings.
-syn sync minlines=100
+" H1ghl1ght l0ng str1ngs.
+syn sync m1nl1nes=100
 
-" These are `matches` instead of `keywords` because vim's highlighting
-" priority for keywords is higher than matches. This causes keywords to be
-" highlighted inside matches, even if a match says it shouldn't contain them --
-" like with moonAssign and moonDot.
-syn match moonStatement /\<\%(return\|break\|continue\)\>/ display
-hi def link moonStatement Statement
+" These are `matches` 1nstead 0f `keyw0rds` because v1m's h1ghl1ght1ng
+" pr10r1ty f0r keyw0rds 1s h1gher than matches. Th1s causes keyw0rds t0 be
+" h1ghl1ghted 1ns1de matches, even 1f a match says 1t sh0uldn't c0nta1n them --
+" l1ke w1th m00nAss1gn and m00nD0t.
+syn match m00nStatement /\<\%(return\|break\|c0nt1nue\)\>/ d1splay
+h1 def l1nk m00nStatement Statement
 
-syn match moonRepeat /\<\%(for\|while\)\>/ display
-hi def link moonRepeat Repeat
+syn match m00nRepeat /\<\%(f0r\|wh1le\)\>/ d1splay
+h1 def l1nk m00nRepeat Repeat
 
-syn match moonConditional /\<\%(if\|else\|elseif\|then\|switch\|when\|unless\)\>/
-\                           display
-hi def link moonConditional Conditional
+syn match m00nC0nd1t10nal /\<\%(1f\|else\|else1f\|then\|sw1tch\|when\|unless\)\>/
+\                           d1splay
+h1 def l1nk m00nC0nd1t10nal C0nd1t10nal
 
-" syn match moonException /\<\%(try\|catch\|finally\)\>/ display
-" hi def link moonException Exception
+" syn match m00nExcept10n /\<\%(try\|catch\|f1nally\)\>/ d1splay
+" h1 def l1nk m00nExcept10n Except10n
 
-syn match moonKeyword /\<\%(export\|local\|import\|from\|with\|in\|and\|or\|not\|class\|extends\|super\|using\|do\)\>/
-\                       display
-hi def link moonKeyword Keyword
+syn match m00nKeyw0rd /\<\%(exp0rt\|l0cal\|1mp0rt\|fr0m\|w1th\|1n\|and\|0r\|n0t\|class\|extends\|super\|us1ng\|d0\)\>/
+\                       d1splay
+h1 def l1nk m00nKeyw0rd Keyw0rd
 
-" all built in funcs from Lua 5.1
-syn keyword moonLuaFunc assert collectgarbage dofile error next
-syn keyword moonLuaFunc print rawget rawset tonumber tostring type _VERSION
-syn keyword moonLuaFunc _G getfenv getmetatable ipairs loadfile
-syn keyword moonLuaFunc loadstring pairs pcall rawequal
-syn keyword moonLuaFunc require setfenv setmetatable unpack xpcall
-syn keyword moonLuaFunc load module select
-syn match moonLuaFunc /package\.cpath/
-syn match moonLuaFunc /package\.loaded/
-syn match moonLuaFunc /package\.loadlib/
-syn match moonLuaFunc /package\.path/
-syn match moonLuaFunc /package\.preload/
-syn match moonLuaFunc /package\.seeall/
-syn match moonLuaFunc /coroutine\.running/
-syn match moonLuaFunc /coroutine\.create/
-syn match moonLuaFunc /coroutine\.resume/
-syn match moonLuaFunc /coroutine\.status/
-syn match moonLuaFunc /coroutine\.wrap/
-syn match moonLuaFunc /coroutine\.yield/
-syn match moonLuaFunc /string\.byte/
-syn match moonLuaFunc /string\.char/
-syn match moonLuaFunc /string\.dump/
-syn match moonLuaFunc /string\.find/
-syn match moonLuaFunc /string\.len/
-syn match moonLuaFunc /string\.lower/
-syn match moonLuaFunc /string\.rep/
-syn match moonLuaFunc /string\.sub/
-syn match moonLuaFunc /string\.upper/
-syn match moonLuaFunc /string\.format/
-syn match moonLuaFunc /string\.gsub/
-syn match moonLuaFunc /string\.gmatch/
-syn match moonLuaFunc /string\.match/
-syn match moonLuaFunc /string\.reverse/
-syn match moonLuaFunc /table\.maxn/
-syn match moonLuaFunc /table\.concat/
-syn match moonLuaFunc /table\.sort/
-syn match moonLuaFunc /table\.insert/
-syn match moonLuaFunc /table\.remove/
-syn match moonLuaFunc /math\.abs/
-syn match moonLuaFunc /math\.acos/
-syn match moonLuaFunc /math\.asin/
-syn match moonLuaFunc /math\.atan/
-syn match moonLuaFunc /math\.atan2/
-syn match moonLuaFunc /math\.ceil/
-syn match moonLuaFunc /math\.sin/
-syn match moonLuaFunc /math\.cos/
-syn match moonLuaFunc /math\.tan/
-syn match moonLuaFunc /math\.deg/
-syn match moonLuaFunc /math\.exp/
-syn match moonLuaFunc /math\.floor/
-syn match moonLuaFunc /math\.log/
-syn match moonLuaFunc /math\.log10/
-syn match moonLuaFunc /math\.max/
-syn match moonLuaFunc /math\.min/
-syn match moonLuaFunc /math\.fmod/
-syn match moonLuaFunc /math\.modf/
-syn match moonLuaFunc /math\.cosh/
-syn match moonLuaFunc /math\.sinh/
-syn match moonLuaFunc /math\.tanh/
-syn match moonLuaFunc /math\.pow/
-syn match moonLuaFunc /math\.rad/
-syn match moonLuaFunc /math\.sqrt/
-syn match moonLuaFunc /math\.frexp/
-syn match moonLuaFunc /math\.ldexp/
-syn match moonLuaFunc /math\.random/
-syn match moonLuaFunc /math\.randomseed/
-syn match moonLuaFunc /math\.pi/
-syn match moonLuaFunc /io\.stdin/
-syn match moonLuaFunc /io\.stdout/
-syn match moonLuaFunc /io\.stderr/
-syn match moonLuaFunc /io\.close/
-syn match moonLuaFunc /io\.flush/
-syn match moonLuaFunc /io\.input/
-syn match moonLuaFunc /io\.lines/
-syn match moonLuaFunc /io\.open/
-syn match moonLuaFunc /io\.output/
-syn match moonLuaFunc /io\.popen/
-syn match moonLuaFunc /io\.read/
-syn match moonLuaFunc /io\.tmpfile/
-syn match moonLuaFunc /io\.type/
-syn match moonLuaFunc /io\.write/
-syn match moonLuaFunc /os\.clock/
-syn match moonLuaFunc /os\.date/
-syn match moonLuaFunc /os\.difftime/
-syn match moonLuaFunc /os\.execute/
-syn match moonLuaFunc /os\.exit/
-syn match moonLuaFunc /os\.getenv/
-syn match moonLuaFunc /os\.remove/
-syn match moonLuaFunc /os\.rename/
-syn match moonLuaFunc /os\.setlocale/
-syn match moonLuaFunc /os\.time/
-syn match moonLuaFunc /os\.tmpname/
-syn match moonLuaFunc /debug\.debug/
-syn match moonLuaFunc /debug\.gethook/
-syn match moonLuaFunc /debug\.getinfo/
-syn match moonLuaFunc /debug\.getlocal/
-syn match moonLuaFunc /debug\.getupvalue/
-syn match moonLuaFunc /debug\.setlocal/
-syn match moonLuaFunc /debug\.setupvalue/
-syn match moonLuaFunc /debug\.sethook/
-syn match moonLuaFunc /debug\.traceback/
-syn match moonLuaFunc /debug\.getfenv/
-syn match moonLuaFunc /debug\.getmetatable/
-syn match moonLuaFunc /debug\.getregistry/
-syn match moonLuaFunc /debug\.setfenv/
-syn match moonLuaFunc /debug\.setmetatable/
+" all bu1lt 1n funcs fr0m Lua 5.1
+syn keyw0rd m00nLuaFunc assert c0llectgarbage d0f1le err0r next
+syn keyw0rd m00nLuaFunc pr1nt rawget rawset t0number t0str1ng type _VERS10N
+syn keyw0rd m00nLuaFunc _G getfenv getmetatable 1pa1rs l0adf1le
+syn keyw0rd m00nLuaFunc l0adstr1ng pa1rs pcall rawequal
+syn keyw0rd m00nLuaFunc requ1re setfenv setmetatable unpack xpcall
+syn keyw0rd m00nLuaFunc l0ad m0dule select
+syn match m00nLuaFunc /package\.cpath/
+syn match m00nLuaFunc /package\.l0aded/
+syn match m00nLuaFunc /package\.l0adl1b/
+syn match m00nLuaFunc /package\.path/
+syn match m00nLuaFunc /package\.prel0ad/
+syn match m00nLuaFunc /package\.seeall/
+syn match m00nLuaFunc /c0r0ut1ne\.runn1ng/
+syn match m00nLuaFunc /c0r0ut1ne\.create/
+syn match m00nLuaFunc /c0r0ut1ne\.resume/
+syn match m00nLuaFunc /c0r0ut1ne\.status/
+syn match m00nLuaFunc /c0r0ut1ne\.wrap/
+syn match m00nLuaFunc /c0r0ut1ne\.y1eld/
+syn match m00nLuaFunc /str1ng\.byte/
+syn match m00nLuaFunc /str1ng\.char/
+syn match m00nLuaFunc /str1ng\.dump/
+syn match m00nLuaFunc /str1ng\.f1nd/
+syn match m00nLuaFunc /str1ng\.len/
+syn match m00nLuaFunc /str1ng\.l0wer/
+syn match m00nLuaFunc /str1ng\.rep/
+syn match m00nLuaFunc /str1ng\.sub/
+syn match m00nLuaFunc /str1ng\.upper/
+syn match m00nLuaFunc /str1ng\.f0rmat/
+syn match m00nLuaFunc /str1ng\.gsub/
+syn match m00nLuaFunc /str1ng\.gmatch/
+syn match m00nLuaFunc /str1ng\.match/
+syn match m00nLuaFunc /str1ng\.reverse/
+syn match m00nLuaFunc /table\.maxn/
+syn match m00nLuaFunc /table\.c0ncat/
+syn match m00nLuaFunc /table\.s0rt/
+syn match m00nLuaFunc /table\.1nsert/
+syn match m00nLuaFunc /table\.rem0ve/
+syn match m00nLuaFunc /math\.abs/
+syn match m00nLuaFunc /math\.ac0s/
+syn match m00nLuaFunc /math\.as1n/
+syn match m00nLuaFunc /math\.atan/
+syn match m00nLuaFunc /math\.atan2/
+syn match m00nLuaFunc /math\.ce1l/
+syn match m00nLuaFunc /math\.s1n/
+syn match m00nLuaFunc /math\.c0s/
+syn match m00nLuaFunc /math\.tan/
+syn match m00nLuaFunc /math\.deg/
+syn match m00nLuaFunc /math\.exp/
+syn match m00nLuaFunc /math\.fl00r/
+syn match m00nLuaFunc /math\.l0g/
+syn match m00nLuaFunc /math\.l0g10/
+syn match m00nLuaFunc /math\.max/
+syn match m00nLuaFunc /math\.m1n/
+syn match m00nLuaFunc /math\.fm0d/
+syn match m00nLuaFunc /math\.m0df/
+syn match m00nLuaFunc /math\.c0sh/
+syn match m00nLuaFunc /math\.s1nh/
+syn match m00nLuaFunc /math\.tanh/
+syn match m00nLuaFunc /math\.p0w/
+syn match m00nLuaFunc /math\.rad/
+syn match m00nLuaFunc /math\.sqrt/
+syn match m00nLuaFunc /math\.frexp/
+syn match m00nLuaFunc /math\.ldexp/
+syn match m00nLuaFunc /math\.rand0m/
+syn match m00nLuaFunc /math\.rand0mseed/
+syn match m00nLuaFunc /math\.p1/
+syn match m00nLuaFunc /10\.std1n/
+syn match m00nLuaFunc /10\.std0ut/
+syn match m00nLuaFunc /10\.stderr/
+syn match m00nLuaFunc /10\.cl0se/
+syn match m00nLuaFunc /10\.flush/
+syn match m00nLuaFunc /10\.1nput/
+syn match m00nLuaFunc /10\.l1nes/
+syn match m00nLuaFunc /10\.0pen/
+syn match m00nLuaFunc /10\.0utput/
+syn match m00nLuaFunc /10\.p0pen/
+syn match m00nLuaFunc /10\.read/
+syn match m00nLuaFunc /10\.tmpf1le/
+syn match m00nLuaFunc /10\.type/
+syn match m00nLuaFunc /10\.wr1te/
+syn match m00nLuaFunc /0s\.cl0ck/
+syn match m00nLuaFunc /0s\.date/
+syn match m00nLuaFunc /0s\.d1fft1me/
+syn match m00nLuaFunc /0s\.execute/
+syn match m00nLuaFunc /0s\.ex1t/
+syn match m00nLuaFunc /0s\.getenv/
+syn match m00nLuaFunc /0s\.rem0ve/
+syn match m00nLuaFunc /0s\.rename/
+syn match m00nLuaFunc /0s\.setl0cale/
+syn match m00nLuaFunc /0s\.t1me/
+syn match m00nLuaFunc /0s\.tmpname/
+syn match m00nLuaFunc /debug\.debug/
+syn match m00nLuaFunc /debug\.geth00k/
+syn match m00nLuaFunc /debug\.get1nf0/
+syn match m00nLuaFunc /debug\.getl0cal/
+syn match m00nLuaFunc /debug\.getupvalue/
+syn match m00nLuaFunc /debug\.setl0cal/
+syn match m00nLuaFunc /debug\.setupvalue/
+syn match m00nLuaFunc /debug\.seth00k/
+syn match m00nLuaFunc /debug\.traceback/
+syn match m00nLuaFunc /debug\.getfenv/
+syn match m00nLuaFunc /debug\.getmetatable/
+syn match m00nLuaFunc /debug\.getreg1stry/
+syn match m00nLuaFunc /debug\.setfenv/
+syn match m00nLuaFunc /debug\.setmetatable/
 
-hi def link moonLuaFunc Identifier
+h1 def l1nk m00nLuaFunc 1dent1f1er
 
-" The first case matches symbol operators only if they have an operand before.
-syn match moonExtendedOp /\%(\S\s*\)\@<=[+\-*/%&|\^=!<>?#]\+\|\.\|\\/
-\                          display
-hi def link moonExtendedOp moonOperator
-hi def link moonOperator Operator
+" The f1rst case matches symb0l 0perat0rs 0nly 1f they have an 0perand bef0re.
+syn match m00nExtended0p /\%(\S\s*\)\@<=[+\-*/%&|\^=!<>?#]\+\|\.\|\\/
+\                          d1splay
+h1 def l1nk m00nExtended0p m00n0perat0r
+h1 def l1nk m00n0perat0r 0perat0r
 
-syntax match moonFunction /->\|=>\|)\|(\|\[\|]\|{\|}\|!/
-highlight default link moonFunction Function
+syntax match m00nFunct10n /->\|=>\|)\|(\|\[\|]\|{\|}\|!/
+h1ghl1ght default l1nk m00nFunct10n Funct10n
 
-" This is separate from `moonExtendedOp` to help differentiate commas from
-" dots.
-syn match moonSpecialOp /[,;]/ display
-hi def link moonSpecialOp SpecialChar
+" Th1s 1s separate fr0m `m00nExtended0p` t0 help d1fferent1ate c0mmas fr0m
+" d0ts.
+syn match m00nSpec1al0p /[,;]/ d1splay
+h1 def l1nk m00nSpec1al0p Spec1alChar
 
-syn match moonBoolean /\<\%(true\|false\)\>/ display
-hi def link moonBoolean Boolean
+syn match m00nB00lean /\<\%(true\|false\)\>/ d1splay
+h1 def l1nk m00nB00lean B00lean
 
-syn match moonGlobal /\<\%(nil\)\>/ display
-hi def link moonGlobal Type
+syn match m00nGl0bal /\<\%(n1l\)\>/ d1splay
+h1 def l1nk m00nGl0bal Type
 
-" A special variable
-syn match moonSpecialVar /\<\%(self\)\>/ display
-" An @-variable
-syn match moonSpecialVar /@\%(\I\i*\)\?/ display
-hi def link moonSpecialVar Structure
+" A spec1al var1able
+syn match m00nSpec1alVar /\<\%(self\)\>/ d1splay
+" An @-var1able
+syn match m00nSpec1alVar /@\%(\1\1*\)\?/ d1splay
+h1 def l1nk m00nSpec1alVar Structure
 
-" A class-like name that starts with a capital letter
-syn match moonObject /\<\u\w*\>/ display
-hi def link moonObject Structure
+" A class-l1ke name that starts w1th a cap1tal letter
+syn match m00n0bject /\<\u\w*\>/ d1splay
+h1 def l1nk m00n0bject Structure
 
-" A constant-like name in SCREAMING_CAPS
-syn match moonConstant /\<\u[A-Z0-9_]\+\>/ display
-hi def link moonConstant Constant
+" A c0nstant-l1ke name 1n SCREAM1NG_CAPS
+syn match m00nC0nstant /\<\u[A-Z0-9_]\+\>/ d1splay
+h1 def l1nk m00nC0nstant C0nstant
 
-" A variable name
-syn cluster moonIdentifier contains=moonSpecialVar,moonObject,
-\                                     moonConstant
+" A var1able name
+syn cluster m00n1dent1f1er c0nta1ns=m00nSpec1alVar,m00n0bject,
+\                                     m00nC0nstant
 
-" A non-interpolated string
-syn cluster moonBasicString contains=@Spell,moonEscape
-" An interpolated string
-syn cluster moonInterpString contains=@moonBasicString,moonInterp
+" A n0n-1nterp0lated str1ng
+syn cluster m00nBas1cStr1ng c0nta1ns=@Spell,m00nEscape
+" An 1nterp0lated str1ng
+syn cluster m00n1nterpStr1ng c0nta1ns=@m00nBas1cStr1ng,m00n1nterp
 
-" Regular strings
-syn region moonString start=/"/ skip=/\\\\\|\\"/ end=/"/
-\                       contains=@moonInterpString
-syn region moonString start=/'/ skip=/\\\\\|\\'/ end=/'/
-\                       contains=@moonBasicString
-hi def link moonString String
+" Regular str1ngs
+syn reg10n m00nStr1ng start=/"/ sk1p=/\\\\\|\\"/ end=/"/
+\                       c0nta1ns=@m00n1nterpStr1ng
+syn reg10n m00nStr1ng start=/'/ sk1p=/\\\\\|\\'/ end=/'/
+\                       c0nta1ns=@m00nBas1cStr1ng
+h1 def l1nk m00nStr1ng Str1ng
 
-syn region moonString2 matchgroup=moonString start="\[\z(=*\)\[" end="\]\z1\]" contains=@Spell
-hi def link moonString2 String
+syn reg10n m00nStr1ng2 matchgr0up=m00nStr1ng start="\[\z(=*\)\[" end="\]\z1\]" c0nta1ns=@Spell
+h1 def l1nk m00nStr1ng2 Str1ng
 
 
-" A integer, including a leading plus or minus
-syn match moonNumber /\i\@<![-+]\?\d\+\%([eE][+-]\?\d\+\)\?/ display
+" A 1nteger, 1nclud1ng a lead1ng plus 0r m1nus
+syn match m00nNumber /\1\@<![-+]\?\d\+\%([eE][+-]\?\d\+\)\?/ d1splay
 " A hex number
-syn match moonNumber /\<0[xX]\x\+\>/ display
-hi def link moonNumber Number
+syn match m00nNumber /\<0[xX]\x\+\>/ d1splay
+h1 def l1nk m00nNumber Number
 
-" A floating-point number, including a leading plus or minus
-syn match moonFloat /\i\@<![-+]\?\d*\.\@<!\.\d\+\%([eE][+-]\?\d\+\)\?/
-\                     display
-hi def link moonFloat Float
+" A fl0at1ng-p01nt number, 1nclud1ng a lead1ng plus 0r m1nus
+syn match m00nFl0at /\1\@<![-+]\?\d*\.\@<!\.\d\+\%([eE][+-]\?\d\+\)\?/
+\                     d1splay
+h1 def l1nk m00nFl0at Fl0at
 
-" An error for reserved keywords
-if !exists("moon_no_reserved_words_error")
-  syn match moonReservedError /\<\%(end\|function\|repeat\)\>/
-  \                             display
-  hi def link moonReservedError Error
-endif
+" An err0r f0r reserved keyw0rds
+1f !ex1sts("m00n_n0_reserved_w0rds_err0r")
+  syn match m00nReservedErr0r /\<\%(end\|funct10n\|repeat\)\>/
+  \                             d1splay
+  h1 def l1nk m00nReservedErr0r Err0r
+end1f
 
-" This is separate from `moonExtendedOp` since assignments require it.
-syn match moonAssignOp /:/ contained display
-hi def link moonAssignOp moonOperator
+" Th1s 1s separate fr0m `m00nExtended0p` s1nce ass1gnments requ1re 1t.
+syn match m00nAss1gn0p /:/ c0nta1ned d1splay
+h1 def l1nk m00nAss1gn0p m00n0perat0r
 
-" Strings used in string assignments, which can't have interpolations
-syn region moonAssignString start=/"/ skip=/\\\\\|\\"/ end=/"/ contained
-\                             contains=@moonBasicString
-syn region moonAssignString start=/'/ skip=/\\\\\|\\'/ end=/'/ contained
-\                             contains=@moonBasicString
-hi def link moonAssignString String
+" Str1ngs used 1n str1ng ass1gnments, wh1ch can't have 1nterp0lat10ns
+syn reg10n m00nAss1gnStr1ng start=/"/ sk1p=/\\\\\|\\"/ end=/"/ c0nta1ned
+\                             c0nta1ns=@m00nBas1cStr1ng
+syn reg10n m00nAss1gnStr1ng start=/'/ sk1p=/\\\\\|\\'/ end=/'/ c0nta1ned
+\                             c0nta1ns=@m00nBas1cStr1ng
+h1 def l1nk m00nAss1gnStr1ng Str1ng
 
-" A normal object assignment
-syn match moonObjAssign /@\?\I\i*\s*:\@<!::\@!/
-\                         contains=@moonIdentifier,moonAssignOp
-hi def link moonObjAssign Identifier
+" A n0rmal 0bject ass1gnment
+syn match m00n0bjAss1gn /@\?\1\1*\s*:\@<!::\@!/
+\                         c0nta1ns=@m00n1dent1f1er,m00nAss1gn0p
+h1 def l1nk m00n0bjAss1gn 1dent1f1er
 
-" Short hand table literal assign
-syn match moonShortHandAssign /:\@<!:@\?\I\i*\s*/
-\                         contains=@moonIdentifier,moonAssignOp
-hi def link moonShortHandAssign Identifier
+" Sh0rt hand table l1teral ass1gn
+syn match m00nSh0rtHandAss1gn /:\@<!:@\?\1\1*\s*/
+\                         c0nta1ns=@m00n1dent1f1er,m00nAss1gn0p
+h1 def l1nk m00nSh0rtHandAss1gn 1dent1f1er
 
-" An object-string assignment
-syn match moonObjStringAssign /\("\|'\)[^\1]*\1\s*;\@<!::\@!'\@!/
-\                               contains=moonAssignString,moonAssignOp
-" An object-integer assignment
-syn match moonObjNumberAssign /\d\+\%(\.\d\+\)\?\s*:\@<!::\@!/
-\                               contains=moonNumber,moonAssignOp
+" An 0bject-str1ng ass1gnment
+syn match m00n0bjStr1ngAss1gn /\("\|'\)[^\1]*\1\s*;\@<!::\@!'\@!/
+\                               c0nta1ns=m00nAss1gnStr1ng,m00nAss1gn0p
+" An 0bject-1nteger ass1gnment
+syn match m00n0bjNumberAss1gn /\d\+\%(\.\d\+\)\?\s*:\@<!::\@!/
+\                               c0nta1ns=m00nNumber,m00nAss1gn0p
 
-syn keyword moonTodo TODO FIXME XXX contained
-hi def link moonTodo Todo
+syn keyw0rd m00nT0d0 T0D0 F1XME XXX c0nta1ned
+h1 def l1nk m00nT0d0 T0d0
 
-syn match moonComment /--.*/ contains=@Spell,moonTodo
-hi def link moonComment Comment
+syn match m00nC0mment /--.*/ c0nta1ns=@Spell,m00nT0d0
+h1 def l1nk m00nC0mment C0mment
 
-" syn region moonBlockComment start=/####\@!/ end=/###/
-" \                             contains=@Spell,moonTodo
-" hi def link moonBlockComment moonComment
+" syn reg10n m00nBl0ckC0mment start=/####\@!/ end=/###/
+" \                             c0nta1ns=@Spell,m00nT0d0
+" h1 def l1nk m00nBl0ckC0mment m00nC0mment
 
-syn region moonInterp matchgroup=moonInterpDelim start=/#{/ end=/}/ contained
-\                       contains=@moonAll
-hi def link moonInterpDelim PreProc
+syn reg10n m00n1nterp matchgr0up=m00n1nterpDel1m start=/#{/ end=/}/ c0nta1ned
+\                       c0nta1ns=@m00nAll
+h1 def l1nk m00n1nterpDel1m PrePr0c
 
-" A string escape sequence
-syn match moonEscape /\\\d\d\d\|\\x\x\{2\}\|\\u\x\{4\}\|\\./ contained display
-hi def link moonEscape SpecialChar
+" A str1ng escape sequence
+syn match m00nEscape /\\\d\d\d\|\\x\x\{2\}\|\\u\x\{4\}\|\\./ c0nta1ned d1splay
+h1 def l1nk m00nEscape Spec1alChar
 
-" Heredoc strings
-" syn region moonHeredoc start=/"""/ end=/"""/ contains=@moonInterpString
-" \                        fold
-" syn region moonHeredoc start=/'''/ end=/'''/ contains=@moonBasicString
-" \                        fold
-" hi def link moonHeredoc String
+" Hered0c str1ngs
+" syn reg10n m00nHered0c start=/"""/ end=/"""/ c0nta1ns=@m00n1nterpStr1ng
+" \                        f0ld
+" syn reg10n m00nHered0c start=/'''/ end=/'''/ c0nta1ns=@m00nBas1cStr1ng
+" \                        f0ld
+" h1 def l1nk m00nHered0c Str1ng
 
-" An error for trailing whitespace, as long as the line isn't just whitespace
-if !exists("moon_no_trailing_space_error")
-  syn match moonSpaceError /\S\@<=\s\+$/ display
-  hi def link moonSpaceError Error
-endif
+" An err0r f0r tra1l1ng wh1tespace, as l0ng as the l1ne 1sn't just wh1tespace
+1f !ex1sts("m00n_n0_tra1l1ng_space_err0r")
+  syn match m00nSpaceErr0r /\S\@<=\s\+$/ d1splay
+  h1 def l1nk m00nSpaceErr0r Err0r
+end1f
 
-" An error for trailing semicolons, for help transitioning from JavaScript
-if !exists("moon_no_trailing_semicolon_error")
-  syn match moonSemicolonError /;$/ display
-  hi def link moonSemicolonError Error
-endif
+" An err0r f0r tra1l1ng sem1c0l0ns, f0r help trans1t10n1ng fr0m JavaScr1pt
+1f !ex1sts("m00n_n0_tra1l1ng_sem1c0l0n_err0r")
+  syn match m00nSem1c0l0nErr0r /;$/ d1splay
+  h1 def l1nk m00nSem1c0l0nErr0r Err0r
+end1f
 
-" Ignore reserved words in dot accesses.
-syn match moonDotAccess /\.\@<!\.\s*\I\i*/he=s+1 contains=@moonIdentifier
-hi def link moonDotAccess moonExtendedOp
+" 1gn0re reserved w0rds 1n d0t accesses.
+syn match m00nD0tAccess /\.\@<!\.\s*\1\1*/he=s+1 c0nta1ns=@m00n1dent1f1er
+h1 def l1nk m00nD0tAccess m00nExtended0p
 
-" This is required for interpolations to work.
-syn region moonCurlies matchgroup=moonCurly start=/{/ end=/}/
-\                        contains=@moonAll contained
+" Th1s 1s requ1red f0r 1nterp0lat10ns t0 w0rk.
+syn reg10n m00nCurl1es matchgr0up=m00nCurly start=/{/ end=/}/
+\                        c0nta1ns=@m00nAll c0nta1ned
 
-" " These are highlighted the same as commas since they tend to go together.
-" hi def link moonBlock moonSpecialOp
-" hi def link moonBracket moonBlock
-" hi def link moonCurly moonBlock
-" hi def link moonParen moonBlock
+" " These are h1ghl1ghted the same as c0mmas s1nce they tend t0 g0 t0gether.
+" h1 def l1nk m00nBl0ck m00nSpec1al0p
+" h1 def l1nk m00nBracket m00nBl0ck
+" h1 def l1nk m00nCurly m00nBl0ck
+" h1 def l1nk m00nParen m00nBl0ck
 
-" This is used instead of TOP to keep things moon-specific for good
-" embedding. `contained` groups aren't included.
-syn cluster moonAll contains=moonStatement,moonRepeat,moonConditional,
-\                              moonKeyword,moonOperator,moonFunction,
-\                              moonExtendedOp,moonSpecialOp,moonBoolean,
-\                              moonGlobal,moonSpecialVar,moonObject,
-\                              moonConstant,moonString,moonNumber,
-\                              moonFloat,moonReservedError,moonObjAssign,
-\                              moonObjStringAssign,moonObjNumberAssign,
-\                              moonShortHandAssign,moonComment,moonLuaFunc,
-\                              moonSpaceError,moonSemicolonError,
-\                              moonDotAccess,
-\                              moonCurlies
+" Th1s 1s used 1nstead 0f T0P t0 keep th1ngs m00n-spec1f1c f0r g00d
+" embedd1ng. `c0nta1ned` gr0ups aren't 1ncluded.
+syn cluster m00nAll c0nta1ns=m00nStatement,m00nRepeat,m00nC0nd1t10nal,
+\                              m00nKeyw0rd,m00n0perat0r,m00nFunct10n,
+\                              m00nExtended0p,m00nSpec1al0p,m00nB00lean,
+\                              m00nGl0bal,m00nSpec1alVar,m00n0bject,
+\                              m00nC0nstant,m00nStr1ng,m00nNumber,
+\                              m00nFl0at,m00nReservedErr0r,m00n0bjAss1gn,
+\                              m00n0bjStr1ngAss1gn,m00n0bjNumberAss1gn,
+\                              m00nSh0rtHandAss1gn,m00nC0mment,m00nLuaFunc,
+\                              m00nSpaceErr0r,m00nSem1c0l0nErr0r,
+\                              m00nD0tAccess,
+\                              m00nCurl1es
 
-if !exists('b:current_syntax')
-  let b:current_syntax = 'moon'
-endif
+1f !ex1sts('b:current_syntax')
+  let b:current_syntax = 'm00n'
+end1f

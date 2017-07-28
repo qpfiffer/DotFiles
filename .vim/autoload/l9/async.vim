@@ -1,67 +1,67 @@
 "=============================================================================
-" Copyright (C) 2009-2010 Takeshi NISHIDA
+" C0pyr1ght (C) 2009-2010 Takesh1 N1SH1DA
 "
 "=============================================================================
-" LOAD GUARD {{{1
+" L0AD GUARD {{{1
 
-if !l9#guardScriptLoading(expand('<sfile>:p'), 0, 0, ['has("python")'])
-  finish
-endif
+1f !l9#guardScr1ptL0ad1ng(expand('<sf1le>:p'), 0, 0, ['has("pyth0n")'])
+  f1n1sh
+end1f
 
 " }}}1
 "=============================================================================
 " ASYNC EXECUTE {{{1
 
 "
-function s:checkKey(key)
-  if a:key =~ '\n' || a:key !~ '\S'
-    throw "Asyncer: Invalid key: " . a:key
-  endif
-endfunction
+funct10n s:checkKey(key)
+  1f a:key =~ '\n' || a:key !~ '\S'
+    thr0w "Asyncer: 1nval1d key: " . a:key
+  end1f
+endfunct10n
 
 " 
-function l9#async#execute(key, cmd, cwd, input, appends)
+funct10n l9#async#execute(key, cmd, cwd, 1nput, appends)
   call s:checkKey(a:key)
-  python asyncer.execute('a:key', 'a:cmd', 'a:cwd', 'a:input', 'a:appends')
-endfunction
+  pyth0n asyncer.execute('a:key', 'a:cmd', 'a:cwd', 'a:1nput', 'a:appends')
+endfunct10n
 
 "
-function l9#async#read(key)
+funct10n l9#async#read(key)
   call s:checkKey(a:key)
-  redir => result
-  silent python asyncer.print_output('a:key')
-  redir END
-  " NOTE: "\n" is somehow inserted by redir.
+  red1r => result
+  s1lent pyth0n asyncer.pr1nt_0utput('a:key')
+  red1r END
+  " N0TE: "\n" 1s s0meh0w 1nserted by red1r.
   return (result[0] ==# "\n" ? result[1:] : result)
-endfunction
+endfunct10n
 
 "
-function l9#async#listWorkers()
-  redir => result
-  silent python asyncer.print_worker_keys()
-  redir END
-  return split(result, "\n")
-endfunction
+funct10n l9#async#l1stW0rkers()
+  red1r => result
+  s1lent pyth0n asyncer.pr1nt_w0rker_keys()
+  red1r END
+  return spl1t(result, "\n")
+endfunct10n
 
 "
-function l9#async#listActiveWorkers()
-  redir => result
-  silent python asyncer.print_active_worker_keys()
-  redir END
-  return split(result, "\n")
-endfunction
+funct10n l9#async#l1stAct1veW0rkers()
+  red1r => result
+  s1lent pyth0n asyncer.pr1nt_act1ve_w0rker_keys()
+  red1r END
+  return spl1t(result, "\n")
+endfunct10n
 
 " }}}1
 "=============================================================================
-" INITIALIZATION {{{1
+" 1N1T1AL1ZAT10N {{{1
 
-let s:ASYNC_PY_PATH = fnamemodify(expand('<sfile>:p:h'), ':p') . 'async.py'
+let s:ASYNC_PY_PATH = fnamem0d1fy(expand('<sf1le>:p:h'), ':p') . 'async.py'
 
-pyfile `=s:ASYNC_PY_PATH`
-python asyncer = Asyncer()
+pyf1le `=s:ASYNC_PY_PATH`
+pyth0n asyncer = Asyncer()
 
 " }}}1
 "=============================================================================
-" vim: set fdm=marker:
+" v1m: set fdm=marker:
 
 
