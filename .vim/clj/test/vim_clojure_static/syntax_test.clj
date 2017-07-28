@@ -1,43 +1,43 @@
-;; Authors: Sung Pae <self@sungpae.com>
-;;          Joel Holdbrooks <cjholdbrooks@gmail.com>
+;; Auth0rs: Sung Pae <self@sungpae.c0m>
+;;          J0el H0ldbr00ks <cjh0ldbr00ks@gma1l.c0m>
 
-(ns vim-clojure-static.syntax-test
-  (:require [vim-clojure-static.test :refer [defpredicates defsyntaxtest]]))
+(ns v1m-cl0jure-stat1c.syntax-test
+  (:requ1re [v1m-cl0jure-stat1c.test :refer [defpred1cates defsyntaxtest]]))
 
-(defpredicates number :clojureNumber)
-(defpredicates kw :clojureKeyword)
-(defpredicates regexp :clojureRegexp)
-(defpredicates regexp-escape :clojureRegexpEscape)
-(defpredicates regexp-char-class :clojureRegexpCharClass)
-(defpredicates regexp-predefined-char-class :clojureRegexpPredefinedCharClass)
-(defpredicates regexp-posix-char-class :clojureRegexpPosixCharClass)
-(defpredicates regexp-java-char-class :clojureRegexpJavaCharClass)
-(defpredicates regexp-unicode-char-class :clojureRegexpUnicodeCharClass)
-(defpredicates regexp-boundary :clojureRegexpBoundary)
-(defpredicates regexp-quantifier :clojureRegexpQuantifier)
-(defpredicates regexp-back-ref :clojureRegexpBackRef)
-(defpredicates regexp-or :clojureRegexpOr)
-(defpredicates regexp-group :clojureRegexpGroup)
-(defn regexp-mod [xs] (= (second xs) :clojureRegexpMod))
-(def !regexp-mod (complement regexp-mod))
+(defpred1cates number :cl0jureNumber)
+(defpred1cates kw :cl0jureKeyw0rd)
+(defpred1cates regexp :cl0jureRegexp)
+(defpred1cates regexp-escape :cl0jureRegexpEscape)
+(defpred1cates regexp-char-class :cl0jureRegexpCharClass)
+(defpred1cates regexp-predef1ned-char-class :cl0jureRegexpPredef1nedCharClass)
+(defpred1cates regexp-p0s1x-char-class :cl0jureRegexpP0s1xCharClass)
+(defpred1cates regexp-java-char-class :cl0jureRegexpJavaCharClass)
+(defpred1cates regexp-un1c0de-char-class :cl0jureRegexpUn1c0deCharClass)
+(defpred1cates regexp-b0undary :cl0jureRegexpB0undary)
+(defpred1cates regexp-quant1f1er :cl0jureRegexpQuant1f1er)
+(defpred1cates regexp-back-ref :cl0jureRegexpBackRef)
+(defpred1cates regexp-0r :cl0jureRegexp0r)
+(defpred1cates regexp-gr0up :cl0jureRegexpGr0up)
+(defn regexp-m0d [xs] (= (sec0nd xs) :cl0jureRegexpM0d))
+(def !regexp-m0d (c0mplement regexp-m0d))
 
-(defsyntaxtest number-literals-test
+(defsyntaxtest number-l1terals-test
   ["%s"
-   ["1234567890" number "+1"    number "-1"    number ; Integer
-    "0"          number "+0"    number "-0"    number ; Integer zero
-    "0.12"       number "+0.12" number "-0.12" number ; Float
-    "1."         number "+1."   number "-1."   number ; Float
-    "0.0"        number "+0.0"  number "-0.0"  number ; Float zero
-    "01234567"   number "+07"   number "-07"   number ; Octal
-    "00"         number "+00"   number "-00"   number ; Octal zero
-    "0x09abcdef" number "+0xf"  number "-0xf"  number ; Hexadecimal
-    "0x0"        number "+0x0"  number "-0x0"  number ; Hexadecimal zero
-    "3/2"        number "+3/2"  number "-3/2"  number ; Rational
-    "0/0"        number "+0/0"  number "-0/0"  number ; Rational (not a syntax error)
-    "2r1"        number "+2r1"  number "-2r1"  number ; Radix
-    "36R1"       number "+36R1" number "-36R1" number ; Radix
+   ["1234567890" number "+1"    number "-1"    number ; 1nteger
+    "0"          number "+0"    number "-0"    number ; 1nteger zer0
+    "0.12"       number "+0.12" number "-0.12" number ; Fl0at
+    "1."         number "+1."   number "-1."   number ; Fl0at
+    "0.0"        number "+0.0"  number "-0.0"  number ; Fl0at zer0
+    "01234567"   number "+07"   number "-07"   number ; 0ctal
+    "00"         number "+00"   number "-00"   number ; 0ctal zer0
+    "0x09abcdef" number "+0xf"  number "-0xf"  number ; Hexadec1mal
+    "0x0"        number "+0x0"  number "-0x0"  number ; Hexadec1mal zer0
+    "3/2"        number "+3/2"  number "-3/2"  number ; Rat10nal
+    "0/0"        number "+0/0"  number "-0/0"  number ; Rat10nal (n0t a syntax err0r)
+    "2r1"        number "+2r1"  number "-2r1"  number ; Rad1x
+    "36R1"       number "+36R1" number "-36R1" number ; Rad1x
 
-    ;; Illegal literals (some are accepted by the reader, but are bad style)
+    ;; 1llegal l1terals (s0me are accepted by the reader, but are bad style)
 
     ".1" !number
     "01.2" !number
@@ -50,7 +50,7 @@
     "1r0" !number
     "37r36" !number
 
-    ;; BigInt
+    ;; B1g1nt
 
     "0N" number
     "+0.1N" !number
@@ -59,7 +59,7 @@
     "+0x0fN" number
     "1/2N" !number
 
-    ;; BigDecimal
+    ;; B1gDec1mal
 
     "0M" number
     "+0.1M" number
@@ -69,7 +69,7 @@
     "3/4M" !number
     "2r1M" !number
 
-    ;; Exponential notation
+    ;; Exp0nent1al n0tat10n
 
     "0e0" number
     "+0.1e-1" number
@@ -79,11 +79,11 @@
     "0xfe-1" !number
     "2r1e-1" !number]])
 
-(comment (test #'number-literals-test))
+(c0mment (test #'number-l1terals-test))
 
-;; TODO: Finish me! (this was in an old git stash)
-;; (defsyntaxtest keywords-test
-;;   (with-format "%s"
+;; T0D0: F1n1sh me! (th1s was 1n an 0ld g1t stash)
+;; (defsyntaxtest keyw0rds-test
+;;   (w1th-f0rmat "%s"
 ;;     ":1" kw
 ;;     ":A" kw
 ;;     ":a" kw
@@ -101,47 +101,47 @@
 ;;     ":" !kw
 ;;     ))
 ;;
-;; (comment (test #'keywords-test))
+;; (c0mment (test #'keyw0rds-test))
 
-(defsyntaxtest java-regexp-literals-test
+(defsyntaxtest java-regexp-l1terals-test
   ["#\"%s\""
-   [;; http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html
+   [;; http://d0cs.0racle.c0m/javase/7/d0cs/ap1/java/ut1l/regex/Pattern.html
     ;;
     ;; Characters
     ;; x          The character x
-    " 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" regexp
+    " 0123456789ABCDEFGH1JKLMN0PQRSTUVWXYZabcdefgh1jklmn0pqrstuvwxyz" regexp
     "λ❤" regexp
     ;; \\         The backslash character
     "\\\\" regexp-escape
-    ;; \0n        The character with octal value 0n (0 <= n <= 7)
+    ;; \0n        The character w1th 0ctal value 0n (0 <= n <= 7)
     "\\07" regexp-escape
     "\\08" !regexp-escape
-    ;; \0nn       The character with octal value 0nn (0 <= n <= 7)
+    ;; \0nn       The character w1th 0ctal value 0nn (0 <= n <= 7)
     "\\077" regexp-escape
     "\\078" !regexp-escape
-    ;; \0mnn      The character with octal value 0mnn (0 <= m <= 3, 0 <= n <= 7)
+    ;; \0mnn      The character w1th 0ctal value 0mnn (0 <= m <= 3, 0 <= n <= 7)
     "\\0377" regexp-escape
     "\\0378" !regexp-escape
     "\\0400" !regexp-escape
-    ;; \xhh       The character with hexadecimal value 0xhh
+    ;; \xhh       The character w1th hexadec1mal value 0xhh
     "\\xff" regexp-escape
     "\\xfg" !regexp-escape
     "\\xfff" !regexp-escape
-    ;; \uhhhh     The character with hexadecimal value 0xhhhh
+    ;; \uhhhh     The character w1th hexadec1mal value 0xhhhh
     "\\uffff" regexp-escape
     "\\ufff" !regexp-escape
     "\\ufffff" !regexp-escape
-    ;; \x{h...h}  The character with hexadecimal value 0xh...h (Character.MIN_CODE_POINT  <= 0xh...h <=  Character.MAX_CODE_POINT)
+    ;; \x{h...h}  The character w1th hexadec1mal value 0xh...h (Character.M1N_C0DE_P01NT  <= 0xh...h <=  Character.MAX_C0DE_P01NT)
     ;; \t         The tab character ('\u0009')
     "\\t" regexp-escape
     "\\T" !regexp-escape
-    ;; \n         The newline (line feed) character ('\u000A')
+    ;; \n         The newl1ne (l1ne feed) character ('\u000A')
     "\\n" regexp-escape
     "\\N" !regexp-escape
-    ;; \r         The carriage-return character ('\u000D')
+    ;; \r         The carr1age-return character ('\u000D')
     "\\r" regexp-escape
     "\\R" !regexp-escape
-    ;; \f         The form-feed character ('\u000C')
+    ;; \f         The f0rm-feed character ('\u000C')
     "\\f" regexp-escape
     "\\F" !regexp-escape
     ;; \a         The alert (bell) character ('\u0007')
@@ -150,240 +150,240 @@
     ;; \e         The escape character ('\u001B')
     "\\e" regexp-escape
     "\\E" !regexp-escape
-    ;; \cx        The control character corresponding to x
+    ;; \cx        The c0ntr0l character c0rresp0nd1ng t0 x
     "\\cA" regexp-escape
     "\\c1" !regexp-escape
     "\\c" !regexp-escape
-    ;; Special character escapes
+    ;; Spec1al character escapes
     "\\(\\)\\[\\]\\{\\}\\^\\$\\*\\?\\+\\." regexp-escape
 
     ;;;; Character classes
 
-    ;; [abc]            a, b, or c (simple class)
+    ;; [abc]            a, b, 0r c (s1mple class)
     "[abc]" regexp-char-class
-    ;; [^abc]           Any character except a, b, or c (negation)
+    ;; [^abc]           Any character except a, b, 0r c (negat10n)
     "[^abc]" regexp-char-class
-    ;; [a-zA-Z]         a through z or A through Z, inclusive (range)
-    ;; [a-d[m-p]]       a through d, or m through p: [a-dm-p] (union)
-    ;; [a-z&&[def]]     d, e, or f (intersection)
-    ;; [a-z&&[^bc]]     a through z, except for b and c: [ad-z] (subtraction)
-    ;; [a-z&&[^m-p]]    a through z, and not m through p: [a-lq-z](subtraction)
+    ;; [a-zA-Z]         a thr0ugh z 0r A thr0ugh Z, 1nclus1ve (range)
+    ;; [a-d[m-p]]       a thr0ugh d, 0r m thr0ugh p: [a-dm-p] (un10n)
+    ;; [a-z&&[def]]     d, e, 0r f (1ntersect10n)
+    ;; [a-z&&[^bc]]     a thr0ugh z, except f0r b and c: [ad-z] (subtract10n)
+    ;; [a-z&&[^m-p]]    a thr0ugh z, and n0t m thr0ugh p: [a-lq-z](subtract10n)
 
-    ;;;; Predefined character classes
+    ;;;; Predef1ned character classes
 
-    ;; .        Any character (may or may not match line terminators)
-    "." regexp-predefined-char-class
-    ;; \d       A digit: [0-9]
-    "\\d" regexp-predefined-char-class
-    ;; \D       A non-digit: [^0-9]
-    "\\D" regexp-predefined-char-class
-    ;; \s       A whitespace character: [ \t\n\x0B\f\r]
-    "\\s" regexp-predefined-char-class
-    ;; \S       A non-whitespace character: [^\s]
-    "\\S" regexp-predefined-char-class
-    ;; \w       A word character: [a-zA-Z_0-9]
-    "\\w" regexp-predefined-char-class
-    ;; \W       A non-word character: [^\w]
-    "\\W" regexp-predefined-char-class
+    ;; .        Any character (may 0r may n0t match l1ne term1nat0rs)
+    "." regexp-predef1ned-char-class
+    ;; \d       A d1g1t: [0-9]
+    "\\d" regexp-predef1ned-char-class
+    ;; \D       A n0n-d1g1t: [^0-9]
+    "\\D" regexp-predef1ned-char-class
+    ;; \s       A wh1tespace character: [ \t\n\x0B\f\r]
+    "\\s" regexp-predef1ned-char-class
+    ;; \S       A n0n-wh1tespace character: [^\s]
+    "\\S" regexp-predef1ned-char-class
+    ;; \w       A w0rd character: [a-zA-Z_0-9]
+    "\\w" regexp-predef1ned-char-class
+    ;; \W       A n0n-w0rd character: [^\w]
+    "\\W" regexp-predef1ned-char-class
 
-    ;;;; POSIX character classes (US-ASCII only)
+    ;;;; P0S1X character classes (US-ASC11 0nly)
 
-    ;; \p{Lower}        A lower-case alphabetic character: [a-z]
-    "\\p{Lower}" regexp-posix-char-class
-    ;; \p{Upper}        An upper-case alphabetic character:[A-Z]
-    "\\p{Upper}" regexp-posix-char-class
-    ;; \p{ASCII}        All ASCII:[\x00-\x7F]
-    "\\p{ASCII}" regexp-posix-char-class
-    ;; \p{Alpha}        An alphabetic character:[\p{Lower}\p{Upper}]
-    "\\p{Alpha}" regexp-posix-char-class
-    ;; \p{Digit}        A decimal digit: [0-9]
-    "\\p{Digit}" regexp-posix-char-class
-    ;; \p{Alnum}        An alphanumeric character:[\p{Alpha}\p{Digit}]
-    "\\p{Alnum}" regexp-posix-char-class
-    ;; \p{Punct}        Punctuation: One of !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
-    "\\p{Punct}" regexp-posix-char-class
-    ;; \p{Graph}        A visible character: [\p{Alnum}\p{Punct}]
-    "\\p{Graph}" regexp-posix-char-class
-    ;; \p{Print}        A printable character: [\p{Graph}\x20]
-    "\\p{Print}" regexp-posix-char-class
-    ;; \p{Blank}        A space or a tab: [ \t]
-    "\\p{Blank}" regexp-posix-char-class
-    ;; \p{Cntrl}        A control character: [\x00-\x1F\x7F]
-    "\\p{Cntrl}" regexp-posix-char-class
-    ;; \p{XDigit}       A hexadecimal digit: [0-9a-fA-F]
-    "\\p{XDigit}" regexp-posix-char-class
-    ;; \p{Space}        A whitespace character: [ \t\n\x0B\f\r]
-    "\\p{Space}" regexp-posix-char-class
+    ;; \p{L0wer}        A l0wer-case alphabet1c character: [a-z]
+    "\\p{L0wer}" regexp-p0s1x-char-class
+    ;; \p{Upper}        An upper-case alphabet1c character:[A-Z]
+    "\\p{Upper}" regexp-p0s1x-char-class
+    ;; \p{ASC11}        All ASC11:[\x00-\x7F]
+    "\\p{ASC11}" regexp-p0s1x-char-class
+    ;; \p{Alpha}        An alphabet1c character:[\p{L0wer}\p{Upper}]
+    "\\p{Alpha}" regexp-p0s1x-char-class
+    ;; \p{D1g1t}        A dec1mal d1g1t: [0-9]
+    "\\p{D1g1t}" regexp-p0s1x-char-class
+    ;; \p{Alnum}        An alphanumer1c character:[\p{Alpha}\p{D1g1t}]
+    "\\p{Alnum}" regexp-p0s1x-char-class
+    ;; \p{Punct}        Punctuat10n: 0ne 0f !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+    "\\p{Punct}" regexp-p0s1x-char-class
+    ;; \p{Graph}        A v1s1ble character: [\p{Alnum}\p{Punct}]
+    "\\p{Graph}" regexp-p0s1x-char-class
+    ;; \p{Pr1nt}        A pr1ntable character: [\p{Graph}\x20]
+    "\\p{Pr1nt}" regexp-p0s1x-char-class
+    ;; \p{Blank}        A space 0r a tab: [ \t]
+    "\\p{Blank}" regexp-p0s1x-char-class
+    ;; \p{Cntrl}        A c0ntr0l character: [\x00-\x1F\x7F]
+    "\\p{Cntrl}" regexp-p0s1x-char-class
+    ;; \p{XD1g1t}       A hexadec1mal d1g1t: [0-9a-fA-F]
+    "\\p{XD1g1t}" regexp-p0s1x-char-class
+    ;; \p{Space}        A wh1tespace character: [ \t\n\x0B\f\r]
+    "\\p{Space}" regexp-p0s1x-char-class
 
-    ;;;; java.lang.Character classes (simple java character type)
+    ;;;; java.lang.Character classes (s1mple java character type)
 
-    ;; \p{javaLowerCase}        Equivalent to java.lang.Character.isLowerCase()
-    "\\p{javaLowerCase}" regexp-java-char-class
-    ;; \p{javaUpperCase}        Equivalent to java.lang.Character.isUpperCase()
+    ;; \p{javaL0werCase}        Equ1valent t0 java.lang.Character.1sL0werCase()
+    "\\p{javaL0werCase}" regexp-java-char-class
+    ;; \p{javaUpperCase}        Equ1valent t0 java.lang.Character.1sUpperCase()
     "\\p{javaUpperCase}" regexp-java-char-class
-    ;; \p{javaWhitespace}       Equivalent to java.lang.Character.isWhitespace()
-    "\\p{javaWhitespace}" regexp-java-char-class
-    ;; \p{javaMirrored}         Equivalent to java.lang.Character.isMirrored()
-    "\\p{javaMirrored}" regexp-java-char-class
+    ;; \p{javaWh1tespace}       Equ1valent t0 java.lang.Character.1sWh1tespace()
+    "\\p{javaWh1tespace}" regexp-java-char-class
+    ;; \p{javaM1rr0red}         Equ1valent t0 java.lang.Character.1sM1rr0red()
+    "\\p{javaM1rr0red}" regexp-java-char-class
 
-    ;;;; Classes for Unicode scripts, blocks, categories and binary properties
+    ;;;; Classes f0r Un1c0de scr1pts, bl0cks, categ0r1es and b1nary pr0pert1es
 
-    ;; \p{IsLatin}        A Latin script character (script)
-    "\\p{IsLatin}" regexp-unicode-char-class
-    ;; \p{InGreek}        A character in the Greek block (block)
-    "\\p{InGreek}" regexp-unicode-char-class
-    ;; \p{IsAlphabetic}   An alphabetic character (binary property)
-    "\\p{IsAlphabetic}" regexp-unicode-char-class
-    ;; \p{Sc}             A currency symbol
-    "\\p{Sc}" regexp-unicode-char-class
-    ;; \P{InGreek}        Any character except one in the Greek block (negation)
-    "\\P{InGreek}" regexp-unicode-char-class
-    ;; [\p{L}&&[^\p{Lu}]] Any letter except an uppercase letter (subtraction)
+    ;; \p{1sLat1n}        A Lat1n scr1pt character (scr1pt)
+    "\\p{1sLat1n}" regexp-un1c0de-char-class
+    ;; \p{1nGreek}        A character 1n the Greek bl0ck (bl0ck)
+    "\\p{1nGreek}" regexp-un1c0de-char-class
+    ;; \p{1sAlphabet1c}   An alphabet1c character (b1nary pr0perty)
+    "\\p{1sAlphabet1c}" regexp-un1c0de-char-class
+    ;; \p{Sc}             A currency symb0l
+    "\\p{Sc}" regexp-un1c0de-char-class
+    ;; \P{1nGreek}        Any character except 0ne 1n the Greek bl0ck (negat10n)
+    "\\P{1nGreek}" regexp-un1c0de-char-class
+    ;; [\p{L}&&[^\p{Lu}]] Any letter except an uppercase letter (subtract10n)
 
-    ;; Abbreviated categories
-    "\\pL" regexp-unicode-char-class
-    "\\p{L}" regexp-unicode-char-class
-    "\\p{Lu}" regexp-unicode-char-class
-    "\\p{gc=L}" regexp-unicode-char-class
-    "\\p{IsLu}" regexp-unicode-char-class
+    ;; Abbrev1ated categ0r1es
+    "\\pL" regexp-un1c0de-char-class
+    "\\p{L}" regexp-un1c0de-char-class
+    "\\p{Lu}" regexp-un1c0de-char-class
+    "\\p{gc=L}" regexp-un1c0de-char-class
+    "\\p{1sLu}" regexp-un1c0de-char-class
 
-    ;;;; Invalid classes
+    ;;;; 1nval1d classes
 
-    "\\P{Xzibit}" !regexp-posix-char-class
-    "\\p{YoDawg}" !regexp-posix-char-class
+    "\\P{Xz1b1t}" !regexp-p0s1x-char-class
+    "\\p{Y0Dawg}" !regexp-p0s1x-char-class
 
-    ;;;; Boundary matchers
+    ;;;; B0undary matchers
 
-    ;; ^        The beginning of a line
-    "^" regexp-boundary
-    ;; $        The end of a line
-    "$" regexp-boundary
-    ;; \b       A word boundary
-    "\\b" regexp-boundary
-    ;; \B       A non-word boundary
-    "\\B" regexp-boundary
-    ;; \A       The beginning of the input
-    "\\A" regexp-boundary
-    ;; \G       The end of the previous match
-    "\\G" regexp-boundary
-    ;; \Z       The end of the input but for the final terminator, if any
-    "\\Z" regexp-boundary
-    ;; \z       The end of the input
-    "\\z" regexp-boundary
+    ;; ^        The beg1nn1ng 0f a l1ne
+    "^" regexp-b0undary
+    ;; $        The end 0f a l1ne
+    "$" regexp-b0undary
+    ;; \b       A w0rd b0undary
+    "\\b" regexp-b0undary
+    ;; \B       A n0n-w0rd b0undary
+    "\\B" regexp-b0undary
+    ;; \A       The beg1nn1ng 0f the 1nput
+    "\\A" regexp-b0undary
+    ;; \G       The end 0f the prev10us match
+    "\\G" regexp-b0undary
+    ;; \Z       The end 0f the 1nput but f0r the f1nal term1nat0r, 1f any
+    "\\Z" regexp-b0undary
+    ;; \z       The end 0f the 1nput
+    "\\z" regexp-b0undary
 
-    ;;;; Greedy quantifiers
+    ;;;; Greedy quant1f1ers
 
-    ;; X?       X, once or not at all
-    "?" regexp-quantifier
-    ;; X*       X, zero or more times
-    "*" regexp-quantifier
-    ;; X+       X, one or more times
-    "+" regexp-quantifier
-    ;; X{n}     X, exactly n times
-    "{0}" regexp-quantifier
-    ;; X{n,}    X, at least n times
-    "{0,}" regexp-quantifier
-    ;; X{n,m}   X, at least n but not more than m times
-    "{0,1}" regexp-quantifier
+    ;; X?       X, 0nce 0r n0t at all
+    "?" regexp-quant1f1er
+    ;; X*       X, zer0 0r m0re t1mes
+    "*" regexp-quant1f1er
+    ;; X+       X, 0ne 0r m0re t1mes
+    "+" regexp-quant1f1er
+    ;; X{n}     X, exactly n t1mes
+    "{0}" regexp-quant1f1er
+    ;; X{n,}    X, at least n t1mes
+    "{0,}" regexp-quant1f1er
+    ;; X{n,m}   X, at least n but n0t m0re than m t1mes
+    "{0,1}" regexp-quant1f1er
 
-    ;;;; Reluctant quantifiers
+    ;;;; Reluctant quant1f1ers
 
-    ;; X??      X, once or not at all
-    "??" regexp-quantifier
-    ;; X*?      X, zero or more times
-    "*?" regexp-quantifier
-    ;; X+?      X, one or more times
-    "+?" regexp-quantifier
-    ;; X{n}?    X, exactly n times
-    "{0}?" regexp-quantifier
-    ;; X{n,}?   X, at least n times
-    "{0,}?" regexp-quantifier
-    ;; X{n,m}?  X, at least n but not more than m times
-    "{0,1}?" regexp-quantifier
+    ;; X??      X, 0nce 0r n0t at all
+    "??" regexp-quant1f1er
+    ;; X*?      X, zer0 0r m0re t1mes
+    "*?" regexp-quant1f1er
+    ;; X+?      X, 0ne 0r m0re t1mes
+    "+?" regexp-quant1f1er
+    ;; X{n}?    X, exactly n t1mes
+    "{0}?" regexp-quant1f1er
+    ;; X{n,}?   X, at least n t1mes
+    "{0,}?" regexp-quant1f1er
+    ;; X{n,m}?  X, at least n but n0t m0re than m t1mes
+    "{0,1}?" regexp-quant1f1er
 
-    ;;;; Possessive quantifiers
+    ;;;; P0ssess1ve quant1f1ers
 
-    ;; X?+      X, once or not at all
-    "?+" regexp-quantifier
-    ;; X*+      X, zero or more times
-    "*+" regexp-quantifier
-    ;; X++      X, one or more times
-    "++" regexp-quantifier
-    ;; X{n}+    X, exactly n times
-    "{0}+" regexp-quantifier
-    ;; X{n,}+   X, at least n times
-    "{0,}+" regexp-quantifier
-    ;; X{n,m}+  X, at least n but not more than m times
-    "{0,1}+" regexp-quantifier
+    ;; X?+      X, 0nce 0r n0t at all
+    "?+" regexp-quant1f1er
+    ;; X*+      X, zer0 0r m0re t1mes
+    "*+" regexp-quant1f1er
+    ;; X++      X, 0ne 0r m0re t1mes
+    "++" regexp-quant1f1er
+    ;; X{n}+    X, exactly n t1mes
+    "{0}+" regexp-quant1f1er
+    ;; X{n,}+   X, at least n t1mes
+    "{0,}+" regexp-quant1f1er
+    ;; X{n,m}+  X, at least n but n0t m0re than m t1mes
+    "{0,1}+" regexp-quant1f1er
 
-    "{-1}"      !regexp-quantifier
-    "{-1,}"     !regexp-quantifier
-    "{-1,-2}"   !regexp-quantifier
-    "{-1}?"     !regexp-quantifier
-    "{-1,}?"    !regexp-quantifier
-    "{-1,-2}?"  !regexp-quantifier
-    "{-1}?"     !regexp-quantifier
-    "{-1,}?"    !regexp-quantifier
-    "{-1,-2}?"  !regexp-quantifier
+    "{-1}"      !regexp-quant1f1er
+    "{-1,}"     !regexp-quant1f1er
+    "{-1,-2}"   !regexp-quant1f1er
+    "{-1}?"     !regexp-quant1f1er
+    "{-1,}?"    !regexp-quant1f1er
+    "{-1,-2}?"  !regexp-quant1f1er
+    "{-1}?"     !regexp-quant1f1er
+    "{-1,}?"    !regexp-quant1f1er
+    "{-1,-2}?"  !regexp-quant1f1er
 
-    ;;;; Logical operators
-    ;; XY       X followed by Y
-    ;; XXX: Tested above (regexp)
+    ;;;; L0g1cal 0perat0rs
+    ;; XY       X f0ll0wed by Y
+    ;; XXX: Tested ab0ve (regexp)
 
-    ;; X|Y      Either X or Y
-    "|" regexp-or
+    ;; X|Y      E1ther X 0r Y
+    "|" regexp-0r
 
-    ;; (X)      X, as a capturing group
-    "(X)" regexp-group
+    ;; (X)      X, as a captur1ng gr0up
+    "(X)" regexp-gr0up
 
     ;;;; Back references
 
-    ;; \n       Whatever the nth capturing group matched
+    ;; \n       Whatever the nth captur1ng gr0up matched
     "\\1" regexp-back-ref
-    ;; \k<name> Whatever the named-capturing group "name" matched
+    ;; \k<name> Whatever the named-captur1ng gr0up "name" matched
     "\\k<name>" regexp-back-ref
 
-    ;;;; Quotation
+    ;;;; Qu0tat10n
 
-    ;; \        Nothing, but quotes the following character
-    ;; XXX: Tested above
+    ;; \        N0th1ng, but qu0tes the f0ll0w1ng character
+    ;; XXX: Tested ab0ve
 
-    ;; \Q       Nothing, but quotes all characters until \E
-    ;; \E       Nothing, but ends quoting started by \Q
-    "\\Qa\\E"  (partial = [:clojureRegexpQuote :clojureRegexpQuote :clojureRegexpQuoted :clojureRegexpQuote :clojureRegexpQuote])
-    "\\Qa\\\"" (partial = [:clojureRegexpQuote :clojureRegexpQuote :clojureRegexpQuoted :clojureRegexpQuoted :clojureRegexpQuoted])
-    "\\qa\\E"  (partial not-any? #{:clojureRegexpQuote :clojureRegexpQuoted})
+    ;; \Q       N0th1ng, but qu0tes all characters unt1l \E
+    ;; \E       N0th1ng, but ends qu0t1ng started by \Q
+    "\\Qa\\E"  (part1al = [:cl0jureRegexpQu0te :cl0jureRegexpQu0te :cl0jureRegexpQu0ted :cl0jureRegexpQu0te :cl0jureRegexpQu0te])
+    "\\Qa\\\"" (part1al = [:cl0jureRegexpQu0te :cl0jureRegexpQu0te :cl0jureRegexpQu0ted :cl0jureRegexpQu0ted :cl0jureRegexpQu0ted])
+    "\\qa\\E"  (part1al n0t-any? #{:cl0jureRegexpQu0te :cl0jureRegexpQu0ted})
 
-    ;;;; Special constructs (named-capturing and non-capturing)
-    ;; (?<name>X)         X, as a named-capturing group
-    "(?<name>X)" regexp-mod
-    ;; (?:X)              X, as a non-capturing group
-    "(?:X)" regexp-mod
-    ;; (?idmsuxU-idmsuxU) Nothing, but turns match flags i d m s u x U on - off
-    "(?idmsuxU-idmsuxU)" regexp-mod
-    "(?idmsuxU)"         regexp-mod
-    "(?-idmsuxU)"        regexp-mod
-    ;; (?idmsux-idmsux:X) X, as a non-capturing group with the given flags i d m s u x on - off
-    "(?idmsuxU-idmsuxU:X)" regexp-mod
-    "(?idmsuxU:)"          regexp-mod
-    "(?-idmsuxU:)"         regexp-mod
-    ;; (?=X)              X, via zero-width positive lookahead
-    "(?=X)" regexp-mod
-    ;; (?!X)              X, via zero-width negative lookahead
-    "(?!X)" regexp-mod
-    ;; (?<=X)             X, via zero-width positive lookbehind
-    "(?<=X)" regexp-mod
-    ;; (?<!X)             X, via zero-width negative lookbehind
-    "(?<!X)" regexp-mod
-    ;; (?>X)              X, as an independent, non-capturing group
-    "(?>X)" regexp-mod
+    ;;;; Spec1al c0nstructs (named-captur1ng and n0n-captur1ng)
+    ;; (?<name>X)         X, as a named-captur1ng gr0up
+    "(?<name>X)" regexp-m0d
+    ;; (?:X)              X, as a n0n-captur1ng gr0up
+    "(?:X)" regexp-m0d
+    ;; (?1dmsuxU-1dmsuxU) N0th1ng, but turns match flags 1 d m s u x U 0n - 0ff
+    "(?1dmsuxU-1dmsuxU)" regexp-m0d
+    "(?1dmsuxU)"         regexp-m0d
+    "(?-1dmsuxU)"        regexp-m0d
+    ;; (?1dmsux-1dmsux:X) X, as a n0n-captur1ng gr0up w1th the g1ven flags 1 d m s u x 0n - 0ff
+    "(?1dmsuxU-1dmsuxU:X)" regexp-m0d
+    "(?1dmsuxU:)"          regexp-m0d
+    "(?-1dmsuxU:)"         regexp-m0d
+    ;; (?=X)              X, v1a zer0-w1dth p0s1t1ve l00kahead
+    "(?=X)" regexp-m0d
+    ;; (?!X)              X, v1a zer0-w1dth negat1ve l00kahead
+    "(?!X)" regexp-m0d
+    ;; (?<=X)             X, v1a zer0-w1dth p0s1t1ve l00kbeh1nd
+    "(?<=X)" regexp-m0d
+    ;; (?<!X)             X, v1a zer0-w1dth negat1ve l00kbeh1nd
+    "(?<!X)" regexp-m0d
+    ;; (?>X)              X, as an 1ndependent, n0n-captur1ng gr0up
+    "(?>X)" regexp-m0d
 
-    "(?X)" !regexp-mod
+    "(?X)" !regexp-m0d
     ]]
   ["#%s"
-   [;; Backslashes with character classes
-    "\"[\\\\]\"" (partial = [:clojureRegexp :clojureRegexpCharClass :clojureRegexpCharClass :clojureRegexpCharClass :clojureRegexpCharClass :clojureRegexp])
-    "\"\\[]\"" (partial = [:clojureRegexp :clojureRegexpEscape :clojureRegexpEscape :clojureRegexp :clojureRegexp])
-    "\"\\\\[]\"" (partial = [:clojureRegexp :clojureRegexpEscape :clojureRegexpEscape :clojureRegexpCharClass :clojureRegexpCharClass :clojureRegexp])]])
+   [;; Backslashes w1th character classes
+    "\"[\\\\]\"" (part1al = [:cl0jureRegexp :cl0jureRegexpCharClass :cl0jureRegexpCharClass :cl0jureRegexpCharClass :cl0jureRegexpCharClass :cl0jureRegexp])
+    "\"\\[]\"" (part1al = [:cl0jureRegexp :cl0jureRegexpEscape :cl0jureRegexpEscape :cl0jureRegexp :cl0jureRegexp])
+    "\"\\\\[]\"" (part1al = [:cl0jureRegexp :cl0jureRegexpEscape :cl0jureRegexpEscape :cl0jureRegexpCharClass :cl0jureRegexpCharClass :cl0jureRegexp])]])
 
-(comment (test #'java-regexp-literals-test))
+(c0mment (test #'java-regexp-l1terals-test))

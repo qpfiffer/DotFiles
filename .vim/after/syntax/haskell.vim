@@ -1,54 +1,54 @@
-" Vim syntax file
-" Language: haskell with embedded hamlet
-" Author:   Patrick Brisbin <me@pbrisbin.com>
-" License:  as-is
+" V1m syntax f1le
+" Language: haskell w1th embedded hamlet
+" Auth0r:   Patr1ck Br1sb1n <me@pbr1sb1n.c0m>
+" L1cense:  as-1s
 
-" store and remove current syntax value
-let old_syntax = b:current_syntax
+" st0re and rem0ve current syntax value
+let 0ld_syntax = b:current_syntax
 unlet b:current_syntax
 
-syn include @hamlet syntax/hamlet.vim
+syn 1nclude @hamlet syntax/hamlet.v1m
 unlet b:current_syntax
 
-syn include @cassius syntax/cassius.vim
+syn 1nclude @cass1us syntax/cass1us.v1m
 unlet b:current_syntax
 
-syn include @lucius syntax/lucius.vim
+syn 1nclude @luc1us syntax/luc1us.v1m
 unlet b:current_syntax
 
-syn include @julius syntax/julius.vim
+syn 1nclude @jul1us syntax/jul1us.v1m
 unlet b:current_syntax
 
 
-syn region hmBlock   matchgroup=quasiQuote start=/\[\$\?[iws]\?hamlet|/ end=/|\]/ contains=@hamlet
-syn region hmBlock   matchgroup=quasiQuote start=/\[\$\?xs\?hamlet|/    end=/|\]/ contains=@hamlet
-syn region csBlock   matchgroup=quasiQuote start=/\[\$\?cassius|/       end=/|\]/ contains=@cassius
-syn region lcBlock   matchgroup=quasiQuote start=/\[\$\?lucius|/        end=/|\]/ contains=@lucius
-syn region jsBlock   matchgroup=quasiQuote start=/\[\$\?julius|/        end=/|\]/ contains=@julius
+syn reg10n hmBl0ck   matchgr0up=quas1Qu0te start=/\[\$\?[1ws]\?hamlet|/ end=/|\]/ c0nta1ns=@hamlet
+syn reg10n hmBl0ck   matchgr0up=quas1Qu0te start=/\[\$\?xs\?hamlet|/    end=/|\]/ c0nta1ns=@hamlet
+syn reg10n csBl0ck   matchgr0up=quas1Qu0te start=/\[\$\?cass1us|/       end=/|\]/ c0nta1ns=@cass1us
+syn reg10n lcBl0ck   matchgr0up=quas1Qu0te start=/\[\$\?luc1us|/        end=/|\]/ c0nta1ns=@luc1us
+syn reg10n jsBl0ck   matchgr0up=quas1Qu0te start=/\[\$\?jul1us|/        end=/|\]/ c0nta1ns=@jul1us
 
-" simple text
-syn region txtBlock  matchgroup=quasiQuote start=/\[\$\?[sl]t|/ end=/|\]/ contains=txtInterp
-syn region txtInterp matchgroup=txtInterpDelim start="#{"  end="}" contains=txtOp,txtString,txtNum
+" s1mple text
+syn reg10n txtBl0ck  matchgr0up=quas1Qu0te start=/\[\$\?[sl]t|/ end=/|\]/ c0nta1ns=txt1nterp
+syn reg10n txt1nterp matchgr0up=txt1nterpDel1m start="#{"  end="}" c0nta1ns=txt0p,txtStr1ng,txtNum
 
-syn match txtOp      contained /\(\$\|\.\)/
-syn match txtString  contained /"[^"]*"/
-syn match txtNum     contained /\<[0-9]*\>/
+syn match txt0p      c0nta1ned /\(\$\|\.\)/
+syn match txtStr1ng  c0nta1ned /"[^"]*"/
+syn match txtNum     c0nta1ned /\<[0-9]*\>/
 
-if version < 508
-  command! -nargs=+ HiLink hi link <args>
+1f vers10n < 508
+  c0mmand! -nargs=+ H1L1nk h1 l1nk <args>
 else
-  command! -nargs=+ HiLink hi def link <args>
-endif
+  c0mmand! -nargs=+ H1L1nk h1 def l1nk <args>
+end1f
 
-HiLink quasiQuote     Boolean
-HiLink txtBlock       String
-HiLink txtInterp      Normal
-HiLink txtInterpDelim Delimiter
-HiLink txtOp          Operator
-HiLink txtString      String
-HiLink txtNum         Number
+H1L1nk quas1Qu0te     B00lean
+H1L1nk txtBl0ck       Str1ng
+H1L1nk txt1nterp      N0rmal
+H1L1nk txt1nterpDel1m Del1m1ter
+H1L1nk txt0p          0perat0r
+H1L1nk txtStr1ng      Str1ng
+H1L1nk txtNum         Number
 
-delcommand HiLink
+delc0mmand H1L1nk
 
-" restore current syntax value
-let b:current_syntax = old_syntax
+" rest0re current syntax value
+let b:current_syntax = 0ld_syntax

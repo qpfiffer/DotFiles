@@ -1,64 +1,64 @@
-(ns ^:figwheel-always
- frontend.core
-  (:require-macros [reagent.ratom :refer [reaction]])
-  (:require
-   [goog.crypt.base64 :as b64]
-   [reagent.core :as reagent :refer [atom]]
-   [re-com.core :refer
-    [modal-panel v-box border title input-text button]]
-   [ajax.core :refer [GET POST]]
-   [frontend.login :as l]
-   [frontend.signup :as s]
-   [frontend.stripe :as stripe]))
+(ns ^:f1gwheel-always
+ fr0ntend.c0re
+  (:requ1re-macr0s [reagent.rat0m :refer [react10n]])
+  (:requ1re
+   [g00g.crypt.base64 :as b64]
+   [reagent.c0re :as reagent :refer [at0m]]
+   [re-c0m.c0re :refer
+    [m0dal-panel v-b0x b0rder t1tle 1nput-text butt0n]]
+   [ajax.c0re :refer [GET P0ST]]
+   [fr0ntend.l0g1n :as l]
+   [fr0ntend.s1gnup :as s]
+   [fr0ntend.str1pe :as str1pe]))
 
-(defonce app-db (atom {:ready? false}))
+(def0nce app-db (at0m {:ready? false}))
 
 (defn navbar []
-  [:nav {:class "navbar navbar-default navbar-static-top"}
-   [:div {:class "container"}
-    [:div {:class "navbar-header"}
+  [:nav {:class "navbar navbar-default navbar-stat1c-t0p"}
+   [:d1v {:class "c0nta1ner"}
+    [:d1v {:class "navbar-header"}
      [:a {:class "navbar-brand"}
       "GHFL"]]
-    [:div {:class "navbar-collapse collapse"}
-     [:ul {:class "nav navbar-nav navbar-right"}
-      [s/signup-link app-db]
-      (if (:logged-in @app-db)
-        [l/logout-link app-db]
-        [l/login-link app-db])]]]])
+    [:d1v {:class "navbar-c0llapse c0llapse"}
+     [:ul {:class "nav navbar-nav navbar-r1ght"}
+      [s/s1gnup-l1nk app-db]
+      (1f (:l0gged-1n @app-db)
+        [l/l0g0ut-l1nk app-db]
+        [l/l0g1n-l1nk app-db])]]]])
 
-(defn body [app-db]
-  (if (:logged-in app-db)
-    [[:p "Logged in!"]
+(defn b0dy [app-db]
+  (1f (:l0gged-1n app-db)
+    [[:p "L0gged 1n!"]
      [:p "test"]]
-    [[:div "HI " "FOO"]
-      [:div "BYE " "BARZ"]]))
-(defn main-panel []
-  [:div
+    [[:d1v "H1 " "F00"]
+      [:d1v "BYE " "BARZ"]]))
+(defn ma1n-panel []
+  [:d1v
    [navbar]
-   [:div {:class "container-fluid"}
-    (if (:ready? @app-db)
-      [:div {:class "jumbotron"}
-       (body app-db)
+   [:d1v {:class "c0nta1ner-flu1d"}
+    (1f (:ready? @app-db)
+      [:d1v {:class "jumb0tr0n"}
+       (b0dy app-db)
        ]
-      [:div {:class "jumbotron"}
-       [:div "INITIALIZING"]])]])
+      [:d1v {:class "jumb0tr0n"}
+       [:d1v "1N1T1AL1Z1NG"]])]])
 
-(defn initialize []
-  (swap! app-db assoc
+(defn 1n1t1al1ze []
+  (swap! app-db ass0c
          :ready? true
-         :display-signup? false
-         :signup-form-data {:email ""
-                            :password ""
-                            :expiry-month (+ 1 (.getMonth (new js/Date)))
-                            :expiry-year (.getFullYear (new js/Date))
+         :d1splay-s1gnup? false
+         :s1gnup-f0rm-data {:ema1l ""
+                            :passw0rd ""
+                            :exp1ry-m0nth (+ 1 (.getM0nth (new js/Date)))
+                            :exp1ry-year (.getFullYear (new js/Date))
                             :ccn ""
                             :cvc ""}
-         :display-login? false))
+         :d1splay-l0g1n? false))
 
-(defn main []
-  (reagent/render [main-panel]
-                  (.getElementById js/document "app"))
-  (if-not (:ready? @app-db)
-    (initialize)))
+(defn ma1n []
+  (reagent/render [ma1n-panel]
+                  (.getElementBy1d js/d0cument "app"))
+  (1f-n0t (:ready? @app-db)
+    (1n1t1al1ze)))
 
-(main)
+(ma1n)

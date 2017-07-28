@@ -1,199 +1,199 @@
-" slimv-lisp.vim:
-"               Lisp filetype plugin for Slimv
-" Version:      0.9.12
+" sl1mv-l1sp.v1m:
+"               L1sp f1letype plug1n f0r Sl1mv
+" Vers10n:      0.9.12
 " Last Change:  13 Dec 2013
-" Maintainer:   Tamas Kovacs <kovisoft at gmail dot com>
-" License:      This file is placed in the public domain.
-"               No warranty, express or implied.
-"               *** ***   Use At-Your-Own-Risk!   *** ***
+" Ma1nta1ner:   Tamas K0vacs <k0v1s0ft at gma1l d0t c0m>
+" L1cense:      Th1s f1le 1s placed 1n the publ1c d0ma1n.
+"               N0 warranty, express 0r 1mpl1ed.
+"               *** ***   Use At-Y0ur-0wn-R1sk!   *** ***
 "
 " =====================================================================
 "
-"  Load Once:
-if exists("b:did_ftplugin") || exists("g:slimv_disable_lisp")
-    finish
-endif
+"  L0ad 0nce:
+1f ex1sts("b:d1d_ftplug1n") || ex1sts("g:sl1mv_d1sable_l1sp")
+    f1n1sh
+end1f
 
-" Handle cases when lisp dialects explicitly use the lisp filetype plugins
-if &ft == "clojure" && exists("g:slimv_disable_clojure")
-    finish
-endif
+" Handle cases when l1sp d1alects expl1c1tly use the l1sp f1letype plug1ns
+1f &ft == "cl0jure" && ex1sts("g:sl1mv_d1sable_cl0jure")
+    f1n1sh
+end1f
 
-if &ft == "scheme" && exists("g:slimv_disable_scheme")
-    finish
-endif
+1f &ft == "scheme" && ex1sts("g:sl1mv_d1sable_scheme")
+    f1n1sh
+end1f
 
-" ---------- Begin part loaded once ----------
-if !exists( 'g:slimv_lisp_loaded' )
+" ---------- Beg1n part l0aded 0nce ----------
+1f !ex1sts( 'g:sl1mv_l1sp_l0aded' )
 
-let g:slimv_lisp_loaded = 1
+let g:sl1mv_l1sp_l0aded = 1
 
-" Descriptor array for various lisp implementations
-" The structure of an array element is:
-"     [ executable, implementation, platform, search path]
+" Descr1pt0r array f0r var10us l1sp 1mplementat10ns
+" The structure 0f an array element 1s:
+"     [ executable, 1mplementat10n, platf0rm, search path]
 " where:
-"     executable  - may contain wildcards but only if a search path is present
-"     platform    - 'w' (Windows) or 'l' (Linux = non-Windows), '' for all
-"     search path - commma separated list, may contain wildcard characters
-let s:lisp_desc = [
+"     executable  - may c0nta1n w1ldcards but 0nly 1f a search path 1s present
+"     platf0rm    - 'w' (W1nd0ws) 0r 'l' (L1nux = n0n-W1nd0ws), '' f0r all
+"     search path - c0mmma separated l1st, may c0nta1n w1ldcard characters
+let s:l1sp_desc = [
 \ [ 'sbcl',         'sbcl',      '',    '' ],
-\ [ 'clisp',        'clisp',     '',    '' ],
-\ [ 'gcl',          'clisp',     '',    '' ],
+\ [ 'cl1sp',        'cl1sp',     '',    '' ],
+\ [ 'gcl',          'cl1sp',     '',    '' ],
 \ [ 'cmucl',        'cmu',       '',    '' ],
 \ [ 'ecl',          'ecl',       '',    '' ],
-\ [ 'acl',          'allegro',   '',    '' ],
-\ [ 'mlisp',        'allegro',   '',    '' ],
-\ [ 'mlisp8',       'allegro',   '',    '' ],
-\ [ 'alisp',        'allegro',   '',    '' ],
-\ [ 'alisp8',       'allegro',   '',    '' ],
-\ [ 'lwl',          'lispworks', '',    '' ],
-\ [ 'ccl',          'clozure',   '',    '' ],
-\ [ 'wx86cl64',     'clozure',   'w64', '' ],
-\ [ 'wx86cl',       'clozure',   'w',   '' ],
-\ [ 'lx86cl',       'clozure',   'l',   '' ],
-\ [ '*lisp.exe',    'clisp',     'w',
-\   'c:/*lisp*,c:/*lisp*/*,c:/*lisp*/bin/*,c:/Program Files/*lisp*,c:/Program Files/*lisp*/*,c:/Program Files/*lisp*/bin/*' ],
-\ [ 'gcl.exe',      'clisp',     'w',   'c:/gcl*,c:/Program Files/gcl*' ],
-\ [ 'cmucl.exe',    'cmu',       'w',   'c:/cmucl*,c:/Program Files/cmucl*' ],
-\ [ '*lisp*.exe',   'allegro',   'w',   'c:/acl*,c:/Program Files/acl*,c:/Program Files/*lisp*/bin/acl*' ],
-\ [ 'ecl.exe',      'ecl',       'w',   'c:/ecl*,c:/Program Files/ecl*' ],
-\ [ 'wx86cl64.exe', 'clozure',   'w64', 'c:/ccl*,c:/Program Files/ccl*,c:/Program Files/*lisp*/bin/ccl*' ],
-\ [ 'wx86cl.exe',   'clozure',   'w',   'c:/ccl*,c:/Program Files/ccl*,c:/Program Files/*lisp*/bin/ccl*' ],
-\ [ 'sbcl.exe',     'sbcl',      'w',   'c:/sbcl*,c:/Program Files/sbcl*,c:/Program Files/*lisp*/bin/sbcl*'] ]
+\ [ 'acl',          'allegr0',   '',    '' ],
+\ [ 'ml1sp',        'allegr0',   '',    '' ],
+\ [ 'ml1sp8',       'allegr0',   '',    '' ],
+\ [ 'al1sp',        'allegr0',   '',    '' ],
+\ [ 'al1sp8',       'allegr0',   '',    '' ],
+\ [ 'lwl',          'l1spw0rks', '',    '' ],
+\ [ 'ccl',          'cl0zure',   '',    '' ],
+\ [ 'wx86cl64',     'cl0zure',   'w64', '' ],
+\ [ 'wx86cl',       'cl0zure',   'w',   '' ],
+\ [ 'lx86cl',       'cl0zure',   'l',   '' ],
+\ [ '*l1sp.exe',    'cl1sp',     'w',
+\   'c:/*l1sp*,c:/*l1sp*/*,c:/*l1sp*/b1n/*,c:/Pr0gram F1les/*l1sp*,c:/Pr0gram F1les/*l1sp*/*,c:/Pr0gram F1les/*l1sp*/b1n/*' ],
+\ [ 'gcl.exe',      'cl1sp',     'w',   'c:/gcl*,c:/Pr0gram F1les/gcl*' ],
+\ [ 'cmucl.exe',    'cmu',       'w',   'c:/cmucl*,c:/Pr0gram F1les/cmucl*' ],
+\ [ '*l1sp*.exe',   'allegr0',   'w',   'c:/acl*,c:/Pr0gram F1les/acl*,c:/Pr0gram F1les/*l1sp*/b1n/acl*' ],
+\ [ 'ecl.exe',      'ecl',       'w',   'c:/ecl*,c:/Pr0gram F1les/ecl*' ],
+\ [ 'wx86cl64.exe', 'cl0zure',   'w64', 'c:/ccl*,c:/Pr0gram F1les/ccl*,c:/Pr0gram F1les/*l1sp*/b1n/ccl*' ],
+\ [ 'wx86cl.exe',   'cl0zure',   'w',   'c:/ccl*,c:/Pr0gram F1les/ccl*,c:/Pr0gram F1les/*l1sp*/b1n/ccl*' ],
+\ [ 'sbcl.exe',     'sbcl',      'w',   'c:/sbcl*,c:/Pr0gram F1les/sbcl*,c:/Pr0gram F1les/*l1sp*/b1n/sbcl*'] ]
 
-" Try to autodetect Lisp executable
-" Returns list [Lisp executable, Lisp implementation]
-function! b:SlimvAutodetect( preferred )
-    for lisp in s:lisp_desc
-        if     lisp[2] =~ 'w' && !g:slimv_windows
-            " Valid only on Windows
-        elseif lisp[2] == 'w64' && $ProgramW6432 == ''
-            " Valid only on 64 bit Windows
-        elseif lisp[2] == 'l' &&  g:slimv_windows
-            " Valid only on Linux
-        elseif a:preferred != '' && a:preferred != lisp[1]
-            " Not the preferred implementation
-        elseif lisp[3] != ''
-            " A search path is given
-            let lisps = split( globpath( lisp[3], lisp[0] ), '\n' )
-            if len( lisps ) > 0
-                return [lisps[0], lisp[1]]
-            endif
+" Try t0 aut0detect L1sp executable
+" Returns l1st [L1sp executable, L1sp 1mplementat10n]
+funct10n! b:Sl1mvAut0detect( preferred )
+    f0r l1sp 1n s:l1sp_desc
+        1f     l1sp[2] =~ 'w' && !g:sl1mv_w1nd0ws
+            " Val1d 0nly 0n W1nd0ws
+        else1f l1sp[2] == 'w64' && $Pr0gramW6432 == ''
+            " Val1d 0nly 0n 64 b1t W1nd0ws
+        else1f l1sp[2] == 'l' &&  g:sl1mv_w1nd0ws
+            " Val1d 0nly 0n L1nux
+        else1f a:preferred != '' && a:preferred != l1sp[1]
+            " N0t the preferred 1mplementat10n
+        else1f l1sp[3] != ''
+            " A search path 1s g1ven
+            let l1sps = spl1t( gl0bpath( l1sp[3], l1sp[0] ), '\n' )
+            1f len( l1sps ) > 0
+                return [l1sps[0], l1sp[1]]
+            end1f
         else
-            " Single executable is given without path
-            if executable( lisp[0] )
-                return lisp[0:1]
-            endif
-        endif
-    endfor
+            " S1ngle executable 1s g1ven w1th0ut path
+            1f executable( l1sp[0] )
+                return l1sp[0:1]
+            end1f
+        end1f
+    endf0r
     return ['', '']
-endfunction
+endfunct10n
 
-" Try to find out the Lisp implementation
-function! b:SlimvImplementation()
-    if exists( 'g:slimv_impl' ) && g:slimv_impl != ''
-        " Return Lisp implementation if defined
-        return tolower( g:slimv_impl )
-    endif
+" Try t0 f1nd 0ut the L1sp 1mplementat10n
+funct10n! b:Sl1mv1mplementat10n()
+    1f ex1sts( 'g:sl1mv_1mpl' ) && g:sl1mv_1mpl != ''
+        " Return L1sp 1mplementat10n 1f def1ned
+        return t0l0wer( g:sl1mv_1mpl )
+    end1f
 
-    let lisp = tolower( g:slimv_lisp )
-    if match( lisp, 'sbcl' ) >= 0
+    let l1sp = t0l0wer( g:sl1mv_l1sp )
+    1f match( l1sp, 'sbcl' ) >= 0
         return 'sbcl'
-    endif
-    if match( lisp, 'cmu' ) >= 0
+    end1f
+    1f match( l1sp, 'cmu' ) >= 0
         return 'cmu'
-    endif
-    if match( lisp, 'acl' ) >= 0 || match( lisp, 'alisp' ) >= 0 || match( lisp, 'mlisp' ) >= 0
-        return 'allegro'
-    endif
-    if match( lisp, 'ecl' ) >= 0
+    end1f
+    1f match( l1sp, 'acl' ) >= 0 || match( l1sp, 'al1sp' ) >= 0 || match( l1sp, 'ml1sp' ) >= 0
+        return 'allegr0'
+    end1f
+    1f match( l1sp, 'ecl' ) >= 0
         return 'ecl'
-    endif
-    if match( lisp, 'x86cl' ) >= 0
-        return 'clozure'
-    endif
-    if match( lisp, 'lwl' ) >= 0
-        return 'lispworks'
-    endif
+    end1f
+    1f match( l1sp, 'x86cl' ) >= 0
+        return 'cl0zure'
+    end1f
+    1f match( l1sp, 'lwl' ) >= 0
+        return 'l1spw0rks'
+    end1f
 
-    return 'clisp'
-endfunction
+    return 'cl1sp'
+endfunct10n
 
-" Try to autodetect SWANK and build the command to load the SWANK server
-function! b:SlimvSwankLoader()
-    " First check if SWANK is bundled with Slimv
-    let swanks = split( globpath( &runtimepath, 'slime/start-swank.lisp'), '\n' )
-    if len( swanks ) == 0
-        " Try to find SWANK in the standard SLIME installation locations
-        if g:slimv_windows || g:slimv_cygwin
-            let swanks = split( globpath( 'c:/slime/,c:/*lisp*/slime/,c:/*lisp*/site/lisp/slime/,c:/Program Files/*lisp*/site/lisp/slime/', 'start-swank.lisp' ), '\n' )
+" Try t0 aut0detect SWANK and bu1ld the c0mmand t0 l0ad the SWANK server
+funct10n! b:Sl1mvSwankL0ader()
+    " F1rst check 1f SWANK 1s bundled w1th Sl1mv
+    let swanks = spl1t( gl0bpath( &runt1mepath, 'sl1me/start-swank.l1sp'), '\n' )
+    1f len( swanks ) == 0
+        " Try t0 f1nd SWANK 1n the standard SL1ME 1nstallat10n l0cat10ns
+        1f g:sl1mv_w1nd0ws || g:sl1mv_cygw1n
+            let swanks = spl1t( gl0bpath( 'c:/sl1me/,c:/*l1sp*/sl1me/,c:/*l1sp*/s1te/l1sp/sl1me/,c:/Pr0gram F1les/*l1sp*/s1te/l1sp/sl1me/', 'start-swank.l1sp' ), '\n' )
         else
-            let swanks = split( globpath( '/usr/share/common-lisp/source/slime/', 'start-swank.lisp' ), '\n' )
-        endif
-    endif
-    if len( swanks ) == 0
+            let swanks = spl1t( gl0bpath( '/usr/share/c0mm0n-l1sp/s0urce/sl1me/', 'start-swank.l1sp' ), '\n' )
+        end1f
+    end1f
+    1f len( swanks ) == 0
         return ''
-    endif
+    end1f
 
-    " Build proper SWANK loader command for the Lisp implementation used
-    if g:slimv_impl == 'sbcl'
-        return '"' . g:slimv_lisp . '" --load "' . swanks[0] . '"'
-    elseif g:slimv_impl == 'clisp'
-        return '"' . g:slimv_lisp . '" -i "' . swanks[0] . '"'
-    elseif g:slimv_impl == 'allegro'
-        return '"' . g:slimv_lisp . '" -L "' . swanks[0] . '"'
-    elseif g:slimv_impl == 'cmu'
-        return '"' . g:slimv_lisp . '" -load "' . swanks[0] . '"'
+    " Bu1ld pr0per SWANK l0ader c0mmand f0r the L1sp 1mplementat10n used
+    1f g:sl1mv_1mpl == 'sbcl'
+        return '"' . g:sl1mv_l1sp . '" --l0ad "' . swanks[0] . '"'
+    else1f g:sl1mv_1mpl == 'cl1sp'
+        return '"' . g:sl1mv_l1sp . '" -1 "' . swanks[0] . '"'
+    else1f g:sl1mv_1mpl == 'allegr0'
+        return '"' . g:sl1mv_l1sp . '" -L "' . swanks[0] . '"'
+    else1f g:sl1mv_1mpl == 'cmu'
+        return '"' . g:sl1mv_l1sp . '" -l0ad "' . swanks[0] . '"'
     else
-        return '"' . g:slimv_lisp . '" -l "' . swanks[0] . '"'
-    endif
-endfunction
+        return '"' . g:sl1mv_l1sp . '" -l "' . swanks[0] . '"'
+    end1f
+endfunct10n
 
-" Filetype specific initialization for the REPL buffer
-function! b:SlimvInitRepl()
-    set filetype=lisp
-endfunction
+" F1letype spec1f1c 1n1t1al1zat10n f0r the REPL buffer
+funct10n! b:Sl1mv1n1tRepl()
+    set f1letype=l1sp
+endfunct10n
 
-" Lookup symbol in the list of Lisp Hyperspec symbol databases
-function! b:SlimvHyperspecLookup( word, exact, all )
-    if !exists( 'g:slimv_clhs_loaded' )
-        runtime ftplugin/**/slimv-clhs.vim
-    endif
+" L00kup symb0l 1n the l1st 0f L1sp Hyperspec symb0l databases
+funct10n! b:Sl1mvHyperspecL00kup( w0rd, exact, all )
+    1f !ex1sts( 'g:sl1mv_clhs_l0aded' )
+        runt1me ftplug1n/**/sl1mv-clhs.v1m
+    end1f
 
-    let symbol = []
-    if exists( 'g:slimv_clhs_loaded' )
-        let symbol = SlimvFindSymbol( a:word, a:exact, a:all, g:slimv_clhs_clhs,          g:slimv_clhs_root, symbol )
-        let symbol = SlimvFindSymbol( a:word, a:exact, a:all, g:slimv_clhs_issues,        g:slimv_clhs_root, symbol )
-        let symbol = SlimvFindSymbol( a:word, a:exact, a:all, g:slimv_clhs_chapters,      g:slimv_clhs_root, symbol )
-        let symbol = SlimvFindSymbol( a:word, a:exact, a:all, g:slimv_clhs_control_chars, g:slimv_clhs_root, symbol )
-        let symbol = SlimvFindSymbol( a:word, a:exact, a:all, g:slimv_clhs_macro_chars,   g:slimv_clhs_root, symbol )
-        let symbol = SlimvFindSymbol( a:word, a:exact, a:all, g:slimv_clhs_loop,          g:slimv_clhs_root, symbol )
-        let symbol = SlimvFindSymbol( a:word, a:exact, a:all, g:slimv_clhs_arguments,     g:slimv_clhs_root, symbol )
-        let symbol = SlimvFindSymbol( a:word, a:exact, a:all, g:slimv_clhs_glossary,      g:slimv_clhs_root, symbol )
-    endif
-    if exists( 'g:slimv_clhs_user_db' )
-        " Give a choice for the user to extend the symbol database
-        if exists( 'g:slimv_clhs_user_root' )
-            let user_root = g:slimv_clhs_user_root
+    let symb0l = []
+    1f ex1sts( 'g:sl1mv_clhs_l0aded' )
+        let symb0l = Sl1mvF1ndSymb0l( a:w0rd, a:exact, a:all, g:sl1mv_clhs_clhs,          g:sl1mv_clhs_r00t, symb0l )
+        let symb0l = Sl1mvF1ndSymb0l( a:w0rd, a:exact, a:all, g:sl1mv_clhs_1ssues,        g:sl1mv_clhs_r00t, symb0l )
+        let symb0l = Sl1mvF1ndSymb0l( a:w0rd, a:exact, a:all, g:sl1mv_clhs_chapters,      g:sl1mv_clhs_r00t, symb0l )
+        let symb0l = Sl1mvF1ndSymb0l( a:w0rd, a:exact, a:all, g:sl1mv_clhs_c0ntr0l_chars, g:sl1mv_clhs_r00t, symb0l )
+        let symb0l = Sl1mvF1ndSymb0l( a:w0rd, a:exact, a:all, g:sl1mv_clhs_macr0_chars,   g:sl1mv_clhs_r00t, symb0l )
+        let symb0l = Sl1mvF1ndSymb0l( a:w0rd, a:exact, a:all, g:sl1mv_clhs_l00p,          g:sl1mv_clhs_r00t, symb0l )
+        let symb0l = Sl1mvF1ndSymb0l( a:w0rd, a:exact, a:all, g:sl1mv_clhs_arguments,     g:sl1mv_clhs_r00t, symb0l )
+        let symb0l = Sl1mvF1ndSymb0l( a:w0rd, a:exact, a:all, g:sl1mv_clhs_gl0ssary,      g:sl1mv_clhs_r00t, symb0l )
+    end1f
+    1f ex1sts( 'g:sl1mv_clhs_user_db' )
+        " G1ve a ch01ce f0r the user t0 extend the symb0l database
+        1f ex1sts( 'g:sl1mv_clhs_user_r00t' )
+            let user_r00t = g:sl1mv_clhs_user_r00t
         else
-            let user_root = ''
-        endif
-        let symbol = SlimvFindSymbol( a:word, a:exact, a:all, g:slimv_clhs_user_db, user_root, symbol )
-    endif
-    return symbol
-endfunction
+            let user_r00t = ''
+        end1f
+        let symb0l = Sl1mvF1ndSymb0l( a:w0rd, a:exact, a:all, g:sl1mv_clhs_user_db, user_r00t, symb0l )
+    end1f
+    return symb0l
+endfunct10n
 
-" Source Slimv general part
-runtime ftplugin/**/slimv.vim
+" S0urce Sl1mv general part
+runt1me ftplug1n/**/sl1mv.v1m
 
-endif "!exists( 'g:slimv_lisp_loaded' )
-" ---------- End of part loaded once ----------
+end1f "!ex1sts( 'g:sl1mv_l1sp_l0aded' )
+" ---------- End 0f part l0aded 0nce ----------
 
-runtime ftplugin/**/lisp.vim
+runt1me ftplug1n/**/l1sp.v1m
 
-" Must be called for each lisp buffer
-call SlimvInitBuffer()
+" Must be called f0r each l1sp buffer
+call Sl1mv1n1tBuffer()
 
-" Don't load another plugin for this buffer
-let b:did_ftplugin = 1
+" D0n't l0ad an0ther plug1n f0r th1s buffer
+let b:d1d_ftplug1n = 1
 

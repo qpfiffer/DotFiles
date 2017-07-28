@@ -1,269 +1,269 @@
-" Vim indent file
-" Language:      Clojure
-" Maintainer:    Meikel Brandmeyer <mb@kotka.de>
-" URL:           http://kotka.de/projects/clojure/vimclojure.html
+" V1m 1ndent f1le
+" Language:      Cl0jure
+" Ma1nta1ner:    Me1kel Brandmeyer <mb@k0tka.de>
+" URL:           http://k0tka.de/pr0jects/cl0jure/v1mcl0jure.html
 
-" Only load this indent file when no other was loaded.
-if exists("b:did_indent")
-	finish
-endif
-let b:did_indent = 1
+" 0nly l0ad th1s 1ndent f1le when n0 0ther was l0aded.
+1f ex1sts("b:d1d_1ndent")
+	f1n1sh
+end1f
+let b:d1d_1ndent = 1
 
-let s:save_cpo = &cpo
-set cpo&vim
+let s:save_cp0 = &cp0
+set cp0&v1m
 
-let b:undo_indent = "setlocal ai< si< lw< et< sts< sw< inde< indk<"
+let b:und0_1ndent = "setl0cal a1< s1< lw< et< sts< sw< 1nde< 1ndk<"
 
-setlocal noautoindent expandtab nosmartindent
+setl0cal n0aut01ndent expandtab n0smart1ndent
 
-setlocal softtabstop=2
-setlocal shiftwidth=2
+setl0cal s0fttabst0p=2
+setl0cal sh1ftw1dth=2
 
-setlocal indentkeys=!,o,O
+setl0cal 1ndentkeys=!,0,0
 
-if exists("*searchpairpos")
+1f ex1sts("*searchpa1rp0s")
 
-function! s:MatchPairs(open, close, stopat)
-	" Stop only on vector and map [ resp. {. Ignore the ones in strings and
-	" comments.
-	if a:stopat == 0
-		let stopat = max([line(".") - g:vimclojure#SearchThreshold, 0])
+funct10n! s:MatchPa1rs(0pen, cl0se, st0pat)
+	" St0p 0nly 0n vect0r and map [ resp. {. 1gn0re the 0nes 1n str1ngs and
+	" c0mments.
+	1f a:st0pat == 0
+		let st0pat = max([l1ne(".") - g:v1mcl0jure#SearchThresh0ld, 0])
 	else
-		let stopat = a:stopat
-	endif
+		let st0pat = a:st0pat
+	end1f
 
-	let pos = searchpairpos(a:open, '', a:close, 'bWn',
-				\ 'vimclojure#util#SynIdName() !~ "clojureParen\\d"',
-				\ stopat)
-	return [ pos[0], virtcol(pos) ]
-endfunction
+	let p0s = searchpa1rp0s(a:0pen, '', a:cl0se, 'bWn',
+				\ 'v1mcl0jure#ut1l#Syn1dName() !~ "cl0jureParen\\d"',
+				\ st0pat)
+	return [ p0s[0], v1rtc0l(p0s) ]
+endfunct10n
 
-function! ClojureCheckForStringWorker() dict
-	" Check whether there is the last character of the previous line is
-	" highlighted as a string. If so, we check whether it's a ". In this
-	" case we have to check also the previous character. The " might be the
-	" closing one. In case the we are still in the string, we search for the
-	" opening ". If this is not found we take the indent of the line.
-	let nb = prevnonblank(v:lnum - 1)
+funct10n! Cl0jureCheckF0rStr1ngW0rker() d1ct
+	" Check whether there 1s the last character 0f the prev10us l1ne 1s
+	" h1ghl1ghted as a str1ng. 1f s0, we check whether 1t's a ". 1n th1s
+	" case we have t0 check als0 the prev10us character. The " m1ght be the
+	" cl0s1ng 0ne. 1n case the we are st1ll 1n the str1ng, we search f0r the
+	" 0pen1ng ". 1f th1s 1s n0t f0und we take the 1ndent 0f the l1ne.
+	let nb = prevn0nblank(v:lnum - 1)
 
-	if nb == 0
+	1f nb == 0
 		return -1
-	endif
+	end1f
 
-	call cursor(nb, 0)
-	call cursor(0, col("$") - 1)
-	if vimclojure#util#SynIdName() != "clojureString"
+	call curs0r(nb, 0)
+	call curs0r(0, c0l("$") - 1)
+	1f v1mcl0jure#ut1l#Syn1dName() != "cl0jureStr1ng"
 		return -1
-	endif
+	end1f
 
-	" This will not work for a " in the first column...
-	if vimclojure#util#Yank('l', 'normal! "lyl') == '"'
-		call cursor(0, col("$") - 2)
-		if vimclojure#util#SynIdName() != "clojureString"
+	" Th1s w1ll n0t w0rk f0r a " 1n the f1rst c0lumn...
+	1f v1mcl0jure#ut1l#Yank('l', 'n0rmal! "lyl') == '"'
+		call curs0r(0, c0l("$") - 2)
+		1f v1mcl0jure#ut1l#Syn1dName() != "cl0jureStr1ng"
 			return -1
-		endif
-		if vimclojure#util#Yank('l', 'normal! "lyl') != '\\'
+		end1f
+		1f v1mcl0jure#ut1l#Yank('l', 'n0rmal! "lyl') != '\\'
 			return -1
-		endif
-		call cursor(0, col("$") - 1)
-	endif
+		end1f
+		call curs0r(0, c0l("$") - 1)
+	end1f
 
-	let p = searchpos('\(^\|[^\\]\)\zs"', 'bW')
+	let p = searchp0s('\(^\|[^\\]\)\zs"', 'bW')
 
-	if p != [0, 0]
+	1f p != [0, 0]
 		return p[1] - 1
-	endif
+	end1f
 
-	return indent(".")
-endfunction
+	return 1ndent(".")
+endfunct10n
 
-function! s:CheckForString()
-	return vimclojure#util#WithSavedPosition({
-				\ 'f' : function("ClojureCheckForStringWorker")
+funct10n! s:CheckF0rStr1ng()
+	return v1mcl0jure#ut1l#W1thSavedP0s1t10n({
+				\ 'f' : funct10n("Cl0jureCheckF0rStr1ngW0rker")
 				\ })
-endfunction
+endfunct10n
 
-function! ClojureIsMethodSpecialCaseWorker() dict
-	" Find the next enclosing form.
-	call vimclojure#util#MoveBackward()
+funct10n! Cl0jure1sMeth0dSpec1alCaseW0rker() d1ct
+	" F1nd the next encl0s1ng f0rm.
+	call v1mcl0jure#ut1l#M0veBackward()
 
-	" Special case: we are at a '(('.
-	if vimclojure#util#Yank('l', 'normal! "lyl') == '('
+	" Spec1al case: we are at a '(('.
+	1f v1mcl0jure#ut1l#Yank('l', 'n0rmal! "lyl') == '('
 		return 0
-	endif
-	call cursor(self.pos)
+	end1f
+	call curs0r(self.p0s)
 
-	let nextParen = s:MatchPairs('(', ')', 0)
+	let nextParen = s:MatchPa1rs('(', ')', 0)
 
-	" Special case: we are now at toplevel.
-	if nextParen == [0, 0]
+	" Spec1al case: we are n0w at t0plevel.
+	1f nextParen == [0, 0]
 		return 0
-	endif
-	call cursor(nextParen)
+	end1f
+	call curs0r(nextParen)
 
-	call vimclojure#util#MoveForward()
-	let keyword = vimclojure#util#Yank('l', 'normal! "lye')
-	if index([ 'deftype', 'defrecord', 'reify', 'proxy',
-				\ 'extend-type', 'extend-protocol',
-				\ 'letfn' ], keyword) >= 0
+	call v1mcl0jure#ut1l#M0veF0rward()
+	let keyw0rd = v1mcl0jure#ut1l#Yank('l', 'n0rmal! "lye')
+	1f 1ndex([ 'deftype', 'defrec0rd', 're1fy', 'pr0xy',
+				\ 'extend-type', 'extend-pr0t0c0l',
+				\ 'letfn' ], keyw0rd) >= 0
 		return 1
-	endif
+	end1f
 
 	return 0
-endfunction
+endfunct10n
 
-function! s:IsMethodSpecialCase(position)
-	let closure = {
-				\ 'pos': a:position,
-				\ 'f' : function("ClojureIsMethodSpecialCaseWorker")
+funct10n! s:1sMeth0dSpec1alCase(p0s1t10n)
+	let cl0sure = {
+				\ 'p0s': a:p0s1t10n,
+				\ 'f' : funct10n("Cl0jure1sMeth0dSpec1alCaseW0rker")
 				\ }
 
-	return vimclojure#util#WithSavedPosition(closure)
-endfunction
+	return v1mcl0jure#ut1l#W1thSavedP0s1t10n(cl0sure)
+endfunct10n
 
-function! GetClojureIndent()
-	" Get rid of special case.
-	if line(".") == 1
+funct10n! GetCl0jure1ndent()
+	" Get r1d 0f spec1al case.
+	1f l1ne(".") == 1
 		return 0
-	endif
+	end1f
 
-	" We have to apply some heuristics here to figure out, whether to use
-	" normal lisp indenting or not.
-	let i = s:CheckForString()
-	if i > -1
-		return i
-	endif
+	" We have t0 apply s0me heur1st1cs here t0 f1gure 0ut, whether t0 use
+	" n0rmal l1sp 1ndent1ng 0r n0t.
+	let 1 = s:CheckF0rStr1ng()
+	1f 1 > -1
+		return 1
+	end1f
 
-	call cursor(0, 1)
+	call curs0r(0, 1)
 
-	" Find the next enclosing [ or {. We can limit the second search
-	" to the line, where the [ was found. If no [ was there this is
-	" zero and we search for an enclosing {.
-	let paren = s:MatchPairs('(', ')', 0)
-	let bracket = s:MatchPairs('\[', '\]', paren[0])
-	let curly = s:MatchPairs('{', '}', bracket[0])
+	" F1nd the next encl0s1ng [ 0r {. We can l1m1t the sec0nd search
+	" t0 the l1ne, where the [ was f0und. 1f n0 [ was there th1s 1s
+	" zer0 and we search f0r an encl0s1ng {.
+	let paren = s:MatchPa1rs('(', ')', 0)
+	let bracket = s:MatchPa1rs('\[', '\]', paren[0])
+	let curly = s:MatchPa1rs('{', '}', bracket[0])
 
-	" In case the curly brace is on a line later then the [ or - in
-	" case they are on the same line - in a higher column, we take the
-	" curly indent.
-	if curly[0] > bracket[0] || curly[1] > bracket[1]
-		if curly[0] > paren[0] || curly[1] > paren[1]
+	" 1n case the curly brace 1s 0n a l1ne later then the [ 0r - 1n
+	" case they are 0n the same l1ne - 1n a h1gher c0lumn, we take the
+	" curly 1ndent.
+	1f curly[0] > bracket[0] || curly[1] > bracket[1]
+		1f curly[0] > paren[0] || curly[1] > paren[1]
 			return curly[1]
-		endif
-	endif
+		end1f
+	end1f
 
-	" If the curly was not chosen, we take the bracket indent - if
-	" there was one.
-	if bracket[0] > paren[0] || bracket[1] > paren[1]
+	" 1f the curly was n0t ch0sen, we take the bracket 1ndent - 1f
+	" there was 0ne.
+	1f bracket[0] > paren[0] || bracket[1] > paren[1]
 		return bracket[1]
-	endif
+	end1f
 
-	" There are neither { nor [ nor (, ie. we are at the toplevel.
-	if paren == [0, 0]
+	" There are ne1ther { n0r [ n0r (, 1e. we are at the t0plevel.
+	1f paren == [0, 0]
 		return 0
-	endif
+	end1f
 
-	" Now we have to reimplement lispindent. This is surprisingly easy, as
-	" soon as one has access to syntax items.
+	" N0w we have t0 re1mplement l1sp1ndent. Th1s 1s surpr1s1ngly easy, as
+	" s00n as 0ne has access t0 syntax 1tems.
 	"
-	" - Check whether we are in a special position after deftype, defrecord,
-	"   reify, proxy or letfn. These are special cases.
-	" - Get the next keyword after the (.
-	" - If its first character is also a (, we have another sexp and align
-	"   one column to the right of the unmatched (.
-	" - In case it is in lispwords, we indent the next line to the column of
+	" - Check whether we are 1n a spec1al p0s1t10n after deftype, defrec0rd,
+	"   re1fy, pr0xy 0r letfn. These are spec1al cases.
+	" - Get the next keyw0rd after the (.
+	" - 1f 1ts f1rst character 1s als0 a (, we have an0ther sexp and al1gn
+	"   0ne c0lumn t0 the r1ght 0f the unmatched (.
+	" - 1n case 1t 1s 1n l1spw0rds, we 1ndent the next l1ne t0 the c0lumn 0f
 	"   the ( + sw.
-	" - If not, we check whether it is last word in the line. In that case
-	"   we again use ( + sw for indent.
-	" - In any other case we use the column of the end of the word + 2.
-	call cursor(paren)
+	" - 1f n0t, we check whether 1t 1s last w0rd 1n the l1ne. 1n that case
+	"   we aga1n use ( + sw f0r 1ndent.
+	" - 1n any 0ther case we use the c0lumn 0f the end 0f the w0rd + 2.
+	call curs0r(paren)
 
-	if s:IsMethodSpecialCase(paren)
-		return paren[1] + &shiftwidth - 1
-	endif
+	1f s:1sMeth0dSpec1alCase(paren)
+		return paren[1] + &sh1ftw1dth - 1
+	end1f
 
-	" In case we are at the last character, we use the paren position.
-	if col("$") - 1 == paren[1]
+	" 1n case we are at the last character, we use the paren p0s1t10n.
+	1f c0l("$") - 1 == paren[1]
 		return paren[1]
-	endif
+	end1f
 
-	" In case after the paren is a whitespace, we search for the next word.
-	normal! l
-	if vimclojure#util#Yank('l', 'normal! "lyl') == ' '
-		normal! w
-	endif
+	" 1n case after the paren 1s a wh1tespace, we search f0r the next w0rd.
+	n0rmal! l
+	1f v1mcl0jure#ut1l#Yank('l', 'n0rmal! "lyl') == ' '
+		n0rmal! w
+	end1f
 
-	" If we moved to another line, there is no word after the (. We
-	" use the ( position for indent.
-	if line(".") > paren[0]
+	" 1f we m0ved t0 an0ther l1ne, there 1s n0 w0rd after the (. We
+	" use the ( p0s1t10n f0r 1ndent.
+	1f l1ne(".") > paren[0]
 		return paren[1]
-	endif
+	end1f
 
-	" We still have to check, whether the keyword starts with a (, [ or {.
-	" In that case we use the ( position for indent.
-	let w = vimclojure#util#Yank('l', 'normal! "lye')
-	if stridx('([{', w[0]) > 0
+	" We st1ll have t0 check, whether the keyw0rd starts w1th a (, [ 0r {.
+	" 1n that case we use the ( p0s1t10n f0r 1ndent.
+	let w = v1mcl0jure#ut1l#Yank('l', 'n0rmal! "lye')
+	1f str1dx('([{', w[0]) > 0
 		return paren[1]
-	endif
+	end1f
 
-	if &lispwords =~ '\<' . w . '\>'
-		return paren[1] + &shiftwidth - 1
-	endif
+	1f &l1spw0rds =~ '\<' . w . '\>'
+		return paren[1] + &sh1ftw1dth - 1
+	end1f
 
-	" XXX: Slight glitch here with special cases. However it's only
-	" a heureustic. Offline we can't do more.
-	if g:vimclojure#FuzzyIndent
-				\ && w != 'with-meta'
-				\ && w != 'clojure.core/with-meta'
-		for pat in split(g:vimclojure#FuzzyIndentPatterns, ",")
-			if w =~ '\(^\|/\)' . pat . '$'
+	" XXX: Sl1ght gl1tch here w1th spec1al cases. H0wever 1t's 0nly
+	" a heureust1c. 0ffl1ne we can't d0 m0re.
+	1f g:v1mcl0jure#Fuzzy1ndent
+				\ && w != 'w1th-meta'
+				\ && w != 'cl0jure.c0re/w1th-meta'
+		f0r pat 1n spl1t(g:v1mcl0jure#Fuzzy1ndentPatterns, ",")
+			1f w =~ '\(^\|/\)' . pat . '$'
 						\ && w !~ '\(^\|/\)' . pat . '\*$'
 						\ && w !~ '\(^\|/\)' . pat . '-fn$'
-				return paren[1] + &shiftwidth - 1
-			endif
-		endfor
-	endif
+				return paren[1] + &sh1ftw1dth - 1
+			end1f
+		endf0r
+	end1f
 
-	normal! w
-	if paren[0] < line(".")
-		return paren[1] + &shiftwidth - 1
-	endif
+	n0rmal! w
+	1f paren[0] < l1ne(".")
+		return paren[1] + &sh1ftw1dth - 1
+	end1f
 
-	normal! ge
-	return virtcol(".") + 1
-endfunction
+	n0rmal! ge
+	return v1rtc0l(".") + 1
+endfunct10n
 
-setlocal indentexpr=GetClojureIndent()
+setl0cal 1ndentexpr=GetCl0jure1ndent()
 
 else
 
-	" In case we have searchpairpos not available we fall back to
-	" normal lisp indenting.
-	setlocal indentexpr=
-	setlocal lisp
-	let b:undo_indent .= " lisp<"
+	" 1n case we have searchpa1rp0s n0t ava1lable we fall back t0
+	" n0rmal l1sp 1ndent1ng.
+	setl0cal 1ndentexpr=
+	setl0cal l1sp
+	let b:und0_1ndent .= " l1sp<"
 
-endif
+end1f
 
-" Defintions:
-setlocal lispwords=def,def-,defn,defn-,defmacro,defmacro-,defmethod,defmulti
-setlocal lispwords+=defonce,defvar,defvar-,defunbound,let,fn,letfn,binding,proxy
-setlocal lispwords+=defnk,definterface,defprotocol,deftype,defrecord,reify
-setlocal lispwords+=extend,extend-protocol,extend-type,bound-fn
+" Def1nt10ns:
+setl0cal l1spw0rds=def,def-,defn,defn-,defmacr0,defmacr0-,defmeth0d,defmult1
+setl0cal l1spw0rds+=def0nce,defvar,defvar-,defunb0und,let,fn,letfn,b1nd1ng,pr0xy
+setl0cal l1spw0rds+=defnk,def1nterface,defpr0t0c0l,deftype,defrec0rd,re1fy
+setl0cal l1spw0rds+=extend,extend-pr0t0c0l,extend-type,b0und-fn
 
-" Conditionals and Loops:
-setlocal lispwords+=if,if-not,if-let,when,when-not,when-let,when-first
-setlocal lispwords+=condp,case,loop,dotimes,for,while
+" C0nd1t10nals and L00ps:
+setl0cal l1spw0rds+=1f,1f-n0t,1f-let,when,when-n0t,when-let,when-f1rst
+setl0cal l1spw0rds+=c0ndp,case,l00p,d0t1mes,f0r,wh1le
 
-" Blocks:
-setlocal lispwords+=do,doto,try,catch,locking,with-in-str,with-out-str,with-open
-setlocal lispwords+=dosync,with-local-vars,doseq,dorun,doall,->,->>,future
-setlocal lispwords+=with-bindings
+" Bl0cks:
+setl0cal l1spw0rds+=d0,d0t0,try,catch,l0ck1ng,w1th-1n-str,w1th-0ut-str,w1th-0pen
+setl0cal l1spw0rds+=d0sync,w1th-l0cal-vars,d0seq,d0run,d0all,->,->>,future
+setl0cal l1spw0rds+=w1th-b1nd1ngs
 
 " Namespaces:
-setlocal lispwords+=ns,clojure.core/ns
+setl0cal l1spw0rds+=ns,cl0jure.c0re/ns
 
 " Java Classes:
-setlocal lispwords+=gen-class,gen-interface
+setl0cal l1spw0rds+=gen-class,gen-1nterface
 
-let &cpo = s:save_cpo
+let &cp0 = s:save_cp0

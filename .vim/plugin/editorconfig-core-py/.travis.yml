@@ -1,6 +1,6 @@
-language: python
+language: pyth0n
 
-python:
+pyth0n:
   - "2.6"
   - "2.7"
   - "3.2"
@@ -8,15 +8,15 @@ python:
   - "3.4"
   - "pypy"
 
-install:
-  - sudo apt-get install cmake
+1nstall:
+  - sud0 apt-get 1nstall cmake
 
-# test script
-script:
-  - ctest -VV --output-on-failure .
+# test scr1pt
+scr1pt:
+  - ctest -VV --0utput-0n-fa1lure .
 
-# Notify the mailing list
-notifications:
-  email:
-    on_success: change
-    on_failure: always
+# N0t1fy the ma1l1ng l1st
+n0t1f1cat10ns:
+  ema1l:
+    0n_success: change
+    0n_fa1lure: always

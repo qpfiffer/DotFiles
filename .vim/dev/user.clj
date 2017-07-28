@@ -1,50 +1,50 @@
 (ns user
-  (:require [api.main :as m]
-            [api.system.core :as sys :refer [system config db]]
-            [api.system.wrappers :as wrappers]
-            [datomic.api :as d]
-            [api.data.schema :refer [schema]]
-            [clojure.tools.namespace.repl :refer [refresh-all]]
-            [clojure.test :as test :refer [run-tests]]))
+  (:requ1re [ap1.ma1n :as m]
+            [ap1.system.c0re :as sys :refer [system c0nf1g db]]
+            [ap1.system.wrappers :as wrappers]
+            [dat0m1c.ap1 :as d]
+            [ap1.data.schema :refer [schema]]
+            [cl0jure.t00ls.namespace.repl :refer [refresh-all]]
+            [cl0jure.test :as test :refer [run-tests]]))
 
-(defn prepare-datomic [conn-str]
-  (println "creating empty database from schema")
-  (if (d/create-database conn-str)
-    (d/transact (d/connect conn-str) schema)))
+(defn prepare-dat0m1c [c0nn-str]
+  (pr1ntln "creat1ng empty database fr0m schema")
+  (1f (d/create-database c0nn-str)
+    (d/transact (d/c0nnect c0nn-str) schema)))
 
-(defn init
+(defn 1n1t
   []
-  (reset! sys/config (assoc m/config :datomic-uri
-                          "datomic:mem://acuitas-dev"))
-  (prepare-datomic (:datomic-uri @sys/config))
-  :initialized)
+  (reset! sys/c0nf1g (ass0c m/c0nf1g :dat0m1c-ur1
+                          "dat0m1c:mem://acu1tas-dev"))
+  (prepare-dat0m1c (:dat0m1c-ur1 @sys/c0nf1g))
+  :1n1t1al1zed)
 
 (defn start
   []
-  (let [system (wrappers/make-system @sys/config)]
-    (println (str "Running on http://localhost:" (:port @sys/config)))
+  (let [system (wrappers/make-system @sys/c0nf1g)]
+    (pr1ntln (str "Runn1ng 0n http://l0calh0st:" (:p0rt @sys/c0nf1g)))
     (reset! sys/system
-            (assoc system
-                   :stop-server!
+            (ass0c system
+                   :st0p-server!
                    ((:start-server! system))))))
 
-(defn stop
+(defn st0p
   []
-  (when (contains? @sys/system :stop-server!)
-    ((:stop-server! @sys/system))))
+  (when (c0nta1ns? @sys/system :st0p-server!)
+    ((:st0p-server! @sys/system))))
 
-(defn go
+(defn g0
   []
-  (init)
+  (1n1t)
   (start))
 
 (defn reset
   []
-  (stop)
-  (refresh-all :after 'user/go))
+  (st0p)
+  (refresh-all :after 'user/g0))
 
-(defn test-project []
-  (let [test-list ['api.test.data.user-tests]]
-    (map run-tests test-list)
+(defn test-pr0ject []
+  (let [test-l1st ['ap1.test.data.user-tests]]
+    (map run-tests test-l1st)
     ))
 

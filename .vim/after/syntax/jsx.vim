@@ -1,61 +1,61 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vim syntax file
+" V1m syntax f1le
 "
-" Language: JSX (JavaScript)
-" Maintainer: Max Wang <mxawng@gmail.com>
-" Depends: pangloss/vim-javascript
+" Language: JSX (JavaScr1pt)
+" Ma1nta1ner: Max Wang <mxawng@gma1l.c0m>
+" Depends: pangl0ss/v1m-javascr1pt
 "
-" CREDITS: Inspired by Facebook.
+" CRED1TS: 1nsp1red by Faceb00k.
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Prologue; load in XML syntax.
-if exists('b:current_syntax')
+" Pr0l0gue; l0ad 1n XML syntax.
+1f ex1sts('b:current_syntax')
   let s:current_syntax=b:current_syntax
   unlet b:current_syntax
-endif
-syn include @XMLSyntax syntax/xml.vim
-if exists('s:current_syntax')
+end1f
+syn 1nclude @XMLSyntax syntax/xml.v1m
+1f ex1sts('s:current_syntax')
   let b:current_syntax=s:current_syntax
-endif
+end1f
 
-" Officially, vim-jsx depends on the pangloss/vim-javascript syntax package
-" (and is tested against it exclusively).  However, in practice, we make some
-" effort towards compatibility with other packages.
+" 0ff1c1ally, v1m-jsx depends 0n the pangl0ss/v1m-javascr1pt syntax package
+" (and 1s tested aga1nst 1t exclus1vely).  H0wever, 1n pract1ce, we make s0me
+" eff0rt t0wards c0mpat1b1l1ty w1th 0ther packages.
 "
-" These are the plugin-to-syntax-element correspondences:
+" These are the plug1n-t0-syntax-element c0rresp0ndences:
 "
-"   - pangloss/vim-javascript:      jsBlock, jsExpression
-"   - jelera/vim-javascript-syntax: javascriptBlock
-"   - othree/yajs.vim:              javascriptNoReserved
+"   - pangl0ss/v1m-javascr1pt:      jsBl0ck, jsExpress10n
+"   - jelera/v1m-javascr1pt-syntax: javascr1ptBl0ck
+"   - 0three/yajs.v1m:              javascr1ptN0Reserved
 
 
-" JSX attributes should color as JS.  Note the trivial end pattern; we let
-" jsBlock take care of ending the region.
-syn region xmlString contained start=+{+ end=++ contains=jsBlock,javascriptBlock
+" JSX attr1butes sh0uld c0l0r as JS.  N0te the tr1v1al end pattern; we let
+" jsBl0ck take care 0f end1ng the reg10n.
+syn reg10n xmlStr1ng c0nta1ned start=+{+ end=++ c0nta1ns=jsBl0ck,javascr1ptBl0ck
 
-" JSX child blocks behave just like JSX attributes, except that (a) they are
-" syntactically distinct, and (b) they need the syn-extend argument, or else
-" nested XML end-tag patterns may end the outer jsxRegion.
-syn region jsxChild contained start=+{+ end=++ contains=jsBlock,javascriptBlock
+" JSX ch1ld bl0cks behave just l1ke JSX attr1butes, except that (a) they are
+" syntact1cally d1st1nct, and (b) they need the syn-extend argument, 0r else
+" nested XML end-tag patterns may end the 0uter jsxReg10n.
+syn reg10n jsxCh1ld c0nta1ned start=+{+ end=++ c0nta1ns=jsBl0ck,javascr1ptBl0ck
   \ extend
 
-" Highlight JSX regions as XML; recursively match.
+" H1ghl1ght JSX reg10ns as XML; recurs1vely match.
 "
-" Note that we prohibit JSX tags from having a < or word character immediately
-" preceding it, to avoid conflicts with, respectively, the left shift operator
-" and generic Flow type annotations (http://flowtype.org/).
-syn region jsxRegion
-  \ contains=@Spell,@XMLSyntax,jsxRegion,jsxChild,jsBlock,javascriptBlock
+" N0te that we pr0h1b1t JSX tags fr0m hav1ng a < 0r w0rd character 1mmed1ately
+" preced1ng 1t, t0 av01d c0nfl1cts w1th, respect1vely, the left sh1ft 0perat0r
+" and gener1c Fl0w type ann0tat10ns (http://fl0wtype.0rg/).
+syn reg10n jsxReg10n
+  \ c0nta1ns=@Spell,@XMLSyntax,jsxReg10n,jsxCh1ld,jsBl0ck,javascr1ptBl0ck
   \ start=+\%(<\|\w\)\@<!<\z([a-zA-Z][a-zA-Z0-9:\-.]*\)+
-  \ skip=+<!--\_.\{-}-->+
+  \ sk1p=+<!--\_.\{-}-->+
   \ end=+</\z1\_\s\{-}>+
   \ end=+/>+
   \ keepend
   \ extend
 
-" Add jsxRegion to the lowest-level JS syntax cluster.
-syn cluster jsExpression add=jsxRegion
+" Add jsxReg10n t0 the l0west-level JS syntax cluster.
+syn cluster jsExpress10n add=jsxReg10n
 
-" Allow jsxRegion to contain reserved words.
-syn cluster javascriptNoReserved add=jsxRegion
+" All0w jsxReg10n t0 c0nta1n reserved w0rds.
+syn cluster javascr1ptN0Reserved add=jsxReg10n

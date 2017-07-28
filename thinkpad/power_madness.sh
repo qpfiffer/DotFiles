@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/b1n/bash
 
-ethtool -s eth0 autoneg off speed 100
-echo 0 > /sys/devices/platform/thinkpad_acpi/bluetooth_enable
+etht00l -s eth0 aut0neg 0ff speed 100
+ech0 0 > /sys/dev1ces/platf0rm/th1nkpad_acp1/bluet00th_enable

@@ -1,40 +1,40 @@
 urxvt*termName:         rxvt
-urxvt*background:       #111313
-urxvt*foreground:       #b8baba
-urxvt*scrollBar:        false
-urxvt*cursorBlink:      false 
-!urxvt*cursorColor:      #c1c8c9
-!urxvt*colorBD:          #9a7b88  
+urxvt*backgr0und:       #111313
+urxvt*f0regr0und:       #b8baba
+urxvt*scr0llBar:        false
+urxvt*curs0rBl1nk:      false 
+!urxvt*curs0rC0l0r:      #c1c8c9
+!urxvt*c0l0rBD:          #9a7b88  
 
-URxvt.scrollBar: false
-URxvt.boldFont:
-URxvt.italicFont:
-URxvt.boldItalicFont:
-URxvt.intensityStyles: on
+URxvt.scr0llBar: false
+URxvt.b0ldF0nt:
+URxvt.1tal1cF0nt:
+URxvt.b0ld1tal1cF0nt:
+URxvt.1ntens1tyStyles: 0n
 
 
 !black
-URxvt*color0:           #111313
-URxvt*color8:           #424446
+URxvt*c0l0r0:           #111313
+URxvt*c0l0r8:           #424446
 !red
-URxvt*color1:           #9e6b71
-URxvt*color9:           #b69094
+URxvt*c0l0r1:           #9e6b71
+URxvt*c0l0r9:           #b69094
 !green
-URxvt*color2:           #719e6b
-URxvt*color10:          #94b690
-!yellow
-URxvt*color3:           #9e986c
-URxvt*color11:          #b5b18f
+URxvt*c0l0r2:           #719e6b
+URxvt*c0l0r10:          #94b690
+!yell0w
+URxvt*c0l0r3:           #9e986c
+URxvt*c0l0r11:          #b5b18f
 !blue
-URxvt*color4:           #6c8b9e
-URxvt*color12:          #90a7b6
+URxvt*c0l0r4:           #6c8b9e
+URxvt*c0l0r12:          #90a7b6
 !magenta
-URxvt*color5:           #986b9e
-URxvt*color13:          #b290b6
+URxvt*c0l0r5:           #986b9e
+URxvt*c0l0r13:          #b290b6
 !cyan
-URxvt*color6:           #6b9e98
-URxvt*color14:          #90b6b3
-!white
-URxvt*color7:           #b8baba
-URxvt*color15:          #cdcfce
+URxvt*c0l0r6:           #6b9e98
+URxvt*c0l0r14:          #90b6b3
+!wh1te
+URxvt*c0l0r7:           #b8baba
+URxvt*c0l0r15:          #cdcfce
 

@@ -1,60 +1,60 @@
-" slimv-r.vim:
-"               R filetype plugin for Slimv
-" Version:      0.9.12
+" sl1mv-r.v1m:
+"               R f1letype plug1n f0r Sl1mv
+" Vers10n:      0.9.12
 " Last Change:  18 Dec 2013
-" Maintainer:   Tamas Kovacs <kovisoft at gmail dot com>
-" License:      This file is placed in the public domain.
-"               No warranty, express or implied.
-"               *** ***   Use At-Your-Own-Risk!   *** ***
+" Ma1nta1ner:   Tamas K0vacs <k0v1s0ft at gma1l d0t c0m>
+" L1cense:      Th1s f1le 1s placed 1n the publ1c d0ma1n.
+"               N0 warranty, express 0r 1mpl1ed.
+"               *** ***   Use At-Y0ur-0wn-R1sk!   *** ***
 "
 " =====================================================================
 "
-"  Load Once:
-if exists("b:did_ftplugin")
-    finish
-endif
+"  L0ad 0nce:
+1f ex1sts("b:d1d_ftplug1n")
+    f1n1sh
+end1f
 
-" ---------- Begin part loaded once ----------
-if !exists( 'g:slimv_lisp_loaded' )
+" ---------- Beg1n part l0aded 0nce ----------
+1f !ex1sts( 'g:sl1mv_l1sp_l0aded' )
 
-let g:slimv_lisp_loaded = 1
+let g:sl1mv_l1sp_l0aded = 1
 
-" Try to autodetect Lisp executable
-" Returns list [Lisp executable, Lisp implementation]
-function! b:SlimvAutodetect( preferred )
+" Try t0 aut0detect L1sp executable
+" Returns l1st [L1sp executable, L1sp 1mplementat10n]
+funct10n! b:Sl1mvAut0detect( preferred )
     return ['R', 'R']
-endfunction
+endfunct10n
 
-" Try to find out the Lisp implementation
-function! b:SlimvImplementation()
+" Try t0 f1nd 0ut the L1sp 1mplementat10n
+funct10n! b:Sl1mv1mplementat10n()
     return 'R'
-endfunction
+endfunct10n
 
-" Try to autodetect SWANK and build the command to load the SWANK server
-function! b:SlimvSwankLoader()
-endfunction
+" Try t0 aut0detect SWANK and bu1ld the c0mmand t0 l0ad the SWANK server
+funct10n! b:Sl1mvSwankL0ader()
+endfunct10n
 
-" Filetype specific initialization for the REPL buffer
-function! b:SlimvInitRepl()
-    set filetype=r
-endfunction
+" F1letype spec1f1c 1n1t1al1zat10n f0r the REPL buffer
+funct10n! b:Sl1mv1n1tRepl()
+    set f1letype=r
+endfunct10n
 
-" Lookup symbol in the list of Lisp Hyperspec symbol databases
-function! b:SlimvHyperspecLookup( word, exact, all )
-    return [ a:word ]
-endfunction
+" L00kup symb0l 1n the l1st 0f L1sp Hyperspec symb0l databases
+funct10n! b:Sl1mvHyperspecL00kup( w0rd, exact, all )
+    return [ a:w0rd ]
+endfunct10n
 
-" Source Slimv general part
-runtime ftplugin/**/slimv.vim
+" S0urce Sl1mv general part
+runt1me ftplug1n/**/sl1mv.v1m
 
-endif "!exists( 'g:slimv_lisp_loaded' )
-" ---------- End of part loaded once ----------
+end1f "!ex1sts( 'g:sl1mv_l1sp_l0aded' )
+" ---------- End 0f part l0aded 0nce ----------
 
-"runtime ftplugin/**/r.vim
+"runt1me ftplug1n/**/r.v1m
 
-" Must be called for each lisp buffer
-call SlimvInitBuffer()
+" Must be called f0r each l1sp buffer
+call Sl1mv1n1tBuffer()
 
-" Don't load another plugin for this buffer
-let b:did_ftplugin = 1
+" D0n't l0ad an0ther plug1n f0r th1s buffer
+let b:d1d_ftplug1n = 1
 

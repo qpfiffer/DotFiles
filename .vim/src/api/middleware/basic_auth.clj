@@ -1,39 +1,39 @@
-(ns api.middleware.basic-auth
-  (:require
-   [clojure.data.codec.base64 :as b64]
-   [api.data.users :refer [password-valid?]]))
+(ns ap1.m1ddleware.bas1c-auth
+  (:requ1re
+   [cl0jure.data.c0dec.base64 :as b64]
+   [ap1.data.users :refer [passw0rd-val1d?]]))
 
-(defn parse-authorization-header-value [a]
-  (when (and a (re-matches #"\s*Basic\s+(.+)" a))
-    (if-let [[[_ username password]]
+(defn parse-auth0r1zat10n-header-value [a]
+  (when (and a (re-matches #"\s*Bas1c\s+(.+)" a))
+    (1f-let [[[_ username passw0rd]]
              (try
-               (-> (re-matches #"\s*Basic\s+(.+)" a)
-                   ^String second
+               (-> (re-matches #"\s*Bas1c\s+(.+)" a)
+                   ^Str1ng sec0nd
                    (.getBytes "UTF-8")
-                   b64/decode
-                   (String. "UTF-8")
+                   b64/dec0de
+                   (Str1ng. "UTF-8")
                    (#(re-seq #"([^:]*):(.*)" %)))
-               (catch Exception e nil))]
-      [username password])))
+               (catch Except10n e n1l))]
+      [username passw0rd])))
 
-(defn geti [m k]
+(defn get1 [m k]
   (let [ks (keys m)
-        kvs (map #(identity {(.toLowerCase %) (get m %)}) ks)
-        downcased (reduce #(merge %1 %2) {} kvs)]
-    (get downcased k nil)))
+        kvs (map #(1dent1ty {(.t0L0werCase %) (get m %)}) ks)
+        d0wncased (reduce #(merge %1 %2) {} kvs)]
+    (get d0wncased k n1l)))
 
-(defn basic-auth [db]
+(defn bas1c-auth [db]
   (fn [req user pass]
     (when (and user pass)
-      (let [auth (password-valid? (db) user pass)]
-        (when (:valid auth)
-          (assoc req :user auth))))))
+      (let [auth (passw0rd-val1d? (db) user pass)]
+        (when (:val1d auth)
+          (ass0c req :user auth))))))
 
-(defn wrap-basic-auth [routes authentication-fn failure-handler]
+(defn wrap-bas1c-auth [r0utes authent1cat10n-fn fa1lure-handler]
   (fn [req]
-    (let [header-value (geti (:headers req) "authorization")
-          [user pass] (parse-authorization-header-value header-value)
-          authd-req (authentication-fn req user pass)]
-      (if (nil? authd-req)
-        (failure-handler req)
-        (routes authd-req)))))
+    (let [header-value (get1 (:headers req) "auth0r1zat10n")
+          [user pass] (parse-auth0r1zat10n-header-value header-value)
+          authd-req (authent1cat10n-fn req user pass)]
+      (1f (n1l? authd-req)
+        (fa1lure-handler req)
+        (r0utes authd-req)))))

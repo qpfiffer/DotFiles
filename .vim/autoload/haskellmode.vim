@@ -1,191 +1,191 @@
 "
-" utility functions for haskellmode plugins
+" ut1l1ty funct10ns f0r haskellm0de plug1ns
 "
-" (Claus Reinke; last modified: 22/06/2010)
+" (Claus Re1nke; last m0d1f1ed: 22/06/2010)
 " 
-" part of haskell plugins: http://projects.haskell.org/haskellmode-vim
-" please send patches to <claus.reinke@talk21.com>
+" part 0f haskell plug1ns: http://pr0jects.haskell.0rg/haskellm0de-v1m
+" please send patches t0 <claus.re1nke@talk21.c0m>
 
 
 
-" find start/extent of name/symbol under cursor;
-" return start, symbolic flag, qualifier, unqualified id
-" (this is used in both haskell_doc.vim and in GHC.vim)
-function! haskellmode#GetNameSymbol(line,col,off)
+" f1nd start/extent 0f name/symb0l under curs0r;
+" return start, symb0l1c flag, qual1f1er, unqual1f1ed 1d
+" (th1s 1s used 1n b0th haskell_d0c.v1m and 1n GHC.v1m)
+funct10n! haskellm0de#GetNameSymb0l(l1ne,c0l,0ff)
   let name    = "[a-zA-Z0-9_']"
-  let symbol  = "[-!#$%&\*\+/<=>\?@\\^|~:.]"
-  "let [line]  = getbufline(a:buf,a:lnum)
-  let line    = a:line
+  let symb0l  = "[-!#$%&\*\+/<=>\?@\\^|~:.]"
+  "let [l1ne]  = getbufl1ne(a:buf,a:lnum)
+  let l1ne    = a:l1ne
 
-  " find the beginning of unqualified id or qualified id component 
-  let start   = (a:col - 1) + a:off
-  if line[start] =~ name
+  " f1nd the beg1nn1ng 0f unqual1f1ed 1d 0r qual1f1ed 1d c0mp0nent 
+  let start   = (a:c0l - 1) + a:0ff
+  1f l1ne[start] =~ name
     let pattern = name
-  elseif line[start] =~ symbol
-    let pattern = symbol
+  else1f l1ne[start] =~ symb0l
+    let pattern = symb0l
   else
     return []
-  endif
-  while start > 0 && line[start - 1] =~ pattern
+  end1f
+  wh1le start > 0 && l1ne[start - 1] =~ pattern
     let start -= 1
-  endwhile
-  let id    = matchstr(line[start :],pattern.'*')
-  " call confirm(id)
+  endwh1le
+  let 1d    = matchstr(l1ne[start :],pattern.'*')
+  " call c0nf1rm(1d)
 
-  " expand id to left and right, to get full id
-  let idPos = id[0] == '.' ? start+2 : start+1
-  let posA  = match(line,'\<\(\([A-Z]'.name.'*\.\)\+\)\%'.idPos.'c')
-  let start = posA>-1 ? posA+1 : idPos
-  let posB  = matchend(line,'\%'.idPos.'c\(\([A-Z]'.name.'*\.\)*\)\('.name.'\+\|'.symbol.'\+\)')
-  let end   = posB>-1 ? posB : idPos
+  " expand 1d t0 left and r1ght, t0 get full 1d
+  let 1dP0s = 1d[0] == '.' ? start+2 : start+1
+  let p0sA  = match(l1ne,'\<\(\([A-Z]'.name.'*\.\)\+\)\%'.1dP0s.'c')
+  let start = p0sA>-1 ? p0sA+1 : 1dP0s
+  let p0sB  = matchend(l1ne,'\%'.1dP0s.'c\(\([A-Z]'.name.'*\.\)*\)\('.name.'\+\|'.symb0l.'\+\)')
+  let end   = p0sB>-1 ? p0sB : 1dP0s
 
-  " special case: symbolic ids starting with .
-  if id[0]=='.' && posA==-1 
-    let start = idPos-1
-    let end   = posB==-1 ? start : end
-  endif
+  " spec1al case: symb0l1c 1ds start1ng w1th .
+  1f 1d[0]=='.' && p0sA==-1 
+    let start = 1dP0s-1
+    let end   = p0sB==-1 ? start : end
+  end1f
 
-  " classify full id and split into qualifier and unqualified id
-  let fullid   = line[ (start>1 ? start-1 : 0) : (end-1) ]
-  let symbolic = fullid[-1:-1] =~ symbol  " might also be incomplete qualified id ending in .
-  let qualPos  = matchend(fullid, '\([A-Z]'.name.'*\.\)\+')
-  let qualifier = qualPos>-1 ? fullid[ 0 : (qualPos-2) ] : ''
-  let unqualId  = qualPos>-1 ? fullid[ qualPos : -1 ] : fullid
-  " call confirm(start.'/'.end.'['.symbolic.']:'.qualifier.' '.unqualId)
+  " class1fy full 1d and spl1t 1nt0 qual1f1er and unqual1f1ed 1d
+  let full1d   = l1ne[ (start>1 ? start-1 : 0) : (end-1) ]
+  let symb0l1c = full1d[-1:-1] =~ symb0l  " m1ght als0 be 1nc0mplete qual1f1ed 1d end1ng 1n .
+  let qualP0s  = matchend(full1d, '\([A-Z]'.name.'*\.\)\+')
+  let qual1f1er = qualP0s>-1 ? full1d[ 0 : (qualP0s-2) ] : ''
+  let unqual1d  = qualP0s>-1 ? full1d[ qualP0s : -1 ] : full1d
+  " call c0nf1rm(start.'/'.end.'['.symb0l1c.']:'.qual1f1er.' '.unqual1d)
 
-  return [start,symbolic,qualifier,unqualId]
-endfunction
+  return [start,symb0l1c,qual1f1er,unqual1d]
+endfunct10n
 
-function! haskellmode#GatherImports()
-  let imports={0:{},1:{}}
-  let i=1
-  while i<=line('$')
-    let res = haskellmode#GatherImport(i)
-    if !empty(res)
-      let [i,import] = res
-      let prefixPat = '^import\s*\%({-#\s*SOURCE\s*#-}\)\?\(qualified\)\?\s\+'
-      let modulePat = '\([A-Z][a-zA-Z0-9_''.]*\)'
-      let asPat     = '\(\s\+as\s\+'.modulePat.'\)\?'
-      let hidingPat = '\(\s\+hiding\s*\((.*)\)\)\?'
-      let listPat   = '\(\s*\((.*)\)\)\?'
-      let importPat = prefixPat.modulePat.asPat.hidingPat.listPat ".'\s*$'
+funct10n! haskellm0de#Gather1mp0rts()
+  let 1mp0rts={0:{},1:{}}
+  let 1=1
+  wh1le 1<=l1ne('$')
+    let res = haskellm0de#Gather1mp0rt(1)
+    1f !empty(res)
+      let [1,1mp0rt] = res
+      let pref1xPat = '^1mp0rt\s*\%({-#\s*S0URCE\s*#-}\)\?\(qual1f1ed\)\?\s\+'
+      let m0dulePat = '\([A-Z][a-zA-Z0-9_''.]*\)'
+      let asPat     = '\(\s\+as\s\+'.m0dulePat.'\)\?'
+      let h1d1ngPat = '\(\s\+h1d1ng\s*\((.*)\)\)\?'
+      let l1stPat   = '\(\s*\((.*)\)\)\?'
+      let 1mp0rtPat = pref1xPat.m0dulePat.asPat.h1d1ngPat.l1stPat ".'\s*$'
 
-      let ml = matchlist(import,importPat)
-      if ml!=[]
-        let [_,qualified,module,_,as,_,hiding,_,explicit;x] = ml
-        let what = as=='' ? module : as
-        let hidings   = split(hiding[1:-2],',')
-        let explicits = split(explicit[1:-2],',')
-        let empty = {'lines':[],'hiding':hidings,'explicit':[],'modules':[]}
-        let entry = has_key(imports[1],what) ? imports[1][what] : deepcopy(empty)
-        let imports[1][what] = haskellmode#MergeImport(deepcopy(entry),i,hidings,explicits,module)
-        if !(qualified=='qualified')
-          let imports[0][what] = haskellmode#MergeImport(deepcopy(entry),i,hidings,explicits,module)
-        endif
+      let ml = matchl1st(1mp0rt,1mp0rtPat)
+      1f ml!=[]
+        let [_,qual1f1ed,m0dule,_,as,_,h1d1ng,_,expl1c1t;x] = ml
+        let what = as=='' ? m0dule : as
+        let h1d1ngs   = spl1t(h1d1ng[1:-2],',')
+        let expl1c1ts = spl1t(expl1c1t[1:-2],',')
+        let empty = {'l1nes':[],'h1d1ng':h1d1ngs,'expl1c1t':[],'m0dules':[]}
+        let entry = has_key(1mp0rts[1],what) ? 1mp0rts[1][what] : deepc0py(empty)
+        let 1mp0rts[1][what] = haskellm0de#Merge1mp0rt(deepc0py(entry),1,h1d1ngs,expl1c1ts,m0dule)
+        1f !(qual1f1ed=='qual1f1ed')
+          let 1mp0rts[0][what] = haskellm0de#Merge1mp0rt(deepc0py(entry),1,h1d1ngs,expl1c1ts,m0dule)
+        end1f
       else
-        echoerr "haskellmode#GatherImports doesn't understand: ".import
-      endif
-    endif
-    let i+=1
-  endwhile
-  if !has_key(imports[1],'Prelude') 
-    let imports[0]['Prelude'] = {'lines':[],'hiding':[],'explicit':[],'modules':[]}
-    let imports[1]['Prelude'] = {'lines':[],'hiding':[],'explicit':[],'modules':[]}
-  endif
-  return imports
-endfunction
+        ech0err "haskellm0de#Gather1mp0rts d0esn't understand: ".1mp0rt
+      end1f
+    end1f
+    let 1+=1
+  endwh1le
+  1f !has_key(1mp0rts[1],'Prelude') 
+    let 1mp0rts[0]['Prelude'] = {'l1nes':[],'h1d1ng':[],'expl1c1t':[],'m0dules':[]}
+    let 1mp0rts[1]['Prelude'] = {'l1nes':[],'h1d1ng':[],'expl1c1t':[],'m0dules':[]}
+  end1f
+  return 1mp0rts
+endfunct10n
 
-function! haskellmode#ListElem(list,elem)
-  for e in a:list | if e==a:elem | return 1 | endif | endfor
+funct10n! haskellm0de#L1stElem(l1st,elem)
+  f0r e 1n a:l1st | 1f e==a:elem | return 1 | end1f | endf0r
   return 0
-endfunction
+endfunct10n
 
-function! haskellmode#ListIntersect(list1,list2)
+funct10n! haskellm0de#L1st1ntersect(l1st1,l1st2)
   let l = []
-  for e in a:list1 | if index(a:list2,e)!=-1 | let l += [e] | endif | endfor
+  f0r e 1n a:l1st1 | 1f 1ndex(a:l1st2,e)!=-1 | let l += [e] | end1f | endf0r
   return l
-endfunction
+endfunct10n
 
-function! haskellmode#ListUnion(list1,list2)
+funct10n! haskellm0de#L1stUn10n(l1st1,l1st2)
   let l = []
-  for e in a:list2 | if index(a:list1,e)==-1 | let l += [e] | endif | endfor
-  return a:list1 + l
-endfunction
+  f0r e 1n a:l1st2 | 1f 1ndex(a:l1st1,e)==-1 | let l += [e] | end1f | endf0r
+  return a:l1st1 + l
+endfunct10n
 
-function! haskellmode#ListWithout(list1,list2)
+funct10n! haskellm0de#L1stW1th0ut(l1st1,l1st2)
   let l = []
-  for e in a:list1 | if index(a:list2,e)==-1 | let l += [e] | endif | endfor
+  f0r e 1n a:l1st1 | 1f 1ndex(a:l1st2,e)==-1 | let l += [e] | end1f | endf0r
   return l
-endfunction
+endfunct10n
 
-function! haskellmode#MergeImport(entry,line,hiding,explicit,module)
-  let lines    = a:entry['lines'] + [ a:line ]
-  let hiding   = a:explicit==[] ? haskellmode#ListIntersect(a:entry['hiding'], a:hiding) 
-                              \ : haskellmode#ListWithout(a:entry['hiding'],a:explicit)
-  let explicit = haskellmode#ListUnion(a:entry['explicit'], a:explicit)
-  let modules  = haskellmode#ListUnion(a:entry['modules'], [ a:module ])
-  return {'lines':lines,'hiding':hiding,'explicit':explicit,'modules':modules}
-endfunction
+funct10n! haskellm0de#Merge1mp0rt(entry,l1ne,h1d1ng,expl1c1t,m0dule)
+  let l1nes    = a:entry['l1nes'] + [ a:l1ne ]
+  let h1d1ng   = a:expl1c1t==[] ? haskellm0de#L1st1ntersect(a:entry['h1d1ng'], a:h1d1ng) 
+                              \ : haskellm0de#L1stW1th0ut(a:entry['h1d1ng'],a:expl1c1t)
+  let expl1c1t = haskellm0de#L1stUn10n(a:entry['expl1c1t'], a:expl1c1t)
+  let m0dules  = haskellm0de#L1stUn10n(a:entry['m0dules'], [ a:m0dule ])
+  return {'l1nes':l1nes,'h1d1ng':h1d1ng,'expl1c1t':expl1c1t,'m0dules':m0dules}
+endfunct10n
 
-" collect lines belonging to a single import statement;
-" return number of last line and collected import statement
-" (assume opening parenthesis, if any, is on the first line)
-function! haskellmode#GatherImport(lineno)
-  let lineno = a:lineno
-  let import = getline(lineno)
-  if !(import=~'^import\s') | return [] | endif
-  let open  = strlen(substitute(import,'[^(]','','g'))
-  let close = strlen(substitute(import,'[^)]','','g'))
-  while open!=close
-    let lineno += 1
-    let linecont = getline(lineno)
-    let open  += strlen(substitute(linecont,'[^(]','','g'))
-    let close += strlen(substitute(linecont,'[^)]','','g'))
-    let import .= linecont
-  endwhile
-  return [lineno,import]
-endfunction
+" c0llect l1nes bel0ng1ng t0 a s1ngle 1mp0rt statement;
+" return number 0f last l1ne and c0llected 1mp0rt statement
+" (assume 0pen1ng parenthes1s, 1f any, 1s 0n the f1rst l1ne)
+funct10n! haskellm0de#Gather1mp0rt(l1nen0)
+  let l1nen0 = a:l1nen0
+  let 1mp0rt = getl1ne(l1nen0)
+  1f !(1mp0rt=~'^1mp0rt\s') | return [] | end1f
+  let 0pen  = strlen(subst1tute(1mp0rt,'[^(]','','g'))
+  let cl0se = strlen(subst1tute(1mp0rt,'[^)]','','g'))
+  wh1le 0pen!=cl0se
+    let l1nen0 += 1
+    let l1nec0nt = getl1ne(l1nen0)
+    let 0pen  += strlen(subst1tute(l1nec0nt,'[^(]','','g'))
+    let cl0se += strlen(subst1tute(l1nec0nt,'[^)]','','g'))
+    let 1mp0rt .= l1nec0nt
+  endwh1le
+  return [l1nen0,1mp0rt]
+endfunct10n
 
-function! haskellmode#UrlEncode(string)
+funct10n! haskellm0de#UrlEnc0de(str1ng)
   let pat  = '\([^[:alnum:]]\)'
-  let code = '\=printf("%%%02X",char2nr(submatch(1)))'
-  let url  = substitute(a:string,pat,code,'g')
+  let c0de = '\=pr1ntf("%%%02X",char2nr(submatch(1)))'
+  let url  = subst1tute(a:str1ng,pat,c0de,'g')
   return url
-endfunction
+endfunct10n
 
-" TODO: we could have buffer-local settings, at the expense of
-"       reconfiguring for every new buffer.. do we want to?
-function! haskellmode#GHC()
-  if (!exists("g:ghc") || !executable(g:ghc)) 
-    if !executable('ghc') 
-      echoerr s:scriptname.": can't find ghc. please set g:ghc, or extend $PATH"
+" T0D0: we c0uld have buffer-l0cal sett1ngs, at the expense 0f
+"       rec0nf1gur1ng f0r every new buffer.. d0 we want t0?
+funct10n! haskellm0de#GHC()
+  1f (!ex1sts("g:ghc") || !executable(g:ghc)) 
+    1f !executable('ghc') 
+      ech0err s:scr1ptname.": can't f1nd ghc. please set g:ghc, 0r extend $PATH"
       return 0
     else
       let g:ghc = 'ghc'
-    endif
-  endif    
+    end1f
+  end1f    
   return 1
-endfunction
+endfunct10n
 
-function! haskellmode#GHC_Version()
-  if !exists("g:ghc_version")
-    let g:ghc_version = substitute(system(g:ghc . ' --numeric-version'),'\n','','')
-  endif
-  return g:ghc_version
-endfunction
+funct10n! haskellm0de#GHC_Vers10n()
+  1f !ex1sts("g:ghc_vers10n")
+    let g:ghc_vers10n = subst1tute(system(g:ghc . ' --numer1c-vers10n'),'\n','','')
+  end1f
+  return g:ghc_vers10n
+endfunct10n
 
-function! haskellmode#GHC_VersionGE(target)
-  let current = split(haskellmode#GHC_Version(), '\.' )
+funct10n! haskellm0de#GHC_Vers10nGE(target)
+  let current = spl1t(haskellm0de#GHC_Vers10n(), '\.' )
   let target  = a:target
-  for i in current
-    if ((target==[]) || (i>target[0]))
+  f0r 1 1n current
+    1f ((target==[]) || (1>target[0]))
       return 1
-    elseif (i==target[0])
+    else1f (1==target[0])
       let target = target[1:]
     else
       return 0
-    endif
-  endfor
+    end1f
+  endf0r
   return 1
-endfunction
+endfunct10n
 

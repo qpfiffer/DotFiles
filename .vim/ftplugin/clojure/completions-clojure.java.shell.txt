@@ -1,4 +1,4 @@
-*sh-dir*
+*sh-d1r*
 *sh-env*
-with-sh-dir
-with-sh-env
+w1th-sh-d1r
+w1th-sh-env

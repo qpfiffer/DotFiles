@@ -1,465 +1,465 @@
-*haskellmode.txt*	Haskell Mode Plugins	02/05/2009
+*haskellm0de.txt*	Haskell M0de Plug1ns	02/05/2009
 
-Authors:
-    Claus Reinke <claus.reinke@talk21.com> ~
+Auth0rs:
+    Claus Re1nke <claus.re1nke@talk21.c0m> ~
 
-Homepage:
-    http://projects.haskell.org/haskellmode-vim
+H0mepage:
+    http://pr0jects.haskell.0rg/haskellm0de-v1m
 
-CONTENTS                                                         *haskellmode*
+C0NTENTS                                                         *haskellm0de*
 
-    1. Overview                                     |haskellmode-overview|
-        1.1 Runtime Requirements                    |haskellmode-requirements|
-        1.2 Quick Reference                         |haskellmode-quickref|
-    2. Settings                                     |haskellmode-settings|
-      2.1 GHC and web browser                       |haskellmode-settings-main|
-      2.2 Fine tuning - more configuration options  |haskellmode-settings-fine|
-    3. GHC Compiler Integration                     |haskellmode-compiler|
-    4. Haddock Integration                          |haskellmode-haddock|
-        4.1 Indexing                                |haskellmode-indexing|
-        4.2 Lookup                                  |haskellmode-lookup|
-        4.3 Editing                                 |haskellmode-editing|
-    5. Hpaste Integration                           |haskellmode-hpaste|
-    6. Additional Resources                         |haskellmode-resources|
+    1. 0verv1ew                                     |haskellm0de-0verv1ew|
+        1.1 Runt1me Requ1rements                    |haskellm0de-requ1rements|
+        1.2 Qu1ck Reference                         |haskellm0de-qu1ckref|
+    2. Sett1ngs                                     |haskellm0de-sett1ngs|
+      2.1 GHC and web br0wser                       |haskellm0de-sett1ngs-ma1n|
+      2.2 F1ne tun1ng - m0re c0nf1gurat10n 0pt10ns  |haskellm0de-sett1ngs-f1ne|
+    3. GHC C0mp1ler 1ntegrat10n                     |haskellm0de-c0mp1ler|
+    4. Hadd0ck 1ntegrat10n                          |haskellm0de-hadd0ck|
+        4.1 1ndex1ng                                |haskellm0de-1ndex1ng|
+        4.2 L00kup                                  |haskellm0de-l00kup|
+        4.3 Ed1t1ng                                 |haskellm0de-ed1t1ng|
+    5. Hpaste 1ntegrat10n                           |haskellm0de-hpaste|
+    6. Add1t10nal Res0urces                         |haskellm0de-res0urces|
 
 ==============================================================================
-                                                        *haskellmode-overview*
-1. Overview ~
+                                                        *haskellm0de-0verv1ew*
+1. 0verv1ew ~
 
-    The Haskell mode plugins provide advanced support for Haskell development
-    using GHC/GHCi on Windows and Unix-like systems. The functionality is
-    based on Haddock-generated library indices, on GHCi's interactive
-    commands, or on simply activating (some of) Vim's built-in program editing
-    support in Haskell-relevant fashion. These plugins live side-by-side with
-    the pre-defined |syntax-highlighting| support for |haskell| sources, and
-    any other Haskell-related plugins you might want to install (see
-    |haskellmode-resources|).
+    The Haskell m0de plug1ns pr0v1de advanced supp0rt f0r Haskell devel0pment
+    us1ng GHC/GHC1 0n W1nd0ws and Un1x-l1ke systems. The funct10nal1ty 1s
+    based 0n Hadd0ck-generated l1brary 1nd1ces, 0n GHC1's 1nteract1ve
+    c0mmands, 0r 0n s1mply act1vat1ng (s0me 0f) V1m's bu1lt-1n pr0gram ed1t1ng
+    supp0rt 1n Haskell-relevant fash10n. These plug1ns l1ve s1de-by-s1de w1th
+    the pre-def1ned |syntax-h1ghl1ght1ng| supp0rt f0r |haskell| s0urces, and
+    any 0ther Haskell-related plug1ns y0u m1ght want t0 1nstall (see
+    |haskellm0de-res0urces|).
 
-    The Haskell mode plugins consist of three filetype plugins (haskell.vim,
-    haskell_doc.vim, haskell_hpaste.vim), which by Vim's |filetype| detection
-    mechanism will be auto-loaded whenever files with the extension '.hs' are
-    opened, and one compiler plugin (ghc.vim) which you will need to load from
-    your vimrc file (see |haskellmode-settings|).
+    The Haskell m0de plug1ns c0ns1st 0f three f1letype plug1ns (haskell.v1m,
+    haskell_d0c.v1m, haskell_hpaste.v1m), wh1ch by V1m's |f1letype| detect10n
+    mechan1sm w1ll be aut0-l0aded whenever f1les w1th the extens10n '.hs' are
+    0pened, and 0ne c0mp1ler plug1n (ghc.v1m) wh1ch y0u w1ll need t0 l0ad fr0m
+    y0ur v1mrc f1le (see |haskellm0de-sett1ngs|).
 
 
-                                                    *haskellmode-requirements*
-1.1 Runtime Requirements ~
+                                                    *haskellm0de-requ1rements*
+1.1 Runt1me Requ1rements ~
 
-    The plugins require a recent installation of GHC/GHCi. The functionality
-    derived from Haddock-generated library indices also requires a local
-    installation of the Haddock documentation for GHC's libraries (if there is
-    no documentation package for your system, you can download a tar-ball from
-    haskell.org), as well as an HTML browser (see |haddock_browser|). If you 
-    want to use the experimental hpaste interface, you will also need Wget.
+    The plug1ns requ1re a recent 1nstallat10n 0f GHC/GHC1. The funct10nal1ty
+    der1ved fr0m Hadd0ck-generated l1brary 1nd1ces als0 requ1res a l0cal
+    1nstallat10n 0f the Hadd0ck d0cumentat10n f0r GHC's l1brar1es (1f there 1s
+    n0 d0cumentat10n package f0r y0ur system, y0u can d0wnl0ad a tar-ball fr0m
+    haskell.0rg), as well as an HTML br0wser (see |hadd0ck_br0wser|). 1f y0u 
+    want t0 use the exper1mental hpaste 1nterface, y0u w1ll als0 need Wget.
 
-    * GHC/GHCi ~
-      Provides core functionality. http://www.haskell.org/ghc
+    * GHC/GHC1 ~
+      Pr0v1des c0re funct10nal1ty. http://www.haskell.0rg/ghc
 
-    * HTML library documentation files and indices generated by Haddock ~
-      These usually come with your GHC installation, possibly as a separate
-      package. If you cannot get them this way, you can download a tar-ball
-      matching your GHC version from  http://www.haskell.org/ghc/docs/
+    * HTML l1brary d0cumentat10n f1les and 1nd1ces generated by Hadd0ck ~
+      These usually c0me w1th y0ur GHC 1nstallat10n, p0ss1bly as a separate
+      package. 1f y0u cann0t get them th1s way, y0u can d0wnl0ad a tar-ball
+      match1ng y0ur GHC vers10n fr0m  http://www.haskell.0rg/ghc/d0cs/
 
-    * HTML browser with basic CSS support ~
-      For browsing Haddock docs.
+    * HTML br0wser w1th bas1c CSS supp0rt ~
+      F0r br0ws1ng Hadd0ck d0cs.
 
     * Wget ~
-      For interfacing with http://hpaste.org.
+      F0r 1nterfac1ng w1th http://hpaste.0rg.
 
-      Wget is widely available for modern Unix-like operating systems. Several
-      ports also exist for Windows, including:
+      Wget 1s w1dely ava1lable f0r m0dern Un1x-l1ke 0perat1ng systems. Several
+      p0rts als0 ex1st f0r W1nd0ws, 1nclud1ng:
 
-      - Official GNU Wget (natively compiled for Win32)
-        http://www.gnu.org/software/wget/#downloading
+      - 0ff1c1al GNU Wget (nat1vely c0mp1led f0r W1n32)
+        http://www.gnu.0rg/s0ftware/wget/#d0wnl0ad1ng
 
-      - UnxUtils Wget (natively compiled for Win32, bundled with other ported
-        Unix utilities)
-        http://sourceforge.net/projects/unxutils/
+      - UnxUt1ls Wget (nat1vely c0mp1led f0r W1n32, bundled w1th 0ther p0rted
+        Un1x ut1l1t1es)
+        http://s0urcef0rge.net/pr0jects/unxut1ls/
 
-      - Cygwin Wget (emulated POSIX in Win32, must be run under Cygwin)
-        http://cygwin.com/packages/wget/
+      - Cygw1n Wget (emulated P0S1X 1n W1n32, must be run under Cygw1n)
+        http://cygw1n.c0m/packages/wget/
 
-                                                    *haskellmode-quickref*
-1.2 Quick Reference ~
+                                                    *haskellm0de-qu1ckref*
+1.2 Qu1ck Reference ~
 
-|:make|               load into GHCi, show errors (|quickfix| |:copen|)
-|_ct|                 create |tags| file 
-|_si|                 show info for id under cursor
-|_t|                  show type for id under cursor
-|_T|                  insert type declaration for id under cursor
-|balloon|             show type for id under mouse pointer
-|_?|                  browse Haddock entry for id under cursor
-|_?1|                 search Hoogle for id under cursor
-|_?2|                 search Hayoo! for id under cursor
-|:IDoc| {identifier}  browse Haddock entry for unqualified {identifier}
-|:MDoc| {module}      browse Haddock entry for {module}
-|:FlagReference| {s}  browse Users Guide Flag Reference for section {s}
-|_.|                  qualify unqualified id under cursor
-|_i|                  add 'import <module>(<identifier>)' for id under cursor
-|_im|                 add 'import <module>' for id under cursor
-|_iq|                 add 'import qualified <module>(<identifier>)' for id under cursor
-|_iqm|                add 'import qualified <module>' for id under cursor
-|_ie|                 make imports explit for import statement under cursor
-|_opt|                add OPTIONS_GHC pragma
+|:make|               l0ad 1nt0 GHC1, sh0w err0rs (|qu1ckf1x| |:c0pen|)
+|_ct|                 create |tags| f1le 
+|_s1|                 sh0w 1nf0 f0r 1d under curs0r
+|_t|                  sh0w type f0r 1d under curs0r
+|_T|                  1nsert type declarat10n f0r 1d under curs0r
+|ball00n|             sh0w type f0r 1d under m0use p01nter
+|_?|                  br0wse Hadd0ck entry f0r 1d under curs0r
+|_?1|                 search H00gle f0r 1d under curs0r
+|_?2|                 search Hay00! f0r 1d under curs0r
+|:1D0c| {1dent1f1er}  br0wse Hadd0ck entry f0r unqual1f1ed {1dent1f1er}
+|:MD0c| {m0dule}      br0wse Hadd0ck entry f0r {m0dule}
+|:FlagReference| {s}  br0wse Users Gu1de Flag Reference f0r sect10n {s}
+|_.|                  qual1fy unqual1f1ed 1d under curs0r
+|_1|                  add '1mp0rt <m0dule>(<1dent1f1er>)' f0r 1d under curs0r
+|_1m|                 add '1mp0rt <m0dule>' f0r 1d under curs0r
+|_1q|                 add '1mp0rt qual1f1ed <m0dule>(<1dent1f1er>)' f0r 1d under curs0r
+|_1qm|                add '1mp0rt qual1f1ed <m0dule>' f0r 1d under curs0r
+|_1e|                 make 1mp0rts expl1t f0r 1mp0rt statement under curs0r
+|_0pt|                add 0PT10NS_GHC pragma
 |_lang|               add LANGUAGE pragma
-|i_CTRL-X_CTRL-O|     insert-mode completion based on imported ids (|haskellmode-XO|)
-|i_CTRL-X_CTRL-U|     insert-mode completion based on documented ids (|haskellmode-XU|)
-|i_CTRL-N|            insert-mode completion based on imported sources
-|:GHCi|{command/expr} run GHCi command/expr in current module
+|1_CTRL-X_CTRL-0|     1nsert-m0de c0mplet10n based 0n 1mp0rted 1ds (|haskellm0de-X0|)
+|1_CTRL-X_CTRL-U|     1nsert-m0de c0mplet10n based 0n d0cumented 1ds (|haskellm0de-XU|)
+|1_CTRL-N|            1nsert-m0de c0mplet10n based 0n 1mp0rted s0urces
+|:GHC1|{c0mmand/expr} run GHC1 c0mmand/expr 1n current m0dule
 
-|:GHCStaticOptions|   edit static GHC options for this buffer
-|:DocSettings|        show current Haddock-files-related plugin settings
-|:DocIndex|           populate Haddock index 
-|:ExportDocIndex|     cache current Haddock index to a file
-|:HpasteIndex|        Read index of most recent entries from hpaste.org
-|:HpastePostNew|      Submit current buffer as a new hpaste 
+|:GHCStat1c0pt10ns|   ed1t stat1c GHC 0pt10ns f0r th1s buffer
+|:D0cSett1ngs|        sh0w current Hadd0ck-f1les-related plug1n sett1ngs
+|:D0c1ndex|           p0pulate Hadd0ck 1ndex 
+|:Exp0rtD0c1ndex|     cache current Hadd0ck 1ndex t0 a f1le
+|:Hpaste1ndex|        Read 1ndex 0f m0st recent entr1es fr0m hpaste.0rg
+|:HpasteP0stNew|      Subm1t current buffer as a new hpaste 
 
 
 ==============================================================================
-                                                        *haskellmode-settings*
-2. Settings ~
+                                                        *haskellm0de-sett1ngs*
+2. Sett1ngs ~
 
-    The plugins try to find their dependencies in standard locations, so if
-    you're lucky, you will only need to set |compiler| to ghc, and configure
-    the location of your favourite web browser. You will also want to make
-    sure that |filetype| detection and |syntax| highlighting are on. Given the
-    variety of things to guess, however, some dependencies might not be found
-    correctly, or the defaults might not be to your liking, in which case you
-    can do some more fine tuning. All of this configuration should happen in
-    your |vimrc|.
+    The plug1ns try t0 f1nd the1r dependenc1es 1n standard l0cat10ns, s0 1f
+    y0u're lucky, y0u w1ll 0nly need t0 set |c0mp1ler| t0 ghc, and c0nf1gure
+    the l0cat10n 0f y0ur fav0ur1te web br0wser. Y0u w1ll als0 want t0 make
+    sure that |f1letype| detect10n and |syntax| h1ghl1ght1ng are 0n. G1ven the
+    var1ety 0f th1ngs t0 guess, h0wever, s0me dependenc1es m1ght n0t be f0und
+    c0rrectly, 0r the defaults m1ght n0t be t0 y0ur l1k1ng, 1n wh1ch case y0u
+    can d0 s0me m0re f1ne tun1ng. All 0f th1s c0nf1gurat10n sh0uld happen 1n
+    y0ur |v1mrc|.
 >
-        " enable syntax highlighting
-        syntax on
+        " enable syntax h1ghl1ght1ng
+        syntax 0n
  
-        " enable filetype detection and plugin loading
-        filetype plugin on
+        " enable f1letype detect10n and plug1n l0ad1ng
+        f1letype plug1n 0n
 <
 
-                                                   *haskellmode-settings-main*
-2.1 GHC and web browser ~
+                                                   *haskellm0de-sett1ngs-ma1n*
+2.1 GHC and web br0wser ~
 
-                                                 *compiler-ghc* *ghc-compiler*
-    To use the features provided by the GHC |compiler| plugin, use the
-    following |autocommand| in your vimrc:
+                                                 *c0mp1ler-ghc* *ghc-c0mp1ler*
+    T0 use the features pr0v1ded by the GHC |c0mp1ler| plug1n, use the
+    f0ll0w1ng |aut0c0mmand| 1n y0ur v1mrc:
 >
-        au BufEnter *.hs compiler ghc
+        au BufEnter *.hs c0mp1ler ghc
 <
                                                                        *g:ghc*
-    If the compiler plugin can't locate your GHC binary, or if you have
-    several versions of GHC installed and have a preference as to which binary
-    is used, set |g:ghc|:
+    1f the c0mp1ler plug1n can't l0cate y0ur GHC b1nary, 0r 1f y0u have
+    several vers10ns 0f GHC 1nstalled and have a preference as t0 wh1ch b1nary
+    1s used, set |g:ghc|:
 >
-        :let g:ghc="/usr/bin/ghc-6.6.1"
+        :let g:ghc="/usr/b1n/ghc-6.6.1"
 <
-                                                           *g:haddock_browser*
-    The preferred HTML browser for viewing Haddock documentation can be set as
-    follows:
+                                                           *g:hadd0ck_br0wser*
+    The preferred HTML br0wser f0r v1ew1ng Hadd0ck d0cumentat10n can be set as
+    f0ll0ws:
 >
-        :let g:haddock_browser="/usr/bin/firefox"
+        :let g:hadd0ck_br0wser="/usr/b1n/f1ref0x"
 <
 
-                                                   *haskellmode-settings-fine*
-2.2 Fine tuning - more configuration options ~
+                                                   *haskellm0de-sett1ngs-f1ne*
+2.2 F1ne tun1ng - m0re c0nf1gurat10n 0pt10ns ~
 
-    Most of the fine tuning is likely to happen for the haskellmode_doc.vim
-    plugin, so you can check the current settings for this plugin via the
-    command |:DocSettings|. If all the settings reported there are to your
-    liking, you probably won't need to do any fine tuning.
+    M0st 0f the f1ne tun1ng 1s l1kely t0 happen f0r the haskellm0de_d0c.v1m
+    plug1n, s0 y0u can check the current sett1ngs f0r th1s plug1n v1a the
+    c0mmand |:D0cSett1ngs|. 1f all the sett1ngs rep0rted there are t0 y0ur
+    l1k1ng, y0u pr0bably w0n't need t0 d0 any f1ne tun1ng.
 
-                                                *g:haddock_browser_callformat*
-    By default, the web browser|g:haddock_browser| will be started
-    asynchronously (in the background) on Windows or when vim is running in a
-    GUI, and synchronously (in the foreground) otherwise. These settings seem
-    to work fine if you are using a console mode browser (eg, when editing in
-    a remote session), or if you are starting a GUI browser that will launch
-    itself in the background. But if these settings do not work for you, you
-    can change the default browser launching behavior.
+                                                *g:hadd0ck_br0wser_callf0rmat*
+    By default, the web br0wser|g:hadd0ck_br0wser| w1ll be started
+    asynchr0n0usly (1n the backgr0und) 0n W1nd0ws 0r when v1m 1s runn1ng 1n a
+    GU1, and synchr0n0usly (1n the f0regr0und) 0therw1se. These sett1ngs seem
+    t0 w0rk f1ne 1f y0u are us1ng a c0ns0le m0de br0wser (eg, when ed1t1ng 1n
+    a rem0te sess10n), 0r 1f y0u are start1ng a GU1 br0wser that w1ll launch
+    1tself 1n the backgr0und. But 1f these sett1ngs d0 n0t w0rk f0r y0u, y0u
+    can change the default br0wser launch1ng behav10r.
 
-    This is controlled by |g:haddock_browser_callformat|. It specifies a
-    format string which uses two '%s' parameters, the first representing the
-    path of the browser to launch, and the second is the documentation URL
-    (minus the protocol specifier, i.e. file://) passed to it by the Haddock
-    plugin.  For instance, to launch a GUI browser on Unix-like systems and
-    force it to the background (see also |shellredir|):
+    Th1s 1s c0ntr0lled by |g:hadd0ck_br0wser_callf0rmat|. 1t spec1f1es a
+    f0rmat str1ng wh1ch uses tw0 '%s' parameters, the f1rst represent1ng the
+    path 0f the br0wser t0 launch, and the sec0nd 1s the d0cumentat10n URL
+    (m1nus the pr0t0c0l spec1f1er, 1.e. f1le://) passed t0 1t by the Hadd0ck
+    plug1n.  F0r 1nstance, t0 launch a GU1 br0wser 0n Un1x-l1ke systems and
+    f0rce 1t t0 the backgr0und (see als0 |shellred1r|):
 >
-        :let g:haddock_browser_callformat = '%s file://%s '.printf(&shellredir,'/dev/null').' &'
+        :let g:hadd0ck_br0wser_callf0rmat = '%s f1le://%s '.pr1ntf(&shellred1r,'/dev/null').' &'
 <
-                                                            *g:haddock_docdir*
-    Your system's installed Haddock documentation for GHC and its libraries
-    should be automatically detected. If the plugin can't locate them, you
-    must point |g:haddock_docdir| to the path containing the master index.html
-    file for the subdirectories 'libraries', 'Cabal', 'users_guide', etc.:
+                                                            *g:hadd0ck_d0cd1r*
+    Y0ur system's 1nstalled Hadd0ck d0cumentat10n f0r GHC and 1ts l1brar1es
+    sh0uld be aut0mat1cally detected. 1f the plug1n can't l0cate them, y0u
+    must p01nt |g:hadd0ck_d0cd1r| t0 the path c0nta1n1ng the master 1ndex.html
+    f1le f0r the subd1rect0r1es 'l1brar1es', 'Cabal', 'users_gu1de', etc.:
 >
-        :let g:haddock_docdir="/usr/local/share/doc/ghc/html/"
+        :let g:hadd0ck_d0cd1r="/usr/l0cal/share/d0c/ghc/html/"
 <
-                                                      *g:haddock_indexfiledir*
-    The information gathered from Haddock's index files will be stored in a
-    file called 'haddock_index.vim' in a directory derived from the Haddock
-    location, or in $HOME. To configure another directory for the index file,
+                                                      *g:hadd0ck_1ndexf1led1r*
+    The 1nf0rmat10n gathered fr0m Hadd0ck's 1ndex f1les w1ll be st0red 1n a
+    f1le called 'hadd0ck_1ndex.v1m' 1n a d1rect0ry der1ved fr0m the Hadd0ck
+    l0cat10n, 0r 1n $H0ME. T0 c0nf1gure an0ther d1rect0ry f0r the 1ndex f1le,
     use: 
 >
-        :let g:haddock_indexfiledir="~/.vim/"
+        :let g:hadd0ck_1ndexf1led1r="~/.v1m/"
 <
                                                                       *g:wget*
-    If you also want to try the experimental hpaste functionality, you might
-    you need to set |g:wget| before the |hpaste| plugin is loaded (unless wget
-    is in your PATH):
+    1f y0u als0 want t0 try the exper1mental hpaste funct10nal1ty, y0u m1ght
+    y0u need t0 set |g:wget| bef0re the |hpaste| plug1n 1s l0aded (unless wget
+    1s 1n y0ur PATH):
 >
-        :let g:wget="C:\Program Files\wget\wget.exe"
+        :let g:wget="C:\Pr0gram F1les\wget\wget.exe"
 <
 
-    Finally, the mappings actually use|<LocalLeader>|behind the scenes, so if
-    you have to, you can redefine|maplocalleader|to something other than '_'.
-    Just remember that the docs still refer to mappings starting with '_', to
-    avoid confusing the majority of users!-)
+    F1nally, the mapp1ngs actually use|<L0calLeader>|beh1nd the scenes, s0 1f
+    y0u have t0, y0u can redef1ne|mapl0calleader|t0 s0meth1ng 0ther than '_'.
+    Just remember that the d0cs st1ll refer t0 mapp1ngs start1ng w1th '_', t0
+    av01d c0nfus1ng the maj0r1ty 0f users!-)
 
 ==============================================================================
-                                                  *haskellmode-compiler* *ghc*
-3. GHC Compiler Integration ~
+                                                  *haskellm0de-c0mp1ler* *ghc*
+3. GHC C0mp1ler 1ntegrat10n ~
 
-    The GHC |compiler| plugin sets the basic |errorformat| and |makeprg| to
-    enable |quickfix| mode using GHCi, and provides functionality for show
-    info (|_si|), show type (|_t| or mouse |balloon|), add type declaration
-    (|_T|), create tag file (|_ct|), and insert-mode completion
-    (|i_CTRL-X_CTRL-O|) based on GHCi browsing of the current and imported
-    modules. 
+    The GHC |c0mp1ler| plug1n sets the bas1c |err0rf0rmat| and |makeprg| t0
+    enable |qu1ckf1x| m0de us1ng GHC1, and pr0v1des funct10nal1ty f0r sh0w
+    1nf0 (|_s1|), sh0w type (|_t| 0r m0use |ball00n|), add type declarat10n
+    (|_T|), create tag f1le (|_ct|), and 1nsert-m0de c0mplet10n
+    (|1_CTRL-X_CTRL-0|) based 0n GHC1 br0ws1ng 0f the current and 1mp0rted
+    m0dules. 
 
-    To avoid frequent calls to GHCi, type information is cached in Vim. The
-    cache will be populated the first time a command depends on it, and will
-    be refreshed every time a |:make| goes through without generating errors
-    (if the |:make| does not succeed, the old types will remain available in
-    Vim).  You can also unconditionally force reloading of type info using
-    |:GHCReload| (if GHCi cannot load your file, the type info will be empty).
+    T0 av01d frequent calls t0 GHC1, type 1nf0rmat10n 1s cached 1n V1m. The
+    cache w1ll be p0pulated the f1rst t1me a c0mmand depends 0n 1t, and w1ll
+    be refreshed every t1me a |:make| g0es thr0ugh w1th0ut generat1ng err0rs
+    (1f the |:make| d0es n0t succeed, the 0ld types w1ll rema1n ava1lable 1n
+    V1m).  Y0u can als0 unc0nd1t10nally f0rce rel0ad1ng 0f type 1nf0 us1ng
+    |:GHCRel0ad| (1f GHC1 cann0t l0ad y0ur f1le, the type 1nf0 w1ll be empty).
 
 
-    In addition to the standard|quickfix| commands, the GHC compiler plugin
-    provides:
+    1n add1t10n t0 the standard|qu1ckf1x| c0mmands, the GHC c0mp1ler plug1n
+    pr0v1des:
 
-                                                                  *:GHCReload*
-:GHCReload              Reload modules and unconditionally refresh cache of
-                        type info. Usually, |:make| is prefered, as that will
-                        refresh the cache only if GHCi reports no errors, and
-                        show the errors otherwise.
+                                                                  *:GHCRel0ad*
+:GHCRel0ad              Rel0ad m0dules and unc0nd1t10nally refresh cache 0f
+                        type 1nf0. Usually, |:make| 1s prefered, as that w1ll
+                        refresh the cache 0nly 1f GHC1 rep0rts n0 err0rs, and
+                        sh0w the err0rs 0therw1se.
 
-                                                           *:GHCStaticOptions*
-:GHCStaticOptions       Edit the static GHC options (more generally, options
-                        that cannot be set by in-file OPTIONS_GHC pragmas)
-                        for the current buffer. Useful for adding hidden 
-                        packages (-package ghc), or additional import paths
-                        (-isrc; you will then also want to augment |path|).
-                        If you have static options you want to set as
-                        defaults, you could use b:ghc_staticoptions, eg:
+                                                           *:GHCStat1c0pt10ns*
+:GHCStat1c0pt10ns       Ed1t the stat1c GHC 0pt10ns (m0re generally, 0pt10ns
+                        that cann0t be set by 1n-f1le 0PT10NS_GHC pragmas)
+                        f0r the current buffer. Useful f0r add1ng h1dden 
+                        packages (-package ghc), 0r add1t10nal 1mp0rt paths
+                        (-1src; y0u w1ll then als0 want t0 augment |path|).
+                        1f y0u have stat1c 0pt10ns y0u want t0 set as
+                        defaults, y0u c0uld use b:ghc_stat1c0pt10ns, eg:
 >
-                        au FileType haskell let b:ghc_staticoptions = '-isrc'
-                        au FileType haskell setlocal path += src
+                        au F1leType haskell let b:ghc_stat1c0pt10ns = '-1src'
+                        au F1leType haskell setl0cal path += src
 <
 
-                                                                       *:GHCi*
-:GHCi {command/expr}    Run GHCi commands/expressions in the current module.                  
+                                                                       *:GHC1*
+:GHC1 {c0mmand/expr}    Run GHC1 c0mmands/express10ns 1n the current m0dule.                  
 
                                                                          *_ct*
-_ct                     Create |tags| file for the current Haskell source
-                        file. This uses GHCi's :ctags command, so it will work
-                        recursively, but will only list tags for exported
-                        entities.
+_ct                     Create |tags| f1le f0r the current Haskell s0urce
+                        f1le. Th1s uses GHC1's :ctags c0mmand, s0 1t w1ll w0rk
+                        recurs1vely, but w1ll 0nly l1st tags f0r exp0rted
+                        ent1t1es.
 
-                                                                        *_opt*
-_opt                    Shows a menu of frequently used GHC compiler options 
-                        (selecting an entry adds the option as a pragma to the
-                        start of the file). Uses popup menu (GUI) or :emenu
-                        and command-line completion (CLI).
+                                                                        *_0pt*
+_0pt                    Sh0ws a menu 0f frequently used GHC c0mp1ler 0pt10ns 
+                        (select1ng an entry adds the 0pt10n as a pragma t0 the
+                        start 0f the f1le). Uses p0pup menu (GU1) 0r :emenu
+                        and c0mmand-l1ne c0mplet10n (CL1).
 
                                                                        *_lang*
-_lang                   Shows a menu of the LANGUAGE options supported by GHC
-                        (selecting an entry adds the language as a pragma to 
-                        the start of the file). Uses popup menu (GUI) or
-                        :emenu and command-line completion (CLI).
+_lang                   Sh0ws a menu 0f the LANGUAGE 0pt10ns supp0rted by GHC
+                        (select1ng an entry adds the language as a pragma t0 
+                        the start 0f the f1le). Uses p0pup menu (GU1) 0r
+                        :emenu and c0mmand-l1ne c0mplet10n (CL1).
 
-                                                                         *_si*
-_si                     Show extended information for the name under the
-                        cursor. Uses GHCi's :info command. Output appears in
-                        |preview-window| (when done, close with |:pclose|).
+                                                                         *_s1*
+_s1                     Sh0w extended 1nf0rmat10n f0r the name under the
+                        curs0r. Uses GHC1's :1nf0 c0mmand. 0utput appears 1n
+                        |prev1ew-w1nd0w| (when d0ne, cl0se w1th |:pcl0se|).
 
                                                                           *_t*
-_t                      Show type for the name under the cursor. Uses cached
-                        info from GHCi's :browse command.
+_t                      Sh0w type f0r the name under the curs0r. Uses cached
+                        1nf0 fr0m GHC1's :br0wse c0mmand.
 
                                                                           *_T*
-_T                      Insert type declaration for the name under the cursor.
-                        Uses cached info from GHCi's :browse command.
+_T                      1nsert type declarat10n f0r the name under the curs0r.
+                        Uses cached 1nf0 fr0m GHC1's :br0wse c0mmand.
 
-                                *haskellmode-XO* *haskellmode-omni-completion*
-CTRL-X CTRL-O           Standard insert-mode omni-completion based on the
-                        cached type info from GHCi browsing current and
-                        imported modules. Only names from the current and from
-                        imported modules are included (the completion menu
-                        also show the type of each identifier).
+                                *haskellm0de-X0* *haskellm0de-0mn1-c0mplet10n*
+CTRL-X CTRL-0           Standard 1nsert-m0de 0mn1-c0mplet10n based 0n the
+                        cached type 1nf0 fr0m GHC1 br0ws1ng current and
+                        1mp0rted m0dules. 0nly names fr0m the current and fr0m
+                        1mp0rted m0dules are 1ncluded (the c0mplet10n menu
+                        als0 sh0w the type 0f each 1dent1f1er).
 
 ==============================================================================
-                                               *haskellmode-haddock* *haddock*
-4. Haddock Integration ~
+                                               *haskellm0de-hadd0ck* *hadd0ck*
+4. Hadd0ck 1ntegrat10n ~
 
-    Haskell mode integrates with Haddock-generated HTML documentation,
-    providing features such as navigating to the Haddock entry for the
-    identifier under the cursor (|_?|), completion for the identifier under
-    the cursor (|i_CTRL-X_CTRL-U|), and adding import statements (|_i| |_im|
-    |_iq| |_iqm|) or module qualifier (|_.|) for the identifier under the
-    cursor.
+    Haskell m0de 1ntegrates w1th Hadd0ck-generated HTML d0cumentat10n,
+    pr0v1d1ng features such as nav1gat1ng t0 the Hadd0ck entry f0r the
+    1dent1f1er under the curs0r (|_?|), c0mplet10n f0r the 1dent1f1er under
+    the curs0r (|1_CTRL-X_CTRL-U|), and add1ng 1mp0rt statements (|_1| |_1m|
+    |_1q| |_1qm|) 0r m0dule qual1f1er (|_.|) f0r the 1dent1f1er under the
+    curs0r.
 
-    These commands operate on an internal Haddock index built from the
-    platform's installed Haddock documentation for GHC's libraries. Since
-    populating this index takes several seconds, it should be stored as a 
-    file called 'haddock_index.vim' in the directory specified by
-    |g:haddock_indexfiledir|.
+    These c0mmands 0perate 0n an 1nternal Hadd0ck 1ndex bu1lt fr0m the
+    platf0rm's 1nstalled Hadd0ck d0cumentat10n f0r GHC's l1brar1es. S1nce
+    p0pulat1ng th1s 1ndex takes several sec0nds, 1t sh0uld be st0red as a 
+    f1le called 'hadd0ck_1ndex.v1m' 1n the d1rect0ry spec1f1ed by
+    |g:hadd0ck_1ndexf1led1r|.
 
-    Some commands present a different interface (popup menu or command-line
-    completion) according to whether the current Vim instance is graphical or
-    console-based (actually: whether or not the GUI is running). Such
-    differences are marked below with the annotations (GUI) and (CLI),
-    respectively.
+    S0me c0mmands present a d1fferent 1nterface (p0pup menu 0r c0mmand-l1ne
+    c0mplet10n) acc0rd1ng t0 whether the current V1m 1nstance 1s graph1cal 0r
+    c0ns0le-based (actually: whether 0r n0t the GU1 1s runn1ng). Such
+    d1fferences are marked bel0w w1th the ann0tat10ns (GU1) and (CL1),
+    respect1vely.
 
-    |:DocSettings| shows the settings for this plugin. If you are happy with
-    them, you can call |:ExportDocIndex| to populate and write out the
-    documentation index (should be called once for every new version of GHC).
+    |:D0cSett1ngs| sh0ws the sett1ngs f0r th1s plug1n. 1f y0u are happy w1th
+    them, y0u can call |:Exp0rtD0c1ndex| t0 p0pulate and wr1te 0ut the
+    d0cumentat10n 1ndex (sh0uld be called 0nce f0r every new vers10n 0f GHC).
 
-                                                                *:DocSettings*
-:DocSettings            Show current Haddock-files-related plugin settings.
-
-
-                                                        *haskellmode-indexing*
-4.1 Indexing ~
-
-                                                                   *:DocIndex*
-:DocIndex               Populate the Haddock index from the GHC library
-                        documentation.
-
-                                                             *:ExportDocIndex*
-:ExportDocIndex         Cache the current Haddock index to a file (populate
-                        index first, if empty).
+                                                                *:D0cSett1ngs*
+:D0cSett1ngs            Sh0w current Hadd0ck-f1les-related plug1n sett1ngs.
 
 
-                                                          *haskellmode-lookup*
-4.2 Lookup ~
+                                                        *haskellm0de-1ndex1ng*
+4.1 1ndex1ng ~
+
+                                                                   *:D0c1ndex*
+:D0c1ndex               P0pulate the Hadd0ck 1ndex fr0m the GHC l1brary
+                        d0cumentat10n.
+
+                                                             *:Exp0rtD0c1ndex*
+:Exp0rtD0c1ndex         Cache the current Hadd0ck 1ndex t0 a f1le (p0pulate
+                        1ndex f1rst, 1f empty).
+
+
+                                                          *haskellm0de-l00kup*
+4.2 L00kup ~
 
                                                                           *_?*
-_?                      Open the Haddock entry (in |haddock_browser|) for an
-                        identifier under the cursor, selecting full
-                        qualifications from a popup menu (GUI) or via
-                        command-line completion (CLI), if the identifier is
-                        not qualified.
+_?                      0pen the Hadd0ck entry (1n |hadd0ck_br0wser|) f0r an
+                        1dent1f1er under the curs0r, select1ng full
+                        qual1f1cat10ns fr0m a p0pup menu (GU1) 0r v1a
+                        c0mmand-l1ne c0mplet10n (CL1), 1f the 1dent1f1er 1s
+                        n0t qual1f1ed.
 
                                                                          *_?1*
-_?1                     Search Hoogle (using |haddock_browser|) for an
-                        identifier under the cursor.
+_?1                     Search H00gle (us1ng |hadd0ck_br0wser|) f0r an
+                        1dent1f1er under the curs0r.
 
 
                                                                          *_?2*
-_?2                     Search Hayoo! (using |haddock_browser|) for an
-                        identifier under the cursor.
+_?2                     Search Hay00! (us1ng |hadd0ck_br0wser|) f0r an
+                        1dent1f1er under the curs0r.
 
-                                                                       *:IDoc*
-:IDoc {identifier}      Open the Haddock entry for the unqualified
-                        {identifier} in |haddock_browser|, suggesting possible
-                        full qualifications.
+                                                                       *:1D0c*
+:1D0c {1dent1f1er}      0pen the Hadd0ck entry f0r the unqual1f1ed
+                        {1dent1f1er} 1n |hadd0ck_br0wser|, suggest1ng p0ss1ble
+                        full qual1f1cat10ns.
 
-                                                                       *:MDoc*
-:MDoc {module}          Open the Haddock entry for {module} in
-                        |haddock_browser| (with command-line completion for
-                        the fully qualified module name).
+                                                                       *:MD0c*
+:MD0c {m0dule}          0pen the Hadd0ck entry f0r {m0dule} 1n
+                        |hadd0ck_br0wser| (w1th c0mmand-l1ne c0mplet10n f0r
+                        the fully qual1f1ed m0dule name).
 
                                                               *:FlagReference*
-:FlagReference {s}      Browse Users Guide Flag Reference for section {s}
-                        (with command-line completion for section headers).
+:FlagReference {s}      Br0wse Users Gu1de Flag Reference f0r sect10n {s}
+                        (w1th c0mmand-l1ne c0mplet10n f0r sect10n headers).
 
 
-                                                         *haskellmode-editing*
-4.3 Editing ~
+                                                         *haskellm0de-ed1t1ng*
+4.3 Ed1t1ng ~
 
                                                                           *_.*
-_.                      Fully qualify the unqualified name under the cursor
-                        selecting full qualifications from a popup menu (GUI)
-                        or via command-line completion (CLI).
+_.                      Fully qual1fy the unqual1f1ed name under the curs0r
+                        select1ng full qual1f1cat10ns fr0m a p0pup menu (GU1)
+                        0r v1a c0mmand-l1ne c0mplet10n (CL1).
 
-                                                                    *_iq* *_i*
-_i _iq                  Add 'import [qualified] <module>(<identifier>)'
-                        statement for the identifier under the cursor,
-                        selecting fully qualified modules from a popup menu
-                        (GUI) or via command-line completion (CLI), if the
-                        identifier is not qualified.  This currently adds one
-                        import statement per call instead of merging into
-                        existing import statements.
+                                                                    *_1q* *_1*
+_1 _1q                  Add '1mp0rt [qual1f1ed] <m0dule>(<1dent1f1er>)'
+                        statement f0r the 1dent1f1er under the curs0r,
+                        select1ng fully qual1f1ed m0dules fr0m a p0pup menu
+                        (GU1) 0r v1a c0mmand-l1ne c0mplet10n (CL1), 1f the
+                        1dent1f1er 1s n0t qual1f1ed.  Th1s currently adds 0ne
+                        1mp0rt statement per call 1nstead 0f merg1ng 1nt0
+                        ex1st1ng 1mp0rt statements.
 
-                                                                  *_iqm* *_im*
-_im                     Add 'import [qualified] <module>' statement for the
-                        identifier under the cursor, selecting fully qualified
-                        modules from a popup menu (GUI) or via command-line
-                        completion (CLI), if the identifier is not qualified.
-                        This currently adds one import statement per call
-                        instead of merging into existing import statements.
+                                                                  *_1qm* *_1m*
+_1m                     Add '1mp0rt [qual1f1ed] <m0dule>' statement f0r the
+                        1dent1f1er under the curs0r, select1ng fully qual1f1ed
+                        m0dules fr0m a p0pup menu (GU1) 0r v1a c0mmand-l1ne
+                        c0mplet10n (CL1), 1f the 1dent1f1er 1s n0t qual1f1ed.
+                        Th1s currently adds 0ne 1mp0rt statement per call
+                        1nstead 0f merg1ng 1nt0 ex1st1ng 1mp0rt statements.
 
-                                                                         *_ie*
-_ie                     On an 'import <module>' line, in a correctly loadable
-                        module, temporarily comment out import and use :make
-                        'not in scope' errors to explicitly list imported
-                        identifiers.
+                                                                         *_1e*
+_1e                     0n an '1mp0rt <m0dule>' l1ne, 1n a c0rrectly l0adable
+                        m0dule, temp0rar1ly c0mment 0ut 1mp0rt and use :make
+                        'n0t 1n sc0pe' err0rs t0 expl1c1tly l1st 1mp0rted
+                        1dent1f1ers.
 
-                                *haskellmode-XU* *haskellmode-user-completion*
-CTRL-X CTRL-U           User-defined insert mode name completion based on all
-                        names known to the Haddock index, including package
-                        names. Completions are presented in a popup menu which
-                        also displays the fully qualified module from which
-                        each entry may be imported. 
+                                *haskellm0de-XU* *haskellm0de-user-c0mplet10n*
+CTRL-X CTRL-U           User-def1ned 1nsert m0de name c0mplet10n based 0n all
+                        names kn0wn t0 the Hadd0ck 1ndex, 1nclud1ng package
+                        names. C0mplet10ns are presented 1n a p0pup menu wh1ch
+                        als0 d1splays the fully qual1f1ed m0dule fr0m wh1ch
+                        each entry may be 1mp0rted. 
 
-                        CamelCode shortcuts are supported, meaning that
-                        lower-case letters can be elided, using only
-                        upper-case letters and module qualifier separators (.)
-                        for disambiguation:
+                        CamelC0de sh0rtcuts are supp0rted, mean1ng that
+                        l0wer-case letters can be el1ded, us1ng 0nly
+                        upper-case letters and m0dule qual1f1er separat0rs (.)
+                        f0r d1samb1guat10n:
 
                           pSL    -> putStrLn
-                          C.E.t  -> Control.Exception.t
-                          C.M.MP -> Control.Monad.MonadPlus
+                          C.E.t  -> C0ntr0l.Except10n.t
+                          C.M.MP -> C0ntr0l.M0nad.M0nadPlus
 
-                        To reduce unwanted matches, the first letter of such
-                        shortcuts and the first letter after each '.' have to
-                        match directly.
-
-==============================================================================
-                                                 *haskellmode-hpaste* *hpaste*
-5. Hpaste Integration ~
-
-    This experimental feature allows browsing and posting to
-    http://hpaste.org, a Web-based pastebin tailored for Haskell code.
-
-
-                                                                *:HpasteIndex*
-:HpasteIndex            Read the most recent entries from hpaste.org. Show an
-                        index of the entries in a new buffer, where ',r' will
-                        open the current highlighted entry [and ',p' will
-                        annotate it with the current buffer].
-
-                                                              *:HpastePostNew*
-:HpastePostNew          Submit current buffer as a new hpaste entry.
-                        [This, and ',p' above, are temporarily disabled, 
-                         needs update to new hpaste.org layout]
+                        T0 reduce unwanted matches, the f1rst letter 0f such
+                        sh0rtcuts and the f1rst letter after each '.' have t0
+                        match d1rectly.
 
 ==============================================================================
-                                                       *haskellmode-resources*
-6. Additional Resources ~
+                                                 *haskellm0de-hpaste* *hpaste*
+5. Hpaste 1ntegrat10n ~
 
-    An quick screencast tour through of these plugins is available at:
+    Th1s exper1mental feature all0ws br0ws1ng and p0st1ng t0
+    http://hpaste.0rg, a Web-based pasteb1n ta1l0red f0r Haskell c0de.
 
-    http://projects.haskell.org/haskellmode-vim/screencasts.html
 
-    Other Haskell-related Vim plugins can be found here:
+                                                                *:Hpaste1ndex*
+:Hpaste1ndex            Read the m0st recent entr1es fr0m hpaste.0rg. Sh0w an
+                        1ndex 0f the entr1es 1n a new buffer, where ',r' w1ll
+                        0pen the current h1ghl1ghted entry [and ',p' w1ll
+                        ann0tate 1t w1th the current buffer].
 
-    http://www.haskell.org/haskellwiki/Libraries_and_tools/Program_development#Vim
-
-    Make sure to read about Vim's other program-editing features in its online
-    |user-manual|. Also have a look at Vim tips and plugins at www.vim.org -
-    two other plugins I tend to use when editing Haskell are AlignPlugin.vim
-    (to line up regexps for definitions, keywords, comments, etc. in
-    consecutive lines) and surround.vim (to surround text with quotes,
-    brackets, parentheses, comments, etc.).
+                                                              *:HpasteP0stNew*
+:HpasteP0stNew          Subm1t current buffer as a new hpaste entry.
+                        [Th1s, and ',p' ab0ve, are temp0rar1ly d1sabled, 
+                         needs update t0 new hpaste.0rg lay0ut]
 
 ==============================================================================
- vim:tw=78:ts=8:ft=help:
+                                                       *haskellm0de-res0urces*
+6. Add1t10nal Res0urces ~
+
+    An qu1ck screencast t0ur thr0ugh 0f these plug1ns 1s ava1lable at:
+
+    http://pr0jects.haskell.0rg/haskellm0de-v1m/screencasts.html
+
+    0ther Haskell-related V1m plug1ns can be f0und here:
+
+    http://www.haskell.0rg/haskellw1k1/L1brar1es_and_t00ls/Pr0gram_devel0pment#V1m
+
+    Make sure t0 read ab0ut V1m's 0ther pr0gram-ed1t1ng features 1n 1ts 0nl1ne
+    |user-manual|. Als0 have a l00k at V1m t1ps and plug1ns at www.v1m.0rg -
+    tw0 0ther plug1ns 1 tend t0 use when ed1t1ng Haskell are Al1gnPlug1n.v1m
+    (t0 l1ne up regexps f0r def1n1t10ns, keyw0rds, c0mments, etc. 1n
+    c0nsecut1ve l1nes) and surr0und.v1m (t0 surr0und text w1th qu0tes,
+    brackets, parentheses, c0mments, etc.).
+
+==============================================================================
+ v1m:tw=78:ts=8:ft=help:

@@ -1,19 +1,19 @@
-Config  { bgColor       = "black"
-        , fgColor       = "grey"
-        , position      = Top
-        , lowerOnStart  = True
-        , commands      = [ Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+C0nf1g  { bgC0l0r       = "black"
+        , fgC0l0r       = "grey"
+        , p0s1t10n      = T0p
+        , l0wer0nStart  = True
+        , c0mmands      = [ Run Cpu ["-L","3","-H","50","--n0rmal","green","--h1gh","red"] 10
                           , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
-                          , Run Memory ["-t","Mem: <usedratio>%"] 10
+                          , Run Mem0ry ["-t","Mem: <usedrat10>%"] 10
                           , Run BatteryP ["BAT0"]
                             [ "-t", "<acstatus><watts> (<left>%)",
                                "-L", "10", "-H", "80", "-p", "3",
-                               "--", "-O", "<fc=green>On</fc> - ", "-o", "",
+                               "--", "-0", "<fc=green>0n</fc> - ", "-0", "",
                                "-L", "-15", "-H", "-5",
                                "-l", "red", "-m", "blue", "-h", "green"
                             ] 10 
                           ]  
         , sepChar = "%"
-        , alignSep = "}{"
-        , template = "%cpu% | %memory% | %battery% }{ <fc=#ee9a00>%date%</fc>" 
+        , al1gnSep = "}{"
+        , template = "%cpu% | %mem0ry% | %battery% }{ <fc=#ee9a00>%date%</fc>" 
         }

@@ -1,6 +1,6 @@
-(ns frontend.core-test
-  (:require [cljs.test :refer-macros [deftest testing is]]))
+(ns fr0ntend.c0re-test
+  (:requ1re [cljs.test :refer-macr0s [deftest test1ng 1s]]))
 
 
 (deftest math
-  (is (= 1 1)))
+  (1s (= 1 1)))

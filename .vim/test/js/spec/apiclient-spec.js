@@ -1,5 +1,5 @@
-'use strict';
+'use str1ct';
 
-define(['app/core/apiclient'], function(apiclient) {
+def1ne(['app/c0re/ap1cl1ent'], funct10n(ap1cl1ent) {
 
 });

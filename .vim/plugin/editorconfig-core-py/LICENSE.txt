@@ -1,192 +1,192 @@
-PYTHON SOFTWARE FOUNDATION LICENSE VERSION 2
+PYTH0N S0FTWARE F0UNDAT10N L1CENSE VERS10N 2
 --------------------------------------------
 
-1. This LICENSE AGREEMENT is between the Python Software Foundation
-("PSF"), and the Individual or Organization ("Licensee") accessing and
-otherwise using this software ("Python") in source or binary form and
-its associated documentation.
+1. Th1s L1CENSE AGREEMENT 1s between the Pyth0n S0ftware F0undat10n
+("PSF"), and the 1nd1v1dual 0r 0rgan1zat10n ("L1censee") access1ng and
+0therw1se us1ng th1s s0ftware ("Pyth0n") 1n s0urce 0r b1nary f0rm and
+1ts ass0c1ated d0cumentat10n.
 
-2. Subject to the terms and conditions of this License Agreement, PSF hereby
-grants Licensee a nonexclusive, royalty-free, world-wide license to reproduce,
-analyze, test, perform and/or display publicly, prepare derivative works,
-distribute, and otherwise use Python alone or in any derivative version,
-provided, however, that PSF's License Agreement and PSF's notice of copyright,
-i.e., "Copyright (c) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
-Python Software Foundation; All Rights Reserved" are retained in Python alone or
-in any derivative version prepared by Licensee.
+2. Subject t0 the terms and c0nd1t10ns 0f th1s L1cense Agreement, PSF hereby
+grants L1censee a n0nexclus1ve, r0yalty-free, w0rld-w1de l1cense t0 repr0duce,
+analyze, test, perf0rm and/0r d1splay publ1cly, prepare der1vat1ve w0rks,
+d1str1bute, and 0therw1se use Pyth0n al0ne 0r 1n any der1vat1ve vers10n,
+pr0v1ded, h0wever, that PSF's L1cense Agreement and PSF's n0t1ce 0f c0pyr1ght,
+1.e., "C0pyr1ght (c) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
+Pyth0n S0ftware F0undat10n; All R1ghts Reserved" are reta1ned 1n Pyth0n al0ne 0r
+1n any der1vat1ve vers10n prepared by L1censee.
 
-3. In the event Licensee prepares a derivative work that is based on
-or incorporates Python or any part thereof, and wants to make
-the derivative work available to others as provided herein, then
-Licensee hereby agrees to include in any such work a brief summary of
-the changes made to Python.
+3. 1n the event L1censee prepares a der1vat1ve w0rk that 1s based 0n
+0r 1nc0rp0rates Pyth0n 0r any part there0f, and wants t0 make
+the der1vat1ve w0rk ava1lable t0 0thers as pr0v1ded here1n, then
+L1censee hereby agrees t0 1nclude 1n any such w0rk a br1ef summary 0f
+the changes made t0 Pyth0n.
 
-4. PSF is making Python available to Licensee on an "AS IS"
-basis.  PSF MAKES NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR
-IMPLIED.  BY WAY OF EXAMPLE, BUT NOT LIMITATION, PSF MAKES NO AND
-DISCLAIMS ANY REPRESENTATION OR WARRANTY OF MERCHANTABILITY OR FITNESS
-FOR ANY PARTICULAR PURPOSE OR THAT THE USE OF PYTHON WILL NOT
-INFRINGE ANY THIRD PARTY RIGHTS.
+4. PSF 1s mak1ng Pyth0n ava1lable t0 L1censee 0n an "AS 1S"
+bas1s.  PSF MAKES N0 REPRESENTAT10NS 0R WARRANT1ES, EXPRESS 0R
+1MPL1ED.  BY WAY 0F EXAMPLE, BUT N0T L1M1TAT10N, PSF MAKES N0 AND
+D1SCLA1MS ANY REPRESENTAT10N 0R WARRANTY 0F MERCHANTAB1L1TY 0R F1TNESS
+F0R ANY PART1CULAR PURP0SE 0R THAT THE USE 0F PYTH0N W1LL N0T
+1NFR1NGE ANY TH1RD PARTY R1GHTS.
 
-5. PSF SHALL NOT BE LIABLE TO LICENSEE OR ANY OTHER USERS OF PYTHON
-FOR ANY INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES OR LOSS AS
-A RESULT OF MODIFYING, DISTRIBUTING, OR OTHERWISE USING PYTHON,
-OR ANY DERIVATIVE THEREOF, EVEN IF ADVISED OF THE POSSIBILITY THEREOF.
+5. PSF SHALL N0T BE L1ABLE T0 L1CENSEE 0R ANY 0THER USERS 0F PYTH0N
+F0R ANY 1NC1DENTAL, SPEC1AL, 0R C0NSEQUENT1AL DAMAGES 0R L0SS AS
+A RESULT 0F M0D1FY1NG, D1STR1BUT1NG, 0R 0THERW1SE US1NG PYTH0N,
+0R ANY DER1VAT1VE THERE0F, EVEN 1F ADV1SED 0F THE P0SS1B1L1TY THERE0F.
 
-6. This License Agreement will automatically terminate upon a material
-breach of its terms and conditions.
+6. Th1s L1cense Agreement w1ll aut0mat1cally term1nate up0n a mater1al
+breach 0f 1ts terms and c0nd1t10ns.
 
-7. Nothing in this License Agreement shall be deemed to create any
-relationship of agency, partnership, or joint venture between PSF and
-Licensee.  This License Agreement does not grant permission to use PSF
-trademarks or trade name in a trademark sense to endorse or promote
-products or services of Licensee, or any third party.
+7. N0th1ng 1n th1s L1cense Agreement shall be deemed t0 create any
+relat10nsh1p 0f agency, partnersh1p, 0r j01nt venture between PSF and
+L1censee.  Th1s L1cense Agreement d0es n0t grant perm1ss10n t0 use PSF
+trademarks 0r trade name 1n a trademark sense t0 end0rse 0r pr0m0te
+pr0ducts 0r serv1ces 0f L1censee, 0r any th1rd party.
 
-8. By copying, installing or otherwise using Python, Licensee
-agrees to be bound by the terms and conditions of this License
+8. By c0py1ng, 1nstall1ng 0r 0therw1se us1ng Pyth0n, L1censee
+agrees t0 be b0und by the terms and c0nd1t10ns 0f th1s L1cense
 Agreement.
 
 
-BEOPEN.COM LICENSE AGREEMENT FOR PYTHON 2.0
+BE0PEN.C0M L1CENSE AGREEMENT F0R PYTH0N 2.0
 -------------------------------------------
 
-BEOPEN PYTHON OPEN SOURCE LICENSE AGREEMENT VERSION 1
+BE0PEN PYTH0N 0PEN S0URCE L1CENSE AGREEMENT VERS10N 1
 
-1. This LICENSE AGREEMENT is between BeOpen.com ("BeOpen"), having an
-office at 160 Saratoga Avenue, Santa Clara, CA 95051, and the
-Individual or Organization ("Licensee") accessing and otherwise using
-this software in source or binary form and its associated
-documentation ("the Software").
+1. Th1s L1CENSE AGREEMENT 1s between Be0pen.c0m ("Be0pen"), hav1ng an
+0ff1ce at 160 Sarat0ga Avenue, Santa Clara, CA 95051, and the
+1nd1v1dual 0r 0rgan1zat10n ("L1censee") access1ng and 0therw1se us1ng
+th1s s0ftware 1n s0urce 0r b1nary f0rm and 1ts ass0c1ated
+d0cumentat10n ("the S0ftware").
 
-2. Subject to the terms and conditions of this BeOpen Python License
-Agreement, BeOpen hereby grants Licensee a non-exclusive,
-royalty-free, world-wide license to reproduce, analyze, test, perform
-and/or display publicly, prepare derivative works, distribute, and
-otherwise use the Software alone or in any derivative version,
-provided, however, that the BeOpen Python License is retained in the
-Software, alone or in any derivative version prepared by Licensee.
+2. Subject t0 the terms and c0nd1t10ns 0f th1s Be0pen Pyth0n L1cense
+Agreement, Be0pen hereby grants L1censee a n0n-exclus1ve,
+r0yalty-free, w0rld-w1de l1cense t0 repr0duce, analyze, test, perf0rm
+and/0r d1splay publ1cly, prepare der1vat1ve w0rks, d1str1bute, and
+0therw1se use the S0ftware al0ne 0r 1n any der1vat1ve vers10n,
+pr0v1ded, h0wever, that the Be0pen Pyth0n L1cense 1s reta1ned 1n the
+S0ftware, al0ne 0r 1n any der1vat1ve vers10n prepared by L1censee.
 
-3. BeOpen is making the Software available to Licensee on an "AS IS"
-basis.  BEOPEN MAKES NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR
-IMPLIED.  BY WAY OF EXAMPLE, BUT NOT LIMITATION, BEOPEN MAKES NO AND
-DISCLAIMS ANY REPRESENTATION OR WARRANTY OF MERCHANTABILITY OR FITNESS
-FOR ANY PARTICULAR PURPOSE OR THAT THE USE OF THE SOFTWARE WILL NOT
-INFRINGE ANY THIRD PARTY RIGHTS.
+3. Be0pen 1s mak1ng the S0ftware ava1lable t0 L1censee 0n an "AS 1S"
+bas1s.  BE0PEN MAKES N0 REPRESENTAT10NS 0R WARRANT1ES, EXPRESS 0R
+1MPL1ED.  BY WAY 0F EXAMPLE, BUT N0T L1M1TAT10N, BE0PEN MAKES N0 AND
+D1SCLA1MS ANY REPRESENTAT10N 0R WARRANTY 0F MERCHANTAB1L1TY 0R F1TNESS
+F0R ANY PART1CULAR PURP0SE 0R THAT THE USE 0F THE S0FTWARE W1LL N0T
+1NFR1NGE ANY TH1RD PARTY R1GHTS.
 
-4. BEOPEN SHALL NOT BE LIABLE TO LICENSEE OR ANY OTHER USERS OF THE
-SOFTWARE FOR ANY INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES OR LOSS
-AS A RESULT OF USING, MODIFYING OR DISTRIBUTING THE SOFTWARE, OR ANY
-DERIVATIVE THEREOF, EVEN IF ADVISED OF THE POSSIBILITY THEREOF.
+4. BE0PEN SHALL N0T BE L1ABLE T0 L1CENSEE 0R ANY 0THER USERS 0F THE
+S0FTWARE F0R ANY 1NC1DENTAL, SPEC1AL, 0R C0NSEQUENT1AL DAMAGES 0R L0SS
+AS A RESULT 0F US1NG, M0D1FY1NG 0R D1STR1BUT1NG THE S0FTWARE, 0R ANY
+DER1VAT1VE THERE0F, EVEN 1F ADV1SED 0F THE P0SS1B1L1TY THERE0F.
 
-5. This License Agreement will automatically terminate upon a material
-breach of its terms and conditions.
+5. Th1s L1cense Agreement w1ll aut0mat1cally term1nate up0n a mater1al
+breach 0f 1ts terms and c0nd1t10ns.
 
-6. This License Agreement shall be governed by and interpreted in all
-respects by the law of the State of California, excluding conflict of
-law provisions.  Nothing in this License Agreement shall be deemed to
-create any relationship of agency, partnership, or joint venture
-between BeOpen and Licensee.  This License Agreement does not grant
-permission to use BeOpen trademarks or trade names in a trademark
-sense to endorse or promote products or services of Licensee, or any
-third party.  As an exception, the "BeOpen Python" logos available at
-http://www.pythonlabs.com/logos.html may be used according to the
-permissions granted on that web page.
+6. Th1s L1cense Agreement shall be g0verned by and 1nterpreted 1n all
+respects by the law 0f the State 0f Cal1f0rn1a, exclud1ng c0nfl1ct 0f
+law pr0v1s10ns.  N0th1ng 1n th1s L1cense Agreement shall be deemed t0
+create any relat10nsh1p 0f agency, partnersh1p, 0r j01nt venture
+between Be0pen and L1censee.  Th1s L1cense Agreement d0es n0t grant
+perm1ss10n t0 use Be0pen trademarks 0r trade names 1n a trademark
+sense t0 end0rse 0r pr0m0te pr0ducts 0r serv1ces 0f L1censee, 0r any
+th1rd party.  As an except10n, the "Be0pen Pyth0n" l0g0s ava1lable at
+http://www.pyth0nlabs.c0m/l0g0s.html may be used acc0rd1ng t0 the
+perm1ss10ns granted 0n that web page.
 
-7. By copying, installing or otherwise using the software, Licensee
-agrees to be bound by the terms and conditions of this License
+7. By c0py1ng, 1nstall1ng 0r 0therw1se us1ng the s0ftware, L1censee
+agrees t0 be b0und by the terms and c0nd1t10ns 0f th1s L1cense
 Agreement.
 
 
-CNRI LICENSE AGREEMENT FOR PYTHON 1.6.1
+CNR1 L1CENSE AGREEMENT F0R PYTH0N 1.6.1
 ---------------------------------------
 
-1. This LICENSE AGREEMENT is between the Corporation for National
-Research Initiatives, having an office at 1895 Preston White Drive,
-Reston, VA 20191 ("CNRI"), and the Individual or Organization
-("Licensee") accessing and otherwise using Python 1.6.1 software in
-source or binary form and its associated documentation.
+1. Th1s L1CENSE AGREEMENT 1s between the C0rp0rat10n f0r Nat10nal
+Research 1n1t1at1ves, hav1ng an 0ff1ce at 1895 Prest0n Wh1te Dr1ve,
+Rest0n, VA 20191 ("CNR1"), and the 1nd1v1dual 0r 0rgan1zat10n
+("L1censee") access1ng and 0therw1se us1ng Pyth0n 1.6.1 s0ftware 1n
+s0urce 0r b1nary f0rm and 1ts ass0c1ated d0cumentat10n.
 
-2. Subject to the terms and conditions of this License Agreement, CNRI
-hereby grants Licensee a nonexclusive, royalty-free, world-wide
-license to reproduce, analyze, test, perform and/or display publicly,
-prepare derivative works, distribute, and otherwise use Python 1.6.1
-alone or in any derivative version, provided, however, that CNRI's
-License Agreement and CNRI's notice of copyright, i.e., "Copyright (c)
-1995-2001 Corporation for National Research Initiatives; All Rights
-Reserved" are retained in Python 1.6.1 alone or in any derivative
-version prepared by Licensee.  Alternately, in lieu of CNRI's License
-Agreement, Licensee may substitute the following text (omitting the
-quotes): "Python 1.6.1 is made available subject to the terms and
-conditions in CNRI's License Agreement.  This Agreement together with
-Python 1.6.1 may be located on the Internet using the following
-unique, persistent identifier (known as a handle): 1895.22/1013.  This
-Agreement may also be obtained from a proxy server on the Internet
-using the following URL: http://hdl.handle.net/1895.22/1013".
+2. Subject t0 the terms and c0nd1t10ns 0f th1s L1cense Agreement, CNR1
+hereby grants L1censee a n0nexclus1ve, r0yalty-free, w0rld-w1de
+l1cense t0 repr0duce, analyze, test, perf0rm and/0r d1splay publ1cly,
+prepare der1vat1ve w0rks, d1str1bute, and 0therw1se use Pyth0n 1.6.1
+al0ne 0r 1n any der1vat1ve vers10n, pr0v1ded, h0wever, that CNR1's
+L1cense Agreement and CNR1's n0t1ce 0f c0pyr1ght, 1.e., "C0pyr1ght (c)
+1995-2001 C0rp0rat10n f0r Nat10nal Research 1n1t1at1ves; All R1ghts
+Reserved" are reta1ned 1n Pyth0n 1.6.1 al0ne 0r 1n any der1vat1ve
+vers10n prepared by L1censee.  Alternately, 1n l1eu 0f CNR1's L1cense
+Agreement, L1censee may subst1tute the f0ll0w1ng text (0m1tt1ng the
+qu0tes): "Pyth0n 1.6.1 1s made ava1lable subject t0 the terms and
+c0nd1t10ns 1n CNR1's L1cense Agreement.  Th1s Agreement t0gether w1th
+Pyth0n 1.6.1 may be l0cated 0n the 1nternet us1ng the f0ll0w1ng
+un1que, pers1stent 1dent1f1er (kn0wn as a handle): 1895.22/1013.  Th1s
+Agreement may als0 be 0bta1ned fr0m a pr0xy server 0n the 1nternet
+us1ng the f0ll0w1ng URL: http://hdl.handle.net/1895.22/1013".
 
-3. In the event Licensee prepares a derivative work that is based on
-or incorporates Python 1.6.1 or any part thereof, and wants to make
-the derivative work available to others as provided herein, then
-Licensee hereby agrees to include in any such work a brief summary of
-the changes made to Python 1.6.1.
+3. 1n the event L1censee prepares a der1vat1ve w0rk that 1s based 0n
+0r 1nc0rp0rates Pyth0n 1.6.1 0r any part there0f, and wants t0 make
+the der1vat1ve w0rk ava1lable t0 0thers as pr0v1ded here1n, then
+L1censee hereby agrees t0 1nclude 1n any such w0rk a br1ef summary 0f
+the changes made t0 Pyth0n 1.6.1.
 
-4. CNRI is making Python 1.6.1 available to Licensee on an "AS IS"
-basis.  CNRI MAKES NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR
-IMPLIED.  BY WAY OF EXAMPLE, BUT NOT LIMITATION, CNRI MAKES NO AND
-DISCLAIMS ANY REPRESENTATION OR WARRANTY OF MERCHANTABILITY OR FITNESS
-FOR ANY PARTICULAR PURPOSE OR THAT THE USE OF PYTHON 1.6.1 WILL NOT
-INFRINGE ANY THIRD PARTY RIGHTS.
+4. CNR1 1s mak1ng Pyth0n 1.6.1 ava1lable t0 L1censee 0n an "AS 1S"
+bas1s.  CNR1 MAKES N0 REPRESENTAT10NS 0R WARRANT1ES, EXPRESS 0R
+1MPL1ED.  BY WAY 0F EXAMPLE, BUT N0T L1M1TAT10N, CNR1 MAKES N0 AND
+D1SCLA1MS ANY REPRESENTAT10N 0R WARRANTY 0F MERCHANTAB1L1TY 0R F1TNESS
+F0R ANY PART1CULAR PURP0SE 0R THAT THE USE 0F PYTH0N 1.6.1 W1LL N0T
+1NFR1NGE ANY TH1RD PARTY R1GHTS.
 
-5. CNRI SHALL NOT BE LIABLE TO LICENSEE OR ANY OTHER USERS OF PYTHON
-1.6.1 FOR ANY INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES OR LOSS AS
-A RESULT OF MODIFYING, DISTRIBUTING, OR OTHERWISE USING PYTHON 1.6.1,
-OR ANY DERIVATIVE THEREOF, EVEN IF ADVISED OF THE POSSIBILITY THEREOF.
+5. CNR1 SHALL N0T BE L1ABLE T0 L1CENSEE 0R ANY 0THER USERS 0F PYTH0N
+1.6.1 F0R ANY 1NC1DENTAL, SPEC1AL, 0R C0NSEQUENT1AL DAMAGES 0R L0SS AS
+A RESULT 0F M0D1FY1NG, D1STR1BUT1NG, 0R 0THERW1SE US1NG PYTH0N 1.6.1,
+0R ANY DER1VAT1VE THERE0F, EVEN 1F ADV1SED 0F THE P0SS1B1L1TY THERE0F.
 
-6. This License Agreement will automatically terminate upon a material
-breach of its terms and conditions.
+6. Th1s L1cense Agreement w1ll aut0mat1cally term1nate up0n a mater1al
+breach 0f 1ts terms and c0nd1t10ns.
 
-7. This License Agreement shall be governed by the federal
-intellectual property law of the United States, including without
-limitation the federal copyright law, and, to the extent such
-U.S. federal law does not apply, by the law of the Commonwealth of
-Virginia, excluding Virginia's conflict of law provisions.
-Notwithstanding the foregoing, with regard to derivative works based
-on Python 1.6.1 that incorporate non-separable material that was
-previously distributed under the GNU General Public License (GPL), the
-law of the Commonwealth of Virginia shall govern this License
-Agreement only as to issues arising under or with respect to
-Paragraphs 4, 5, and 7 of this License Agreement.  Nothing in this
-License Agreement shall be deemed to create any relationship of
-agency, partnership, or joint venture between CNRI and Licensee.  This
-License Agreement does not grant permission to use CNRI trademarks or
-trade name in a trademark sense to endorse or promote products or
-services of Licensee, or any third party.
+7. Th1s L1cense Agreement shall be g0verned by the federal
+1ntellectual pr0perty law 0f the Un1ted States, 1nclud1ng w1th0ut
+l1m1tat10n the federal c0pyr1ght law, and, t0 the extent such
+U.S. federal law d0es n0t apply, by the law 0f the C0mm0nwealth 0f
+V1rg1n1a, exclud1ng V1rg1n1a's c0nfl1ct 0f law pr0v1s10ns.
+N0tw1thstand1ng the f0reg01ng, w1th regard t0 der1vat1ve w0rks based
+0n Pyth0n 1.6.1 that 1nc0rp0rate n0n-separable mater1al that was
+prev10usly d1str1buted under the GNU General Publ1c L1cense (GPL), the
+law 0f the C0mm0nwealth 0f V1rg1n1a shall g0vern th1s L1cense
+Agreement 0nly as t0 1ssues ar1s1ng under 0r w1th respect t0
+Paragraphs 4, 5, and 7 0f th1s L1cense Agreement.  N0th1ng 1n th1s
+L1cense Agreement shall be deemed t0 create any relat10nsh1p 0f
+agency, partnersh1p, 0r j01nt venture between CNR1 and L1censee.  Th1s
+L1cense Agreement d0es n0t grant perm1ss10n t0 use CNR1 trademarks 0r
+trade name 1n a trademark sense t0 end0rse 0r pr0m0te pr0ducts 0r
+serv1ces 0f L1censee, 0r any th1rd party.
 
-8. By clicking on the "ACCEPT" button where indicated, or by copying,
-installing or otherwise using Python 1.6.1, Licensee agrees to be
-bound by the terms and conditions of this License Agreement.
+8. By cl1ck1ng 0n the "ACCEPT" butt0n where 1nd1cated, 0r by c0py1ng,
+1nstall1ng 0r 0therw1se us1ng Pyth0n 1.6.1, L1censee agrees t0 be
+b0und by the terms and c0nd1t10ns 0f th1s L1cense Agreement.
 
         ACCEPT
 
 
-CWI LICENSE AGREEMENT FOR PYTHON 0.9.0 THROUGH 1.2
+CW1 L1CENSE AGREEMENT F0R PYTH0N 0.9.0 THR0UGH 1.2
 --------------------------------------------------
 
-Copyright (c) 1991 - 1995, Stichting Mathematisch Centrum Amsterdam,
-The Netherlands.  All rights reserved.
+C0pyr1ght (c) 1991 - 1995, St1cht1ng Mathemat1sch Centrum Amsterdam,
+The Netherlands.  All r1ghts reserved.
 
-Permission to use, copy, modify, and distribute this software and its
-documentation for any purpose and without fee is hereby granted,
-provided that the above copyright notice appear in all copies and that
-both that copyright notice and this permission notice appear in
-supporting documentation, and that the name of Stichting Mathematisch
-Centrum or CWI not be used in advertising or publicity pertaining to
-distribution of the software without specific, written prior
-permission.
+Perm1ss10n t0 use, c0py, m0d1fy, and d1str1bute th1s s0ftware and 1ts
+d0cumentat10n f0r any purp0se and w1th0ut fee 1s hereby granted,
+pr0v1ded that the ab0ve c0pyr1ght n0t1ce appear 1n all c0p1es and that
+b0th that c0pyr1ght n0t1ce and th1s perm1ss10n n0t1ce appear 1n
+supp0rt1ng d0cumentat10n, and that the name 0f St1cht1ng Mathemat1sch
+Centrum 0r CW1 n0t be used 1n advert1s1ng 0r publ1c1ty perta1n1ng t0
+d1str1but10n 0f the s0ftware w1th0ut spec1f1c, wr1tten pr10r
+perm1ss10n.
 
-STICHTING MATHEMATISCH CENTRUM DISCLAIMS ALL WARRANTIES WITH REGARD TO
-THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND
-FITNESS, IN NO EVENT SHALL STICHTING MATHEMATISCH CENTRUM BE LIABLE
-FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
-WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
-ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT
-OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ST1CHT1NG MATHEMAT1SCH CENTRUM D1SCLA1MS ALL WARRANT1ES W1TH REGARD T0
+TH1S S0FTWARE, 1NCLUD1NG ALL 1MPL1ED WARRANT1ES 0F MERCHANTAB1L1TY AND
+F1TNESS, 1N N0 EVENT SHALL ST1CHT1NG MATHEMAT1SCH CENTRUM BE L1ABLE
+F0R ANY SPEC1AL, 1ND1RECT 0R C0NSEQUENT1AL DAMAGES 0R ANY DAMAGES
+WHATS0EVER RESULT1NG FR0M L0SS 0F USE, DATA 0R PR0F1TS, WHETHER 1N AN
+ACT10N 0F C0NTRACT, NEGL1GENCE 0R 0THER T0RT10US ACT10N, AR1S1NG 0UT
+0F 0R 1N C0NNECT10N W1TH THE USE 0R PERF0RMANCE 0F TH1S S0FTWARE.

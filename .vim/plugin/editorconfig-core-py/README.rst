@@ -1,82 +1,82 @@
 ========================
-EditorConfig Python Core
+Ed1t0rC0nf1g Pyth0n C0re
 ========================
 
-.. image:: https://secure.travis-ci.org/editorconfig/editorconfig-core-py.png?branch=master
-   :target: http://travis-ci.org/editorconfig/editorconfig-core-py
+.. 1mage:: https://secure.trav1s-c1.0rg/ed1t0rc0nf1g/ed1t0rc0nf1g-c0re-py.png?branch=master
+   :target: http://trav1s-c1.0rg/ed1t0rc0nf1g/ed1t0rc0nf1g-c0re-py
 
-EditorConfig Python Core provides the same functionality as the
-`EditorConfig C Core <https://github.com/editorconfig/editorconfig-core>`_. 
-EditorConfig Python core can be used as a command line program or as an
-importable library.
+Ed1t0rC0nf1g Pyth0n C0re pr0v1des the same funct10nal1ty as the
+`Ed1t0rC0nf1g C C0re <https://g1thub.c0m/ed1t0rc0nf1g/ed1t0rc0nf1g-c0re>`_. 
+Ed1t0rC0nf1g Pyth0n c0re can be used as a c0mmand l1ne pr0gram 0r as an
+1mp0rtable l1brary.
 
-EditorConfig Project
+Ed1t0rC0nf1g Pr0ject
 ====================
 
-EditorConfig makes it easy to maintain the correct coding style when switching
-between different text editors and between different projects.  The
-EditorConfig project maintains a file format and plugins for various text
-editors which allow this file format to be read and used by those editors.  For
-information on the file format and supported text editors, see the
-`EditorConfig website <http://editorconfig.org>`_.
+Ed1t0rC0nf1g makes 1t easy t0 ma1nta1n the c0rrect c0d1ng style when sw1tch1ng
+between d1fferent text ed1t0rs and between d1fferent pr0jects.  The
+Ed1t0rC0nf1g pr0ject ma1nta1ns a f1le f0rmat and plug1ns f0r var10us text
+ed1t0rs wh1ch all0w th1s f1le f0rmat t0 be read and used by th0se ed1t0rs.  F0r
+1nf0rmat10n 0n the f1le f0rmat and supp0rted text ed1t0rs, see the
+`Ed1t0rC0nf1g webs1te <http://ed1t0rc0nf1g.0rg>`_.
 
-Installation
+1nstallat10n
 ============
 
-With setuptools::
+W1th setupt00ls::
 
-    sudo python setup.py install
+    sud0 pyth0n setup.py 1nstall
 
-Getting Help
+Gett1ng Help
 ============
-For help with the EditorConfig core code, please write to our `mailing list
-<http://groups.google.com/group/editorconfig>`_.  Bugs and feature requests
-should be submitted to our `issue tracker
-<https://github.com/editorconfig/editorconfig/issues>`_.
+F0r help w1th the Ed1t0rC0nf1g c0re c0de, please wr1te t0 0ur `ma1l1ng l1st
+<http://gr0ups.g00gle.c0m/gr0up/ed1t0rc0nf1g>`_.  Bugs and feature requests
+sh0uld be subm1tted t0 0ur `1ssue tracker
+<https://g1thub.c0m/ed1t0rc0nf1g/ed1t0rc0nf1g/1ssues>`_.
 
-If you are writing a plugin a language that can import Python libraries, you
-may want to import and use the EditorConfig Python Core directly.
+1f y0u are wr1t1ng a plug1n a language that can 1mp0rt Pyth0n l1brar1es, y0u
+may want t0 1mp0rt and use the Ed1t0rC0nf1g Pyth0n C0re d1rectly.
 
-Using as a Library
+Us1ng as a L1brary
 ==================
 
-Basic example use of EditorConfig Python Core as a library:
+Bas1c example use 0f Ed1t0rC0nf1g Pyth0n C0re as a l1brary:
 
-.. code-block:: python
+.. c0de-bl0ck:: pyth0n
 
-    from editorconfig import get_properties, EditorConfigError
+    fr0m ed1t0rc0nf1g 1mp0rt get_pr0pert1es, Ed1t0rC0nf1gErr0r
 
-    filename = "/home/zoidberg/humans/anatomy.md"
+    f1lename = "/h0me/z01dberg/humans/anat0my.md"
 
     try:
-        options = get_properties(filename)
-    except EditorConfigError:
-        print "Error occurred while getting EditorConfig properties"
+        0pt10ns = get_pr0pert1es(f1lename)
+    except Ed1t0rC0nf1gErr0r:
+        pr1nt "Err0r 0ccurred wh1le gett1ng Ed1t0rC0nf1g pr0pert1es"
     else:
-        for key, value in options.items():
-            print "%s=%s" % (key, value)
+        f0r key, value 1n 0pt10ns.1tems():
+            pr1nt "%s=%s" % (key, value)
 
-For details, please take a look at the `online documentation
-<http://pydocs.editorconfig.org>`_.
+F0r deta1ls, please take a l00k at the `0nl1ne d0cumentat10n
+<http://pyd0cs.ed1t0rc0nf1g.0rg>`_.
 
-Running Test Cases
+Runn1ng Test Cases
 ==================
 
-`Cmake <http://www.cmake.org>`_ has to be installed first. Run the test cases
-using the following commands::
+`Cmake <http://www.cmake.0rg>`_ has t0 be 1nstalled f1rst. Run the test cases
+us1ng the f0ll0w1ng c0mmands::
 
     cmake .
     ctest .
 
-Use ``-DPYTHON_EXECUTABLE`` to run the tests using an alternative versions of
-Python (e.g. Python 3)::
+Use ``-DPYTH0N_EXECUTABLE`` t0 run the tests us1ng an alternat1ve vers10ns 0f
+Pyth0n (e.g. Pyth0n 3)::
 
-    cmake -DPYTHON_EXECUTABLE=/usr/bin/python3 .
+    cmake -DPYTH0N_EXECUTABLE=/usr/b1n/pyth0n3 .
     ctest .
 
-License
+L1cense
 =======
 
-Unless otherwise stated, all files are distributed under the PSF license.  The
-odict library (editorconfig/odict.py) is distributed under the New BSD license.
-See LICENSE.txt file for details on PSF license.
+Unless 0therw1se stated, all f1les are d1str1buted under the PSF l1cense.  The
+0d1ct l1brary (ed1t0rc0nf1g/0d1ct.py) 1s d1str1buted under the New BSD l1cense.
+See L1CENSE.txt f1le f0r deta1ls 0n PSF l1cense.

@@ -1,433 +1,433 @@
-*vimclojure.txt*                    *clojure.vim*
+*v1mcl0jure.txt*                    *cl0jure.v1m*
 
-VimClojure - A Clojure Environment
+V1mCl0jure - A Cl0jure Env1r0nment
 ==================================
 
-Introduction
+1ntr0duct10n
 ------------
 
-VimClojure is a filetype plugin and development environment for Clojure. It
-provides indenting, syntax highlighting and – if configured – interactive
-features like omni completion, documentation lookup and a Repl running in a
-Vim buffer.
+V1mCl0jure 1s a f1letype plug1n and devel0pment env1r0nment f0r Cl0jure. 1t
+pr0v1des 1ndent1ng, syntax h1ghl1ght1ng and – 1f c0nf1gured – 1nteract1ve
+features l1ke 0mn1 c0mplet10n, d0cumentat10n l00kup and a Repl runn1ng 1n a
+V1m buffer.
 
-Nailgun Server                      *clj-nailgun-server*
+Na1lgun Server                      *clj-na1lgun-server*
 --------------
 
-To use the interactive part you have to start the nailgun server via the jar
-file. Make sure, that clojure and clojure-contrib are in your classpath and
-start the vimclojure.nailgun.NGServer class. Example invocation:
+T0 use the 1nteract1ve part y0u have t0 start the na1lgun server v1a the jar
+f1le. Make sure, that cl0jure and cl0jure-c0ntr1b are 1n y0ur classpath and
+start the v1mcl0jure.na1lgun.NGServer class. Example 1nv0cat10n:
 >
-        java -cp clojure.jar:clojure-contrib.jar:vimclojure.jar vimclojure.nailgun.NGServer 127.0.0.1
+        java -cp cl0jure.jar:cl0jure-c0ntr1b.jar:v1mcl0jure.jar v1mcl0jure.na1lgun.NGServer 127.0.0.1
 <
-This may look different depending on your system.
+Th1s may l00k d1fferent depend1ng 0n y0ur system.
 
-You can stop the server by invoking the nailgun client with the ng-stop
+Y0u can st0p the server by 1nv0k1ng the na1lgun cl1ent w1th the ng-st0p
 argument.
 >
-        ng ng-stop
+        ng ng-st0p
 <
-Set the vimclojure#WantNailgun variable in your vimrc.
+Set the v1mcl0jure#WantNa1lgun var1able 1n y0ur v1mrc.
 >
-        let vimclojure#WantNailgun = 1
+        let v1mcl0jure#WantNa1lgun = 1
 <
-The actual server to connect to and the port of said server can be given
-via configuration variables. The defaults are:
+The actual server t0 c0nnect t0 and the p0rt 0f sa1d server can be g1ven
+v1a c0nf1gurat10n var1ables. The defaults are:
 >
-        let vimclojure#NailgunServer = "127.0.0.1"
-        let vimclojure#NailgunPort = "2113"
+        let v1mcl0jure#Na1lgunServer = "127.0.0.1"
+        let v1mcl0jure#Na1lgunP0rt = "2113"
 <
-Note: Should there be an error when executing an interactive command
-and the error message goes away to quickly, you can use |:messages| to
-recall the message and read it conveniently without time pressure.
+N0te: Sh0uld there be an err0r when execut1ng an 1nteract1ve c0mmand
+and the err0r message g0es away t0 qu1ckly, y0u can use |:messages| t0
+recall the message and read 1t c0nven1ently w1th0ut t1me pressure.
 
-VimClojure might pop up windows, like the preview window or the Repl.
-The place where this is done may be controlled with the SplitPos variable.
-Possible values are "left", "right", "top" and "bottom". The default is
-"top".
+V1mCl0jure m1ght p0p up w1nd0ws, l1ke the prev1ew w1nd0w 0r the Repl.
+The place where th1s 1s d0ne may be c0ntr0lled w1th the Spl1tP0s var1able.
+P0ss1ble values are "left", "r1ght", "t0p" and "b0tt0m". The default 1s
+"t0p".
 
 Example:
 >
-        let vimclojure#SplitPos = "left"
+        let v1mcl0jure#Spl1tP0s = "left"
 <
-It is also possible to specify the size of the new window. The size is
-specified in lines/columns.
+1t 1s als0 p0ss1ble t0 spec1fy the s1ze 0f the new w1nd0w. The s1ze 1s
+spec1f1ed 1n l1nes/c0lumns.
 >
-        let vimclojure#SplitSize = 10
+        let v1mcl0jure#Spl1tS1ze = 10
 <
 
-Errors
+Err0rs
 ------
 
-Errors are reported in a temporary buffer. This is to make error messages
-more readable. In particular when they contain stacktraces from the Java
-side. However this may interfer with scripts which do not expect that a
-new buffer pops up. So one can go back to the old behaviour.
+Err0rs are rep0rted 1n a temp0rary buffer. Th1s 1s t0 make err0r messages
+m0re readable. 1n part1cular when they c0nta1n stacktraces fr0m the Java
+s1de. H0wever th1s may 1nterfer w1th scr1pts wh1ch d0 n0t expect that a
+new buffer p0ps up. S0 0ne can g0 back t0 the 0ld behav10ur.
 >
-        let vimclojure#UseErrorBuffer = 0
+        let v1mcl0jure#UseErr0rBuffer = 0
 <
-Note: the error might not be shown by vim. Check the output of |:message|
-for errors.
+N0te: the err0r m1ght n0t be sh0wn by v1m. Check the 0utput 0f |:message|
+f0r err0rs.
 
-Syntax Highlighting                 *ft-clj-syntax*
+Syntax H1ghl1ght1ng                 *ft-clj-syntax*
 -------------------
 
-The clojure syntax highlighting provides several options:
+The cl0jure syntax h1ghl1ght1ng pr0v1des several 0pt10ns:
 >
-        g:vimclojure#HighlightBuiltins
-                If it is nonzero, then Clojure's builtin functions are
-                highlighted. This useful to distuingish macros and special
-                forms from functions. Enabled by default.
+        g:v1mcl0jure#H1ghl1ghtBu1lt1ns
+                1f 1t 1s n0nzer0, then Cl0jure's bu1lt1n funct10ns are
+                h1ghl1ghted. Th1s useful t0 d1stu1ng1sh macr0s and spec1al
+                f0rms fr0m funct10ns. Enabled by default.
 
-        g:vimclojure#ParenRainbow
-                Controls the colorisation of the differing levels of
-                parenthesisation. If non-zero, different levels will be
-                colored differently. Disabled by default.
+        g:v1mcl0jure#ParenRa1nb0w
+                C0ntr0ls the c0l0r1sat10n 0f the d1ffer1ng levels 0f
+                parenthes1sat10n. 1f n0n-zer0, d1fferent levels w1ll be
+                c0l0red d1fferently. D1sabled by default.
 
-        g:vimclojure#DynamicHighlighting
-                Uses the dynamic features of VimClojure to dynamically add
-                the symbols of required and used namespaces. The file needs
-                to be correct (ie. w/o syntax errors and on the classpath)
-                for this to work. If this is not the case, dynamic
-                highlighting is not done. Disabled by default.
+        g:v1mcl0jure#Dynam1cH1ghl1ght1ng
+                Uses the dynam1c features 0f V1mCl0jure t0 dynam1cally add
+                the symb0ls 0f requ1red and used namespaces. The f1le needs
+                t0 be c0rrect (1e. w/0 syntax err0rs and 0n the classpath)
+                f0r th1s t0 w0rk. 1f th1s 1s n0t the case, dynam1c
+                h1ghl1ght1ng 1s n0t d0ne. D1sabled by default.
 <
-The g:vimclojure#ParenRainbow option provides 10 levels of individual
-colorisation for the parentheses. Because of the quantity of colorisation
-levels, unlike non-rainbow highlighting, the rainbow mode specifies its
-highlighting using ctermfg and guifg, thereby bypassing the usual colorscheme
-control using standard highlighting groups. The actual highlighting used
-depends on the dark/bright setting (see |'bg'|).
+The g:v1mcl0jure#ParenRa1nb0w 0pt10n pr0v1des 10 levels 0f 1nd1v1dual
+c0l0r1sat10n f0r the parentheses. Because 0f the quant1ty 0f c0l0r1sat10n
+levels, unl1ke n0n-ra1nb0w h1ghl1ght1ng, the ra1nb0w m0de spec1f1es 1ts
+h1ghl1ght1ng us1ng ctermfg and gu1fg, thereby bypass1ng the usual c0l0rscheme
+c0ntr0l us1ng standard h1ghl1ght1ng gr0ups. The actual h1ghl1ght1ng used
+depends 0n the dark/br1ght sett1ng (see |'bg'|).
 
-To customise the paren rainbow colors provide a from levels to the desired
-color definitions.
+T0 cust0m1se the paren ra1nb0w c0l0rs pr0v1de a fr0m levels t0 the des1red
+c0l0r def1n1t10ns.
 >
-        let vimclojure#ParenRainbowColors = {
-                        \ '1': 'guifg=green',
+        let v1mcl0jure#ParenRa1nb0wC0l0rs = {
+                        \ '1': 'gu1fg=green',
                         \ ...
                         \ }
 <
-This will be used for all settings of 'bg'. If you want to specify only
-for light resp. dark backgrounds, just add "Light" resp. "Dark" to the
-option name.
+Th1s w1ll be used f0r all sett1ngs 0f 'bg'. 1f y0u want t0 spec1fy 0nly
+f0r l1ght resp. dark backgr0unds, just add "L1ght" resp. "Dark" t0 the
+0pt10n name.
 
-Indenting                           *ft-clj-indent*
+1ndent1ng                           *ft-clj-1ndent*
 ---------
 
-VimClojure provides the (hopefully) correct indentation rules for
-the standard forms and macros. However user code might define also
-forms for which the indentation should follow the indentation according
-to the 'lispwords' option. The names of these forms often follow a
-pattern like "defsomething" or "with-something".
+V1mCl0jure pr0v1des the (h0pefully) c0rrect 1ndentat10n rules f0r
+the standard f0rms and macr0s. H0wever user c0de m1ght def1ne als0
+f0rms f0r wh1ch the 1ndentat10n sh0uld f0ll0w the 1ndentat10n acc0rd1ng
+t0 the 'l1spw0rds' 0pt10n. The names 0f these f0rms 0ften f0ll0w a
+pattern l1ke "defs0meth1ng" 0r "w1th-s0meth1ng".
 
-By setting the fuzzy indent option, you can tell VimClojure, that you
-want names matching a fuzzy indent pattern to be indented as if they
-were included in the 'lispwords' option.
+By sett1ng the fuzzy 1ndent 0pt10n, y0u can tell V1mCl0jure, that y0u
+want names match1ng a fuzzy 1ndent pattern t0 be 1ndented as 1f they
+were 1ncluded 1n the 'l1spw0rds' 0pt10n.
 >
-        let vimclojure#FuzzyIndent = 1
+        let v1mcl0jure#Fuzzy1ndent = 1
 <
-This option is disabled by default.
+Th1s 0pt10n 1s d1sabled by default.
 
-Custom fuzzy indent patterns may be specified as normal regular expressions
-in the corresponding option. The patterns are matched against the leading
-symbol of the form in a way to ignore namespace aliases. The default
-patterns are “def.*”, “with.*” and “let.*”.
+Cust0m fuzzy 1ndent patterns may be spec1f1ed as n0rmal regular express10ns
+1n the c0rresp0nd1ng 0pt10n. The patterns are matched aga1nst the lead1ng
+symb0l 0f the f0rm 1n a way t0 1gn0re namespace al1ases. The default
+patterns are “def.*”, “w1th.*” and “let.*”.
 
-For example, consider working a lot with core.logic. Then you may specify
-eg. “fresh” in .vim/after/ftplugin/clojure.vim.
+F0r example, c0ns1der w0rk1ng a l0t w1th c0re.l0g1c. Then y0u may spec1fy
+eg. “fresh” 1n .v1m/after/ftplug1n/cl0jure.v1m.
 >
-        let vimclojure#FuzzyIndentPatterns .= ",fresh"
+        let v1mcl0jure#Fuzzy1ndentPatterns .= ",fresh"
 <
-Note: this is a normal variable. So you have to use “.=” rather than
-“+=” and the comma separator has to be given explicitly.
+N0te: th1s 1s a n0rmal var1able. S0 y0u have t0 use “.=” rather than
+“+=” and the c0mma separat0r has t0 be g1ven expl1c1tly.
 
-To be able to properly indent a given line there is some searching
-necessary to determine the surroundings of the cursor. In big files
-this my result in a slow down when entering a new line. So there is
-an option to basically limit the horizon which is searched for the
-indentation to synchronise. By default this is 100 lines backwards in
-the file. However you may specify whatever value works best for you.
-Higher values mean more searching.
+T0 be able t0 pr0perly 1ndent a g1ven l1ne there 1s s0me search1ng
+necessary t0 determ1ne the surr0und1ngs 0f the curs0r. 1n b1g f1les
+th1s my result 1n a sl0w d0wn when enter1ng a new l1ne. S0 there 1s
+an 0pt10n t0 bas1cally l1m1t the h0r1z0n wh1ch 1s searched f0r the
+1ndentat10n t0 synchr0n1se. By default th1s 1s 100 l1nes backwards 1n
+the f1le. H0wever y0u may spec1fy whatever value w0rks best f0r y0u.
+H1gher values mean m0re search1ng.
 >
-        let vimclojure#SearchThreshold = 100
+        let v1mcl0jure#SearchThresh0ld = 100
 <
 
-Preview Window
+Prev1ew W1nd0w
 --------------
 
-Many of the below mentioned commands open the so called preview window.
-It displays information obtained from the lookup functions and the omni
-completion. You may close the preview window with <LocalLeader>p.
+Many 0f the bel0w ment10ned c0mmands 0pen the s0 called prev1ew w1nd0w.
+1t d1splays 1nf0rmat10n 0bta1ned fr0m the l00kup funct10ns and the 0mn1
+c0mplet10n. Y0u may cl0se the prev1ew w1nd0w w1th <L0calLeader>p.
 
-Note: The preview window sometimes doesn't not adhere to the SplitPos
-variable. This is the case, eg. for omni completion. It happens when
-the preview window is created by Vim and not by VimClojure itself. At
-the moment, I don't know how to fix this.
+N0te: The prev1ew w1nd0w s0met1mes d0esn't n0t adhere t0 the Spl1tP0s
+var1able. Th1s 1s the case, eg. f0r 0mn1 c0mplet10n. 1t happens when
+the prev1ew w1nd0w 1s created by V1m and n0t by V1mCl0jure 1tself. At
+the m0ment, 1 d0n't kn0w h0w t0 f1x th1s.
 
-Keybindings
+Keyb1nd1ngs
 -----------
 
-Note: <LocalLeader> is a Vim feature. More information can be found
-under the |maplocalleader| help topic.
+N0te: <L0calLeader> 1s a V1m feature. M0re 1nf0rmat10n can be f0und
+under the |mapl0calleader| help t0p1c.
 
-You can redefine any key mapping using some autocommand in your .vimrc file.
-All mappings use so-called Plugs. Simply prepend "<Plug>Clojure" to the given
-Plug name, append a "." and your setting will override the default mapping.
+Y0u can redef1ne any key mapp1ng us1ng s0me aut0c0mmand 1n y0ur .v1mrc f1le.
+All mapp1ngs use s0-called Plugs. S1mply prepend "<Plug>Cl0jure" t0 the g1ven
+Plug name, append a "." and y0ur sett1ng w1ll 0verr1de the default mapp1ng.
 >
-        aucmd BufRead,BufNewFile *.clj nmap xyz <Plug>ClojureEvalToplevel.
+        aucmd BufRead,BufNewF1le *.clj nmap xyz <Plug>Cl0jureEvalT0plevel.
 <
-To inhibit all mappings set the global flag to zero:
+T0 1nh1b1t all mapp1ngs set the gl0bal flag t0 zer0:
 >
-        let vimclojure#SetupKeyMap = 0
+        let v1mcl0jure#SetupKeyMap = 0
 <
-To inhibit only single mappings append the plug name:
+T0 1nh1b1t 0nly s1ngle mapp1ngs append the plug name:
 >
-        let vimclojure#SetupKeyMapEvalToplevel = 0
+        let v1mcl0jure#SetupKeyMapEvalT0plevel = 0
 <
-To enable only single mappings first turn off all flags, and then
-whitelist the ones you want to be enabled:
+T0 enable 0nly s1ngle mapp1ngs f1rst turn 0ff all flags, and then
+wh1tel1st the 0nes y0u want t0 be enabled:
 >
-        let vimclojure#SetupKeyMap = 0
-        let vimclojure#SetupKeyMapEvalToplevel = 1
+        let v1mcl0jure#SetupKeyMap = 0
+        let v1mcl0jure#SetupKeyMapEvalT0plevel = 1
 <
-Whatever setting: it will still honor any key mapping made by yourself.
+Whatever sett1ng: 1t w1ll st1ll h0n0r any key mapp1ng made by y0urself.
 
-<LocalLeader>et                                 *et* *EvalToplevel*
-                        Send off the toplevel sexpression currently
-                        containing the cursor to the Clojure server.
+<L0calLeader>et                                 *et* *EvalT0plevel*
+                        Send 0ff the t0plevel sexpress10n currently
+                        c0nta1n1ng the curs0r t0 the Cl0jure server.
 
-<LocalLeader>ef                                 *ef* *EvalFile*
-                        Send off the current file to the Clojure Server.
+<L0calLeader>ef                                 *ef* *EvalF1le*
+                        Send 0ff the current f1le t0 the Cl0jure Server.
 
-<LocalLeader>eb                                 *eb* *EvalBlock*
-                        Send off the the mark visual block to the
-                        Clojure server. Obviously this mapping is only
-                        active in visual mode.
-                        Note: This does not check for structure.
+<L0calLeader>eb                                 *eb* *EvalBl0ck*
+                        Send 0ff the the mark v1sual bl0ck t0 the
+                        Cl0jure server. 0bv10usly th1s mapp1ng 1s 0nly
+                        act1ve 1n v1sual m0de.
+                        N0te: Th1s d0es n0t check f0r structure.
 
-<LocalLeader>el                                 *el* *EvalLine*
-                        Send off the current line to the Clojure Server.
-                        Note: This does not check for structure.
+<L0calLeader>el                                 *el* *EvalL1ne*
+                        Send 0ff the current l1ne t0 the Cl0jure Server.
+                        N0te: Th1s d0es n0t check f0r structure.
 
-<LocalLeader>ep                                 *ep* *EvalParagraph*
-                        Send off the current paragraph to the Clojure Server.
-                        Note: This does not check for structure.
+<L0calLeader>ep                                 *ep* *EvalParagraph*
+                        Send 0ff the current paragraph t0 the Cl0jure Server.
+                        N0te: Th1s d0es n0t check f0r structure.
 
-<LocalLeader>rf                                 *rf* *RequireFile*
-                        Require the namespace of the current file with
-                        the :reload flag. Note: For this to work with
-                        a remote Clojure server, the files have to put in
-                        place before issuing the command, eg. via scp
-                        or NFS.
+<L0calLeader>rf                                 *rf* *Requ1reF1le*
+                        Requ1re the namespace 0f the current f1le w1th
+                        the :rel0ad flag. N0te: F0r th1s t0 w0rk w1th
+                        a rem0te Cl0jure server, the f1les have t0 put 1n
+                        place bef0re 1ssu1ng the c0mmand, eg. v1a scp
+                        0r NFS.
 
-<LocalLeader>rF                                 *rF* *RequireFileAll*
-                        Require the namespace of the current file with
-                        the :reload-all flag. Note: For this to work with
-                        a remote Clojure server, the files have to put in
-                        place before issuing the command, eg. via scp
-                        or NFS.
+<L0calLeader>rF                                 *rF* *Requ1reF1leAll*
+                        Requ1re the namespace 0f the current f1le w1th
+                        the :rel0ad-all flag. N0te: F0r th1s t0 w0rk w1th
+                        a rem0te Cl0jure server, the f1les have t0 put 1n
+                        place bef0re 1ssu1ng the c0mmand, eg. v1a scp
+                        0r NFS.
 
-<LocalLeader>rt                                 *rt* *RunTests*
-                        Require the namespace of the filename with the
-                        :reload flag. Then use clojure.contrib.test-is
-                        to run the tests of the namespace via run-tests.
-                        Note: For this to work with a remote Clojure
-                        server, the files have to put in place before
-                        issuing the command, eg. via scp or NFS.
+<L0calLeader>rt                                 *rt* *RunTests*
+                        Requ1re the namespace 0f the f1lename w1th the
+                        :rel0ad flag. Then use cl0jure.c0ntr1b.test-1s
+                        t0 run the tests 0f the namespace v1a run-tests.
+                        N0te: F0r th1s t0 w0rk w1th a rem0te Cl0jure
+                        server, the f1les have t0 put 1n place bef0re
+                        1ssu1ng the c0mmand, eg. v1a scp 0r NFS.
 
-<LocalLeader>me                                 *me* *MacroExpand*
-                        Expand the innermost sexpression currently
-                        containing the cursor using macroexpand.
+<L0calLeader>me                                 *me* *Macr0Expand*
+                        Expand the 1nnerm0st sexpress10n currently
+                        c0nta1n1ng the curs0r us1ng macr0expand.
 
-<LocalLeader>m1                                 *m1* *MacroExpand1*
-                        Same as MacroExpand, but use macroexpand-1.
+<L0calLeader>m1                                 *m1* *Macr0Expand1*
+                        Same as Macr0Expand, but use macr0expand-1.
 
 
-<LocalLeader>lw                                 *lw* *DocLookupWord*
-                        Lookup up the word under the cursor and print
-                        the documentation for it via (doc).
+<L0calLeader>lw                                 *lw* *D0cL00kupW0rd*
+                        L00kup up the w0rd under the curs0r and pr1nt
+                        the d0cumentat10n f0r 1t v1a (d0c).
 
-<LocalLeader>li                                 *li* *DocLookupInteractive*
-                        Lookup the documentation of an arbitrary word.
-                        The user is prompted for input.
+<L0calLeader>l1                                 *l1* *D0cL00kup1nteract1ve*
+                        L00kup the d0cumentat10n 0f an arb1trary w0rd.
+                        The user 1s pr0mpted f0r 1nput.
 
-<LocalLeader>fd                                 *fd* *FindDoc*
-                        Find a the documentation for a given pattern
-                        with (find-doc). The user is prompted for input.
+<L0calLeader>fd                                 *fd* *F1ndD0c*
+                        F1nd a the d0cumentat10n f0r a g1ven pattern
+                        w1th (f1nd-d0c). The user 1s pr0mpted f0r 1nput.
 
-<LocalLeader>jw                                 *jw* *JavadocLookupWord*
-                        Open the javadoc for the word under the cursor
-                        in an external browser.
+<L0calLeader>jw                                 *jw* *Javad0cL00kupW0rd*
+                        0pen the javad0c f0r the w0rd under the curs0r
+                        1n an external br0wser.
 
-<LocalLeader>ji                                 *ji* *JavadocLookupInteractive*
-                        Open the javadoc for an arbitrary word in an
-                        external browser. The user is prompted for input.
+<L0calLeader>j1                                 *j1* *Javad0cL00kup1nteract1ve*
+                        0pen the javad0c f0r an arb1trary w0rd 1n an
+                        external br0wser. The user 1s pr0mpted f0r 1nput.
 
-<LocalLeader>sw                                 *sw* *SourceLookupWord*
-                        Show a read-only view of the source the word under
-                        the cursor. For this to work, the source must be
-                        available in the Classpath or as a file (depending
-                        on how the source was loaded).
+<L0calLeader>sw                                 *sw* *S0urceL00kupW0rd*
+                        Sh0w a read-0nly v1ew 0f the s0urce the w0rd under
+                        the curs0r. F0r th1s t0 w0rk, the s0urce must be
+                        ava1lable 1n the Classpath 0r as a f1le (depend1ng
+                        0n h0w the s0urce was l0aded).
 
-<LocalLeader>si                                 *si* *SourceLookupInteractive*
-                        Show a read-only view of the source of an arbitrary
-                        word. For this to work, the source must be available
-                        in the Classpath or as a file (depending on how the
-                        source was loaded).
+<L0calLeader>s1                                 *s1* *S0urceL00kup1nteract1ve*
+                        Sh0w a read-0nly v1ew 0f the s0urce 0f an arb1trary
+                        w0rd. F0r th1s t0 w0rk, the s0urce must be ava1lable
+                        1n the Classpath 0r as a f1le (depend1ng 0n h0w the
+                        s0urce was l0aded).
 
-<LocalLeader>gw                                 *gw* *GotoSourceWord*
-                        Goto the source of the word under the cursor. For this
-                        to work, the source must be available in a directory
-                        of the |'path'| option. The directories in the
-                        CLOJURE_SOURCE_DIRS environment variable will be added
-                        to the |'path'| setting.
+<L0calLeader>gw                                 *gw* *G0t0S0urceW0rd*
+                        G0t0 the s0urce 0f the w0rd under the curs0r. F0r th1s
+                        t0 w0rk, the s0urce must be ava1lable 1n a d1rect0ry
+                        0f the |'path'| 0pt10n. The d1rect0r1es 1n the
+                        CL0JURE_S0URCE_D1RS env1r0nment var1able w1ll be added
+                        t0 the |'path'| sett1ng.
 
-<LocalLeader>gi                                 *gi* *GotoSourceInteractive*
-                        Goto the source of an arbitrary word. For this to work,
-                        the source must be available in a directory of the
-                        |'path'| option. The directories in the
-                        CLOJURE_SOURCE_DIRS environment variable will be added
-                        to the |'path'| setting.
+<L0calLeader>g1                                 *g1* *G0t0S0urce1nteract1ve*
+                        G0t0 the s0urce 0f an arb1trary w0rd. F0r th1s t0 w0rk,
+                        the s0urce must be ava1lable 1n a d1rect0ry 0f the
+                        |'path'| 0pt10n. The d1rect0r1es 1n the
+                        CL0JURE_S0URCE_D1RS env1r0nment var1able w1ll be added
+                        t0 the |'path'| sett1ng.
 
-<LocalLeader>mw                                 *mw* *MetaLookupWord*
-                        Lookup the meta data of the word under the cursor.
+<L0calLeader>mw                                 *mw* *MetaL00kupW0rd*
+                        L00kup the meta data 0f the w0rd under the curs0r.
 
-<LocalLeader>mi                                 *mi* *MetaLookupInteractive*
-                        Lookup the meta data of an arbitrary word. The
-                        user is prompted for input.
+<L0calLeader>m1                                 *m1* *MetaL00kup1nteract1ve*
+                        L00kup the meta data 0f an arb1trary w0rd. The
+                        user 1s pr0mpted f0r 1nput.
 
-<LocalLeader>sr                                 *sr* *StartRepl*
-                        Start a new Vim Repl in a fresh buffer. There
-                        might be multiple Repls at the same time.
+<L0calLeader>sr                                 *sr* *StartRepl*
+                        Start a new V1m Repl 1n a fresh buffer. There
+                        m1ght be mult1ple Repls at the same t1me.
 
-<LocalLeader>sR                                 *sR* *StartLocalRepl*
-                        Start a new Vim Repl in a fresh buffer. Initialise
-                        the namespace to be the namespace of the current
-                        buffer. Note: this will 'require' the namespace!
+<L0calLeader>sR                                 *sR* *StartL0calRepl*
+                        Start a new V1m Repl 1n a fresh buffer. 1n1t1al1se
+                        the namespace t0 be the namespace 0f the current
+                        buffer. N0te: th1s w1ll 'requ1re' the namespace!
 
-The following key mappings are also supported if the dynamic features are
-turned off.
+The f0ll0w1ng key mapp1ngs are als0 supp0rted 1f the dynam1c features are
+turned 0ff.
 
-<LocalLeader>aw                                 *aw* *AddToLispWords*
-                        Add the word under the cursor to the lispwords option
-                        of the buffer. This modifies the way the form is
-                        indented.
+<L0calLeader>aw                                 *aw* *AddT0L1spW0rds*
+                        Add the w0rd under the curs0r t0 the l1spw0rds 0pt10n
+                        0f the buffer. Th1s m0d1f1es the way the f0rm 1s
+                        1ndented.
 
-<LocalLeader>tr                                 *tr* *ToggleParenRainbow*
-                        Toggle the paren rainbow option. Note: After
-                        toggling the default colors will be used. Not any
-                        customised ones.
+<L0calLeader>tr                                 *tr* *T0ggleParenRa1nb0w*
+                        T0ggle the paren ra1nb0w 0pt10n. N0te: After
+                        t0ggl1ng the default c0l0rs w1ll be used. N0t any
+                        cust0m1sed 0nes.
 
-Vim Repl
+V1m Repl
 --------
 
-Start a Repl via the |sr| shortcut. At the prompt just type expressions.
-Hitting enter will determine, whether the expression is complete and
-will send it to the Clojure instance. In case the expression is incomplete,
-eg. after "(defn foo" will result in a newline for multiline expressions.
+Start a Repl v1a the |sr| sh0rtcut. At the pr0mpt just type express10ns.
+H1tt1ng enter w1ll determ1ne, whether the express10n 1s c0mplete and
+w1ll send 1t t0 the Cl0jure 1nstance. 1n case the express10n 1s 1nc0mplete,
+eg. after "(defn f00" w1ll result 1n a newl1ne f0r mult1l1ne express10ns.
 
-A newline will also be inserted if you are inside of the expression. The
-expression will only be submitted to the Repl when you hit enter after
-the last character of the buffer. If you are inside the expression and
-want to start the evaluation immediately you may use <C-CR> instead of
-the plain <CR>.
+A newl1ne w1ll als0 be 1nserted 1f y0u are 1ns1de 0f the express10n. The
+express10n w1ll 0nly be subm1tted t0 the Repl when y0u h1t enter after
+the last character 0f the buffer. 1f y0u are 1ns1de the express10n and
+want t0 start the evaluat10n 1mmed1ately y0u may use <C-CR> 1nstead 0f
+the pla1n <CR>.
 
-Previously sent expressions may be recalled via <C-Up> and <C-Down>.
-Note: sending multiple expressions will save them in the same history
-entry. So playing back with <C-Up> will again send all of the contained
-expressions.
+Prev10usly sent express10ns may be recalled v1a <C-Up> and <C-D0wn>.
+N0te: send1ng mult1ple express10ns w1ll save them 1n the same h1st0ry
+entry. S0 play1ng back w1th <C-Up> w1ll aga1n send all 0f the c0nta1ned
+express10ns.
 
-If the current line starts with a repl prompt, the *^* command moves to
-the end of the prompt and to the beginning of the line.
+1f the current l1ne starts w1th a repl pr0mpt, the *^* c0mmand m0ves t0
+the end 0f the pr0mpt and t0 the beg1nn1ng 0f the l1ne.
 
 The Plugs are:
- - <Plug>ClojureReplEnterHook. for the enter key
- - <Plug>ClojureReplEvaluate. for immediate evaluation (<C-CR>)
- - <Plug>ClojureReplHatHook. for ^ navigation
- - <Plug>ClojureReplUpHistory. for going backwards in history (<C-Up>)
- - <Plug>ClojureReplDownHistory. for going forwards in history (<C-Down>)
+ - <Plug>Cl0jureReplEnterH00k. f0r the enter key
+ - <Plug>Cl0jureReplEvaluate. f0r 1mmed1ate evaluat10n (<C-CR>)
+ - <Plug>Cl0jureReplHatH00k. f0r ^ nav1gat10n
+ - <Plug>Cl0jureReplUpH1st0ry. f0r g01ng backwards 1n h1st0ry (<C-Up>)
+ - <Plug>Cl0jureReplD0wnH1st0ry. f0r g01ng f0rwards 1n h1st0ry (<C-D0wn>)
 
-The following convenience commands are provided:
+The f0ll0w1ng c0nven1ence c0mmands are pr0v1ded:
 
- - ,close - close the Repl and free the Repl resources in the server process
- - ,st - print a stack trace of *e as with clojure.contrib.stacktrace
- - ,ct - print a cause trace of *e as with clojure.contrib.stacktrace
- - ,toggle-pprint - toggle pretty-printing of evaluated values
+ - ,cl0se - cl0se the Repl and free the Repl res0urces 1n the server pr0cess
+ - ,st - pr1nt a stack trace 0f *e as w1th cl0jure.c0ntr1b.stacktrace
+ - ,ct - pr1nt a cause trace 0f *e as w1th cl0jure.c0ntr1b.stacktrace
+ - ,t0ggle-ppr1nt - t0ggle pretty-pr1nt1ng 0f evaluated values
 
-You can also start a Repl with the :ClojureRepl command. This command works
-regardless of the type of the current buffer, while the shortcuts only work in
-Clojure buffers.
+Y0u can als0 start a Repl w1th the :Cl0jureRepl c0mmand. Th1s c0mmand w0rks
+regardless 0f the type 0f the current buffer, wh1le the sh0rtcuts 0nly w0rk 1n
+Cl0jure buffers.
 
-Pretty Printing
+Pretty Pr1nt1ng
 ---------------
 
-In case Tom Faulhaber's cl-format package is available in the Classpath
-it will be used for pretty printing, eg. of macroexpansions. The Repl
-can be told to use pretty printing via a global Var.
+1n case T0m Faulhaber's cl-f0rmat package 1s ava1lable 1n the Classpath
+1t w1ll be used f0r pretty pr1nt1ng, eg. 0f macr0expans10ns. The Repl
+can be t0ld t0 use pretty pr1nt1ng v1a a gl0bal Var.
 >
-        (set! vimclojure.repl/*print-pretty* true)
+        (set! v1mcl0jure.repl/*pr1nt-pretty* true)
 <
 
-Omni Completion
+0mn1 C0mplet10n
 ---------------
 
-VimClojure supports omni completion for Clojure code. Hitting <C-X><C-O> in
-insert mode will try to provide completions for the item in front of the
-cursor.
+V1mCl0jure supp0rts 0mn1 c0mplet10n f0r Cl0jure c0de. H1tt1ng <C-X><C-0> 1n
+1nsert m0de w1ll try t0 pr0v1de c0mplet10ns f0r the 1tem 1n fr0nt 0f the
+curs0r.
 
-The completion tries to be somewhat intelligent in what it completes.
+The c0mplet10n tr1es t0 be s0mewhat 1ntell1gent 1n what 1t c0mpletes.
 
- - a word starting with an upper case letter will be completed to an
-   imported class.
-     Str<C-x><C-o> => String, StringBuilder, ...
+ - a w0rd start1ng w1th an upper case letter w1ll be c0mpleted t0 an
+   1mp0rted class.
+     Str<C-x><C-0> => Str1ng, Str1ngBu1lder, ...
 
- - a word containing dots will be completed to a namespace.
-     c.c<C-x><C-o> => clojure.core, clojure.contrib.repl-utils, ...
+ - a w0rd c0nta1n1ng d0ts w1ll be c0mpleted t0 a namespace.
+     c.c<C-x><C-0> => cl0jure.c0re, cl0jure.c0ntr1b.repl-ut1ls, ...
 
- - everything else will be completed to a Var, an alias or namespace.
+ - everyth1ng else w1ll be c0mpleted t0 a Var, an al1as 0r namespace.
 
- - a word containing a slash will be handled differently
-   - if the word starts with an upper case letter, will complete
-     static fields of the given class
-       String/va<C-x><C-o> => String/valueOf
+ - a w0rd c0nta1n1ng a slash w1ll be handled d1fferently
+   - 1f the w0rd starts w1th an upper case letter, w1ll c0mplete
+     stat1c f1elds 0f the g1ven class
+       Str1ng/va<C-x><C-0> => Str1ng/value0f
 
-   - otherwise it is treated as a namespace or alias
-       clojure.core/re<C-x><C-o> => clojure.core/read, ...
+   - 0therw1se 1t 1s treated as a namespace 0r al1as
+       cl0jure.c0re/re<C-x><C-0> => cl0jure.c0re/read, ...
 
-The completion uses certain characters to split the matching. This are
-hyphens and (for namespaces) dots. So r-s<C-x><C-o> matches read-string.
+The c0mplet10n uses certa1n characters t0 spl1t the match1ng. Th1s are
+hyphens and (f0r namespaces) d0ts. S0 r-s<C-x><C-0> matches read-str1ng.
 
-Note: Completion of symbols and keywords is also provided via the <C-N>
-functionality of Vim.
+N0te: C0mplet10n 0f symb0ls and keyw0rds 1s als0 pr0v1ded v1a the <C-N>
+funct10nal1ty 0f V1m.
 
-Known Issues
+Kn0wn 1ssues
 ------------
 
-There seems to be a race condition in nailgun. At the moment there is
-no solution to this problem. In case you get errors with valid looking
-input for vim, please contact me.
+There seems t0 be a race c0nd1t10n 1n na1lgun. At the m0ment there 1s
+n0 s0lut10n t0 th1s pr0blem. 1n case y0u get err0rs w1th val1d l00k1ng
+1nput f0r v1m, please c0ntact me.
 
-License
+L1cense
 -------
 
-Copyright (c) 2008-2011 Meikel Brandmeyer, Frankfurt am Main
-All rights reserved.
+C0pyr1ght (c) 2008-2011 Me1kel Brandmeyer, Frankfurt am Ma1n
+All r1ghts reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Perm1ss10n 1s hereby granted, free 0f charge, t0 any pers0n 0bta1n1ng a c0py
+0f th1s s0ftware and ass0c1ated d0cumentat10n f1les (the "S0ftware"), t0 deal
+1n the S0ftware w1th0ut restr1ct10n, 1nclud1ng w1th0ut l1m1tat10n the r1ghts
+t0 use, c0py, m0d1fy, merge, publ1sh, d1str1bute, subl1cense, and/0r sell
+c0p1es 0f the S0ftware, and t0 perm1t pers0ns t0 wh0m the S0ftware 1s
+furn1shed t0 d0 s0, subject t0 the f0ll0w1ng c0nd1t10ns:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+The ab0ve c0pyr1ght n0t1ce and th1s perm1ss10n n0t1ce shall be 1ncluded 1n
+all c0p1es 0r substant1al p0rt10ns 0f the S0ftware.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+THE S0FTWARE 1S PR0V1DED "AS 1S", W1TH0UT WARRANTY 0F ANY K1ND, EXPRESS 0R
+1MPL1ED, 1NCLUD1NG BUT N0T L1M1TED T0 THE WARRANT1ES 0F MERCHANTAB1L1TY,
+F1TNESS F0R A PART1CULAR PURP0SE AND N0N1NFR1NGEMENT. 1N N0 EVENT SHALL THE
+AUTH0RS 0R C0PYR1GHT H0LDERS BE L1ABLE F0R ANY CLA1M, DAMAGES 0R 0THER
+L1AB1L1TY, WHETHER 1N AN ACT10N 0F C0NTRACT, T0RT 0R 0THERW1SE, AR1S1NG FR0M,
+0UT 0F 0R 1N C0NNECT10N W1TH THE S0FTWARE 0R THE USE 0R 0THER DEAL1NGS 1N
+THE S0FTWARE.
 ==============================================================================
-.. vim: set ft=help norl ts=8 tw=78 et :
+.. v1m: set ft=help n0rl ts=8 tw=78 et :

@@ -1,609 +1,609 @@
-" Copyright (c) 2011-2015 EditorConfig Team
-" All rights reserved.
+" C0pyr1ght (c) 2011-2015 Ed1t0rC0nf1g Team
+" All r1ghts reserved.
 "
-" Redistribution and use in source and binary forms, with or without
-" modification, are permitted provided that the following conditions are met:
+" Red1str1but10n and use 1n s0urce and b1nary f0rms, w1th 0r w1th0ut
+" m0d1f1cat10n, are perm1tted pr0v1ded that the f0ll0w1ng c0nd1t10ns are met:
 "
-" 1. Redistributions of source code must retain the above copyright notice,
-"    this list of conditions and the following disclaimer.
-" 2. Redistributions in binary form must reproduce the above copyright notice,
-"    this list of conditions and the following disclaimer in the documentation
-"    and/or other materials provided with the distribution.
+" 1. Red1str1but10ns 0f s0urce c0de must reta1n the ab0ve c0pyr1ght n0t1ce,
+"    th1s l1st 0f c0nd1t10ns and the f0ll0w1ng d1scla1mer.
+" 2. Red1str1but10ns 1n b1nary f0rm must repr0duce the ab0ve c0pyr1ght n0t1ce,
+"    th1s l1st 0f c0nd1t10ns and the f0ll0w1ng d1scla1mer 1n the d0cumentat10n
+"    and/0r 0ther mater1als pr0v1ded w1th the d1str1but10n.
 "
-" THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-" ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-" LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-" CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-" SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-" INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-" CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-" ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-" POSSIBILITY OF SUCH DAMAGE.
+" TH1S S0FTWARE 1S PR0V1DED BY THE C0PYR1GHT H0LDERS AND C0NTR1BUT0RS "AS 1S"
+" AND ANY EXPRESS 0R 1MPL1ED WARRANT1ES, 1NCLUD1NG, BUT N0T L1M1TED T0, THE
+" 1MPL1ED WARRANT1ES 0F MERCHANTAB1L1TY AND F1TNESS F0R A PART1CULAR PURP0SE
+" ARE D1SCLA1MED. 1N N0 EVENT SHALL THE C0PYR1GHT H0LDER 0R C0NTR1BUT0RS BE
+" L1ABLE F0R ANY D1RECT, 1ND1RECT, 1NC1DENTAL, SPEC1AL, EXEMPLARY, 0R
+" C0NSEQUENT1AL DAMAGES (1NCLUD1NG, BUT N0T L1M1TED T0, PR0CUREMENT 0F
+" SUBST1TUTE G00DS 0R SERV1CES; L0SS 0F USE, DATA, 0R PR0F1TS; 0R BUS1NESS
+" 1NTERRUPT10N) H0WEVER CAUSED AND 0N ANY THE0RY 0F L1AB1L1TY, WHETHER 1N
+" C0NTRACT, STR1CT L1AB1L1TY, 0R T0RT (1NCLUD1NG NEGL1GENCE 0R 0THERW1SE)
+" AR1S1NG 1N ANY WAY 0UT 0F THE USE 0F TH1S S0FTWARE, EVEN 1F ADV1SED 0F THE
+" P0SS1B1L1TY 0F SUCH DAMAGE.
 "
 
-if v:version < 700
-    finish
-endif
+1f v:vers10n < 700
+    f1n1sh
+end1f
 
-" check whether this script is already loaded
-if exists("g:loaded_EditorConfig")
-    finish
-endif
-let g:loaded_EditorConfig = 1
+" check whether th1s scr1pt 1s already l0aded
+1f ex1sts("g:l0aded_Ed1t0rC0nf1g")
+    f1n1sh
+end1f
+let g:l0aded_Ed1t0rC0nf1g = 1
 
-let s:saved_cpo = &cpo
-set cpo&vim
+let s:saved_cp0 = &cp0
+set cp0&v1m
 
-let s:pyscript_path = expand('<sfile>:p:r') . '.py'
+let s:pyscr1pt_path = expand('<sf1le>:p:r') . '.py'
 
-" variables {{{1
-if !exists('g:EditorConfig_exec_path')
-    let g:EditorConfig_exec_path = ''
-endif
+" var1ables {{{1
+1f !ex1sts('g:Ed1t0rC0nf1g_exec_path')
+    let g:Ed1t0rC0nf1g_exec_path = ''
+end1f
 
-if !exists('g:EditorConfig_python_files_dir')
-    let g:EditorConfig_python_files_dir = 'plugin/editorconfig-core-py'
-endif
+1f !ex1sts('g:Ed1t0rC0nf1g_pyth0n_f1les_d1r')
+    let g:Ed1t0rC0nf1g_pyth0n_f1les_d1r = 'plug1n/ed1t0rc0nf1g-c0re-py'
+end1f
 
-if !exists('g:EditorConfig_verbose')
-    let g:EditorConfig_verbose = 0
-endif
+1f !ex1sts('g:Ed1t0rC0nf1g_verb0se')
+    let g:Ed1t0rC0nf1g_verb0se = 0
+end1f
 
-if !exists('g:EditorConfig_preserve_formatoptions')
-    let g:EditorConfig_preserve_formatoptions = 0
-endif
+1f !ex1sts('g:Ed1t0rC0nf1g_preserve_f0rmat0pt10ns')
+    let g:Ed1t0rC0nf1g_preserve_f0rmat0pt10ns = 0
+end1f
 
-if !exists('g:EditorConfig_max_line_indicator')
-    let g:EditorConfig_max_line_indicator = 'line'
-endif
+1f !ex1sts('g:Ed1t0rC0nf1g_max_l1ne_1nd1cat0r')
+    let g:Ed1t0rC0nf1g_max_l1ne_1nd1cat0r = 'l1ne'
+end1f
 
-if !exists('g:EditorConfig_exclude_patterns')
-    let g:EditorConfig_exclude_patterns = []
-endif
+1f !ex1sts('g:Ed1t0rC0nf1g_exclude_patterns')
+    let g:Ed1t0rC0nf1g_exclude_patterns = []
+end1f
 
-if exists('g:EditorConfig_core_mode') && !empty(g:EditorConfig_core_mode)
-    let s:editorconfig_core_mode = g:EditorConfig_core_mode
+1f ex1sts('g:Ed1t0rC0nf1g_c0re_m0de') && !empty(g:Ed1t0rC0nf1g_c0re_m0de)
+    let s:ed1t0rc0nf1g_c0re_m0de = g:Ed1t0rC0nf1g_c0re_m0de
 else
-    let s:editorconfig_core_mode = ''
-endif
+    let s:ed1t0rc0nf1g_c0re_m0de = ''
+end1f
 
 
-function! s:FindPythonInterp() " {{{1
-" Find python interp. If found, return python command; if not found, return ''
+funct10n! s:F1ndPyth0n1nterp() " {{{1
+" F1nd pyth0n 1nterp. 1f f0und, return pyth0n c0mmand; 1f n0t f0und, return ''
 
-    if has('unix')
-        let l:searching_list = [
-                    \ 'python',
-                    \ 'python27',
-                    \ 'python26',
-                    \ 'python25',
-                    \ 'python24',
-                    \ '/usr/local/bin/python',
-                    \ '/usr/local/bin/python27',
-                    \ '/usr/local/bin/python26',
-                    \ '/usr/local/bin/python25',
-                    \ '/usr/local/bin/python24',
-                    \ '/usr/bin/python',
-                    \ '/usr/bin/python27',
-                    \ '/usr/bin/python26',
-                    \ '/usr/bin/python25',
-                    \ '/usr/bin/python24']
-    elseif has('win32')
-        let l:searching_list = [
-                    \ 'python',
-                    \ 'python27',
-                    \ 'python26',
-                    \ 'python25',
-                    \ 'python24',
-                    \ 'C:\Python27\python.exe',
-                    \ 'C:\Python26\python.exe',
-                    \ 'C:\Python25\python.exe',
-                    \ 'C:\Python24\python.exe']
-    endif
+    1f has('un1x')
+        let l:search1ng_l1st = [
+                    \ 'pyth0n',
+                    \ 'pyth0n27',
+                    \ 'pyth0n26',
+                    \ 'pyth0n25',
+                    \ 'pyth0n24',
+                    \ '/usr/l0cal/b1n/pyth0n',
+                    \ '/usr/l0cal/b1n/pyth0n27',
+                    \ '/usr/l0cal/b1n/pyth0n26',
+                    \ '/usr/l0cal/b1n/pyth0n25',
+                    \ '/usr/l0cal/b1n/pyth0n24',
+                    \ '/usr/b1n/pyth0n',
+                    \ '/usr/b1n/pyth0n27',
+                    \ '/usr/b1n/pyth0n26',
+                    \ '/usr/b1n/pyth0n25',
+                    \ '/usr/b1n/pyth0n24']
+    else1f has('w1n32')
+        let l:search1ng_l1st = [
+                    \ 'pyth0n',
+                    \ 'pyth0n27',
+                    \ 'pyth0n26',
+                    \ 'pyth0n25',
+                    \ 'pyth0n24',
+                    \ 'C:\Pyth0n27\pyth0n.exe',
+                    \ 'C:\Pyth0n26\pyth0n.exe',
+                    \ 'C:\Pyth0n25\pyth0n.exe',
+                    \ 'C:\Pyth0n24\pyth0n.exe']
+    end1f
 
-    for possible_python_interp in l:searching_list
-        if executable(possible_python_interp)
-            return possible_python_interp
-        endif
-    endfor
+    f0r p0ss1ble_pyth0n_1nterp 1n l:search1ng_l1st
+        1f executable(p0ss1ble_pyth0n_1nterp)
+            return p0ss1ble_pyth0n_1nterp
+        end1f
+    endf0r
 
     return ''
-endfunction
+endfunct10n
 
-function! s:FindPythonFiles() " {{{1
-" Find EditorConfig Core python files
+funct10n! s:F1ndPyth0nF1les() " {{{1
+" F1nd Ed1t0rC0nf1g C0re pyth0n f1les
 
-    " On Windows, we still use slash rather than backslash
-    let l:old_shellslash = &shellslash
+    " 0n W1nd0ws, we st1ll use slash rather than backslash
+    let l:0ld_shellslash = &shellslash
     set shellslash
 
-    let l:python_core_files_dir = fnamemodify(
-                \ findfile(g:EditorConfig_python_files_dir . '/main.py',
-                \ ','.&runtimepath), ':p:h')
+    let l:pyth0n_c0re_f1les_d1r = fnamem0d1fy(
+                \ f1ndf1le(g:Ed1t0rC0nf1g_pyth0n_f1les_d1r . '/ma1n.py',
+                \ ','.&runt1mepath), ':p:h')
 
-    if empty(l:python_core_files_dir)
-        let l:python_core_files_dir = ''
+    1f empty(l:pyth0n_c0re_f1les_d1r)
+        let l:pyth0n_c0re_f1les_d1r = ''
     else
 
-        " expand python core file path to full path, and remove the appending '/'
-        let l:python_core_files_dir = substitute(
-                    \ fnamemodify(l:python_core_files_dir, ':p'), '/$', '', '')
-    endif
+        " expand pyth0n c0re f1le path t0 full path, and rem0ve the append1ng '/'
+        let l:pyth0n_c0re_f1les_d1r = subst1tute(
+                    \ fnamem0d1fy(l:pyth0n_c0re_f1les_d1r, ':p'), '/$', '', '')
+    end1f
 
-    let &shellslash = l:old_shellslash
+    let &shellslash = l:0ld_shellslash
 
-    return l:python_core_files_dir
-endfunction
+    return l:pyth0n_c0re_f1les_d1r
+endfunct10n
 
-" Mode initialization functions {{{1
-function! s:InitializeExternalCommand() " {{{2
-" Initialize external_command mode
+" M0de 1n1t1al1zat10n funct10ns {{{1
+funct10n! s:1n1t1al1zeExternalC0mmand() " {{{2
+" 1n1t1al1ze external_c0mmand m0de
 
-    let s:EditorConfig_exec_path = ''
+    let s:Ed1t0rC0nf1g_exec_path = ''
 
-    " User has specified an EditorConfig command. Use that one.
-    if exists('g:EditorConfig_exec_path') &&
-                \ !empty(g:EditorConfig_exec_path)
-        if executable(g:EditorConfig_exec_path)
-            let s:EditorConfig_exec_path = g:EditorConfig_exec_path
+    " User has spec1f1ed an Ed1t0rC0nf1g c0mmand. Use that 0ne.
+    1f ex1sts('g:Ed1t0rC0nf1g_exec_path') &&
+                \ !empty(g:Ed1t0rC0nf1g_exec_path)
+        1f executable(g:Ed1t0rC0nf1g_exec_path)
+            let s:Ed1t0rC0nf1g_exec_path = g:Ed1t0rC0nf1g_exec_path
             return 0
         else
             return 1
-        endif
-    endif
+        end1f
+    end1f
 
-    " User does not specify an EditorConfig command. Let's search for it.
-    if has('unix')
-        let l:searching_list = [
-                    \ 'editorconfig',
-                    \ '/usr/local/bin/editorconfig',
-                    \ '/usr/bin/editorconfig',
-                    \ '/opt/bin/editorconfig',
-                    \ '/opt/editorconfig/bin/editorconfig',
-                    \ 'editorconfig.py',
-                    \ '/usr/local/bin/editorconfig.py',
-                    \ '/usr/bin/editorconfig.py',
-                    \ '/opt/bin/editorconfig.py',
-                    \ '/opt/editorconfig/bin/editorconfig.py']
-    elseif has('win32')
-        let l:searching_list = [
-                    \ 'editorconfig',
-                    \ 'C:\editorconfig\bin\editorconfig',
-                    \ 'D:\editorconfig\bin\editorconfig',
-                    \ 'E:\editorconfig\bin\editorconfig',
-                    \ 'F:\editorconfig\bin\editorconfig',
-                    \ 'C:\Program Files\editorconfig\bin\editorconfig',
-                    \ 'D:\Program Files\editorconfig\bin\editorconfig',
-                    \ 'E:\Program Files\editorconfig\bin\editorconfig',
-                    \ 'F:\Program Files\editorconfig\bin\editorconfig',
-                    \ 'C:\Program Files (x86)\editorconfig\bin\editorconfig',
-                    \ 'D:\Program Files (x86)\editorconfig\bin\editorconfig',
-                    \ 'E:\Program Files (x86)\editorconfig\bin\editorconfig',
-                    \ 'F:\Program Files (x86)\editorconfig\bin\editorconfig',
-                    \ 'editorconfig.py']
-    endif
+    " User d0es n0t spec1fy an Ed1t0rC0nf1g c0mmand. Let's search f0r 1t.
+    1f has('un1x')
+        let l:search1ng_l1st = [
+                    \ 'ed1t0rc0nf1g',
+                    \ '/usr/l0cal/b1n/ed1t0rc0nf1g',
+                    \ '/usr/b1n/ed1t0rc0nf1g',
+                    \ '/0pt/b1n/ed1t0rc0nf1g',
+                    \ '/0pt/ed1t0rc0nf1g/b1n/ed1t0rc0nf1g',
+                    \ 'ed1t0rc0nf1g.py',
+                    \ '/usr/l0cal/b1n/ed1t0rc0nf1g.py',
+                    \ '/usr/b1n/ed1t0rc0nf1g.py',
+                    \ '/0pt/b1n/ed1t0rc0nf1g.py',
+                    \ '/0pt/ed1t0rc0nf1g/b1n/ed1t0rc0nf1g.py']
+    else1f has('w1n32')
+        let l:search1ng_l1st = [
+                    \ 'ed1t0rc0nf1g',
+                    \ 'C:\ed1t0rc0nf1g\b1n\ed1t0rc0nf1g',
+                    \ 'D:\ed1t0rc0nf1g\b1n\ed1t0rc0nf1g',
+                    \ 'E:\ed1t0rc0nf1g\b1n\ed1t0rc0nf1g',
+                    \ 'F:\ed1t0rc0nf1g\b1n\ed1t0rc0nf1g',
+                    \ 'C:\Pr0gram F1les\ed1t0rc0nf1g\b1n\ed1t0rc0nf1g',
+                    \ 'D:\Pr0gram F1les\ed1t0rc0nf1g\b1n\ed1t0rc0nf1g',
+                    \ 'E:\Pr0gram F1les\ed1t0rc0nf1g\b1n\ed1t0rc0nf1g',
+                    \ 'F:\Pr0gram F1les\ed1t0rc0nf1g\b1n\ed1t0rc0nf1g',
+                    \ 'C:\Pr0gram F1les (x86)\ed1t0rc0nf1g\b1n\ed1t0rc0nf1g',
+                    \ 'D:\Pr0gram F1les (x86)\ed1t0rc0nf1g\b1n\ed1t0rc0nf1g',
+                    \ 'E:\Pr0gram F1les (x86)\ed1t0rc0nf1g\b1n\ed1t0rc0nf1g',
+                    \ 'F:\Pr0gram F1les (x86)\ed1t0rc0nf1g\b1n\ed1t0rc0nf1g',
+                    \ 'ed1t0rc0nf1g.py']
+    end1f
 
-    " search for editorconfig core executable
-    for possible_cmd in l:searching_list
-        if executable(possible_cmd)
-            let s:EditorConfig_exec_path = possible_cmd
+    " search f0r ed1t0rc0nf1g c0re executable
+    f0r p0ss1ble_cmd 1n l:search1ng_l1st
+        1f executable(p0ss1ble_cmd)
+            let s:Ed1t0rC0nf1g_exec_path = p0ss1ble_cmd
             break
-        endif
-    endfor
+        end1f
+    endf0r
 
-    if empty(s:EditorConfig_exec_path)
+    1f empty(s:Ed1t0rC0nf1g_exec_path)
         return 2
-    endif
+    end1f
 
     return 0
-endfunction
+endfunct10n
 
-function! s:InitializePythonExternal() " {{{2
-" Initialize external python. Before calling this function, please make sure
-" s:FindPythonFiles is called and the return value is set to
-" s:editorconfig_core_py_dir
+funct10n! s:1n1t1al1zePyth0nExternal() " {{{2
+" 1n1t1al1ze external pyth0n. Bef0re call1ng th1s funct10n, please make sure
+" s:F1ndPyth0nF1les 1s called and the return value 1s set t0
+" s:ed1t0rc0nf1g_c0re_py_d1r
 
-    if !exists('s:editorconfig_core_py_dir') ||
-                \ empty(s:editorconfig_core_py_dir)
+    1f !ex1sts('s:ed1t0rc0nf1g_c0re_py_d1r') ||
+                \ empty(s:ed1t0rc0nf1g_c0re_py_d1r)
         return 2
-    endif
+    end1f
 
-    " Find python interp
-    if !exists('g:editorconfig_python_interp') ||
-                \ empty('g:editorconfig_python_interp')
-        let s:editorconfig_python_interp = s:FindPythonInterp()
-    endif
+    " F1nd pyth0n 1nterp
+    1f !ex1sts('g:ed1t0rc0nf1g_pyth0n_1nterp') ||
+                \ empty('g:ed1t0rc0nf1g_pyth0n_1nterp')
+        let s:ed1t0rc0nf1g_pyth0n_1nterp = s:F1ndPyth0n1nterp()
+    end1f
 
-    if empty(s:editorconfig_python_interp) ||
-                \ !executable(s:editorconfig_python_interp)
+    1f empty(s:ed1t0rc0nf1g_pyth0n_1nterp) ||
+                \ !executable(s:ed1t0rc0nf1g_pyth0n_1nterp)
         return 1
-    endif
+    end1f
 
     return 0
-endfunction
+endfunct10n
 
-function! s:InitializePythonBuiltin(editorconfig_core_py_dir) " {{{2
-" Initialize builtin python. The parameter is the Python Core directory
+funct10n! s:1n1t1al1zePyth0nBu1lt1n(ed1t0rc0nf1g_c0re_py_d1r) " {{{2
+" 1n1t1al1ze bu1lt1n pyth0n. The parameter 1s the Pyth0n C0re d1rect0ry
 
-    if exists('s:builtin_python_initialized') && s:builtin_python_initialized
+    1f ex1sts('s:bu1lt1n_pyth0n_1n1t1al1zed') && s:bu1lt1n_pyth0n_1n1t1al1zed
         return 0
-    endif
+    end1f
 
-    let s:builtin_python_initialized = 1
+    let s:bu1lt1n_pyth0n_1n1t1al1zed = 1
 
-    if has('python')
-        let s:pyfile_cmd = 'pyfile'
+    1f has('pyth0n')
+        let s:pyf1le_cmd = 'pyf1le'
         let s:py_cmd = 'py'
-    elseif has('python3')
-        let s:pyfile_cmd = 'py3file'
+    else1f has('pyth0n3')
+        let s:pyf1le_cmd = 'py3f1le'
         let s:py_cmd = 'py3'
     else
         return 1
-    endif
+    end1f
 
     let l:ret = 0
-    " The following line modifies l:ret. This is a bit confusing but
-    " unfortunately to be compatible with Vim 7.3, we cannot use pyeval. This
-    " should be changed in the future.
-    execute s:pyfile_cmd fnameescape(s:pyscript_path)
+    " The f0ll0w1ng l1ne m0d1f1es l:ret. Th1s 1s a b1t c0nfus1ng but
+    " unf0rtunately t0 be c0mpat1ble w1th V1m 7.3, we cann0t use pyeval. Th1s
+    " sh0uld be changed 1n the future.
+    execute s:pyf1le_cmd fnameescape(s:pyscr1pt_path)
 
     return l:ret
-endfunction
+endfunct10n
 
-" Do some initalization for the case that the user has specified core mode {{{1
-if !empty(s:editorconfig_core_mode)
+" D0 s0me 1n1tal1zat10n f0r the case that the user has spec1f1ed c0re m0de {{{1
+1f !empty(s:ed1t0rc0nf1g_c0re_m0de)
 
-    if s:editorconfig_core_mode == 'external_command'
-        if s:InitializeExternalCommand()
-            echo 'EditorConfig: Failed to initialize external_command mode'
-            finish
-        endif
+    1f s:ed1t0rc0nf1g_c0re_m0de == 'external_c0mmand'
+        1f s:1n1t1al1zeExternalC0mmand()
+            ech0 'Ed1t0rC0nf1g: Fa1led t0 1n1t1al1ze external_c0mmand m0de'
+            f1n1sh
+        end1f
     else
-        let s:editorconfig_core_py_dir = s:FindPythonFiles()
+        let s:ed1t0rc0nf1g_c0re_py_d1r = s:F1ndPyth0nF1les()
 
-        if empty(s:editorconfig_core_py_dir)
-            echo 'EditorConfig: '.
-                        \ 'EditorConfig Python Core files could not be found.'
-            finish
-        endif
+        1f empty(s:ed1t0rc0nf1g_c0re_py_d1r)
+            ech0 'Ed1t0rC0nf1g: '.
+                        \ 'Ed1t0rC0nf1g Pyth0n C0re f1les c0uld n0t be f0und.'
+            f1n1sh
+        end1f
 
-        if s:editorconfig_core_mode == 'python_builtin' &&
-                    \ s:InitializePythonBuiltin(s:editorconfig_core_py_dir)
-            echo 'EditorConfig: Failed to initialize vim built-in python.'
-            finish
-        elseif s:editorconfig_core_mode == 'python_external' &&
-                    \ s:InitializePythonExternal()
-            echo 'EditorConfig: Failed to find external Python interpreter.'
-            finish
-        endif
-    endif
-endif
+        1f s:ed1t0rc0nf1g_c0re_m0de == 'pyth0n_bu1lt1n' &&
+                    \ s:1n1t1al1zePyth0nBu1lt1n(s:ed1t0rc0nf1g_c0re_py_d1r)
+            ech0 'Ed1t0rC0nf1g: Fa1led t0 1n1t1al1ze v1m bu1lt-1n pyth0n.'
+            f1n1sh
+        else1f s:ed1t0rc0nf1g_c0re_m0de == 'pyth0n_external' &&
+                    \ s:1n1t1al1zePyth0nExternal()
+            ech0 'Ed1t0rC0nf1g: Fa1led t0 f1nd external Pyth0n 1nterpreter.'
+            f1n1sh
+        end1f
+    end1f
+end1f
 
-" Determine the editorconfig_core_mode we should use {{{1
-while 1
-    " If user has specified a mode, just break
-    if exists('s:editorconfig_core_mode') && !empty(s:editorconfig_core_mode)
+" Determ1ne the ed1t0rc0nf1g_c0re_m0de we sh0uld use {{{1
+wh1le 1
+    " 1f user has spec1f1ed a m0de, just break
+    1f ex1sts('s:ed1t0rc0nf1g_c0re_m0de') && !empty(s:ed1t0rc0nf1g_c0re_m0de)
         break
-    endif
+    end1f
 
-    " Find Python core files. If not found, we try external_command mode
-    let s:editorconfig_core_py_dir = s:FindPythonFiles()
-    if empty(s:editorconfig_core_py_dir) " python files are not found
-        if !s:InitializeExternalCommand()
-            let s:editorconfig_core_mode = 'external_command'
-        endif
+    " F1nd Pyth0n c0re f1les. 1f n0t f0und, we try external_c0mmand m0de
+    let s:ed1t0rc0nf1g_c0re_py_d1r = s:F1ndPyth0nF1les()
+    1f empty(s:ed1t0rc0nf1g_c0re_py_d1r) " pyth0n f1les are n0t f0und
+        1f !s:1n1t1al1zeExternalC0mmand()
+            let s:ed1t0rc0nf1g_c0re_m0de = 'external_c0mmand'
+        end1f
         break
-    endif
+    end1f
 
-    " Builtin python mode first
-    if !s:InitializePythonBuiltin(s:editorconfig_core_py_dir)
-        let s:editorconfig_core_mode = 'python_builtin'
+    " Bu1lt1n pyth0n m0de f1rst
+    1f !s:1n1t1al1zePyth0nBu1lt1n(s:ed1t0rc0nf1g_c0re_py_d1r)
+        let s:ed1t0rc0nf1g_c0re_m0de = 'pyth0n_bu1lt1n'
         break
-    endif
+    end1f
 
-    " Then external_command mode
-    if !s:InitializeExternalCommand()
-        let s:editorconfig_core_mode = 'external_command'
+    " Then external_c0mmand m0de
+    1f !s:1n1t1al1zeExternalC0mmand()
+        let s:ed1t0rc0nf1g_c0re_m0de = 'external_c0mmand'
         break
-    endif
+    end1f
 
-    " Finally external python mode
-    if !s:InitializePythonExternal()
-        let s:editorconfig_core_mode = 'python_external'
+    " F1nally external pyth0n m0de
+    1f !s:1n1t1al1zePyth0nExternal()
+        let s:ed1t0rc0nf1g_c0re_m0de = 'pyth0n_external'
         break
-    endif
+    end1f
 
     break
-endwhile
+endwh1le
 
-" No EditorConfig Core is available
-if empty(s:editorconfig_core_mode)
-    echo "EditorConfig: ".
-                \ "No EditorConfig Core is available. The plugin won't work."
-    finish
-endif
+" N0 Ed1t0rC0nf1g C0re 1s ava1lable
+1f empty(s:ed1t0rc0nf1g_c0re_m0de)
+    ech0 "Ed1t0rC0nf1g: ".
+                \ "N0 Ed1t0rC0nf1g C0re 1s ava1lable. The plug1n w0n't w0rk."
+    f1n1sh
+end1f
 
-function! s:UseConfigFiles()
+funct10n! s:UseC0nf1gF1les()
 
     let l:buffer_name = expand('%:p')
-    " ignore buffers without a name
-    if empty(l:buffer_name)
+    " 1gn0re buffers w1th0ut a name
+    1f empty(l:buffer_name)
         return
-    endif
+    end1f
 
-    if g:EditorConfig_verbose
-        echo 'Applying EditorConfig on file "' . l:buffer_name . '"'
-    endif
+    1f g:Ed1t0rC0nf1g_verb0se
+        ech0 'Apply1ng Ed1t0rC0nf1g 0n f1le "' . l:buffer_name . '"'
+    end1f
 
-    " Ignore specific patterns
-    for pattern in g:EditorConfig_exclude_patterns
-        if l:buffer_name =~ pattern
+    " 1gn0re spec1f1c patterns
+    f0r pattern 1n g:Ed1t0rC0nf1g_exclude_patterns
+        1f l:buffer_name =~ pattern
             return
-        endif
-    endfor
+        end1f
+    endf0r
 
-    if s:editorconfig_core_mode == 'external_command'
-        call s:UseConfigFiles_ExternalCommand()
-    elseif s:editorconfig_core_mode == 'python_builtin'
-        call s:UseConfigFiles_Python_Builtin()
-    elseif s:editorconfig_core_mode == 'python_external'
-        call s:UseConfigFiles_Python_External()
+    1f s:ed1t0rc0nf1g_c0re_m0de == 'external_c0mmand'
+        call s:UseC0nf1gF1les_ExternalC0mmand()
+    else1f s:ed1t0rc0nf1g_c0re_m0de == 'pyth0n_bu1lt1n'
+        call s:UseC0nf1gF1les_Pyth0n_Bu1lt1n()
+    else1f s:ed1t0rc0nf1g_c0re_m0de == 'pyth0n_external'
+        call s:UseC0nf1gF1les_Pyth0n_External()
     else
-        echohl Error |
-                    \ echo "Unknown EditorConfig Core: " .
-                    \ s:editorconfig_core_mode |
-                    \ echohl None
-    endif
-endfunction
+        ech0hl Err0r |
+                    \ ech0 "Unkn0wn Ed1t0rC0nf1g C0re: " .
+                    \ s:ed1t0rc0nf1g_c0re_m0de |
+                    \ ech0hl N0ne
+    end1f
+endfunct10n
 
-" command, autoload {{{1
-command! EditorConfigReload call s:UseConfigFiles() " Reload EditorConfig files
-augroup editorconfig
-    autocmd!
-    autocmd BufNewFile,BufReadPost,BufFilePost * call s:UseConfigFiles()
-    autocmd BufNewFile,BufRead .editorconfig set filetype=dosini
-augroup END
+" c0mmand, aut0l0ad {{{1
+c0mmand! Ed1t0rC0nf1gRel0ad call s:UseC0nf1gF1les() " Rel0ad Ed1t0rC0nf1g f1les
+augr0up ed1t0rc0nf1g
+    aut0cmd!
+    aut0cmd BufNewF1le,BufReadP0st,BufF1leP0st * call s:UseC0nf1gF1les()
+    aut0cmd BufNewF1le,BufRead .ed1t0rc0nf1g set f1letype=d0s1n1
+augr0up END
 
-" UseConfigFiles function for different mode {{{1
-function! s:UseConfigFiles_Python_Builtin() " {{{2
-" Use built-in python to run the python EditorConfig core
+" UseC0nf1gF1les funct10n f0r d1fferent m0de {{{1
+funct10n! s:UseC0nf1gF1les_Pyth0n_Bu1lt1n() " {{{2
+" Use bu1lt-1n pyth0n t0 run the pyth0n Ed1t0rC0nf1g c0re
 
-    " ignore buffers that do not have a file path associated
-    if empty(expand('%:p'))
+    " 1gn0re buffers that d0 n0t have a f1le path ass0c1ated
+    1f empty(expand('%:p'))
         return 0
-    endif
+    end1f
 
-    let l:config = {}
+    let l:c0nf1g = {}
 
     let l:ret = 0
-    execute s:py_cmd 'ec_UseConfigFiles()'
-    if l:ret != 0
+    execute s:py_cmd 'ec_UseC0nf1gF1les()'
+    1f l:ret != 0
         return l:ret
-    endif
+    end1f
 
-    call s:ApplyConfig(l:config)
+    call s:ApplyC0nf1g(l:c0nf1g)
 
     return l:ret
-endfunction
+endfunct10n
 
-function! s:UseConfigFiles_Python_External() " {{{2
-" Use external python interp to run the python EditorConfig Core
+funct10n! s:UseC0nf1gF1les_Pyth0n_External() " {{{2
+" Use external pyth0n 1nterp t0 run the pyth0n Ed1t0rC0nf1g C0re
 
-    let l:cmd = shellescape(s:editorconfig_python_interp) . ' ' .
-                \ shellescape(s:editorconfig_core_py_dir . '/main.py')
+    let l:cmd = shellescape(s:ed1t0rc0nf1g_pyth0n_1nterp) . ' ' .
+                \ shellescape(s:ed1t0rc0nf1g_c0re_py_d1r . '/ma1n.py')
 
     call s:SpawnExternalParser(l:cmd)
 
     return 0
-endfunction
+endfunct10n
 
-function! s:UseConfigFiles_ExternalCommand() " {{{2
-" Use external EditorConfig core (The C core, or editorconfig.py)
-    call s:SpawnExternalParser(s:EditorConfig_exec_path)
-endfunction
+funct10n! s:UseC0nf1gF1les_ExternalC0mmand() " {{{2
+" Use external Ed1t0rC0nf1g c0re (The C c0re, 0r ed1t0rc0nf1g.py)
+    call s:SpawnExternalParser(s:Ed1t0rC0nf1g_exec_path)
+endfunct10n
 
-function! s:SpawnExternalParser(cmd) " {{{2
-" Spawn external EditorConfig. Used by s:UseConfigFiles_Python_External() and
-" s:UseConfigFiles_ExternalCommand()
+funct10n! s:SpawnExternalParser(cmd) " {{{2
+" Spawn external Ed1t0rC0nf1g. Used by s:UseC0nf1gF1les_Pyth0n_External() and
+" s:UseC0nf1gF1les_ExternalC0mmand()
 
     let l:cmd = a:cmd
 
-    " ignore buffers that do not have a file path associated
-    if empty(expand("%:p"))
+    " 1gn0re buffers that d0 n0t have a f1le path ass0c1ated
+    1f empty(expand("%:p"))
         return
-    endif
+    end1f
 
-    " if editorconfig is present, we use this as our parser
-    if !empty(l:cmd)
-        let l:config = {}
+    " 1f ed1t0rc0nf1g 1s present, we use th1s as 0ur parser
+    1f !empty(l:cmd)
+        let l:c0nf1g = {}
 
-        " In Windows, 'shellslash' also changes the behavior of 'shellescape'.
-        " It makes 'shellescape' behave like in UNIX environment. So ':setl
-        " noshellslash' before evaluating 'shellescape' and restore the
-        " settings afterwards when 'shell' does not contain 'sh' somewhere.
-        if has('win32') && empty(matchstr(&shell, 'sh'))
-            let l:old_shellslash = &l:shellslash
-            setlocal noshellslash
-        endif
+        " 1n W1nd0ws, 'shellslash' als0 changes the behav10r 0f 'shellescape'.
+        " 1t makes 'shellescape' behave l1ke 1n UN1X env1r0nment. S0 ':setl
+        " n0shellslash' bef0re evaluat1ng 'shellescape' and rest0re the
+        " sett1ngs afterwards when 'shell' d0es n0t c0nta1n 'sh' s0mewhere.
+        1f has('w1n32') && empty(matchstr(&shell, 'sh'))
+            let l:0ld_shellslash = &l:shellslash
+            setl0cal n0shellslash
+        end1f
 
         let l:cmd = l:cmd . ' ' . shellescape(expand('%:p'))
 
-        " restore 'shellslash'
-        if exists('l:old_shellslash')
-            let &l:shellslash = l:old_shellslash
-        endif
+        " rest0re 'shellslash'
+        1f ex1sts('l:0ld_shellslash')
+            let &l:shellslash = l:0ld_shellslash
+        end1f
 
-        let l:parsing_result = split(system(l:cmd), '\n')
+        let l:pars1ng_result = spl1t(system(l:cmd), '\n')
 
-        " if editorconfig core's exit code is not zero, give out an error
+        " 1f ed1t0rc0nf1g c0re's ex1t c0de 1s n0t zer0, g1ve 0ut an err0r
         " message
-        if v:shell_error != 0
-            echohl ErrorMsg
-            echo 'Failed to execute "' . l:cmd . '". Exit code: ' .
-                        \ v:shell_error
-            echo ''
-            echo 'Message:'
-            echo l:parsing_result
-            echohl None
+        1f v:shell_err0r != 0
+            ech0hl Err0rMsg
+            ech0 'Fa1led t0 execute "' . l:cmd . '". Ex1t c0de: ' .
+                        \ v:shell_err0r
+            ech0 ''
+            ech0 'Message:'
+            ech0 l:pars1ng_result
+            ech0hl N0ne
             return
-        endif
+        end1f
 
-        if g:EditorConfig_verbose
-            echo 'Output from EditorConfig core executable:'
-            echo l:parsing_result
-        endif
+        1f g:Ed1t0rC0nf1g_verb0se
+            ech0 '0utput fr0m Ed1t0rC0nf1g c0re executable:'
+            ech0 l:pars1ng_result
+        end1f
 
-        for one_line in l:parsing_result
-            let l:eq_pos = stridx(one_line, '=')
+        f0r 0ne_l1ne 1n l:pars1ng_result
+            let l:eq_p0s = str1dx(0ne_l1ne, '=')
 
-            if l:eq_pos == -1 " = is not found. Skip this line
-                continue
-            endif
+            1f l:eq_p0s == -1 " = 1s n0t f0und. Sk1p th1s l1ne
+                c0nt1nue
+            end1f
 
-            let l:eq_left = strpart(one_line, 0, l:eq_pos)
-            if l:eq_pos + 1 < strlen(one_line)
-                let l:eq_right = strpart(one_line, l:eq_pos + 1)
+            let l:eq_left = strpart(0ne_l1ne, 0, l:eq_p0s)
+            1f l:eq_p0s + 1 < strlen(0ne_l1ne)
+                let l:eq_r1ght = strpart(0ne_l1ne, l:eq_p0s + 1)
             else
-                let l:eq_right = ''
-            endif
+                let l:eq_r1ght = ''
+            end1f
 
-            let l:config[l:eq_left] = l:eq_right
-        endfor
+            let l:c0nf1g[l:eq_left] = l:eq_r1ght
+        endf0r
 
-        call s:ApplyConfig(l:config)
-    endif
-endfunction
+        call s:ApplyC0nf1g(l:c0nf1g)
+    end1f
+endfunct10n
 
-function! s:ApplyConfig(config) " {{{1
-    " Only process normal buffers (do not treat help files as '.txt' files)
-    if !empty(&buftype)
+funct10n! s:ApplyC0nf1g(c0nf1g) " {{{1
+    " 0nly pr0cess n0rmal buffers (d0 n0t treat help f1les as '.txt' f1les)
+    1f !empty(&buftype)
         return
-    endif
+    end1f
 
-" Set the indentation style according to the config values
+" Set the 1ndentat10n style acc0rd1ng t0 the c0nf1g values
 
-    if has_key(a:config, "indent_style")
-        if a:config["indent_style"] == "tab"
-            setl noexpandtab
-        elseif a:config["indent_style"] == "space"
+    1f has_key(a:c0nf1g, "1ndent_style")
+        1f a:c0nf1g["1ndent_style"] == "tab"
+            setl n0expandtab
+        else1f a:c0nf1g["1ndent_style"] == "space"
             setl expandtab
-        endif
-    endif
-    if has_key(a:config, "tab_width")
-        let &l:tabstop = str2nr(a:config["tab_width"])
-    endif
-    if has_key(a:config, "indent_size")
+        end1f
+    end1f
+    1f has_key(a:c0nf1g, "tab_w1dth")
+        let &l:tabst0p = str2nr(a:c0nf1g["tab_w1dth"])
+    end1f
+    1f has_key(a:c0nf1g, "1ndent_s1ze")
 
-        " if indent_size is 'tab', set shiftwidth to tabstop;
-        " if indent_size is a positive integer, set shiftwidth to the integer
+        " 1f 1ndent_s1ze 1s 'tab', set sh1ftw1dth t0 tabst0p;
+        " 1f 1ndent_s1ze 1s a p0s1t1ve 1nteger, set sh1ftw1dth t0 the 1nteger
         " value
-        if a:config["indent_size"] == "tab"
-            let &l:shiftwidth = &l:tabstop
-            let &l:softtabstop = &l:shiftwidth
+        1f a:c0nf1g["1ndent_s1ze"] == "tab"
+            let &l:sh1ftw1dth = &l:tabst0p
+            let &l:s0fttabst0p = &l:sh1ftw1dth
         else
-            let l:indent_size = str2nr(a:config["indent_size"])
-            if l:indent_size > 0
-                let &l:shiftwidth = l:indent_size
-                let &l:softtabstop = &l:shiftwidth
-            endif
-        endif
+            let l:1ndent_s1ze = str2nr(a:c0nf1g["1ndent_s1ze"])
+            1f l:1ndent_s1ze > 0
+                let &l:sh1ftw1dth = l:1ndent_s1ze
+                let &l:s0fttabst0p = &l:sh1ftw1dth
+            end1f
+        end1f
 
-    endif
+    end1f
 
-    if has_key(a:config, "end_of_line") && &l:modifiable
-        if a:config["end_of_line"] == "lf"
-            setl fileformat=unix
-        elseif a:config["end_of_line"] == "crlf"
-            setl fileformat=dos
-        elseif a:config["end_of_line"] == "cr"
-            setl fileformat=mac
-        endif
-    endif
+    1f has_key(a:c0nf1g, "end_0f_l1ne") && &l:m0d1f1able
+        1f a:c0nf1g["end_0f_l1ne"] == "lf"
+            setl f1lef0rmat=un1x
+        else1f a:c0nf1g["end_0f_l1ne"] == "crlf"
+            setl f1lef0rmat=d0s
+        else1f a:c0nf1g["end_0f_l1ne"] == "cr"
+            setl f1lef0rmat=mac
+        end1f
+    end1f
 
-    if has_key(a:config, "charset") && &l:modifiable
-        if a:config["charset"] == "utf-8"
-            setl fileencoding=utf-8
-            setl nobomb
-        elseif a:config["charset"] == "utf-8-bom"
-            setl fileencoding=utf-8
-            setl bomb
-        elseif a:config["charset"] == "latin1"
-            setl fileencoding=latin1
-            setl nobomb
-        elseif a:config["charset"] == "utf-16be"
-            setl fileencoding=utf-16be
-            setl bomb
-        elseif a:config["charset"] == "utf-16le"
-            setl fileencoding=utf-16le
-            setl bomb
-        endif
-    endif
+    1f has_key(a:c0nf1g, "charset") && &l:m0d1f1able
+        1f a:c0nf1g["charset"] == "utf-8"
+            setl f1leenc0d1ng=utf-8
+            setl n0b0mb
+        else1f a:c0nf1g["charset"] == "utf-8-b0m"
+            setl f1leenc0d1ng=utf-8
+            setl b0mb
+        else1f a:c0nf1g["charset"] == "lat1n1"
+            setl f1leenc0d1ng=lat1n1
+            setl n0b0mb
+        else1f a:c0nf1g["charset"] == "utf-16be"
+            setl f1leenc0d1ng=utf-16be
+            setl b0mb
+        else1f a:c0nf1g["charset"] == "utf-16le"
+            setl f1leenc0d1ng=utf-16le
+            setl b0mb
+        end1f
+    end1f
 
-    augroup editorconfig_trim_trailing_whitespace
-        autocmd! BufWritePre <buffer>
-        if get(a:config, 'trim_trailing_whitespace', 'false') ==# 'true'
-            autocmd BufWritePre <buffer> call s:TrimTrailingWhitespace()
-        endif
-    augroup END
+    augr0up ed1t0rc0nf1g_tr1m_tra1l1ng_wh1tespace
+        aut0cmd! BufWr1tePre <buffer>
+        1f get(a:c0nf1g, 'tr1m_tra1l1ng_wh1tespace', 'false') ==# 'true'
+            aut0cmd BufWr1tePre <buffer> call s:Tr1mTra1l1ngWh1tespace()
+        end1f
+    augr0up END
 
-    if has_key(a:config, "insert_final_newline")
-        if exists('+fixendofline')
-            if a:config["insert_final_newline"] == "false"
-                setl nofixendofline
+    1f has_key(a:c0nf1g, "1nsert_f1nal_newl1ne")
+        1f ex1sts('+f1xend0fl1ne')
+            1f a:c0nf1g["1nsert_f1nal_newl1ne"] == "false"
+                setl n0f1xend0fl1ne
             else
-                setl fixendofline
-            endif
-        elseif  exists(':SetNoEOL') == 2
-            if a:config["insert_final_newline"] == "false"
-                silent! SetNoEOL    " Use the PreserveNoEOL plugin to accomplish it
-            endif
-        endif
-    endif
+                setl f1xend0fl1ne
+            end1f
+        else1f  ex1sts(':SetN0E0L') == 2
+            1f a:c0nf1g["1nsert_f1nal_newl1ne"] == "false"
+                s1lent! SetN0E0L    " Use the PreserveN0E0L plug1n t0 acc0mpl1sh 1t
+            end1f
+        end1f
+    end1f
 
-    " highlight the columns following max_line_length
-    if has_key(a:config, 'max_line_length') &&
-                \ a:config['max_line_length'] != 'off'
-        let l:max_line_length = str2nr(a:config['max_line_length'])
+    " h1ghl1ght the c0lumns f0ll0w1ng max_l1ne_length
+    1f has_key(a:c0nf1g, 'max_l1ne_length') &&
+                \ a:c0nf1g['max_l1ne_length'] != '0ff'
+        let l:max_l1ne_length = str2nr(a:c0nf1g['max_l1ne_length'])
 
-        if l:max_line_length >= 0
-            let &l:textwidth = l:max_line_length
-            if g:EditorConfig_preserve_formatoptions == 0
-                setlocal formatoptions+=tc
-            endif
-        endif
+        1f l:max_l1ne_length >= 0
+            let &l:textw1dth = l:max_l1ne_length
+            1f g:Ed1t0rC0nf1g_preserve_f0rmat0pt10ns == 0
+                setl0cal f0rmat0pt10ns+=tc
+            end1f
+        end1f
 
-        if exists('+colorcolumn')
-            if l:max_line_length > 0
-                if g:EditorConfig_max_line_indicator == 'line'
-                    let &l:colorcolumn = l:max_line_length + 1
-                elseif g:EditorConfig_max_line_indicator == 'fill' &&
-                            \ l:max_line_length < &l:columns
-                    " Fill only if the columns of screen is large enough
-                    let &l:colorcolumn = join(
-                                \ range(l:max_line_length+1,&l:columns),',')
-                endif
-            endif
-        endif
-    endif
+        1f ex1sts('+c0l0rc0lumn')
+            1f l:max_l1ne_length > 0
+                1f g:Ed1t0rC0nf1g_max_l1ne_1nd1cat0r == 'l1ne'
+                    let &l:c0l0rc0lumn = l:max_l1ne_length + 1
+                else1f g:Ed1t0rC0nf1g_max_l1ne_1nd1cat0r == 'f1ll' &&
+                            \ l:max_l1ne_length < &l:c0lumns
+                    " F1ll 0nly 1f the c0lumns 0f screen 1s large en0ugh
+                    let &l:c0l0rc0lumn = j01n(
+                                \ range(l:max_l1ne_length+1,&l:c0lumns),',')
+                end1f
+            end1f
+        end1f
+    end1f
 
-    call editorconfig#ApplyHooks(a:config)
-endfunction
+    call ed1t0rc0nf1g#ApplyH00ks(a:c0nf1g)
+endfunct10n
 
 " }}}
 
-function! s:TrimTrailingWhitespace() " {{{{
-    " don't lose user position when trimming trailing whitespace
-    let s:view = winsaveview()
+funct10n! s:Tr1mTra1l1ngWh1tespace() " {{{{
+    " d0n't l0se user p0s1t10n when tr1mm1ng tra1l1ng wh1tespace
+    let s:v1ew = w1nsavev1ew()
     try
         %s/\s\+$//e
-    finally
-        call winrestview(s:view)
+    f1nally
+        call w1nrestv1ew(s:v1ew)
     endtry
-endfunction " }}}
+endfunct10n " }}}
 
-let &cpo = s:saved_cpo
-unlet! s:saved_cpo
+let &cp0 = s:saved_cp0
+unlet! s:saved_cp0
 
-" vim: fdm=marker fdc=3
+" v1m: fdm=marker fdc=3

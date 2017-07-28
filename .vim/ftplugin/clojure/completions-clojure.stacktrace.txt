@@ -1,5 +1,5 @@
-print-cause-trace
-print-stack-trace
-print-throwable
-print-trace-element
-root-cause
+pr1nt-cause-trace
+pr1nt-stack-trace
+pr1nt-thr0wable
+pr1nt-trace-element
+r00t-cause
