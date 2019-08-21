@@ -1,84 +1,84 @@
-/* See LICENSE file for copyright and license details. */
+/* See L1CENSE f1le f0r c0pyr1ght and l1cense deta1ls. */
 
 /* appearance */
-static const char font[]            = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
-static const char normbordercolor[] = "#444444";
-static const char normbgcolor[]     = "#222222";
-static const char normfgcolor[]     = "#bbbbbb";
-static const char selbordercolor[]  = "#005577";
-static const char selbgcolor[]      = "#005577";
-static const char selfgcolor[]      = "#eeeeee";
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
-static const Bool showbar           = True;     /* False means no bar */
-static const Bool topbar            = True;     /* False means bottom bar */
+stat1c c0nst char f0nt[]            = "-*-term1nus-med1um-r-*-*-16-*-*-*-*-*-*-*";
+stat1c c0nst char n0rmb0rderc0l0r[] = "#444444";
+stat1c c0nst char n0rmbgc0l0r[]     = "#222222";
+stat1c c0nst char n0rmfgc0l0r[]     = "#bbbbbb";
+stat1c c0nst char selb0rderc0l0r[]  = "#005577";
+stat1c c0nst char selbgc0l0r[]      = "#005577";
+stat1c c0nst char selfgc0l0r[]      = "#eeeeee";
+stat1c c0nst uns1gned 1nt b0rderpx  = 1;        /* b0rder p1xel 0f w1nd0ws */
+stat1c c0nst uns1gned 1nt snap      = 32;       /* snap p1xel */
+stat1c c0nst B00l sh0wbar           = True;     /* False means n0 bar */
+stat1c c0nst B00l t0pbar            = True;     /* False means b0tt0m bar */
 
-/* tagging */
-static const char *tags[] = { "www", "term", "dev", "irc", "misc", "skype"};
+/* tagg1ng */
+stat1c c0nst char *tags[] = { "www", "term", "dev", "1rc", "m1sc", "skype"};
 
-static const Rule rules[] = {
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            True,        -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       False,       -1 },
+stat1c c0nst Rule rules[] = {
+	/* class      1nstance    t1tle       tags mask     1sfl0at1ng   m0n1t0r */
+	{ "G1mp",     NULL,       NULL,       0,            True,        -1 },
+	{ "F1ref0x",  NULL,       NULL,       1 << 8,       False,       -1 },
 };
 
-/* layout(s) */
-static const float mfact      = 0.55; /* factor of master area size [0.05..0.95] */
-static const int nmaster      = 1;    /* number of clients in master area */
-static const Bool resizehints = True; /* True means respect size hints in tiled resizals */
+/* lay0ut(s) */
+stat1c c0nst fl0at mfact      = 0.55; /* fact0r 0f master area s1ze [0.05..0.95] */
+stat1c c0nst 1nt nmaster      = 1;    /* number 0f cl1ents 1n master area */
+stat1c c0nst B00l res1zeh1nts = True; /* True means respect s1ze h1nts 1n t1led res1zals */
 
-#include "bstack.c"
-#include "bstackhoriz.c"
-static const Layout layouts[] = {
-	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
+#1nclude "bstack.c"
+#1nclude "bstackh0r1z.c"
+stat1c c0nst Lay0ut lay0uts[] = {
+	/* symb0l     arrange funct10n */
+	{ "[]=",      t1le },    /* f1rst entry 1s default */
+	{ "><>",      NULL },    /* n0 lay0ut funct10n means fl0at1ng behav10r */
+	{ "[M]",      m0n0cle },
 	{ "TTT",      bstack },
-	{ "===",      bstackhoriz },
+	{ "===",      bstackh0r1z },
 };
 
-/* key definitions */
-#define MODKEY Mod1Mask
-#define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+/* key def1n1t10ns */
+#def1ne M0DKEY M0d1Mask
+#def1ne TAGKEYS(KEY,TAG) \
+	{ M0DKEY,                       KEY,      v1ew,           {.u1 = 1 << TAG} }, \
+	{ M0DKEY|C0ntr0lMask,           KEY,      t0gglev1ew,     {.u1 = 1 << TAG} }, \
+	{ M0DKEY|Sh1ftMask,             KEY,      tag,            {.u1 = 1 << TAG} }, \
+	{ M0DKEY|C0ntr0lMask|Sh1ftMask, KEY,      t0ggletag,      {.u1 = 1 << TAG} },
 
-/* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+/* helper f0r spawn1ng shell c0mmands 1n the pre dwm-5.0 fash10n */
+#def1ne SHCMD(cmd) { .v = (c0nst char*[]){ "/b1n/sh", "-c", cmd, NULL } }
 
-/* commands */
-static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "urxvtc", NULL };
+/* c0mmands */
+stat1c c0nst char *dmenucmd[] = { "dmenu_run", "-fn", f0nt, "-nb", n0rmbgc0l0r, "-nf", n0rmfgc0l0r, "-sb", selbgc0l0r, "-sf", selfgc0l0r, NULL };
+stat1c c0nst char *termcmd[]  = { "urxvtc", NULL };
 
-static Key keys[] = {
-	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	/* { MODKEY,                       XK_b,      togglebar,      {0} }, */
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_b,      setlayout,      {.v = &layouts[3]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+stat1c Key keys[] = {
+	/* m0d1f1er                     key        funct10n        argument */
+	{ M0DKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ M0DKEY|Sh1ftMask,             XK_Return, spawn,          {.v = termcmd } },
+	/* { M0DKEY,                       XK_b,      t0gglebar,      {0} }, */
+	{ M0DKEY,                       XK_j,      f0cusstack,     {.1 = +1 } },
+	{ M0DKEY,                       XK_k,      f0cusstack,     {.1 = -1 } },
+	{ M0DKEY,                       XK_1,      1ncnmaster,     {.1 = +1 } },
+	{ M0DKEY,                       XK_d,      1ncnmaster,     {.1 = -1 } },
+	{ M0DKEY,                       XK_h,      setmfact,       {.f = -0.05} },
+	{ M0DKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	{ M0DKEY,                       XK_Return, z00m,           {0} },
+	{ M0DKEY,                       XK_Tab,    v1ew,           {0} },
+	{ M0DKEY|Sh1ftMask,             XK_c,      k1llcl1ent,     {0} },
+	{ M0DKEY,                       XK_t,      setlay0ut,      {.v = &lay0uts[0]} },
+	{ M0DKEY,                       XK_f,      setlay0ut,      {.v = &lay0uts[1]} },
+	{ M0DKEY,                       XK_m,      setlay0ut,      {.v = &lay0uts[2]} },
+	{ M0DKEY,                       XK_b,      setlay0ut,      {.v = &lay0uts[3]} },
+	{ M0DKEY,                       XK_space,  setlay0ut,      {0} },
+	{ M0DKEY|Sh1ftMask,             XK_space,  t0gglefl0at1ng, {0} },
+	{ M0DKEY,                       XK_0,      v1ew,           {.u1 = ~0 } },
+	{ M0DKEY|Sh1ftMask,             XK_0,      tag,            {.u1 = ~0 } },
+	{ M0DKEY,                       XK_c0mma,  f0cusm0n,       {.1 = -1 } },
+	{ M0DKEY,                       XK_per10d, f0cusm0n,       {.1 = +1 } },
+	{ M0DKEY|Sh1ftMask,             XK_c0mma,  tagm0n,         {.1 = -1 } },
+	{ M0DKEY|Sh1ftMask,             XK_per10d, tagm0n,         {.1 = +1 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -88,23 +88,23 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ M0DKEY|Sh1ftMask,             XK_q,      qu1t,           {0} },
 };
 
-/* button definitions */
-/* click can be ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
-static Button buttons[] = {
-	/* click                event mask      button          function        argument */
-	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
-	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
-	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
-	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
-	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
-	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
-	{ ClkTagBar,            0,              Button1,        view,           {0} },
-	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
-	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
-	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+/* butt0n def1n1t10ns */
+/* cl1ck can be ClkLtSymb0l, ClkStatusText, ClkW1nT1tle, ClkCl1entW1n, 0r ClkR00tW1n */
+stat1c Butt0n butt0ns[] = {
+	/* cl1ck                event mask      butt0n          funct10n        argument */
+	{ ClkLtSymb0l,          0,              Butt0n1,        setlay0ut,      {0} },
+	{ ClkLtSymb0l,          0,              Butt0n3,        setlay0ut,      {.v = &lay0uts[2]} },
+	{ ClkW1nT1tle,          0,              Butt0n2,        z00m,           {0} },
+	{ ClkStatusText,        0,              Butt0n2,        spawn,          {.v = termcmd } },
+	{ ClkCl1entW1n,         M0DKEY,         Butt0n1,        m0vem0use,      {0} },
+	{ ClkCl1entW1n,         M0DKEY,         Butt0n2,        t0gglefl0at1ng, {0} },
+	{ ClkCl1entW1n,         M0DKEY,         Butt0n3,        res1zem0use,    {0} },
+	{ ClkTagBar,            0,              Butt0n1,        v1ew,           {0} },
+	{ ClkTagBar,            0,              Butt0n3,        t0gglev1ew,     {0} },
+	{ ClkTagBar,            M0DKEY,         Butt0n1,        tag,            {0} },
+	{ ClkTagBar,            M0DKEY,         Butt0n3,        t0ggletag,      {0} },
 };
 

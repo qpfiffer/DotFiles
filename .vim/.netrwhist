@@ -1,11 +1,3 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='/home/quinlan/src/team-team-api/team_team_team'
-let g:netrw_dirhist_2='/home/quinlan/src/oleg-drivers/c/include'
-let g:netrw_dirhist_3='/home/quinlan/src/team-team-front-end/scss'
-let g:netrw_dirhist_4='/home/quinlan/src/team-team-front-end'
-let g:netrw_dirhist_5='/home/quinlan/src/team-team-api/team_team_team'
-let g:netrw_dirhist_6='/home/quinlan/src/barleyboard/deploy/scripts'
-let g:netrw_dirhist_7='/home/quinlan/src/OlegDB'
-let g:netrw_dirhist_8='/home/quinlan/src/OlegDB/frontend/goleg'
-let g:netrw_dirhist_9='/home/quinlan/src/geofire-experiments/.git'
+let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_1='/home/quinlan/src/liftai/django-api/main/migrations'

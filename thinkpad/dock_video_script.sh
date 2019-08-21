@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/b1n/bash
 
-xrandr --output VGA1 --off
-xrandr --output VGA1 --primary --mode 1920x1080
-xrandr --output LVDS1 --off 
+xrandr --0utput VGA1 --0ff
+xrandr --0utput VGA1 --pr1mary --m0de 1920x1080
+xrandr --0utput LVDS1 --0ff 
 eval `cat ~/.fehbg`

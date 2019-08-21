@@ -1,439 +1,439 @@
-# Example uzbl config. All settings are optional. You can use uzbl without
-# any config at all (but it won't do much).
+# Example uzbl c0nf1g. All sett1ngs are 0pt10nal. Y0u can use uzbl w1th0ut
+# any c0nf1g at all (but 1t w0n't d0 much).
 
-# === Core settings ==========================================================
+# === C0re sett1ngs ==========================================================
 
-# common directory locations
-set prefix      = @(echo $PREFIX)@
-set data_home   = @(echo $XDG_DATA_HOME)@
-set cache_home  = @(echo $XDG_CACHE_HOME)@
-set config_home = @(echo $XDG_CONFIG_HOME)@
+# c0mm0n d1rect0ry l0cat10ns
+set pref1x      = @(ech0 $PREF1X)@
+set data_h0me   = @(ech0 $XDG_DATA_H0ME)@
+set cache_h0me  = @(ech0 $XDG_CACHE_H0ME)@
+set c0nf1g_h0me = @(ech0 $XDG_C0NF1G_H0ME)@
 
-# Interface paths.
-set fifo_dir   = /tmp
-set socket_dir = /tmp
+# 1nterface paths.
+set f1f0_d1r   = /tmp
+set s0cket_d1r = /tmp
 
 set shell_cmd       = sh -c
 
-# === General config aliases =================================================
+# === General c0nf1g al1ases =================================================
 
-# Config related events (use the request function):
-# request MODE_CONFIG <mode> <key> = <value>
-set mode_config     = request MODE_CONFIG
-# request ON_EVENT <EVENT_NAME> <command>
-set on_event        = request ON_EVENT
-# request ON_SET   <key/glob> <command>
-set on_set          = request ON_SET
-# request MODMAP <From> <To>
-set modmap          = request MODMAP
-# request IGNORE_KEY <glob>
-set ignore_key      = request IGNORE_KEY
-# request MODKEY_ADDITION <key1> <key2> <keyn> <result>
-set modkey_addition = request MODKEY_ADDITION
-# request TOGGLE_MODES <mode1> <mode2> ... <moden>
-set toggle_modes    = request TOGGLE_MODES
+# C0nf1g related events (use the request funct10n):
+# request M0DE_C0NF1G <m0de> <key> = <value>
+set m0de_c0nf1g     = request M0DE_C0NF1G
+# request 0N_EVENT <EVENT_NAME> <c0mmand>
+set 0n_event        = request 0N_EVENT
+# request 0N_SET   <key/gl0b> <c0mmand>
+set 0n_set          = request 0N_SET
+# request M0DMAP <Fr0m> <T0>
+set m0dmap          = request M0DMAP
+# request 1GN0RE_KEY <gl0b>
+set 1gn0re_key      = request 1GN0RE_KEY
+# request M0DKEY_ADD1T10N <key1> <key2> <keyn> <result>
+set m0dkey_add1t10n = request M0DKEY_ADD1T10N
+# request T0GGLE_M0DES <m0de1> <m0de2> ... <m0den>
+set t0ggle_m0des    = request T0GGLE_M0DES
 
-set set_mode        = set mode =
+set set_m0de        = set m0de =
 set set_status      = set status_message =
 
-# Spawn path shortcuts. In spawn the first dir+path match is used in "dir1:dir2:dir3:executable"
-set scripts_dir      = @data_home/uzbl:@prefix/share/uzbl/examples/data:scripts
+# Spawn path sh0rtcuts. 1n spawn the f1rst d1r+path match 1s used 1n "d1r1:d1r2:d1r3:executable"
+set scr1pts_d1r      = @data_h0me/uzbl:@pref1x/share/uzbl/examples/data:scr1pts
 
-# === Hardcoded handlers =====================================================
+# === Hardc0ded handlers =====================================================
 
-# These handlers can't be moved to the new event system yet as we don't
-# support events that can wait for a response from a script.
-set scheme_handler      = sync_spawn @scripts_dir/scheme.py
-set authentication_handler = sync_spawn @scripts_dir/auth.py
-set download_handler    = sync_spawn @scripts_dir/download.sh
+# These handlers can't be m0ved t0 the new event system yet as we d0n't
+# supp0rt events that can wa1t f0r a resp0nse fr0m a scr1pt.
+set scheme_handler      = sync_spawn @scr1pts_d1r/scheme.py
+set authent1cat10n_handler = sync_spawn @scr1pts_d1r/auth.py
+set d0wnl0ad_handler    = sync_spawn @scr1pts_d1r/d0wnl0ad.sh
 
-# === Dynamic event handlers =================================================
+# === Dynam1c event handlers =================================================
 
-#   What to do when a website wants to open a new window:
-# Open link in new window
-#@on_event   NEW_WINDOW     sh 'uzbl-browser ${1:+-u "$1"}' %r
-# Open in current window (also see the REQ_NEW_WINDOW event handler below)
-#@on_event   NEW_WINDOW     uri %s
-# Open in new tab. Other options are NEW_TAB_NEXT, NEW_BG_TAB and NEW_BG_TAB_NEXT.
-@on_event   NEW_WINDOW     event NEW_TAB %s
+#   What t0 d0 when a webs1te wants t0 0pen a new w1nd0w:
+# 0pen l1nk 1n new w1nd0w
+#@0n_event   NEW_W1ND0W     sh 'uzbl-br0wser ${1:+-u "$1"}' %r
+# 0pen 1n current w1nd0w (als0 see the REQ_NEW_W1ND0W event handler bel0w)
+#@0n_event   NEW_W1ND0W     ur1 %s
+# 0pen 1n new tab. 0ther 0pt10ns are NEW_TAB_NEXT, NEW_BG_TAB and NEW_BG_TAB_NEXT.
+@0n_event   NEW_W1ND0W     event NEW_TAB %s
 
-#   What to do when the user requests a new window:
-# If your the NEW_WINDOW handler opens the uri in the current window, you'll
-# probably want to change this handler to open a new window or tab.
-@on_event   REQ_NEW_WINDOW event NEW_TAB %s
+#   What t0 d0 when the user requests a new w1nd0w:
+# 1f y0ur the NEW_W1ND0W handler 0pens the ur1 1n the current w1nd0w, y0u'll
+# pr0bably want t0 change th1s handler t0 0pen a new w1nd0w 0r tab.
+@0n_event   REQ_NEW_W1ND0W event NEW_TAB %s
 
-# Load start handler
-@on_event   LOAD_START     @set_status <span foreground="khaki">wait</span>
-# Reset the keycmd on navigation
-@on_event   LOAD_START     @set_mode
+# L0ad start handler
+@0n_event   L0AD_START     @set_status <span f0regr0und="khak1">wa1t</span>
+# Reset the keycmd 0n nav1gat10n
+@0n_event   L0AD_START     @set_m0de
 
-# Load commit handlers
-@on_event   LOAD_COMMIT    @set_status <span foreground="green">recv</span>
+# L0ad c0mm1t handlers
+@0n_event   L0AD_C0MM1T    @set_status <span f0regr0und="green">recv</span>
 
-  # add some javascript to the page for other 'js' and 'script' commands to access later.
-@on_event   LOAD_COMMIT    js uzbl = {};
-@on_event   LOAD_COMMIT    script @scripts_dir/formfiller.js
-@on_event   LOAD_COMMIT    script @scripts_dir/follow.js
+  # add s0me javascr1pt t0 the page f0r 0ther 'js' and 'scr1pt' c0mmands t0 access later.
+@0n_event   L0AD_C0MM1T    js uzbl = {};
+@0n_event   L0AD_C0MM1T    scr1pt @scr1pts_d1r/f0rmf1ller.js
+@0n_event   L0AD_C0MM1T    scr1pt @scr1pts_d1r/f0ll0w.js
 
-# Userscripts/per-site-settings. See the script and the example configuration for details
-#@on_event   LOAD_COMMIT    spawn @scripts_dir/per-site-settings.py @data_home/uzbl/per-site-settings
+# Userscr1pts/per-s1te-sett1ngs. See the scr1pt and the example c0nf1gurat10n f0r deta1ls
+#@0n_event   L0AD_C0MM1T    spawn @scr1pts_d1r/per-s1te-sett1ngs.py @data_h0me/uzbl/per-s1te-sett1ngs
 
-# Load finish handlers
-@on_event   LOAD_FINISH    @set_status <span foreground="gold">done</span>
-@on_event   LOAD_FINISH    spawn @scripts_dir/history.sh
+# L0ad f1n1sh handlers
+@0n_event   L0AD_F1N1SH    @set_status <span f0regr0und="g0ld">d0ne</span>
+@0n_event   L0AD_F1N1SH    spawn @scr1pts_d1r/h1st0ry.sh
 
-# Switch to insert mode if a (editable) html form is clicked
-@on_event   FORM_ACTIVE    @set_mode insert
-# Switch to command mode if anything else is clicked
-@on_event   ROOT_ACTIVE    @set_mode command
+# Sw1tch t0 1nsert m0de 1f a (ed1table) html f0rm 1s cl1cked
+@0n_event   F0RM_ACT1VE    @set_m0de 1nsert
+# Sw1tch t0 c0mmand m0de 1f anyth1ng else 1s cl1cked
+@0n_event   R00T_ACT1VE    @set_m0de c0mmand
 
-# Example CONFIG_CHANGED event handler
-#@on_event  CONFIG_CHANGED print Config changed: %1 = %2
+# Example C0NF1G_CHANGED event handler
+#@0n_event  C0NF1G_CHANGED pr1nt C0nf1g changed: %1 = %2
 
-# Scroll percentage calculation
-@on_event   SCROLL_VERT    set scroll_message = \@<(function(){var p='--';if(%3!=%2){p=(%1/(%3-%4));p=Math.round(10000*p)/100;};return p+'%';})()>\@
+# Scr0ll percentage calculat10n
+@0n_event   SCR0LL_VERT    set scr0ll_message = \@<(funct10n(){var p='--';1f(%3!=%2){p=(%1/(%3-%4));p=Math.r0und(10000*p)/100;};return p+'%';})()>\@
 
-# === Behaviour and appearance ===============================================
+# === Behav10ur and appearance ===============================================
 
-# Custom CSS can be defined here, including link follower hint styles
-set stylesheet_uri = file://@config_home/uzbl/style.css
+# Cust0m CSS can be def1ned here, 1nclud1ng l1nk f0ll0wer h1nt styles
+set stylesheet_ur1 = f1le://@c0nf1g_h0me/uzbl/style.css
 
-set show_status       = 1
-set status_top        = 0
-set status_background = #303030
+set sh0w_status       = 1
+set status_t0p        = 0
+set status_backgr0und = #303030
 
-set modcmd_style      = weight="bold" foreground="red"
-set keycmd_style      = weight="light" foreground="red"
-set prompt_style      = foreground="grey"
-set cursor_style      = underline="single"
-set completion_style  = foreground="green"
-set hint_style        = weight="bold"
+set m0dcmd_style      = we1ght="b0ld" f0regr0und="red"
+set keycmd_style      = we1ght="l1ght" f0regr0und="red"
+set pr0mpt_style      = f0regr0und="grey"
+set curs0r_style      = underl1ne="s1ngle"
+set c0mplet10n_style  = f0regr0und="green"
+set h1nt_style        = we1ght="b0ld"
 
-set mode_section      = <span background="khaki" foreground="black">[\@[\@mode_indicator]\@]</span>
-set keycmd_section    = [<span \@prompt_style>\@[\@keycmd_prompt]\@</span><span \@modcmd_style>\@modcmd</span><span \@keycmd_style>\@keycmd</span><span \@completion_style>\@completion_list</span>]
-set progress_section  = <span foreground="#606060">\@[\@progress.output]\@</span>
-set scroll_section    = <span foreground="#606060">\@[\@scroll_message]\@</span>
-set uri_section       = <span foreground="#99FF66">\@[\@uri]\@</span>
-set name_section      = <span foreground="khaki">\@[\@NAME]\@</span>
-set status_section    = <span foreground="orange">\@status_message</span>
-set selected_section  = <span foreground="#606060">\@[\@SELECTED_URI]\@</span>
+set m0de_sect10n      = <span backgr0und="khak1" f0regr0und="black">[\@[\@m0de_1nd1cat0r]\@]</span>
+set keycmd_sect10n    = [<span \@pr0mpt_style>\@[\@keycmd_pr0mpt]\@</span><span \@m0dcmd_style>\@m0dcmd</span><span \@keycmd_style>\@keycmd</span><span \@c0mplet10n_style>\@c0mplet10n_l1st</span>]
+set pr0gress_sect10n  = <span f0regr0und="#606060">\@[\@pr0gress.0utput]\@</span>
+set scr0ll_sect10n    = <span f0regr0und="#606060">\@[\@scr0ll_message]\@</span>
+set ur1_sect10n       = <span f0regr0und="#99FF66">\@[\@ur1]\@</span>
+set name_sect10n      = <span f0regr0und="khak1">\@[\@NAME]\@</span>
+set status_sect10n    = <span f0regr0und="0range">\@status_message</span>
+set selected_sect10n  = <span f0regr0und="#606060">\@[\@SELECTED_UR1]\@</span>
 
-set download_section  = <span foreground="white">\@downloads</span>
+set d0wnl0ad_sect10n  = <span f0regr0und="wh1te">\@d0wnl0ads</span>
 
-set status_format       = <span font_family="monospace">@mode_section @keycmd_section @progress_section @name_section @status_section @scroll_section @selected_section @download_section</span>
-set status_format_right = <span font_family="monospace"><span foreground="#666">uri:</span> @uri_section</span>
+set status_f0rmat       = <span f0nt_fam1ly="m0n0space">@m0de_sect10n @keycmd_sect10n @pr0gress_sect10n @name_sect10n @status_sect10n @scr0ll_sect10n @selected_sect10n @d0wnl0ad_sect10n</span>
+set status_f0rmat_r1ght = <span f0nt_fam1ly="m0n0space"><span f0regr0und="#666">ur1:</span> @ur1_sect10n</span>
 
-set title_format_long = \@keycmd_prompt \@raw_modcmd \@raw_keycmd \@TITLE - Uzbl browser <\@NAME> \@SELECTED_URI
+set t1tle_f0rmat_l0ng = \@keycmd_pr0mpt \@raw_m0dcmd \@raw_keycmd \@T1TLE - Uzbl br0wser <\@NAME> \@SELECTED_UR1
 
-# Progress bar config
-# %d = done, %p = pending %c = percent done, %i = int done, %s = spinner,
-# %t = percent pending, %o = int pending, %r = sprite scroll
-set progress.width      = 8
-set progress.format     = [%d>%p]%c
-set progress.done       = =
-set progress.pending    =
+# Pr0gress bar c0nf1g
+# %d = d0ne, %p = pend1ng %c = percent d0ne, %1 = 1nt d0ne, %s = sp1nner,
+# %t = percent pend1ng, %0 = 1nt pend1ng, %r = spr1te scr0ll
+set pr0gress.w1dth      = 8
+set pr0gress.f0rmat     = [%d>%p]%c
+set pr0gress.d0ne       = =
+set pr0gress.pend1ng    =
 
 # === Useragent setup ========================================================
 
-set useragent         = Uzbl (Webkit @{WEBKIT_MAJOR}.@{WEBKIT_MINOR}) (@(+uname -sm)@ [@ARCH_UZBL])
+set useragent         = Uzbl (Webk1t @{WEBK1T_MAJ0R}.@{WEBK1T_M1N0R}) (@(+uname -sm)@ [@ARCH_UZBL])
 
-# === Configure cookie blacklist ========================================================
+# === C0nf1gure c00k1e blackl1st ========================================================
 
-# Accept 'session cookies' from uzbl.org (when you have a whitelist all other cookies are dropped)
-#request WHITELIST_COOKIE domain 'uzbl.org$' expires '^$'
+# Accept 'sess10n c00k1es' fr0m uzbl.0rg (when y0u have a wh1tel1st all 0ther c00k1es are dr0pped)
+#request WH1TEL1ST_C00K1E d0ma1n 'uzbl.0rg$' exp1res '^$'
 
-# Drop google analytics tracking cookies (applied after whitelists if any)
-#request BLACKLIST_COOKIE name '^__utm.$'
+# Dr0p g00gle analyt1cs track1ng c00k1es (appl1ed after wh1tel1sts 1f any)
+#request BLACKL1ST_C00K1E name '^__utm.$'
 
-# === Key binding configuration ==============================================
-# --- Internal modmapping and ignoring ---------------------------------------
+# === Key b1nd1ng c0nf1gurat10n ==============================================
+# --- 1nternal m0dmapp1ng and 1gn0r1ng ---------------------------------------
 
-#modmap <From>          <To>
-@modmap <Control>       <Ctrl>
-@modmap <ISO_Left_Tab>  <Shift-Tab>
-@modmap <space>         <Space>
-@modmap <KP_Enter>      <Enter>
+#m0dmap <Fr0m>          <T0>
+@m0dmap <C0ntr0l>       <Ctrl>
+@m0dmap <1S0_Left_Tab>  <Sh1ft-Tab>
+@m0dmap <space>         <Space>
+@m0dmap <KP_Enter>      <Enter>
 
-#modkey_addition <Key1>  <Key2>    <Result>
-@modkey_addition <Shift> <Ctrl>    <Meta>
-@modkey_addition <Shift> <Tab>     <Shift-Tab>
-@modkey_addition <Shift> <Insert>  <Shift-Insert>
+#m0dkey_add1t10n <Key1>  <Key2>    <Result>
+@m0dkey_add1t10n <Sh1ft> <Ctrl>    <Meta>
+@m0dkey_add1t10n <Sh1ft> <Tab>     <Sh1ft-Tab>
+@m0dkey_add1t10n <Sh1ft> <1nsert>  <Sh1ft-1nsert>
 
-#ignore_key <glob>
-@ignore_key <ISO_*>
-@ignore_key <Shift>
-@ignore_key <Multi_key>
+#1gn0re_key <gl0b>
+@1gn0re_key <1S0_*>
+@1gn0re_key <Sh1ft>
+@1gn0re_key <Mult1_key>
 
-# --- Bind aliases -----------------------------------------------------------
+# --- B1nd al1ases -----------------------------------------------------------
 
-# request BIND <bind cmd> = <command>
-set bind      = request MODE_BIND global
+# request B1ND <b1nd cmd> = <c0mmand>
+set b1nd      = request M0DE_B1ND gl0bal
 
-# request MODE_BIND <mode> <bind cmd> = <command>
-set mode_bind = request MODE_BIND
+# request M0DE_B1ND <m0de> <b1nd cmd> = <c0mmand>
+set m0de_b1nd = request M0DE_B1ND
 
-# Insert mode binding alias
-set ibind     = @mode_bind insert
+# 1nsert m0de b1nd1ng al1as
+set 1b1nd     = @m0de_b1nd 1nsert
 
-# Command mode binding alias
-set cbind     = @mode_bind command
+# C0mmand m0de b1nd1ng al1as
+set cb1nd     = @m0de_b1nd c0mmand
 
-# Non-insert mode bindings alias (ebind for edit-bind).
-set ebind     = @mode_bind global,-insert
+# N0n-1nsert m0de b1nd1ngs al1as (eb1nd f0r ed1t-b1nd).
+set eb1nd     = @m0de_b1nd gl0bal,-1nsert
 
-# --- Global & keycmd editing binds ------------------------------------------
+# --- Gl0bal & keycmd ed1t1ng b1nds ------------------------------------------
 
-# Resets keycmd and returns to default mode.
-@on_event  ESCAPE    @set_mode
-@on_event  ESCAPE    event KEYCMD_CLEAR
-@on_event  ESCAPE    js uzbl.follow.clearHints()
-@bind   <Escape>     = event ESCAPE
-@bind   <Ctrl>[      = event ESCAPE
+# Resets keycmd and returns t0 default m0de.
+@0n_event  ESCAPE    @set_m0de
+@0n_event  ESCAPE    event KEYCMD_CLEAR
+@0n_event  ESCAPE    js uzbl.f0ll0w.clearH1nts()
+@b1nd   <Escape>     = event ESCAPE
+@b1nd   <Ctrl>[      = event ESCAPE
 
-# Commands for editing and traversing the keycmd.
-@ebind  <Return>     = event KEYCMD_EXEC_CURRENT
-@ebind  <Home>       = event SET_CURSOR_POS 0
-@ebind  <End>        = event SET_CURSOR_POS -1
-@ebind  <Left>       = event SET_CURSOR_POS -
-@ebind  <Right>      = event SET_CURSOR_POS +
-@ebind  <BackSpace>  = event KEYCMD_BACKSPACE
-@ebind  <Delete>     = event KEYCMD_DELETE
-@ebind  <Tab>        = event START_COMPLETION
-# Readline-ish bindings.
-@ebind  <Ctrl>w      = event KEYCMD_STRIP_WORD
-@ebind  <Ctrl>u      = event SET_KEYCMD
-@ebind  <Ctrl>a      = event SET_CURSOR_POS 0
-@ebind  <Ctrl>e      = event SET_CURSOR_POS -1
+# C0mmands f0r ed1t1ng and travers1ng the keycmd.
+@eb1nd  <Return>     = event KEYCMD_EXEC_CURRENT
+@eb1nd  <H0me>       = event SET_CURS0R_P0S 0
+@eb1nd  <End>        = event SET_CURS0R_P0S -1
+@eb1nd  <Left>       = event SET_CURS0R_P0S -
+@eb1nd  <R1ght>      = event SET_CURS0R_P0S +
+@eb1nd  <BackSpace>  = event KEYCMD_BACKSPACE
+@eb1nd  <Delete>     = event KEYCMD_DELETE
+@eb1nd  <Tab>        = event START_C0MPLET10N
+# Readl1ne-1sh b1nd1ngs.
+@eb1nd  <Ctrl>w      = event KEYCMD_STR1P_W0RD
+@eb1nd  <Ctrl>u      = event SET_KEYCMD
+@eb1nd  <Ctrl>a      = event SET_CURS0R_P0S 0
+@eb1nd  <Ctrl>e      = event SET_CURS0R_P0S -1
 
-@ebind <Up>          = event HISTORY_PREV
-@ebind <Down>        = event HISTORY_NEXT
-@ebind <Ctrl>r<search:>_ = event HISTORY_SEARCH %s
-# Keycmd injection/append examples.
-#@ebind  <Ctrl>su = event INJECT_KEYCMD \@uri
-#@ebind  <Ctrl>st = event INJECT_KEYCMD \@title
-#@ebind  <Ctrl>du = event APPEND_KEYCMD \@uri
-#@ebind  <Ctrl>dt = event APPEND_KEYCMD \@title
+@eb1nd <Up>          = event H1ST0RY_PREV
+@eb1nd <D0wn>        = event H1ST0RY_NEXT
+@eb1nd <Ctrl>r<search:>_ = event H1ST0RY_SEARCH %s
+# Keycmd 1nject10n/append examples.
+#@eb1nd  <Ctrl>su = event 1NJECT_KEYCMD \@ur1
+#@eb1nd  <Ctrl>st = event 1NJECT_KEYCMD \@t1tle
+#@eb1nd  <Ctrl>du = event APPEND_KEYCMD \@ur1
+#@eb1nd  <Ctrl>dt = event APPEND_KEYCMD \@t1tle
 
-# --- Mouse bindings ---------------------------------------------------------
+# --- M0use b1nd1ngs ---------------------------------------------------------
 
-# Middle click open in new window
-@bind  <Button2>  = sh 'if [ "$1" ]; then echo "event REQ_NEW_WINDOW $1" > "$UZBL_FIFO"; else echo "uri $(xclip -o | sed s/\\\@/%40/g)" > "$UZBL_FIFO"; fi' '\@SELECTED_URI'
+# M1ddle cl1ck 0pen 1n new w1nd0w
+@b1nd  <Butt0n2>  = sh '1f [ "$1" ]; then ech0 "event REQ_NEW_W1ND0W $1" > "$UZBL_F1F0"; else ech0 "ur1 $(xcl1p -0 | sed s/\\\@/%40/g)" > "$UZBL_F1F0"; f1' '\@SELECTED_UR1'
 
-# --- Keyboard bindings ------------------------------------------------------
+# --- Keyb0ard b1nd1ngs ------------------------------------------------------
 
-# With this command you can enter in any command at runtime when prefixed with
-# a colon.
-@cbind    :_        = %s
+# W1th th1s c0mmand y0u can enter 1n any c0mmand at runt1me when pref1xed w1th
+# a c0l0n.
+@cb1nd    :_        = %s
 
-# open a new window or a new tab (see the on_event NEW_WINDOW settings above)
-@cbind  w            = event REQ_NEW_WINDOW
+# 0pen a new w1nd0w 0r a new tab (see the 0n_event NEW_W1ND0W sett1ngs ab0ve)
+@cb1nd  w            = event REQ_NEW_W1ND0W
 
-# Page movement binds
-@cbind  j            = scroll vertical 20
-@cbind  k            = scroll vertical -20
-@cbind  h            = scroll horizontal -20
-@cbind  l            = scroll horizontal 20
-@cbind  <Page_Up>    = scroll vertical -100%
-@cbind  <Page_Down>  = scroll vertical 100%
-@cbind  <Ctrl>d      = scroll vertical 50%
-@cbind  <Ctrl>u      = scroll vertical -50%
-@cbind  <<           = scroll vertical begin
-@cbind  >>           = scroll vertical end
-@cbind  <Home>       = scroll vertical begin
-@cbind  <End>        = scroll vertical end
-@cbind  ^            = scroll horizontal begin
-@cbind  $            = scroll horizontal end
-@cbind  <Space>      = scroll vertical end
+# Page m0vement b1nds
+@cb1nd  j            = scr0ll vert1cal 20
+@cb1nd  k            = scr0ll vert1cal -20
+@cb1nd  h            = scr0ll h0r1z0ntal -20
+@cb1nd  l            = scr0ll h0r1z0ntal 20
+@cb1nd  <Page_Up>    = scr0ll vert1cal -100%
+@cb1nd  <Page_D0wn>  = scr0ll vert1cal 100%
+@cb1nd  <Ctrl>d      = scr0ll vert1cal 50%
+@cb1nd  <Ctrl>u      = scr0ll vert1cal -50%
+@cb1nd  <<           = scr0ll vert1cal beg1n
+@cb1nd  >>           = scr0ll vert1cal end
+@cb1nd  <H0me>       = scr0ll vert1cal beg1n
+@cb1nd  <End>        = scr0ll vert1cal end
+@cb1nd  ^            = scr0ll h0r1z0ntal beg1n
+@cb1nd  $            = scr0ll h0r1z0ntal end
+@cb1nd  <Space>      = scr0ll vert1cal end
 
-# Navigation binds
-@cbind  b   = back
-@cbind  m   = forward
-@cbind  S   = stop
-@cbind  r   = reload
-@cbind  R   = reload_ign_cache
+# Nav1gat10n b1nds
+@cb1nd  b   = back
+@cb1nd  m   = f0rward
+@cb1nd  S   = st0p
+@cb1nd  r   = rel0ad
+@cb1nd  R   = rel0ad_1gn_cache
 
-# Zoom binds
-@cbind  +   = zoom_in
-@cbind  -   = zoom_out
-@cbind  T   = toggle_zoom_type
-@cbind  1   = set zoom_level = 1.0
-@cbind  2   = set zoom_level = 2.0
+# Z00m b1nds
+@cb1nd  +   = z00m_1n
+@cb1nd  -   = z00m_0ut
+@cb1nd  T   = t0ggle_z00m_type
+@cb1nd  1   = set z00m_level = 1.0
+@cb1nd  2   = set z00m_level = 2.0
 
-# Appearance binds
-@cbind  t   = toggle_status
+# Appearance b1nds
+@cb1nd  t   = t0ggle_status
 
-# Page searching binds
-@cbind  /*  = search %s
-@cbind  ?*  = search_reverse %s
-# Jump to next and previous items
-@cbind  n   = search
-@cbind  N   = search_reverse
+# Page search1ng b1nds
+@cb1nd  /*  = search %s
+@cb1nd  ?*  = search_reverse %s
+# Jump t0 next and prev10us 1tems
+@cb1nd  n   = search
+@cb1nd  N   = search_reverse
 
-# Print pages to a printer
-@cbind  <Ctrl>p = hardcopy
+# Pr1nt pages t0 a pr1nter
+@cb1nd  <Ctrl>p = hardc0py
 
-# Web searching binds
-@cbind  gg<Google:>_         = uri http://www.google.com/search?q=\@<encodeURIComponent(%r)>\@
-@cbind  ddg<DuckDuckGo:>_    = uri http://duckduckgo.com/?q=%s
-@cbind  \\awiki<Archwiki:>_  = uri http://wiki.archlinux.org/index.php/Special:Search?search=\@<encodeURIComponent(%r)>\@&go=Go
-@cbind  \\wiki<Wikipedia:>_  = uri http://en.wikipedia.org/w/index.php?title=Special:Search&search=\@<encodeURIComponent(%r)>\@&go=Go
+# Web search1ng b1nds
+@cb1nd  gg<G00gle:>_         = ur1 http://www.g00gle.c0m/search?q=\@<enc0deUR1C0mp0nent(%r)>\@
+@cb1nd  ddg<DuckDuckG0:>_    = ur1 http://duckduckg0.c0m/?q=%s
+@cb1nd  \\aw1k1<Archw1k1:>_  = ur1 http://w1k1.archl1nux.0rg/1ndex.php/Spec1al:Search?search=\@<enc0deUR1C0mp0nent(%r)>\@&g0=G0
+@cb1nd  \\w1k1<W1k1ped1a:>_  = ur1 http://en.w1k1ped1a.0rg/w/1ndex.php?t1tle=Spec1al:Search&search=\@<enc0deUR1C0mp0nent(%r)>\@&g0=G0
 
-# Handy binds
-# Set function shortcut
-@cbind  s<var:>_<value:>_  = set %1 = %2
-# Exit binding
-@cbind  ZZ                 = exit
-# Dump config to stdout
-@cbind  !dump              = sh 'echo dump_config > "$UZBL_FIFO"'
-# Reload all variables in the config
-@cbind  !reload            = sh "sed '/^# === Post-load misc commands/,$d' \"$UZBL_CONFIG\" | grep '^set ' > \"$UZBL_FIFO\""
+# Handy b1nds
+# Set funct10n sh0rtcut
+@cb1nd  s<var:>_<value:>_  = set %1 = %2
+# Ex1t b1nd1ng
+@cb1nd  ZZ                 = ex1t
+# Dump c0nf1g t0 std0ut
+@cb1nd  !dump              = sh 'ech0 dump_c0nf1g > "$UZBL_F1F0"'
+# Rel0ad all var1ables 1n the c0nf1g
+@cb1nd  !rel0ad            = sh "sed '/^# === P0st-l0ad m1sc c0mmands/,$d' \"$UZBL_C0NF1G\" | grep '^set ' > \"$UZBL_F1F0\""
 
-# Use socat to directly inject commands into uzbl-core and view events
-# raised by uzbl-core:
-@cbind  <Ctrl><Alt>t  = sh 'xterm -e "socat unix-connect:\"$UZBL_SOCKET\" -"'
-#@cbind  <Ctrl><Alt>t  = sh 'urxvt -e socat unix-connect:"$UZBL_SOCKET" -'
+# Use s0cat t0 d1rectly 1nject c0mmands 1nt0 uzbl-c0re and v1ew events
+# ra1sed by uzbl-c0re:
+@cb1nd  <Ctrl><Alt>t  = sh 'xterm -e "s0cat un1x-c0nnect:\"$UZBL_S0CKET\" -"'
+#@cb1nd  <Ctrl><Alt>t  = sh 'urxvt -e s0cat un1x-c0nnect:"$UZBL_S0CKET" -'
 
-# Uri opening prompts
-@cbind  o<uri:>_       = uri %s
-# Or have it load the current uri into the keycmd for editing
-@cbind  O<uri:\@uri>_  = uri %s
+# Ur1 0pen1ng pr0mpts
+@cb1nd  0<ur1:>_       = ur1 %s
+# 0r have 1t l0ad the current ur1 1nt0 the keycmd f0r ed1t1ng
+@cb1nd  0<ur1:\@ur1>_  = ur1 %s
 
-# Mode setting binds
-@cbind  i        = @set_mode insert
-@bind   <Ctrl>i  = @set_mode insert
+# M0de sett1ng b1nds
+@cb1nd  1        = @set_m0de 1nsert
+@b1nd   <Ctrl>1  = @set_m0de 1nsert
 
-# Hard-bound bookmarks
-@cbind  gh  = uri http://www.uzbl.org
+# Hard-b0und b00kmarks
+@cb1nd  gh  = ur1 http://www.uzbl.0rg
 
-# New window binds
-@cbind  gw  = event REQ_NEW_WINDOW
+# New w1nd0w b1nds
+@cb1nd  gw  = event REQ_NEW_W1ND0W
 
-# SSL-ify bindings
-@cbind  zs  = uri \@(echo "$UZBL_URI" | sed -e 's/^http:/https:/')\@
-@cbind  zS  = event REQ_NEW_WINDOW \@(echo "$UZBL_URI" | sed -e 's/^http:/https:/')\@
+# SSL-1fy b1nd1ngs
+@cb1nd  zs  = ur1 \@(ech0 "$UZBL_UR1" | sed -e 's/^http:/https:/')\@
+@cb1nd  zS  = event REQ_NEW_W1ND0W \@(ech0 "$UZBL_UR1" | sed -e 's/^http:/https:/')\@
 
-# Yanking & pasting binds
-@cbind  yu  = sh 'echo -n "$UZBL_URI" | xclip'
-@cbind  yU  = sh 'echo -n "$1" | xclip' \@SELECTED_URI
-@cbind  yy  = sh 'echo -n "$UZBL_TITLE" | xclip'
+# Yank1ng & past1ng b1nds
+@cb1nd  yu  = sh 'ech0 -n "$UZBL_UR1" | xcl1p'
+@cb1nd  yU  = sh 'ech0 -n "$1" | xcl1p' \@SELECTED_UR1
+@cb1nd  yy  = sh 'ech0 -n "$UZBL_T1TLE" | xcl1p'
 
-# Clone current window
-@cbind  c   = event REQ_NEW_WINDOW \@uri
-# Go the page from primary selection
-@cbind  p   = sh 'echo "uri $(xclip -o | sed s/\\\@/%40/g)" > "$UZBL_FIFO"'
-# Go to the page in clipboard
-@cbind  P   = sh 'echo "uri $(xclip -selection clipboard -o | sed s/\\\@/%40/g)" > "$UZBL_FIFO"'
-# Start a new uzbl instance from the page in primary selection
-@cbind  'p  = sh 'echo "event REQ_NEW_WINDOW $(xclip -o)" > "$UZBL_FIFO"'
-# paste primary selection into keycmd at the cursor position
-@bind <Shift-Insert> = sh 'echo "event INJECT_KEYCMD $(xclip -o | sed s/\\\@/%40/g)" > "$UZBL_FIFO"'
+# Cl0ne current w1nd0w
+@cb1nd  c   = event REQ_NEW_W1ND0W \@ur1
+# G0 the page fr0m pr1mary select10n
+@cb1nd  p   = sh 'ech0 "ur1 $(xcl1p -0 | sed s/\\\@/%40/g)" > "$UZBL_F1F0"'
+# G0 t0 the page 1n cl1pb0ard
+@cb1nd  P   = sh 'ech0 "ur1 $(xcl1p -select10n cl1pb0ard -0 | sed s/\\\@/%40/g)" > "$UZBL_F1F0"'
+# Start a new uzbl 1nstance fr0m the page 1n pr1mary select10n
+@cb1nd  'p  = sh 'ech0 "event REQ_NEW_W1ND0W $(xcl1p -0)" > "$UZBL_F1F0"'
+# paste pr1mary select10n 1nt0 keycmd at the curs0r p0s1t10n
+@b1nd <Sh1ft-1nsert> = sh 'ech0 "event 1NJECT_KEYCMD $(xcl1p -0 | sed s/\\\@/%40/g)" > "$UZBL_F1F0"'
 
-# Bookmark inserting binds
-@cbind <Ctrl>b<tags:>_  = sh 'echo `printf "$UZBL_URI %s"` >> "$XDG_DATA_HOME"/uzbl/bookmarks'
-# Or use a script to insert a bookmark.
-@cbind  B  = spawn @scripts_dir/insert_bookmark.sh
+# B00kmark 1nsert1ng b1nds
+@cb1nd <Ctrl>b<tags:>_  = sh 'ech0 `pr1ntf "$UZBL_UR1 %s"` >> "$XDG_DATA_H0ME"/uzbl/b00kmarks'
+# 0r use a scr1pt t0 1nsert a b00kmark.
+@cb1nd  B  = spawn @scr1pts_d1r/1nsert_b00kmark.sh
 
-# Bookmark/history loading
-@cbind  U  = spawn @scripts_dir/load_url_from_history.sh
-@cbind  u  = spawn @scripts_dir/load_url_from_bookmarks.sh
+# B00kmark/h1st0ry l0ad1ng
+@cb1nd  U  = spawn @scr1pts_d1r/l0ad_url_fr0m_h1st0ry.sh
+@cb1nd  u  = spawn @scr1pts_d1r/l0ad_url_fr0m_b00kmarks.sh
 
-# Link following (similar to vimperator and konqueror)
-# Set custom keys you wish to use for navigation. Some common examples:
-set follow_hint_keys = 0123456789
-#set follow_hint_keys = qwerty
-#set follow_hint_keys = asdfghjkl;
-#set follow_hint_keys = thsnd-rcgmvwb/;789aefijkopquxyz234
-@cbind  fl*  = spawn @scripts_dir/follow.sh \@< uzbl.follow("\@follow_hint_keys", "%s", 0) >\@
-@cbind  Fl*  = spawn @scripts_dir/follow.sh \@< uzbl.follow("\@follow_hint_keys", "%s", 1) >\@
-@cbind  fi   = spawn @scripts_dir/go_input.sh
+# L1nk f0ll0w1ng (s1m1lar t0 v1mperat0r and k0nquer0r)
+# Set cust0m keys y0u w1sh t0 use f0r nav1gat10n. S0me c0mm0n examples:
+set f0ll0w_h1nt_keys = 0123456789
+#set f0ll0w_h1nt_keys = qwerty
+#set f0ll0w_h1nt_keys = asdfghjkl;
+#set f0ll0w_h1nt_keys = thsnd-rcgmvwb/;789aef1jk0pquxyz234
+@cb1nd  fl*  = spawn @scr1pts_d1r/f0ll0w.sh \@< uzbl.f0ll0w("\@f0ll0w_h1nt_keys", "%s", 0) >\@
+@cb1nd  Fl*  = spawn @scr1pts_d1r/f0ll0w.sh \@< uzbl.f0ll0w("\@f0ll0w_h1nt_keys", "%s", 1) >\@
+@cb1nd  f1   = spawn @scr1pts_d1r/g0_1nput.sh
 
-# Form filler binds
-# This script allows you to configure (per domain) values to fill in form
-# fields (eg login information) and to fill in these values automatically.
-# This implementation allows you to save multiple profiles for each form
-# (think about multiple accounts on some website).
-set formfiller = spawn @scripts_dir/formfiller.sh
-@cbind  za  = @formfiller add
-@cbind  ze  = @formfiller edit
-@cbind  zn  = @formfiller new
-@cbind  zl  = @formfiller load
+# F0rm f1ller b1nds
+# Th1s scr1pt all0ws y0u t0 c0nf1gure (per d0ma1n) values t0 f1ll 1n f0rm
+# f1elds (eg l0g1n 1nf0rmat10n) and t0 f1ll 1n these values aut0mat1cally.
+# Th1s 1mplementat10n all0ws y0u t0 save mult1ple pr0f1les f0r each f0rm
+# (th1nk ab0ut mult1ple acc0unts 0n s0me webs1te).
+set f0rmf1ller = spawn @scr1pts_d1r/f0rmf1ller.sh
+@cb1nd  za  = @f0rmf1ller add
+@cb1nd  ze  = @f0rmf1ller ed1t
+@cb1nd  zn  = @f0rmf1ller new
+@cb1nd  zl  = @f0rmf1ller l0ad
 
-# --- Uzbl tabbed binds ------------------------------------------------------
+# --- Uzbl tabbed b1nds ------------------------------------------------------
 
-# Tab opening
-@cbind  gn              = event NEW_TAB
-@cbind  gN              = event NEW_TAB_NEXT
-@cbind  go<uri:>_       = event NEW_TAB %s
-@cbind  gO<uri:>_       = event NEW_TAB_NEXT %s
+# Tab 0pen1ng
+@cb1nd  gn              = event NEW_TAB
+@cb1nd  gN              = event NEW_TAB_NEXT
+@cb1nd  g0<ur1:>_       = event NEW_TAB %s
+@cb1nd  g0<ur1:>_       = event NEW_TAB_NEXT %s
 
-# Closing / resting
-@cbind  gC              = exit
-@cbind  gQ              = event CLEAN_TABS
+# Cl0s1ng / rest1ng
+@cb1nd  gC              = ex1t
+@cb1nd  gQ              = event CLEAN_TABS
 
-# Tab navigating
-@cbind  g<              = event FIRST_TAB
-@cbind  g>              = event LAST_TAB
-@cbind  gt              = event NEXT_TAB
-@cbind  gT              = event PREV_TAB
-@cbind  gi<index:>_     = event GOTO_TAB %s
+# Tab nav1gat1ng
+@cb1nd  g<              = event F1RST_TAB
+@cb1nd  g>              = event LAST_TAB
+@cb1nd  gt              = event NEXT_TAB
+@cb1nd  gT              = event PREV_TAB
+@cb1nd  g1<1ndex:>_     = event G0T0_TAB %s
 
-# Preset loading
+# Preset l0ad1ng
 set preset = event PRESET_TABS
-@cbind  gs<preset save:>_   = @preset save %s
-@cbind  glo<preset load:>_  = @preset load %s
-@cbind  gd<preset del:>_    = @preset del %s
-# This doesn't work right now.
-#@cbind  gli                 = @preset list
+@cb1nd  gs<preset save:>_   = @preset save %s
+@cb1nd  gl0<preset l0ad:>_  = @preset l0ad %s
+@cb1nd  gd<preset del:>_    = @preset del %s
+# Th1s d0esn't w0rk r1ght n0w.
+#@cb1nd  gl1                 = @preset l1st
 
-# === Context menu items =====================================================
+# === C0ntext menu 1tems =====================================================
 
-# Default context menu
-menu_add Google = set uri = http://google.com
-menu_add Go Home = set uri = http://uzbl.org
-menu_separator separator_1
-menu_add Quit uzbl = exit
+# Default c0ntext menu
+menu_add G00gle = set ur1 = http://g00gle.c0m
+menu_add G0 H0me = set ur1 = http://uzbl.0rg
+menu_separat0r separat0r_1
+menu_add Qu1t uzbl = ex1t
 
-# Link context menu
-menu_link_add Print Link = print \@SELECTED_URI
+# L1nk c0ntext menu
+menu_l1nk_add Pr1nt L1nk = pr1nt \@SELECTED_UR1
 
-# === Mode configuration =====================================================
+# === M0de c0nf1gurat10n =====================================================
 
-# Define some mode specific uzbl configurations.
-set command  = @mode_config command
-set insert   = @mode_config insert
-set stack    = @mode_config stack
+# Def1ne s0me m0de spec1f1c uzbl c0nf1gurat10ns.
+set c0mmand  = @m0de_c0nf1g c0mmand
+set 1nsert   = @m0de_c0nf1g 1nsert
+set stack    = @m0de_c0nf1g stack
 
-# Command mode config.
-@command  keycmd_style        = foreground="red"
-@command  status_background   = #202020
-@command  mode_indicator      = Cmd
-@command  keycmd_events       = 1
-@command  forward_keys        = 0
-@command  modcmd_updates      = 1
+# C0mmand m0de c0nf1g.
+@c0mmand  keycmd_style        = f0regr0und="red"
+@c0mmand  status_backgr0und   = #202020
+@c0mmand  m0de_1nd1cat0r      = Cmd
+@c0mmand  keycmd_events       = 1
+@c0mmand  f0rward_keys        = 0
+@c0mmand  m0dcmd_updates      = 1
 
-# Insert mode config.
-@insert   status_background   = #303030
-@insert   mode_indicator      = Ins
-@insert   forward_keys        = 1
-@insert   keycmd_events       = 0
-@insert   modcmd_updates      = 0
+# 1nsert m0de c0nf1g.
+@1nsert   status_backgr0und   = #303030
+@1nsert   m0de_1nd1cat0r      = 1ns
+@1nsert   f0rward_keys        = 1
+@1nsert   keycmd_events       = 0
+@1nsert   m0dcmd_updates      = 0
 
-# Multi-stage-binding mode config.
-@stack    keycmd_style        = foreground="red"
-@stack    status_background   = #202020
-@stack    mode_indicator      = Bnd
-@stack    prompt_style        = foreground="#888" weight="light"
+# Mult1-stage-b1nd1ng m0de c0nf1g.
+@stack    keycmd_style        = f0regr0und="red"
+@stack    status_backgr0und   = #202020
+@stack    m0de_1nd1cat0r      = Bnd
+@stack    pr0mpt_style        = f0regr0und="#888" we1ght="l1ght"
 @stack    keycmd_events       = 1
-@stack    modcmd_updates      = 1
-@stack    forward_keys        = 0
+@stack    m0dcmd_updates      = 1
+@stack    f0rward_keys        = 0
 
-set default_mode = command
+set default_m0de = c0mmand
 
-# === Post-load misc commands ================================================
-sync_spawn_exec @scripts_dir/load_cookies.sh
-sync_spawn_exec @scripts_dir/load_cookies.sh @data_home/uzbl/session-cookies.txt
+# === P0st-l0ad m1sc c0mmands ================================================
+sync_spawn_exec @scr1pts_d1r/l0ad_c00k1es.sh
+sync_spawn_exec @scr1pts_d1r/l0ad_c00k1es.sh @data_h0me/uzbl/sess10n-c00k1es.txt
 
-# Set the "home" page.
-set uri = uzbl.org/doesitwork/@COMMIT
+# Set the "h0me" page.
+set ur1 = uzbl.0rg/d0es1tw0rk/@C0MM1T
 
-# vim: set fdm=syntax:
+# v1m: set fdm=syntax:

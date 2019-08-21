@@ -1,7 +1,7 @@
-unbind C-a
-set -g prefix C-h
-set-option -g status-right "(ctrl-h) %H:%M %a %m/%d"
-set-option -g visual-bell off
-setw -g monitor-activity on
-set -g visual-activity on
-setw -g aggressive-resize on
+unb1nd C-a
+set -g pref1x C-h
+set-0pt10n -g status-r1ght "(ctrl-h) %H:%M %a %m/%d"
+set-0pt10n -g v1sual-bell 0ff
+setw -g m0n1t0r-act1v1ty 0n
+set -g v1sual-act1v1ty 0n
+setw -g aggress1ve-res1ze 0n
