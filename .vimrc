@@ -41,10 +41,11 @@ autocmd BufRead,BufNewFile *.coffee set filetype=coffee noet ts=4 sw=4 sts=4 aut
 autocmd BufRead,BufNewFile *.rb set filetype=ruby tabstop=2 expandtab shiftwidth=2 softtabstop=2
 autocmd BufRead,BufNewFile *.rs set filetype=rust ts=4 sw=4
 autocmd BufRead,BufNewFile *.jl set filetype=julia ts=4 sw=4
-autocmd BufRead,BufNewFile *.js set filetype=javascript ts=2 sw=2 expandtab softtabstop=2 autoread
+"autocmd BufRead,BufNewFile *.js set filetype=javascript ts=2 sw=2 expandtab softtabstop=2 autoread
 "autocmd bufwritepost *.js silent !standard % --fix --format &> /dev/null
 autocmd BufRead,BufNewFile *.hs set filetype=haskell ts=4 sw=4
 autocmd BufRead,BufNewFile *.cr set filetype=ruby tabstop=2 expandtab shiftwidth=2 softtabstop=2
+autocmd BufRead,BufNewFile scratch set autoindent
 set ruler
 set backspace=indent,eol,start
 let g:PyFlakeOnWrite = 1
@@ -52,3 +53,6 @@ let g:PyFlakeSigns = 1
 set wildmode=longest:full,full
 set pastetoggle=<F2>
 set timeoutlen=1000 ttimeoutlen=0
+" Flake8 stuff:
+"let g:flake8_show_in_file = 1
+"autocmd BufWritePost *.py call flake8#Flake8()
